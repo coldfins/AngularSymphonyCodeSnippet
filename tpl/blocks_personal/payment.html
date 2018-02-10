@@ -1,0 +1,39 @@
+<div ng-show="user.paymentTerms[0] || user.paymentMethods[0]" ng-controller="TooltipDemoCtrl" class="panel panel-default">
+    <div class="panel-heading">
+        <a ui-sref="app.page.edit/profile" class="text-muted pull-right m-t-xxs" ng-click="app.activetab = 'payment'">Edit</a>
+        <h2 class="h4">Payment Conditions</h2>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div ng-show="user.paymentTerms[0]" class="col-xs-12 m-b">
+                <label>Terms:</label>
+                <div class="col-xs-12 pull-in">
+                    <!--<span data-ng-repeat="(term, val) in user.paymentTerms[0]" class="text-success-dker m-r-xs text-lg">{{term}}{{$last ? '' : ', '}}</span>-->
+                    <span ng-show="user.paymentTerms[0].prepayment" class="tag tag-dark">Prepayment</span>
+                    <span ng-show="user.paymentTerms[0].daily" class="tag tag-dark">Daily</span>
+                    <span ng-show="user.paymentTerms[0].weekly" class="tag tag-dark">Weekly</span>
+                    <span ng-show="user.paymentTerms[0].monthly" class="tag tag-dark">Monthly</span>
+                    <span ng-show="user.paymentTerms[0].bimonthly" class="tag tag-dark">Bi-monthly</span>
+                    <span ng-show="user.paymentTerms[0].netXYChecked" class="tag tag-dark">
+                        <span ng-if="user.paymentTerms[0].netXYvalue">{{user.paymentTerms[0].netXYvalue}}</span>
+                        <span ng-if="!user.paymentTerms[0].netXYvalue">Other</span>
+                    </span>
+                </div>
+            </div>
+            <div ng-show="user.paymentMethods[0]" class="col-xs-12">
+                <label>Method:</label>
+                <div class="col-xs-12 pull-in">
+                    <!--<span data-ng-repeat="(method, val) in user.paymentMethods[0]" class="text-success-lter m-r-xs text-lg">{{method}}{{$last ? '' : ', '}}</span>-->
+                    <span ng-show="user.paymentMethods[0].BankTransfer" class="tag tag-light">BankTransfer</span>
+                    <span ng-show="user.paymentMethods[0].Alipay" class="tag tag-light">Alipay</span>
+                    <span ng-show="user.paymentMethods[0].Cheque" class="tag tag-light">Cheque</span>
+                    <span ng-show="user.paymentMethods[0].CreditCard" class="tag tag-light">CreditCard</span>
+                    <span ng-show="user.paymentMethods[0].EPESE" class="tag tag-light">EPESE</span>
+                    <span ng-show="user.paymentMethods[0].Payoneer" class="tag tag-light">Payoneer</span>
+                    <span ng-show="user.paymentMethods[0].Paypal" class="tag tag-light">Paypal</span>
+                    <span ng-show="user.paymentMethods[0].WebMoney" class="tag tag-light">WebMoney</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

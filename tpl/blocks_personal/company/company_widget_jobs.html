@@ -1,0 +1,42 @@
+<div class="w-full b-a r-2x m-t-lg bg-white-only" ng-init="jobs = (publicCompany.jobs | toArray)">
+    <div class="col-xs-12 padder-t-lg padder-md">
+        <div class="text-xl text-black-dker font-normal text-gray">Jobs</div>
+        <div class="clear clearfix"></div>
+    </div>
+    <div class="col-xs-12 padder-md list-group-item no-borders b-b r-2x" ng-if="jobs.length > 0">
+        <div class="padder-v pull-left w-full" ng-class="{'b-b':!$last}" ng-repeat="job in jobs.slice(0, 5)| orderBy:'-date'">
+            <a ui-sref="jobShowcase({'company':publicCompany.username,'slug':job.slug})" class="font-bold text-md block" target="_blank">{{ job.jobTitle}}</a>
+            <div>
+                <span class="text-capitalize" ng-if="job.location.city && job.location.basedCountry">{{ job.location.city}}</span>
+                <span class="text-capitalize" ng-if="!job.location.city && job.location.basedCountry">{{ 'country.' + job.location.basedCountry | translate}}</span>
+                <span class="" ng-if="job.jobType == 'fullTime'"> • Full Time</span>
+                <span class="" ng-if="job.jobType == 'contract'"> • Contract</span>
+                <span class="" ng-if="job.jobType == 'intern'"> • Intern</span>
+                <span class="" ng-if="job.jobType == 'coFounder'"> • Co-Founder</span>
+                <span class="">• {{ job.currencySymbol}}{{ job.minSalary}}K - {{ job.currencySymbol}}{{ job.maxSalary}}K</span>
+                <span class="" ng-if="job.equityMin && job.equityMax">• {{ job.equityMin}}% - {{ job.equityMax}}%</span>
+                <div class="m-t-xs">
+                    <span ng-repeat="skill in job.skills" class="text-gray">
+                        <span ng-if="!$last">{{ skill}} • </span>
+                        <span ng-if="$last">{{ skill}}</span>
+                    </span>
+                </div>                       
+            </div>
+        </div>
+        <div class="text-center padder-b-md" ng-if="jobs.length > 2">
+            <a ui-sref="jobShowcase({company:publicCompany.username})" class="text-center text-md font-bold hover-pointer text-blue-lt hover-text-blue-lt hover-underline">See all {{jobs.length}} jobs</a>
+        </div>
+    </div>
+    <div class="col-xs-12 padder-md list-group-item no-borders b-b" ng-if="jobs.length <= 0 && (publicCompany.administrators | filter:user.username).length > 0">
+        <div class="font-italic m-b-lg text-gray">
+            You are not recruiting
+        </div>
+        <a ui-sref="app.recruits.addjob" class="btn btn-blue w-full" style="padding: 14px 10px;"><i class="fa fa-plus-circle text-white m-r-xs"></i> Add a job</a>
+    </div>
+    <div class="col-xs-12 padder-md list-group-item no-borders b-b" ng-if="jobs.length <= 0 && (publicCompany.administrators | filter:user.username).length <= 0">
+        <div class="font-italic m-b-lg text-gray">
+            {{ publicCompany.name}} hasn't added any jobs yet.
+        </div>
+    </div>
+    <div class="clear clearfix"></div>
+</div>

@@ -1,0 +1,75 @@
+<div ng-init="app.settings.container = false; app.settings.headerFixed = false;" ng-controller="SigninFormController">
+    <nav class="navbar navbar-fixed-top pos-rlt">
+        <div class="container-fluid">
+            <div class="padder-lg padder-v-lg">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a ui-sref="index" class="navbar-brand hidden-xs signup-close" data-ng-click="track('Back On Landing Page', 'Navbar', 'Logo')">
+                        <span><svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path d="M6 4.586l4.24-4.24c.395-.395 1.026-.392 1.416-.002.393.393.39 1.024 0 1.415L7.413 6l4.24 4.24c.395.395.392 1.026.002 1.416-.393.393-1.024.39-1.415 0L6 7.413l-4.24 4.24c-.395.395-1.026.392-1.416.002-.393-.393-.39-1.024 0-1.415L4.587 6 .347 1.76C-.05 1.364-.048.733.342.343c.393-.393 1.024-.39 1.415 0L6 4.587z" fill-rule="evenodd"></path></svg></span>
+                    </a>
+                    <a ui-sref="index" class="navbar-brand w-xxs visible-xs" data-ng-click="track('Back On Landing Page', 'Navbar', 'Logo')"><i class=" icon-arrow-left text-xl"></i></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-collapse-mit">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><button ui-sref="access.signup" data-ng-click="track('Sign Up Page', 'Navbar', 'Sign Up FREE')" class="btn btn-blue-lt navbar-btn">SIGN UP FREE</button></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </div>
+    </nav>
+    <div class="vertical-center flex-center">
+        <div class="container pos-rlt animated fadeIn">
+
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+
+                    <div class="text-center m-b-lg">
+                        <img src="{{app.baseUrl}}/img/mobintouch-logo.png?v={{ app.latestUpdate}}" class="thumb-lg">
+                    </div>
+                    <div class="text-center text-xl">
+                        Sign in to join the community
+                    </div>
+
+                    <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 b-a no-padder m-t-lg m-b-xl">
+                        <div class="padder-lg padder-v-lg b-b">
+                            <a class="btn btn-lg btn-social btn-google  r-2x col-xs-12" ng-click="loginGoogle()" ng-disabled="loadingSignin">
+                                <span class="fa fa-google"></span>
+                                Sign in with Google
+                            </a>
+                            <a class="btn btn-lg btn-social btn-facebook  r-2x m-t-sm col-xs-12" ng-click="loginFacebook()" ng-disabled="loadingSignin">
+                                <span class="fa fa-facebook"></span>
+                                Sign in with Facebook
+                            </a>
+                            <div class="clear clearfix"></div>
+                        </div>
+                        <div class="padder-lg padder-v-lg">
+                            <form name="form" class="form-validation">
+                                <div class="form-group">
+                                    <input class="form-control input-lg" type="text" placeholder="Email address" ng-model="user.username" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control input-lg" type="password" placeholder="Password" ng-model="user.password" ng-minlength="5" required>
+                                </div>
+                                <div class="text-center m-t-sm">
+                                    <button type="submit" class="btn btn-lg btn-blue-lt col-xs-12" ng-click="login()" ng-disabled='form.$invalid || loadingSignin'>
+                                        <span ng-hide="loadingSignin" class=" text-lg">Sign in</span>
+                                        <span ng-show="loadingSignin" class=" text-lg">Sign in <i class="fa fa-spin fa-spinner "></i></span>
+                                    </button>
+                                    <div class="clear clearfix"></div>
+                                </div>
+                                <div class="text-center m-t">
+                                    <label class="i-checks i-checks-lblue"><input type="checkbox" checked><i class="signin"></i> Remember me · </label>
+                                    <a ui-sref="access.forgotpwd" data-ng-click="track('Forgot password', 'Bottom', 'Forgot your password?')" class="hover-black-dker hover-underline"><small>Forgot your password?</small></a>
+                                </div>
+                                <div class="clear clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="visitor" ng-include="'tpl/blocks_general/footer/visitor_footer.html?v=' + app.latestUpdate"></div>
+

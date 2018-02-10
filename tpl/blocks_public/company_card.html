@@ -1,0 +1,46 @@
+<div class="col-sm-12 m-t-lg m-b-md padder-v" ng-style="publiccompany.cover ? {'background-image':'url({{ app.baseUrl}}{{publiccompany.cover}})','background-size':'cover','overflow':'hidden'} : ''" resize>
+    <div class="col-xs-6 col-sm-2">
+        <!-- modal -->
+        <div class="m-b bg-white" ng-controller="CompanyAvatarModalCtrl">
+            <a rel="nofollow" ng-click="open('lg')">
+                <img ng-show="publiccompany.avatar" src="{{app.baseUrl}}{{publiccompany.avatar}}" alt="{{publiccompany.name}}" class="w-full">
+                <img ng-hide="publiccompany.avatar" src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" alt="{{publiccompany.name}}" class="w-full">
+            </a>
+        </div>
+        <!-- /modal -->
+        <div ng-controller="FollowController" class="m-b">
+            <button type="button" class="btn btn-block btn-primary no-shadow font-bold" rel="nofollow" ng-if="(user.following | filter:publiccompany.username).length <= 0 || !user.following || !publiccompany.followers" ng-click="follow(publiccompany.username)">Follow</button>
+            <button type="button" class="btn btn-block btn-default no-shadow font-bold" rel="nofollow" ng-if="(user.following | filter:publiccompany.username).length > 0 && windowWidth >= 767" ng-click="unfollow(publiccompany.username)" ng-mouseenter="follow = false" ng-mouseleave="follow = true">
+                <span ng-show="follow">Following</span>
+                <span ng-hide="follow">Unfollow</span>
+            </button>
+            <button type="button" class="btn btn-block btn-default no-shadow font-bold" rel="nofollow" ng-if="(user.following | filter:publiccompany.username).length > 0 && windowWidth < 767" ng-click="unfollow(publiccompany.username)">
+                <span>Unfollow</span>
+            </button>
+        </div>
+        <a ng-if="(publiccompany.administrators | filter:user.username).length > 0" ui-sref="app.page.edit/company" class="btn btn-dark text-md w-full">
+            Edit page
+        </a>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-sm-offset-6">
+        <div class="m-b-sm text-right text-center-xs">
+            <span class="bg-black dk wrapper-xs padder-sm inline" ng-if="(publiccompany.administrators | filter:user.username).length > 0" ng-style="windowWidth < 767 ? {'width':'100%'} :{}">
+                <span class="text-xxl l-h-1x">{{ publiccompany.companyRank || 0  }}</span><br>
+                <span class="font-thin text-lg">Ranking</span>
+            </span>
+            <a ui-sref="app.page.followers" href="/followers" class="bg-black dk wrapper-xs padder-sm inline" ng-style="windowWidth < 767 ? {'width':'100%'} :{}">
+                <span class="font-bold text-xxl l-h-1x">{{ publiccompany.followers.length || 0  }}</span><br>
+                <span class="font-thin text-lg">Followers</span>
+            </a>
+        </div>
+        <div class="m-b-sm text-right text-center-xs">
+            <span class="text-md text-block text-u-c bg-black dker wrapper-xs padder-sm inline" ng-style="windowWidth < 767 ? {'width':'100%'} :{}">{{publiccompany.companyType| translate }}</span>
+        </div>
+        <div class="m-b-sm text-right hidden-xs" ng-if="publiccompany.companyType != 'Advertiser'">
+            <span class="bg-black dker wrapper-xs padder-sm inline" ng-style="windowWidth < 767 ? {'width':'100%'} :{}">
+                <span class="text-base text-block" data-ng-repeat="subtype in publiccompany.companySubType">#{{subtype}}  </span>
+            </span>
+        </div>
+    </div>
+    <div class="clear clear"></div>
+</div>

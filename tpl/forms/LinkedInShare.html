@@ -1,0 +1,21 @@
+<div class="modal-header no-border" style="background-color:#0077B5;border-radius: 4px 4px 0 0;">
+    <div class="text-center text-white" >
+        <div class="wrapper">
+            <i class="fa fa-linkedin fa-2x"></i>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <h4 class="text-center l-h">Share your profile with your LinkedIn connections.*</h4>
+    <p class="text-center text-muted"><i>*Your approval is required before sharing</i></p>
+</div>
+<div class="modal-footer no-padder">
+    <div class="text-center wrapper-sm b-r inline w-50">
+        <a class="text-lg" ng-click="cancel()">No</a>
+    </div>
+    <div class="text-center wrapper-sm inline w-50">
+        <!--<a ng-if="syncModalAuth" href="https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=77qs31x0xkh7tz&redirect_uri={{app.protocol}}%3A%2F%2F{{app.host}}%2Finvite-contacts&state={{user.id}}&scope=w_messages,r_emailaddress,r_fullprofile,r_network,r_contactinfo" class="font-bold text-lg">Yes</a>-->
+        <a ng-if="syncModalAuth" href="https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=77qs31x0xkh7tz&redirect_uri={{app.protocol}}%3A%2F%2F{{app.host}}%2Finvite-contacts&state={{user.id}}&scope=r_basicprofile,r_emailaddress" class="font-bold text-lg">Yes</a>
+        <a data-ng-click="close()" ng-if="!syncModalAuth" href="/invite-contacts?code=SyncLinkedIn" class="font-bold text-lg">Yes</a>
+    </div>
+</div>

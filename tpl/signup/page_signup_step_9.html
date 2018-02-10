@@ -1,0 +1,114 @@
+<style>
+    .popover{
+        min-width: 345px;
+        width: 345px;
+    }
+</style>
+<div ng-init="app.settings.container = false; app.settings.headerFixed = false;" resize>
+    <nav class="navbar navbar-fixed-top pos-rlt">
+        <div class="container-fluid">
+            <div class="padder-lg padder-v-lg">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                   <!-- <a ui-sref="index" class="navbar-brand hidden-xs signup-close" data-ng-click="track('Back On Landing Page', 'Navbar', 'Cross Button')">
+                        <span><svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path d="M6 4.586l4.24-4.24c.395-.395 1.026-.392 1.416-.002.393.393.39 1.024 0 1.415L7.413 6l4.24 4.24c.395.395.392 1.026.002 1.416-.393.393-1.024.39-1.415 0L6 7.413l-4.24 4.24c-.395.395-1.026.392-1.416.002-.393-.393-.39-1.024 0-1.415L4.587 6 .347 1.76C-.05 1.364-.048.733.342.343c.393-.393 1.024-.39 1.415 0L6 4.587z" fill-rule="evenodd"></path></svg></span>
+                    </a> --->
+                    <a ui-sref="index" class="navbar-brand w-xxs visible-xs" data-ng-click="track('Back On Landing Page', 'Navbar', 'Logo')" ><i class=" icon-arrow-left text-xl"></i></a>
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+    </nav>
+
+    <div class="vertical-center flex-center padder-v-xl" ng-init="filedownloaded = false;">
+        <div class="container pos-rlt animated fadeIn">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 col-lg-8 col-lg-offset-2 col-xs-12">
+                    <div class="contact-container r-3x col-xs-12 m-b-xxl">
+                        <div class="text-xl font-bold m-t-sm">
+                            Select Linkedin contacts you want to connect with
+                        </div>
+                        <div class="m-t-sm text-lg text-green">
+                            Contacts without Mobintouch accounts will receive an invitation and reminder via email.
+                        </div>
+                        <div class="m-t-lg text-lg">
+                            Include a personal note: (optional)
+                        </div>
+                        <textarea class="col-xs-12 form-control r-3x m-t-sm" ng-model="note" placeholder="Join me on mobintouch.
+                                  -{{ user.name}} {{ user.lastname}}"></textarea>
+                        <div class="clear clearfix"></div>
+                        <div class="m-t-sm">
+                            <div class="text-lg pull-left padder-t-sm">{{ contacts.length}} connections</div>
+                            <div ng-if="(contacts | filter:{selected: true }).length > 0" class="btn visible-xs btn-lg btn-blue-disabled pull-right m-b-sm r-2x" ng-click="unselectall()" ng-disabled="unselecting">
+                                <span ng-show="!unselecting">Unselect all</span>
+                                <span ng-show="unselecting">Unselecting..<i class="fa fa-spinner fa-spin"></i></span>
+                            </div>
+                            <div ng-if="(contacts | filter:{selected: true }).length <= 0" class="btn visible-xs btn-lg btn-blue-disabled pull-right m-b-sm r-2x" ng-click="selectall()" ng-disabled="selecting">
+                                <span ng-show="!selecting">Select all</span>
+                                <span ng-show="selecting">Selecting..<i class="fa fa-spinner fa-spin"></i></span>
+                            </div>
+                            <div class="btn btn-lg btn-blue-lt pull-right r-2x" ng-class="windowWidth < 767 ? 'col-xs-12' : ''" ng-click="inviteSelectedContacts()" ng-disabled="inviting">
+                                <span ng-show="!inviting">Invite & Connect with {{ (contacts | filter:{selected: true }).length}} Selected</span>
+                                <span ng-show="inviting">Sending invitations...<i class="fa fa-spinner fa-spin"></i></span>
+                            </div>
+                            <div ng-if="(contacts | filter:{selected: true }).length > 0" class="btn hidden-xs btn-lg btn-blue-disabled pull-right m-r-sm r-2x" ng-click="unselectall()" ng-disabled="unselecting">
+                                <span ng-show="!unselecting">Unselect all</span>
+                                <span ng-show="unselecting">Unselecting..<i class="fa fa-spinner fa-spin"></i></span>
+                            </div>
+                            <div ng-if="(contacts | filter:{selected: true }).length <= 0" class="btn hidden-xs btn-lg btn-blue-disabled pull-right m-r-sm r-2x" ng-click="selectall()" ng-disabled="selecting">
+                                <span ng-show="!selecting">Select all</span>
+                                <span ng-show="selecting">Selecting..<i class="fa fa-spinner fa-spin"></i></span>
+                            </div>
+                        </div>
+                        <div class="clear clearfix"></div>
+                        <div class="contact-list-container m-t-sm">
+                            <div class="contact-list">
+                                <div class="contact padder padder-v b-b" ng-repeat="c in contacts">
+                                    <img ng-if="c.existingUser && c.existingUser.avatar" src="{{app.baseUrl}}{{c.existingUser.avatar}}" width="66" height="66" class="r-2x b-a pull-left"/>
+                                    <img ng-if="!c.existingUser || (c.existingUser && !c.existingUser.avatar)" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" width="66" height="66" class="r-2x b-a pull-left"/>
+                                    <div class="pull-left">
+                                        <div class="padder padder-t-xs text-lg font-bold text-ellipsis contact-text">{{c.firstname}} {{c.lastname}}</div>
+                                        <div ng-if="c.existingUser" class="padder padder-t-sm text-lg text-ellipsis contact-text info">Already on Mobintouch</div>
+                                        <div ng-if="!c.existingUser" class="padder padder-t-sm text-lg text-ellipsis contact-text info">Invite {{c.email}}</div>
+                                    </div>
+                                    <div class="pull-right pos-abt" style="right: 3px;">
+                                        <label class="i-checks i-checks-blue">
+                                            <input type="checkbox" value="c.id" ng-model="c.selected">
+                                            <i></i>
+                                        </label>
+                                    </div>
+                                    <div class="clear clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-t-sm m-b-lg text-center" resize>
+                            <div class="text-lg pull-left padder-t-sm text-blue-lt hover-text-blue-lt hover-pointer" ng-class="windowWidth < 767 ? 'col-xs-12' : ''" uib-popover-template="'popover.html'" popover-is-open="popover.isOpen" popover-trigger="'click'">Skip</div>
+                            <div class="btn btn-lg btn-blue-lt pull-right r-2x" ng-class="windowWidth < 767 ? 'col-xs-12 m-t-sm' : ''" ng-click="inviteSelectedContacts()" ng-disabled="inviting">
+                                <span ng-show="!inviting">Invite & Connect with {{ (contacts | filter:{selected: true }).length}} Selected</span>
+                                <span ng-show="inviting">Sending invitations...<i class="fa fa-spinner fa-spin"></i></span>
+                            </div>
+                            <div class="clear clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="popover.html">
+    <div class='padder padder-t-md text-center'>
+    <div class='text-md'>
+    Synicing your contacts is the best way to start building your network.
+    </div>
+    <div class='text-md m-t-md m-b-md'>
+    Are you sure you want to skip this step?
+    </div>
+    <div class='col-xs-12 m-b-md'>
+    <div class='col-xs-6'>
+    <a class='btn no-border pull-right text-md' ui-sref='app.page.profile'>Yes</a>
+    </div>
+    <div class='col-xs-6'>
+    <a class='btn btn-blue-lt no-border pull-left text-md padder r-3x no' ng-click='$parent.popover.isOpen=false;'>No</a>
+    </div>
+    </div>
+    </div>
+</script>

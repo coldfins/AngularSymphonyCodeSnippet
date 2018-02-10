@@ -1,0 +1,230 @@
+<div ng-controller="TooltipDemoCtrl" class="panel panel-default">
+    <div class="panel-heading">
+        <span class="h4">Buying</span>
+        <b class="badge pull-right">{{user.buyTraffic.length|| 0 }}</b>
+    </div>
+    <div class="panel-body" data-ng-repeat="(key, buytraffic) in user.buyTraffic">
+        <div class="row">
+            <form ng-submit="saveBuytraffic(key)" name="formbuytraffic{{key}}" class="form-horizontal form-validation">
+                <div class="wrapper">
+
+                    <div class="form-group form-horizontal">
+                        <label class="col-xs-12 col-sm-2 control-label">Platforms*:</label>
+                        <div class="col-xs-12 col-sm-10">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.platform[0].ios"> iOS
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.platform[0].android"> Android
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.platform[0].windows"> Windows Phone
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.platform[0].blackberry"> Blackberry
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.platform[0].web"> Mobile Web HTML5
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.platform[0].unity"> Unity
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.platform[0].bada"> Bada
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-2 m-t-sm">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" ng-model="buytraffic.isOtherPlatform">
+                                </span>
+                                <input type="text" class="form-control" placeholder="Other" ng-model="buytraffic.otherPlatform" ng-pattern="/^[a-zA-Z0-9 -,]{3,20}$/">
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-xs-6 -->
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg"></div>
+
+                    <div class="form-group form-horizontal">
+                        <label class="col-xs-12 col-sm-2 control-label">Countries*:</label>
+                        <div class="col-xs-12 col-sm-10">
+                            <select name="countries" class="form-control" ui-jq="chosen" multiple ng-model="buytraffic.countries" data-ng-include=" 'tpl/utils/regions.html?v=' + app.latestUpdate" required></select>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg"></div>
+
+                    <div class="form-group form-horizontal">
+                        <label class="col-xs-12 col-sm-2 control-label">Pricing Model*:</label>
+                        <div class="col-xs-12 col-sm-10">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.pricing[0].cpa"> CPA
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.pricing[0].cps"> CPS
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.pricing[0].cpc"> CPC
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.pricing[0].cpv"> CPV
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.pricing[0].cpd"> CPD
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.pricing[0].cpi"> CPI
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.pricing[0].cpl"> CPL
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.pricing[0].cpm"> CPM
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.pricing[0].dclick"> Double Click
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.pricing[0].ctc"> Click To Call
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.pricing[0].ppcall"> Pay Per Call
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-2 m-t-sm">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" ng-model="buytraffic.isOtherPricing">
+                                </span>
+                                <input type="text" class="form-control" placeholder="Other" ng-model="buytraffic.otherPricing" ng-pattern="/^[a-zA-Z0-9 -,]{3,20}$/">
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-xs-6 -->
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg"></div>
+
+                    <div class="form-group form-horizontal">
+                        <label class="col-xs-12 col-sm-2 control-label">Gender:</label>
+                        <div class="col-xs-12 col-sm-2">
+                            <select name="gender" class="form-control m-b" ng-model="buytraffic.gender" ng-init="buytraffic.gender = buytraffic.gender || 'both'">
+                                <option value="both" selected="selected">Both</option>
+                                <option value="males">Males</option>
+                                <option value="females">Females</option>
+                            </select>
+                        </div>
+                        <label class="col-xs-12 col-sm-2 control-label">Age Range:</label>
+                        <div class="col-xs-5 col-sm-2">
+                            <input type="text" name="fromage" class="form-control" ng-model="buytraffic.fromage" ng-pattern="/^[0-9]{1,2}$/">
+                        </div>
+                        <label class="col-xs-2 col-sm-1 text-center m-t-xs">to</label>
+                        <div class="col-xs-5 col-sm-2">
+                            <input type="text" name="toage" class="form-control" ng-model="buytraffic.toage" ng-pattern="/^[0-9]{1,2}$/">
+                            <span ng-show='forma.confirm_foo.$error.validator'>Not match!</span>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg"></div>
+
+                    <div class="form-group form-horizontal">
+                        <label class="col-xs-12 col-sm-2 control-label">Quality </label>
+                        <div class="col-xs-12 col-sm-10">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.incentivized"> Incentivized
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="buytraffic.nonincentivized"> Non Incentivized
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg"></div>
+
+                    <div class="form-group form-horizontal">
+                        <label class="col-xs-12 col-sm-2 control-label">Interest:</label>
+                        <div class="col-xs-12 col-sm-10">
+                            <tags-input ng-model="buytraffic.interests" placeholder="*Ex : Gamers, Travelers,etc."></tags-input>
+                            <span class="help-block m-b-none"><small>Ex : Gamers, Travelers,etc.</small></span>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg"></div>
+
+                    <div class="form-group form-horizontal">
+                        <input type="hidden" ng-model="buytraffic.valid" ng-init="buytraffic.valid = true"/>
+                        <input type="hidden" ng-model="buytraffic.pricingQty" ng-init="buytraffic.pricingQty = 0"/>
+
+                        <label class="col-xs-12 col-sm-2 control-label">Start/End Date:</label>
+
+                        <div class="col-xs-12 col-sm-10">
+                            <div class="radio">
+                                <label class="i-checks i-checks-lblue m-r">
+                                    <input type="radio" value="year" ng-model="buytraffic.dateType">
+                                    <i></i>
+                                    This year
+                                </label>
+                                <label class="i-checks i-checks-lblue m-r">
+                                    <input type="radio" value="anytime" ng-model="buytraffic.dateType">
+                                    <i></i>
+                                    Any time
+                                </label>
+                                <label class="i-checks i-checks-lblue m-r">
+                                    <input type="radio" value="undefined" ng-model="buytraffic.dateType">
+                                    <i></i>
+                                    Undefined
+                                </label>
+                                <label class="i-checks i-checks-lblue m-r">
+                                    <input type="radio" value="pick" ng-model="buytraffic.dateType">
+                                    <i></i>
+                                    Pick a Start/End Date
+                                </label>
+                            </div>
+                        </div>
+                        <div ng-if="buytraffic.dateType == 'pick'" class="col-xs-6 col-sm-5 col-sm-offset-2 m-t" ng-controller="DatepickerDemoCtrl">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-focus="open($event)" datepicker-popup="{{format}}" ng-model="buytraffic.fromperiod" is-open="opened" datepicker-options="dateOptions" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div ng-if="buytraffic.dateType == 'pick'" class="col-xs-6 col-sm-5 m-t" ng-controller="DatepickerDemoCtrl">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-focus="open($event)" datepicker-popup="{{format}}" ng-model="buytraffic.toperiod" is-open="opened" datepicker-options="dateOptions" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg"></div>
+
+                    <div class="col-xs-12 no-padder">
+                        <p class="text-muted pull-right"><small>*Required fields</small></p>
+                    </div>
+
+                    <div class="col-xs-12 no-padder">
+                        <div class="clearfix">
+                            <button type="submit" class="btn btn-success pull-right" ng-disabled="formbuytraffic{{key}}.gender.$error.required || formbuytraffic{{key}}.interests.$error.required || formbuytraffic{{key}}.countries.$error.required || !(buytraffic.pricing[0].cpa || buytraffic.pricing[0].cps || buytraffic.pricing[0].cpc || buytraffic.pricing[0].cpv || buytraffic.pricing[0].cpd || buytraffic.pricing[0].cpi || buytraffic.pricing[0].cpl || buytraffic.pricing[0].cpm || buytraffic.pricing[0].dclick || buytraffic.pricing[0].ctc || buytraffic.pricing[0].ppcall) || !(buytraffic.platform[0].ios || buytraffic.platform[0].android || buytraffic.platform[0].windows || buytraffic.platform[0].blackberry || buytraffic.platform[0].web || buytraffic.platform[0].unity || buytraffic.platform[0].bada)">
+                                <span ng-hide="loadingBuyTraffic[{{key}}]" class="text">Save</span>
+                                <span ng-show="loadingBuyTraffic[{{key}}]" class="text"><i class="fa fa-spin fa-circle-o-notch"></i> Save</span>
+                            </button>
+                            <button ng-click="deleteBuyTraffic(buytraffic)" class="btn btn-danger">
+                                <span ng-hide="loadingDeleteBuyTraffic[{{key}}]" class="text">Delete</span>
+                                <span ng-show="loadingDeleteBuyTraffic[{{key}}]" class="text"><i class="fa fa-spin fa-circle-o-notch m-l-xs"></i> Delete</span>
+                            </button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="panel-footer bg-light lter">
+        <button class="btn btn-default btn-addon btn-sm" data-ng-click="addBuyTrafficForm()"><i class="fa fa-plus"></i>Add</button>
+    </footer>
+
+</div>

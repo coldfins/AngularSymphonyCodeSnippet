@@ -1,0 +1,56 @@
+<div class="form-group form-horizontal">
+    <div class="col-xs-12 col-sm-4 text-17 padder-t-sm text-black-dk">
+        *What are your areas of expertise?
+        <div class="text-sm text-primary" ng-show="formSubmited && (!user.services[selectedIndex].subServices || user.services[selectedIndex].subServices.length <= 0)">Required</div>
+    </div>
+    <div class="col-sm-8 m-t-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="compensationAndBenefits" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Compensation & Benefits"/>
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Compensation & Benefits</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="generalHR" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="General HR" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">General HR</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="HRManagement" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="HR Management" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">HR Management</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="onboarding" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Onboarding" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Onboarding</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="payroll" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Payroll" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Payroll</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="other" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Other" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Other</div>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

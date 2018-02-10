@@ -1,0 +1,71 @@
+<style>
+    .navbar-brand img{
+        padding: 0px;
+        margin: 10px 0px;
+    }
+    .navbar-md .navbar-brand{
+        height: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+</style>
+<nav class="navbar-md navbar-fixed-top bg-white" resize>
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header h-xxs w-auto">
+            <button class="pull-right visible-xs" id="sidebar_toggle" data-toggle="sidebar" data-target=".sidebar-right">
+                <i class="fa fa-navicon fa-fw"></i>
+            </button>
+            <a title="Go to {{company.name}}" ui-sref="app.page.company/public({companyusername: company.username})" class="navbar-brand">
+                <img ng-if="company.avatar" src="{{ app.baseUrl}}{{ company.avatar}}" alt="{{ company.name}} logo" class="thumb-sm">
+                <img ng-if="!company.avatar" src="{{ app.baseUrl}}cdn/img/mit-fingerprint-logo-white.svg" alt="{{ company.name}} logo" class="thumb-sm">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="col-xs-10 sidebar sidebar-right sidebar-animate bg-white" style="overflow-x: hidden" ng-style="{
+                    'height':windowHeight - 60}" resize>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a rel="nofollow" class="text-uppercase font-roboto gray text-normal" ng-click="gotoSection('details')">{{ company.name}}</a>
+                </li>
+                <li ng-if="company.jobs.length > 0">
+                    <a rel="nofollow" class="text-uppercase font-roboto gray text-normal" ng-click="gotoSection('jobs')">JOBS</a>
+                </li>
+                <li>
+                    <a rel="nofollow" class="text-uppercase font-roboto gray text-normal" ng-click="gotoSection('team')">TEAM</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-if="user.username && user.companyPage.administrator.company == company.username">
+                    <a ng-click="redirect('app.recruits.applicants')" class="btn btn-blue">Browse Applicants</a>
+                </li>
+                <li ng-if="user.username && user.username && user.companyPage.administrator.company != company.username && company.jobs.length <= 0">
+                    <a href="">No job posted yet!</a>
+                </li>    
+                <li class="b-l">
+                    <a class="" ng-click="shareJob();">
+                        <span class="font-roboto blue text-normal">Share</span>
+                    </a>
+                </li>
+                <li ng-if="!user.username">
+                    <a class="home" ui-sref="access.signup">
+                        <span class="font-roboto blue text-normal">Apply Now</span>
+                    </a>
+                </li>
+                <li ng-if="user.username && user.companyPage.employee.company != company.username && company.jobs.length > 0 && isJobView && !jobDetails.isApplied">
+
+                    <a href="{{jobDetails.jobOfferUrl}}" target="_blank" class="home" ng-disabled="loadingApply" ng-show="!loadingApply" ng-click="updateApply(jobDetails)">
+                        <span class="font-roboto blue text-normal">Apply Now</span>
+                    </a>
+                    <a href="{{jobDetails.jobOfferUrl}}" target="_blank" class="home" ng-disabled="!loadingApply" ng-show="loadingApply" ng-click="updateApply(jobDetails)">
+                        <span class="font-roboto blue text-normal">Applying..<i class="fa fa-spin fa-spinner"></i></span>
+                    </a>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+
+    </div><!-- /.container-fluid -->
+    <div class="clear clearfix"></div>
+</nav>

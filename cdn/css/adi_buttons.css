@@ -1,0 +1,105 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 22 Apr, 2016, 12:32:42 PM
+    Author     : ved-pc
+*/
+
+.invite_btn_container
+{
+    margin-top: 20px;
+}
+
+.invite_btn_container > .action-btn{
+    display: inline-block;
+    border-radius: 2px;
+    margin-top: 0px;
+    padding: 5px;
+}
+
+.invite_btn_container > .action-btn > div {
+    padding: 8px;
+    color: #FFF;
+    font-weight: bold;
+    text-align: center;
+    text-transform: capitalize;	
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.btn_gmail {
+    background: #FF6B53;
+    background: -moz-linear-gradient(top, #FF6B53 0%, #df4b33 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FF6B53), color-stop(100%,#df4b33));
+    background: -webkit-linear-gradient(top, #FF6B53 0%,#df4b33 100%);
+    background: -o-linear-gradient(top, #FF6B53 0%,#df4b33 100%);
+    background: -ms-linear-gradient(top, #FF6B53 0%,#df4b33 100%);
+    background: linear-gradient(top, #FF6B53 0%,#df4b33 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FF6B53', endColorstr='#df4b33',GradientType=0 );
+}
+
+.btn_hotmail {
+    background: #2092E6;
+    background: -moz-linear-gradient(top, #2092E6 0%, #0072C6 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2092E6), color-stop(100%,#0072C6));
+    background: -webkit-linear-gradient(top, #2092E6 0%,#0072C6 100%);
+    background: -o-linear-gradient(top, #2092E6 0%,#0072C6 100%);
+    background: -ms-linear-gradient(top, #2092E6 0%,#0072C6 100%);
+    background: linear-gradient(top, #2092E6 0%,#0072C6 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2092E6', endColorstr='#0072C6',GradientType=0 );
+}
+
+.btn_yahoo {
+    background: #5A0F8E;
+    background: #7A2FAE;
+    background: -moz-linear-gradient(top, #7A2FAE 0%, #5A0F8E 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7A2FAE), color-stop(100%,#5A0F8E));
+    background: -webkit-linear-gradient(top, #7A2FAE 0%,#5A0F8E 100%);
+    background: -o-linear-gradient(top, #7A2FAE 0%,#5A0F8E 100%);
+    background: -ms-linear-gradient(top, #7A2FAE 0%,#5A0F8E 100%);
+    background: linear-gradient(top, #7A2FAE 0%,#5A0F8E 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7A2FAE', endColorstr='#5A0F8E',GradientType=0 );
+}
+
+.btn_linkedin {
+    background: #1C87BD;
+    background: -moz-linear-gradient(top, #1C87BD 0%, #006BA1 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1C87BD), color-stop(100%,#006BA1));
+    background: -webkit-linear-gradient(top, #1C87BD 0%,#006BA1 100%);
+    background: -o-linear-gradient(top, #1C87BD 0%,#006BA1 100%);
+    background: -ms-linear-gradient(top, #1C87BD 0%,#006BA1 100%);
+    background: linear-gradient(top, #1C87BD 0%,#006BA1 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1C87BD', endColorstr='#006BA1',GradientType=0 );
+}
+
+.btn_manually {
+    background-color: #EF3391;
+    //background: -webkit-linear-gradient(top, #FF41A0 0%,#EF3391 100%);
+    //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1C87BD', endColorstr='#006BA1',GradientType=0 );
+}
+
+.btn_file {
+    background-color: #459CDE;
+}
+
+.adi_clear_table, .adi_clear_form, .adi_stickBorders, .adi_clear_td, .adi_clear_tr, .adi_clear_img, .adi_clear_ol, .adi_clear_ul, .adi_clear_li, .adi_clear_p, .adi_clear_iframe, .adi_clear_span {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    box-shadow: none;
+    float: none;
+    background: transparent;
+}
+
+.invite-icon {
+    width: 20px;
+    margin-right: 5px;
+    vertical-align: baseline;
+}
+
+.invite-text {
+    vertical-align: super;
+}

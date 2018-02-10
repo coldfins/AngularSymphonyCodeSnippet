@@ -1,0 +1,585 @@
+<div class="container" ng-init="app.settings.container = true; app.settings.headerFixed = true; isLast = false;" resize>
+
+    <div class="row m-t">
+
+        <div class="col-xs-12 col-sm-3" id="filterFeed">
+            <div class="" ng-class="{'w-lg affix padder-r-md':windowWidth >= 768}">
+                <div data-ng-include=" 'tpl/widgets/user_profile.html?v=' + app.latestUpdate"></div><!--/ PROFILE WIDGET -->
+
+                <ul class="nav nav-stacked text-u-c l-s-1x m-b-md">
+                    <li>
+                        <a class="hover-black-dker" ng-class="{'hover-underline text-gray':feedType != 'all','text-black-dker font-bold':feedType == 'all'}" data-ng-click="changeFeedType('all')">
+                            <span class="pull-right">
+                                <i class="fa fa-fw fa-angle-right"></i>
+                            </span> Your network
+                        </a>
+                    </li>
+                    <li>
+                        <a class="hover-black-dker" ng-class="{'hover-underline text-gray':feedType != 'myposts','text-black-dker font-bold':feedType == 'myposts'}" data-ng-click="changeFeedType('myposts')">
+                            <span class="pull-right">
+                                <i class="fa fa-fw fa-angle-right"></i>
+                            </span> Your posts
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- LAST PROFILE VISITED -->
+                <div ng-if="user.username" data-ng-include=" 'tpl/widgets/last_profiles_visited.html?v=' + app.latestUpdate" class="hidden-xs hidden-sm"></div><!--/ LAST PROFILE VISITED -->
+
+                <!-- WHO VISITED PROFILE -->
+                <div ng-if="user.username" data-ng-include=" 'tpl/widgets/who_visited_profile.html?v=' + app.latestUpdate" class="hidden-xs hidden-sm"></div><!--/ WHO VISITED PROFILE -->
+
+                <!-- SOCIAL -->
+                <div class="m-b hidden-xs hidden-sm" data-ng-include=" 'tpl/widgets/social.html?v=' + app.latestUpdate"></div>
+                <!--/ SOCIAL -->
+
+                <!-- FOOTER -->
+                <div class="hidden-xs hidden-sm" data-ng-include=" 'tpl/widgets/footer.html?v=' + app.latestUpdate"></div>
+                <!--/ FOOTER -->
+
+                <div class="clear clearfix"></div>
+            </div>
+        </div>
+        <!-- main content part -->
+        <div class="col-xs-12 col-sm-9" id="Feed" data-ng-controller="FollowController">
+
+            <!-- Widget for new users add connections -->
+            <div ng-show="user.username && user.connections <= 0 && !widgetClosed" ng-init="!widgetClosed" data-ng-include=" 'tpl/widgets/welcome.html?v=' + app.latestUpdate" class="hidden-xs hidden-sm"></div>
+
+            <!-- Widget for new users add connections -->
+            <div ng-if="user.username && user.connections <= 0" data-ng-include=" 'tpl/widgets/people_you_may_know_add_connections.html?v=' + app.latestUpdate" class="hidden-xs hidden-sm"></div>
+
+
+
+            <!--////////// ADD POST //////////-->
+            <div ng-if="user.username" class="panel panel-default r-2x">
+                <form ng-submit="sendUserPost()" name="postForm">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="pull-left m-r-xs clear">
+                                    <a class="thumb-sm avatar bg-white">
+                                        <img ng-show="user.avatar" src="{{app.baseUrl}}{{user.avatar}}" alt="{{user.name}}">
+                                        <img ng-hide="user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" alt="{{user.name}}">
+                                    </a>
+                                </div>
+                                <span ng-if="loadingSendingPost" class="pull-right"><i class="fa fa-spinner fa-spin"></i></span>
+                                <div class="clear">
+                                    <textarea msd-elastic="\n" ng-model="newPost.text" class="form-control no-border no-bg" placeholder="Share an update..." style="resize:none; overflow:visible; height: 40px !important;" ng-change="postPreview()" ng-init="isCollapsed = true" ng-click="isCollapsed = false"></textarea>
+                                </div>
+
+                                <!-- TEXT+IMG -->
+                                <i ng-if="newPost.image" class="icon-close text-dark text-lg bg-white delete-post" uib-tooltip="Delete" data-ng-click="resetPostMedia()"></i>
+                                <img ng-if="newPost.image" ng-src="{{newPost.image}}" class="w-full m-b" />
+                                <!--/ TEXT+IMG -->
+
+                                <!-- LINK VIDEO -->
+                                <div ng-if="newPost.youtube" class="m-b">
+                                    <i class="icon-close text-dark text-lg bg-white delete-post" uib-tooltip="Delete" data-ng-click="resetPostMedia()"></i>
+                                    <iframe width="100%" height="280" ng-src="{{ newPost.youtube | youtubeEmbedUrl }}" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                                <div ng-if="newPost.vimeo" class="m-b">
+                                    <i class="icon-close text-dark text-lg bg-white delete-post" uib-tooltip="Delete" data-ng-click="resetPostMedia()"></i>
+                                    <iframe width="100%" height="280" ng-src="{{ newPost.vimeo | vimeoEmbedUrl }}" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                                <!--/ LINK VIDEO -->
+
+                                <!-- LINK -->
+                                <div ng-if="newPost.link" class="block">
+                                    <i class="icon-close text-dark text-lg bg-white delete-post" uib-tooltip="Delete" data-ng-click="resetPostMedia()"></i>
+                                    <div class="item">
+                                        <div class="bottom wrapper w-full">
+                                            <span class="bg-black dker wrapper-xs padder-sm hidden-xs">
+                                                <a ng-if="newPost.newsTitle" class="text-block h3" rel="nofollow" href="{{newPost.newsURL}}" target="_blank" ng-click="trackNews(newPost.newsTitle, newPost.newsTitle, newPost.newsSource)" ng-bind-html="newPost.newsTitle | nl2br"></a>
+                                            </span>
+                                            <div class="text-xs m-t-xs">
+                                                <span class="bg-black dk wrapper-xs padder-sm inline">{{newPost.newsDate * 1000| fromNow }}</span>
+                                                <span class="bg-black dk wrapper-xs padder-sm inline">
+                                                    <i ng-click="trackNews(newPost.newsSource, newPost.newsTitle, newPost.newsSource)">{{newPost.newsSource}}</i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <a href="{{newPost.newsURL}}" rel="nofollow" target="_blank" ng-click="trackNews('image', newPost.newsTitle, newPost.newsSource)">
+                                            <div ng-if="newPost.newsImage" class="img-touchnews" style="display:block; background-image:url({{newPost.newsImage}}); border:none; border-radius:0;"></div>
+                                            <div ng-if="!newPost.newsImage" class="img-touchnews"><i class="glyphicon glyphicon-picture img-news-no"></i></div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--/ LINK -->
+
+                                <!-- User Profile Share -->
+                                <div class="panel-body" ng-if="newPost.userProfile">
+                                    <i class="icon-close text-dark text-lg bg-white delete-post" uib-tooltip="Delete" data-ng-click="resetPostMedia()"></i>
+                                    <div class="list-group list-group-lg list-group-sp m-n">
+                                        <a class="list-group-item clearfix" ui-sref="app.page.public({username: newPost.sharedUsername})">
+                                            <span class="pull-left thumb avatar m-r">
+                                                <img ng-show="newPost.sharedUserAvatar" src="{{app.baseUrl}}{{newPost.sharedUserAvatar}}" alt="{{newPost.sharedUserFullName}}">
+                                                <img ng-hide="newPost.sharedUserAvatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" alt="{{newPost.sharedUserFullName}}">
+                                            </span>
+                                            <span class="clear">
+                                                <h5 class="font-bold text-ellipsis h5 clear">{{newPost.sharedUserFullName}}</h5>
+                                                <small class="clear text-ellipsis">{{newPost.sharedUserJobTitle}}</small>
+                                                <small class="text-muted clear text-ellipsis">{{newPost.sharedUserCompany}}</small>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--/ User Profile Share -->
+
+                                <!-- Company Page Share -->
+                                <div class="panel-body" ng-if="newPost.companyPage">
+                                    <i class="icon-close text-dark text-lg bg-white delete-post" uib-tooltip="Delete" data-ng-click="resetPostMedia()"></i>
+                                    <div class="clear">
+                                        <div class="pull-left m-r">
+                                            <a class="thumb-lg b-a" ui-sref="app.page.company/public({companyusername: newPost.sharedCompanyUsername})">
+                                                <img ng-show="newPost.sharedCompanyAvatar" src="{{app.baseUrl}}{{newPost.sharedCompanyAvatar}}">
+                                                <img ng-hide="newPost.sharedCompanyAvatar" src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}">
+                                            </a>
+                                        </div>
+                                        <a ui-sref="app.page.company/public({companyusername: newPost.sharedCompanyUsername})" class="font-bold text-C text-lg clear">{{newPost.sharedCompanyName}}</a>
+                                        <div>
+                                            <p class="text-sm" ng-if="newPost.sharedCompanyType">{{ newPost.sharedCompanyType | translate }}</p>
+                                        </div>
+                                        <div class="btn-group" id="CompanyFollowButton">
+                                            <button type="button" class="btn btn-sm btn-primary no-shadow font-bold" rel="nofollow" ng-if="(user.following | filter:newPost.sharedCompanyUsername).length <= 0 || !user.following" ng-click="follow(newPost.sharedCompanyUsername)">Follow</button>
+                                            <button type="button" class="btn btn-sm btn-default no-shadow font-bold" rel="nofollow" ng-if="(user.following | filter:newPost.sharedCompanyUsername).length > 0" ng-class="{'btn-blue-lt':!follow, 'btn-blue-lt-bordered':follow}" ng-init="followText = 'Following'" ng-mouseenter="follow = false; followText = 'Unfollow';" ng-mouseleave="follow = true; followText = 'Following';" ng-click="unfollow(newPost.sharedCompanyUsername)">
+                                                <span>{{followText}}</span>
+                                            </button>
+                                            <!--<button type="button" class="btn btn-sm btn-default no-shadow font-bold" rel="nofollow" ng-init="alreadyFollowing=((user.following | filter:newPost.sharedCompanyUsername).length || 0 )">{{ ((newPost.sharedCompanyFollowers|| 0) + ( alreadyFollowing==1&&((user.following | filter:newPost.sharedCompanyUsername).length || 0 )==0?(currentFollowing[newPost.sharedCompanyUsername] || 0):0 ) + ( alreadyFollowing==0&&((user.following | filter:newPost.sharedCompanyUsername).length || 0 )==1?(currentFollowing[newPost.sharedCompanyUsername] || 0):0 ) ) }}</button>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/ Company Page Share -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" collapse="isCollapsed">
+                        <button type="submit" class="btn btn-blue-lt pull-right btn-sm" data-ng-disabled="loadingSendingPost || (!newPost.text && !newPost.image && !newPost.youtube && !newPost.vimeo && !newPost.link && !newPost.userProfile && !newPost.companyPage)">
+                            <span ng-hide="loadingSendingPost">Post</span>
+                            <span ng-show="loadingSendingPost"><i class="fa fa-spinner fa-spin"></i></span>
+                        </button>
+                        <i class="icon-camera text-gray pull-left text-lg padder-v-sm hover-pointer" ng-class="{'text-gray':!hovered,'text-blue-lt':hovered}" ng-mouseover="hovered = true;" ng-mouseleave="hovered = false;" onclick="angular.element('#postItem').click();"></i><input id="postItem" data-ng-disabled="newPost.youtube || newPost.vimeo || newPost.companyPage || newPost.userProfile || newPost.link" type="file" accept=".jpg,.jpeg,.gif" fileread="newPost.image" class="file-input pull-left" ng-style="windowWidth < 767 ? {'width':'75%','float':'left'} : {}" ng-class="{'text-gray':!hovered,'text-blue-lt':hovered}" ng-mouseover="hovered = true;" ng-mouseleave="hovered = false;">
+                        <div class="clear clearfix"></div>
+                    </div>
+                </form>
+
+            </div>
+            <!--////////// ADD POST //////////-->
+
+            <button ng-if="feedUpdateCounter > 0" ng-click="loadAllFeed()" class="btn btn-blue-lt w-full m-b">
+                <span ng-if="feedUpdateCounter == 1">{{feedUpdateCounter}} new update </span>
+                <span ng-if="feedUpdateCounter > 1">{{feedUpdateCounter}} new updates </span>
+                <i class="fa fa-refresh fa-spin m-l-xs"></i>
+            </button>
+
+            <div id="lightbox" in-view-container>
+                <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+                <div id="blueimp-gallery" class="blueimp-gallery">
+                    <div class="slides"></div>
+                    <!--<h3 class="title"></h3>
+<a class="prev">‹</a>
+<a class="next">›</a>
+<a class="close">×</a>
+<a class="play-pause"></a>
+<ol class="indicator"></ol>-->
+                </div>
+
+                <!--////////// TOUCHNEWS //////////-->
+                <div ng-if="userfeed.length == 0 && !isFeedLoading && feedType == 'myposts'" class="m-t-3xl text-center text-muted">
+                    <i class="fa fa-moon-o fa-2x"></i>
+                    <span class="clear text-md m-t">No posts available.</span>
+                </div>
+                <!--////////// NO inTouch message //////////-->
+
+                <!--////////// TOUCHFEED //////////-->
+                <div ng-if="userfeed.length == 0 && !isFeedLoading && feedType == 'touchfeed'" class="m-t-3xl text-center text-muted">
+                    <i class="fa fa-moon-o fa-2x"></i>
+                    <span class="clear text-md m-t">No TouchFeed available.</span>
+                </div>
+                <!--////////// NO TOUCHFEED message //////////-->
+
+                <!--<div ng-if="isFeedLoading" class="text-dark text-center m-b"><i class="fa fa-spinner fa-spin"></i></div>-->
+                <div infinite-scroll="isLoadableFeed && !isFeedLoading ? loadMoreUpdates() : ''" infinite-scroll-distance="3">
+                    <div class="panel panel-default r-2x" data-ng-repeat="(key, feed) in userfeed" in-view="$inview && $inviewpart == 'both' && feed.type == 5 && user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id,'impression') : ''" data-ng-controller="DeleteUserPostModalCtrl">
+                        <!-- POST HEADER -->
+                        <div class="wrapper" ng-if="feed.type != 4">
+                            <!-- TYPE 1/2/3/6 -->
+                            <div ng-if="feed.type == 1 || feed.type == 2 || feed.type == 3 || feed.type == 6 || feed.type == 7">
+                                <div class="pull-left m-r clear">
+                                    <a class="thumb-sm avatar" ui-sref="app.page.public({username: feed.username})">
+                                        <img ng-show="feed.userAvatar" src="{{app.baseUrl}}{{feed.userAvatar}}">
+                                        <img ng-hide="feed.userAvatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}">
+                                    </a>
+                                </div>
+                                <span class="clear text-md">
+                                    <a ui-sref="app.page.public({username: feed.username})" class="font-bold btn-link text-C hover-underline">{{feed.userFullName}}</a>
+                                    {{ 'feed.' + feed.action | translate }}
+                                    <a ng-if="feed.type == 3" ui-sref="app.page.public({username: feed.inTouchUsername})" class="font-bold btn-link hover-underline">{{feed.inTouchFullName}}</a>
+                                    <a ng-if="feed.type == 6" ui-sref="app.page.public/event({ eventname: feed.eventUsername })" class="font-bold btn-link hover-underline">{{feed.eventFullName}}</a>
+                                    <a ng-if="feed.type == 2" ui-sref="app.page.company/public({companyusername: feed.companyUsername})" class="font-bold btn-link hover-underline">{{feed.companyFullName}}</a>
+                                </span>
+                                <span class="text-muted text-sm clear">{{feed.date * 1000| fromNow }}</span>
+                            </div>
+
+                            <!-- TYPE 5 (COMPANY POST) -->
+                            <div ng-if="feed.type == 5" class="clearfix">
+                                <div class="pull-right">
+                                    <div class="btn-group" id="CompanyFollowButton">
+                                        <button type="button" class="btn btn-sm btn-blue-lt no-shadow font-bold" rel="nofollow" ng-if="(user.following | filter:feed.companyUsername).length <= 0 || !user.following" ng-click="follow(feed.companyUsername); user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'interaction') : ''">Follow</button>
+                                        <button type="button" class="btn btn-sm btn-blue-lt-bordered no-shadow font-bold" rel="nofollow" ng-if="(user.following | filter:feed.companyUsername).length > 0 && windowWidth >= 767" ng-click="unfollow(feed.companyUsername)" ng-class="{'btn-blue-lt':!follow, 'btn-blue-lt-bordered':follow}" ng-init="followText = 'Following'" ng-mouseenter="follow = false; followText = 'Unfollow';" ng-mouseleave="follow = true; followText = 'Following';">
+                                            <span>{{followText}}</span>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-default no-shadow font-bold" rel="nofollow" ng-if="(user.following | filter:feed.companyUsername).length > 0 && windowWidth < 767" ng-click="unfollow(feed.companyUsername)">
+                                            <span>Unfollow</span>
+                                        </button>
+                                        <!--<button type="button" class="btn btn-sm btn-default no-shadow font-bold" rel="nofollow" ng-init="alreadyFollowing=((user.following | filter:feed.companyUsername).length || 0 )">{{ (feed.companyFollowers || 0) + ( alreadyFollowing==1&&((user.following | filter:feed.companyUsername).length || 0 )==0?(currentFollowing[feed.companyUsername] || 0):0 ) + ( alreadyFollowing==0&&((user.following | filter:feed.companyUsername).length || 0 )==1?(currentFollowing[feed.companyUsername] || 0):0 ) }}</button>-->
+                                    </div>
+                                </div>
+                                <div class="pull-left m-r clear">
+                                    <a class="thumb-sm avatar" ui-sref="app.page.company/public({companyusername: feed.companyUsername})" ng-click="user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'click') : ''">
+                                        <img ng-show="feed.companyAvatar" src="{{app.baseUrl}}{{feed.companyAvatar}}" alt="{{company.name}}">
+                                        <img ng-hide="feed.companyAvatar" src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" alt="{{company.name}}">
+                                    </a>
+                                </div>
+                                <span class="clear text-md">
+                                    <a ui-sref="app.page.company/public({companyusername: feed.companyUsername})" class="font-bold btn-link text-C hover-underline" ng-click="user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'click') : ''">{{feed.companyFullName}}</a>
+                                </span>
+                                <span class="text-muted text-sm clear">{{feed.date * 1000| fromNow }}</span>
+                            </div>
+                        </div>
+                        <!--/ POST HEADER -->
+
+                        <!-- Updated Profile -->
+                        <div ng-if="feed.type == 1"></div>
+                        <!--/ Updated Profile -->
+
+                        <!-- Follow a company -->
+                        <div class="panel-body" ng-if="feed.type == 2">
+                            <div class="clear">
+                                <div class="pull-left m-r">
+                                    <a class="thumb-lg b-a" ui-sref="app.page.company/public({companyusername: feed.companyUsername})">
+                                        <img ng-show="feed.companyAvatar" src="{{app.baseUrl}}{{feed.companyAvatar}}">
+                                        <img ng-hide="feed.companyAvatar" src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}">
+                                    </a>
+                                </div>
+                                <a ui-sref="app.page.company/public({companyusername: feed.companyUsername})" class="font-bold btn-link text-C hover-underline text-lg clear">{{feed.companyFullName}}</a>
+                                <div>
+                                    <p class="text-sm" ng-if="feed.companyType">{{ feed.companyType | translate }}</p>
+                                </div>
+                                <div class="btn-group" id="CompanyFollowButton">
+                                    <button type="button" class="btn btn-sm btn-blue-lt no-shadow font-bold" rel="nofollow" ng-if="(user.following | filter:feed.companyUsername).length <= 0 || !user.following" ng-click="follow(feed.companyUsername)">Follow</button>
+                                    <button type="button" class="btn btn-sm no-shadow font-bold" rel="nofollow" ng-if="(user.following | filter:feed.companyUsername).length > 0 && windowWidth >= 767" ng-class="{'btn-blue-lt':!follow, 'btn-blue-lt-bordered':follow}" ng-init="followText = 'Following'" ng-mouseenter="follow = false; followText = 'Unfollow';" ng-mouseleave="follow = true; followText = 'Following';" ng-click="unfollow(feed.companyUsername)">
+                                        <span>{{followText}}</span>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-default no-shadow font-bold" rel="nofollow" ng-if="(user.following | filter:feed.companyUsername).length > 0 && windowWidth < 767" ng-click="unfollow(feed.companyUsername)">
+                                        <span>Unfollow</span>
+                                    </button>
+                                    <!--<button type="button" class="btn btn-sm btn-default no-shadow font-bold" rel="nofollow" ng-init="alreadyFollowing=((user.following | filter:feed.companyUsername).length || 0 )">{{ (feed.companyFollowers || 0) + ( alreadyFollowing==1&&((user.following | filter:feed.companyUsername).length || 0 )==0?(currentFollowing[feed.companyUsername] || 0):0 ) + ( alreadyFollowing==0&&((user.following | filter:feed.companyUsername).length || 0 )==1?(currentFollowing[feed.companyUsername] || 0):0 ) }}</button>-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ Follow a company -->
+
+                        <!-- inTouch with -->
+                        <div class="panel-body" ng-if="feed.type == 3">
+                            <div class="list-group list-group-lg list-group-sp m-n">
+                                <a class="list-group-item clearfix" ui-sref="app.page.public({username: feed.inTouchUsername})">
+                                    <span class="pull-left thumb avatar m-r">
+                                        <img ng-show="feed.inTouchAvatar" src="{{app.baseUrl}}{{feed.inTouchAvatar}}" alt="{{feed.inTouchFullName}}">
+                                        <img ng-hide="feed.inTouchAvatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" alt="{{feed.inTouchFullName}}">
+                                    </span>
+                                    <span class="clear">
+                                        <h5 class="font-bold text-ellipsis h5 clear">{{feed.inTouchFullName}}</h5>
+                                        <small class="clear text-ellipsis">{{feed.inTouchJobTitle}}</small>
+                                        <small class="text-muted clear text-ellipsis">{{feed.inTouchCompany}}</small>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                        <!--/ inTouch with -->
+
+                        <!-- Liked a news -->
+                        <div class="panel-body no-padder" ng-if="feed.type == 4">
+                            <div class="item" ng-init="isLast = $last">
+                                <div class="bottom wrapper w-full">
+                                    <span class="bg-black dker wrapper-xs padder-sm inline" ng-if="windowWidth >= 767">
+                                        <a ng-if="feed.newsTitle" class="text-block h3" rel="nofollow" href="{{feed.newsURL}}" target="_blank" ng-click="trackNews(feed.newsTitle, feed.newsTitle, feed.newsSource)" ng-bind-html="feed.newsTitle | nl2br"></a>
+                                    </span>
+                                    <div class="text-xs m-t-xs">
+                                        <span class="thumb-xxxs m-r-xxs" uib-tooltip="{{sourceIDs[feed.sourceID]|| feed.newsSource  || '' }}">
+                                            <img src="{{app.baseUrl}}/img/touchnews-icon/{{sourceIDs[feed.sourceID]|| 'Default' }}-icon-touchnews.jpg">
+                                        </span>
+                                        <span class="bg-black dk wrapper-xs padder-sm inline v-middle">{{feed.newsDate * 1000| fromNow }}</span>
+                                        <span class="bg-black dk wrapper-xs padder-sm inline v-middle">TouchNews</span>
+                                    </div>
+                                </div>
+                                <a href="{{feed.newsURL}}" rel="nofollow" target="_blank" ng-click="trackNews('image', feed.newsTitle, feed.newsSource)">
+                                    <div ng-if="feed.newsImage" class="img-touchnews" style="display:block; background-image:url({{app.baseUrl}}/{{feed.newsImage}}); border:none; border-radius:0;"></div>
+
+                                    <div ng-if="!feed.newsImage" class="img-touchnews"><i class="glyphicon glyphicon-picture img-news-no"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!--/ Liked a news -->
+
+                        <!-- company post -->
+                        <div ng-if="feed.type == 5 || feed.type == 7">
+                            <!-- TEXT+IMG -->
+                            <div ng-if="feed.postText" class="padder post-text">
+                                <p class="text-block" ng-bind-html="feed.postText | linky:'_blank' | nl2br" ng-click="user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'click') : ''"></p>
+                            </div>
+
+                            <div ng-if="feed.postImage" class="panel-body">
+                                <a ng-if="windowWidth >= 767" href="{{app.baseUrl}}{{feed.postImageOriginal}}" ng-click="feed.type == 5 && user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'click') : ''">
+                                    <img ng-src="{{app.baseUrl}}{{feed.postImage}}" class="w-full lightbox">
+                                </a>
+                                <a ng-if="windowWidth < 767" href="{{app.baseUrl}}{{feed.postImage}}" ng-click="feed.type == 5 && user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'click') : ''">
+                                    <img ng-src="{{app.baseUrl}}{{feed.postImage}}" class="w-full lightbox">
+                                </a>
+                            </div>
+
+                            <!-- LINK VIDEO -->
+                            <div ng-if="feed.postYoutube" class="panel-body">
+                                <iframe width="100%" height="280" ng-src="{{ feed.postYoutube | youtubeEmbedUrl }}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <div ng-if="feed.postVimeo" class="panel-body">
+                                <iframe width="100%" height="280" ng-src="{{ feed.postVimeo | vimeoEmbedUrl }}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <!--/ LINK VIDEO -->
+
+                            <!-- LINK -->
+                            <div class="panel-body no-padder" ng-if="feed.newsURL">
+                                <div class="item" ng-init="isLast = $last" style="padding-top: 15px;">
+                                    <div class="bottom wrapper w-full">
+                                        <span class="bg-black dker wrapper-xs padder-sm inline" ng-if="windowWidth >= 767">
+                                            <a ng-if="feed.newsTitle" class="text-block h3" rel="nofollow" href="{{feed.newsURL}}" target="_blank" ng-click="trackNews(feed.newsTitle, feed.newsTitle, feed.newsSource); feed.type == 5 && user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'click') : ''" ng-bind-html="feed.newsTitle | nl2br"></a>
+                                        </span>
+                                        <div class="text-xs m-t-xs">
+                                            <span class="bg-black dk wrapper-xs padder-sm inline">{{feed.newsDate * 1000| fromNow }}</span>
+                                            <span class="bg-black dk wrapper-xs padder-sm inline">
+                                                <i ng-click="trackNews(feed.newsSource, feed.newsTitle, feed.newsSource); feed.type == 5 && user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'click') : ''">{{feed.newsSource}}</i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <a href="{{feed.newsURL}}" rel="nofollow" target="_blank" ng-click="trackNews('image', feed.newsTitle, feed.newsSource); feed.type == 5 && user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'click') : ''">
+                                        <div ng-if="feed.newsImage" class="img-touchnews" style="display:block; background-image:url({{app.baseUrl}}/{{feed.newsImage}}); border:none; border-radius:0;"></div>
+                                        <div ng-if="!feed.newsImage" class="img-touchnews"><i class="glyphicon glyphicon-picture img-news-no"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--/ LINK -->
+                            <!-- User Profile Share -->
+                            <div class="panel-body" ng-if="feed.sharedUsername">
+                                <div class="list-group list-group-lg list-group-sp m-n">
+                                    <a class="list-group-item clearfix" ui-sref="app.page.public({username: feed.sharedUsername})" ng-click="feed.type == 5 && user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'click') : ''">
+                                        <span class="pull-left thumb avatar m-r">
+                                            <img ng-show="feed.sharedUserAvatar" src="{{app.baseUrl}}{{feed.sharedUserAvatar}}" alt="{{feed.sharedUserFullName}}">
+                                            <img ng-hide="feed.sharedUserAvatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" alt="{{feed.sharedUserFullName}}">
+                                        </span>
+                                        <span class="clear">
+                                            <h5 class="font-bold text-ellipsis h5 clear">{{feed.sharedUserFullName}}</h5>
+                                            <small class="clear text-ellipsis">{{feed.sharedUserJobTitle}}</small>
+                                            <small class="text-muted clear text-ellipsis">{{feed.sharedUserCompany}}</small>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--/ User Profile Share -->
+                            <!-- Company Page Share -->
+                            <div class="panel-body" ng-if="feed.sharedCompanyUsername">
+                                <div class="clear">
+                                    <div class="pull-left m-r">
+                                        <a class="thumb-lg b-a" ui-sref="app.page.company/public({companyusername: feed.sharedCompanyUsername})" ng-click="feed.type == 5 && user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'click') : ''">
+                                            <img ng-show="feed.sharedCompanyAvatar" src="{{app.baseUrl}}{{feed.sharedCompanyAvatar}}">
+                                            <img ng-hide="feed.sharedCompanyAvatar" src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}">
+                                        </a>
+                                    </div>
+                                    <a ui-sref="app.page.company/public({companyusername: feed.sharedCompanyUsername})" class="font-bold text-C text-lg clear" ng-click="feed.type == 5 && user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'click') : ''">{{feed.sharedCompanyName}}</a>
+                                    <div>
+                                        <p class="text-sm" ng-if="feed.sharedCompanyType">{{ feed.sharedCompanyType | translate }}</p>
+                                    </div>
+                                    <div class="btn-group" id="CompanyFollowButton">
+                                        <button type="button" class="btn btn-sm btn-primary no-shadow font-bold" rel="nofollow" ng-if="(user.following | filter:feed.sharedCompanyUsername).length <= 0 || !user.following" ng-click="follow(feed.sharedCompanyUsername); feed.type == 5 && user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'interaction') : ''">Follow</button>
+                                        <button type="button" class="btn btn-sm btn-default no-shadow font-bold" rel="nofollow" ng-if="(user.following | filter:feed.sharedCompanyUsername).length > 0" ng-class="{'btn-blue-lt':!follow, 'btn-blue-lt-bordered':follow}" ng-init="followText = 'Following'" ng-mouseenter="follow = false; followText = 'Unfollow';" ng-mouseleave="follow = true; followText = 'Following';" ng-click="unfollow(feed.sharedCompanyUsername)">
+                                            <span>{{followText}}</span>
+                                        </button>
+                                        <!--<button type="button" class="btn btn-sm btn-default no-shadow font-bold" rel="nofollow" ng-init="alreadyFollowing=((user.following | filter:feed.sharedCompanyUsername).length || 0 )">{{ (feed.sharedCompanyFollowers|| 0) + ( alreadyFollowing==1&&((user.following | filter:feed.sharedCompanyUsername).length || 0 )==0?(currentFollowing[feed.sharedCompanyUsername] || 0):0 ) + ( alreadyFollowing==0&&((user.following | filter:feed.sharedCompanyUsername).length || 0 )==1?(currentFollowing[feed.sharedCompanyUsername] || 0):0 ) }}</button>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ Company Page Share -->
+                        </div>
+                        <!--/ company post -->
+
+                        <!-- Event -->
+                        <div class="panel-body" ng-if="feed.type == 6">
+                            <div class="panel panel-default m-n" ng-init="isLast = $last">
+                                <div class="panel-header bg-light no-padder">
+                                    <a href="{{feed.eventLink}}" rel="nofollow" target="_blank" ng-click="trackNews('image', feed.eventFullName, feed.newsSource)">
+                                        <div ng-if="feed.eventImg" class="img-news" style="display: block;background-image:url({{app.baseUrl}}{{feed.eventImg}})"></div>
+                                        <div ng-if="!feed.eventImg" class="img-news" style="display: block;"><i class="glyphicon glyphicon-picture text-light-lt text-xl img-news-no"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="text-muted text-sm m-n">{{feed.eventCity}}</p>
+                                    <a rel="nofollow" href="{{feed.eventLink}}" target="_blank" ng-click="trackNews(feed.eventFullName, feed.eventFullName, feed.newsSource)">
+                                        <span class="text-lg">{{feed.eventFullName}}</span>
+                                    </a>
+                                    <p class="text-muted text-md">{{feed.eventDate}}</p>
+                                </div>
+                                <div class="panel-footer bg-success">
+                                    <div class="text-center">
+                                        <a href="{{feed.eventLinkRegister}}" target="_blank" class="font-bold">Register now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ Event -->
+
+                        <!--////////// POST FOOTER //////////-->
+                        <div ng-if="feed.type == 4 || feed.type == 5 || feed.type == 6 || feed.type == 7">
+                            <div class="panel-footer bg-light lt">
+                                <!--////////// WAS LIKED BY //////////-->
+                                <div ng-if="feed.liked.length > 0" class="pull-right">
+                                    <span ng-if="feed.liked.length < 3">
+                                        <span class="text-xs text-muted"><i class="icon-like m-r-xs"></i> {{ 'feed.liked' | translate}}
+                                            <span data-ng-repeat="liked in feed.liked| reverse">
+                                                <a ng-if="user.username == liked.username" class="text-muted text-C" uib-tooltip="You" ui-sref="app.page.public({username: liked.username})">You</a>{{$last ? '' : ' and '}}
+                                                <a ng-if="user.username != liked.username" class="text-muted text-C" uib-tooltip="{{liked.name| capitalize }} {{liked.lastname| capitalize }}" ui-sref="app.page.public({username: liked.username})">{{liked.name}} {{liked.lastname}}</a>{{$last ? '' : ' and '}}
+                                            </span>
+                                        </span>
+                                    </span>
+                                    <span ng-if="feed.liked.length >= 3">
+                                        <span class="text-xs text-muted"><i class="icon-like m-r-xs"></i> {{ 'feed.liked' | translate}}
+                                            <span data-ng-repeat="liked in feed.liked| reverse | limitTo:1" ng-init="currentTooltip = getTooltip(feed.liked, liked.username)">
+                                                <a ng-if="user.username == liked.username" class="text-muted text-C" uib-tooltip="You" ui-sref="app.page.public({username: liked.username})">You</a>
+                                                <a ng-if="user.username != liked.username" class="text-muted text-C" uib-tooltip="{{liked.name| capitalize }} {{liked.lastname| capitalize }}" ui-sref="app.page.public({username: liked.username})">{{liked.name}} {{liked.lastname}}</a>
+                                                and <a class="text-muted" uib-tooltip="{{currentTooltip}}" data-ng-click="showUsersList('liked', feed.liked)">{{ (feed.liked.length) - 1}} other people</a>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <!--////////// WAS LIKED BY //////////-->
+                                <!--////////// WAS COMMENTED BY //////////-->
+                                <div ng-if="feed.comments.length > 0 && feed.liked.length <= 0" class="pull-right">
+                                    <span ng-if="(feed.comments | unique: 'userID').length<3">
+                                        <span class="text-xs text-muted"><i class="icon-bubbles m-r-xs"></i> {{ 'feed.commented' | translate}}
+                                            <span data-ng-repeat="commented in (feed.comments| unique: 'userID') | reverse ">
+                                                <a ng-if="user.username == commented.username" class="text-muted text-C" uib-tooltip="You" ui-sref="app.page.public({username: commented.username})">You</a>{{$last ? '' : ' and '}}
+                                                <a ng-if="user.username != commented.username" class="text-muted text-C" uib-tooltip="{{commented.name| capitalize }} {{commented.lastname| capitalize }}" ui-sref="app.page.public({username: commented.username})">{{commented.name}} {{commented.lastname}}</a>{{$last ? '' : ' and '}}
+                                            </span>
+                                        </span>
+                                    </span>
+                                    <span ng-if="(feed.comments | unique: 'userID').length>=3">
+                                        <span class="text-xs text-muted"><i class="icon-bubbles m-r-xs"></i> {{ 'feed.commented' | translate}}
+                                            <span data-ng-repeat="commented in (feed.comments| unique: 'userID') | reverse | limitTo:1" ng-init="currentTooltip=getTooltip((feed.comments | unique: 'userID'), commented.username)">
+                                                <a ng-if="user.username == commented.username" class="text-muted text-C" uib-tooltip="You" ui-sref="app.page.public({username: commented.username})">You</a>
+                                                <a ng-if="user.username != commented.username" class="text-muted text-C" uib-tooltip="{{commented.name| capitalize }} {{commented.lastname| capitalize }}" ui-sref="app.page.public({username: commented.username})">{{commented.name}} {{commented.lastname}}</a>
+                                                and <a class="text-muted" uib-tooltip="{{currentTooltip}}" data-ng-click="showUsersList('commented', (feed.comments | unique: 'userID'))">{{ ((feed.comments | unique: 'userID').length) - 1}} other people</a>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <!--////////// WAS COMMENTED BY //////////-->
+                                <a ng-if="(feed.liked | filter:user.username).length <= 0 || !feed.liked" class="text-muted hover-text-blue-lt text-xs" data-ng-click="like(feed)" uib-tooltip="Like">
+                                    <i class="icon-like"></i> {{feed.liked.length|| '' }} &nbsp;&nbsp;Like
+                                </a>
+                                <a ng-if="(feed.liked | filter:user.username).length > 0" class="text-blue-lt text-xs" data-ng-click="unlike(feed)" uib-tooltip="Unlike">
+                                    <i class="icon-like"></i> {{feed.liked.length|| '' }} &nbsp;&nbsp;Unlike
+                                </a>
+                                <span class="text-light-dker m-r-xs m-l-xs">•</span>
+                                <span>
+                                    <a class="text-xs btn-link" data-ng-class="{'text-blue-lt': ((feed.comments | filter:user.username).length > 0) || !isCollapsed,'text-muted':isCollapsed}" ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed; openCommentsBox(key)"  uib-tooltip="{{ (feed.comments.length || 0) == 0?'No comments':isCollapsed?'Show comments':'Hide comments'}}"><i class="icon-bubbles"></i> {{feed.comments.length|| '' }} &nbsp;&nbsp;Comment</a>
+                                </span>
+                                <span ng-if="(feed.type != 4 && feed.type != 6) && feed.username == user.username"  class="text-light-dker m-r-xs m-l-xs">•</span>
+                                <span ng-if="(feed.type != 4 && feed.type != 6) && feed.username == user.username" class="text-xs btn-link text-muted" uib-tooltip="Delete post">
+                                    <a class="text-muted" class="text-muted" ng-click="open('sm', feed)"><i class="icon-close"></i></a>
+                                </span>
+                            </div>
+
+                            <!-- COMMENTS -->
+                            <div id="{{key}}-feed" data-ng-show="!isCollapsed && feed.comments.length > 0" class="scrollable bg-white lt b-t" style="padding-bottom: 0 !important; max-height: 300px;">
+                                <ul data-ng-repeat="(index, comment) in feed.comments" class="list-group list-group-lg no-bg no-borders m-n auto">
+                                    <li class="list-group-item clearfix">
+                                        <a ui-sref="app.page.public({username: comment.username})" class="pull-left thumb-sm avatar m-r" ng-click="feed.type == 5 && user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'click') : ''">
+                                            <img ng-show="comment.avatar" src="{{app.baseUrl}}{{comment.avatar}}" alt="{{comment.name| capitalize }} {{comment.lastname| capitalize }}">
+                                            <img ng-hide="comment.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" alt="{{comment.name| capitalize }} {{comment.lastname| capitalize }}">
+                                        </a>
+                                        <span class="clear">
+                                            <a ui-sref="app.page.public({username: comment.username})" class="font-bold" ng-click="feed.type == 5 && user.companyPage.administrator.company != feed.companyUsername ? storestastics(feed._id.$id, 'click') : ''">{{comment.name| capitalize }} {{comment.lastname| capitalize }}</a>
+                                            <small class="m-l-xs text-block">{{comment.text}}</small>
+                                            <small class="text-muted clear">{{ comment.date * 1000 | fromNow}}</small>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <footer class="panel-footer bg-light lt">
+                                <div>
+                                    <span class="pull-left thumb-xs avatar">
+                                        <img ng-show="user.avatar" src="{{app.baseUrl}}{{user.avatar}}" class="img-circle" alt="{{user.name}}">
+                                        <img ng-hide="user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" class="img-circle" alt="{{user.name}}">
+                                    </span>
+                                    <form name="commentForm{{index}}" data-ng-submit="addComment(feed, key)" class="m-b-none m-l-xl">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control no-bg no-border" data-ng-model="feed.newcomment" placeholder="Write a comment..." min="1" ng-minlength="1" pattern=".{1,}" required ng-focus="isCollapsed = false">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-blue-lt btn-sm no-shadow" type="submit" data-ng-disabled="commentForm{{index}}.$invalid">Post</button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </footer>
+                            <!--/ COMMENTS -->
+
+                        </div>
+
+                        <!--////////// POST FOOTER //////////-->
+
+                    </div>
+                </div>
+
+                <div data-ng-include="'tpl/loader/feed.html?v=' + app.lastUpdate" ng-if="isLoadableFeed && isFeedLoading"></div>
+
+            </div>
+        </div>
+
+        <div class="col-xs-12 visible-xs visible-sm">
+            <!-- LAST PROFILE VISITED -->
+            <div ng-if="user.username" data-ng-include=" 'tpl/widgets/last_profiles_visited.html?v=' + app.latestUpdate"></div><!--/ LAST PROFILE VISITED -->
+
+            <!-- WHO VISITED PROFILE -->
+            <div ng-if="user.username" data-ng-include=" 'tpl/widgets/who_visited_profile.html?v=' + app.latestUpdate"></div><!--/ WHO VISITED PROFILE -->
+
+            <!-- SOCIAL -->
+            <div class="m-b" data-ng-include=" 'tpl/widgets/social.html?v=' + app.latestUpdate"></div>
+            <!--/ SOCIAL -->
+
+            <!-- FOOTER -->
+            <div data-ng-include=" 'tpl/widgets/footer.html?v=' + app.latestUpdate"></div>
+            <!--/ FOOTER -->
+
+            <div class="clear clearfix"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.getElementById('lightbox').onclick = function (event) {
+
+    event = event || window.event;
+    var target = event.target || event.srcElement,
+            link = target.src ? target.parentNode : target,
+            options = {
+            index: link,
+                    event: event
+            },
+            links = this.getElementsByTagName('a');
+    var serializer = new XMLSerializer();
+    var lightbox = serializer.serializeToString(target);
+    if (lightbox && lightbox.indexOf("img") > 0 && lightbox.indexOf("lightbox") > 0) blueimp.Gallery(links, options);
+    };</script>

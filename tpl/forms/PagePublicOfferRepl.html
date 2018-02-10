@@ -1,0 +1,737 @@
+<div class="header-full">
+    <div class="container">
+        <div class="row m-b-xxl m-t-xxl">
+            <div class="col-xs-12 text-center">
+                <img src="{{app.baseUrl}}/img/offerswall-icon.svg" class="thumb-3xl">
+                <div class="clear inline v-middle text-right text-center-xs">
+                    <h1 class="h1 font-thin offers-title"><span style="color:#bf0020;">Stack</span><span style="color:#ea2928;">Offers</span></h1>
+                    <span class="text-base text-muted">The most effective way to buy and sell mobile traffic</span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="user.username">
+
+            <div class="row m-b">
+                <div class="col-xs-12 text-muted text-u-c text-xs clear">Filters:</div>
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <select ui-jq="chosen" multiple class="form-control no-bg" ng-model="offersFilters.country" data-placeholder="Traffic Countries"  ng-change="filterOffers()">
+                            <option value="AF">Afghanistan</option>
+                            <option value="AL">Albania</option>
+                            <option value="DZ">Algeria</option>
+                            <option value="AS">American Samoa</option>
+                            <option value="AD">Andorra</option>
+                            <option value="AO">Angola</option>
+                            <option value="AI">Anguilla</option>
+                            <option value="AG">Antigua &amp; Barbuda</option>
+                            <option value="AR">Argentina</option>
+                            <option value="AA">Armenia</option>
+                            <option value="AW">Aruba</option>
+                            <option value="AU">Australia</option>
+                            <option value="AT">Austria</option>
+                            <option value="AZ">Azerbaijan</option>
+                            <option value="BS">Bahamas</option>
+                            <option value="BH">Bahrain</option>
+                            <option value="BD">Bangladesh</option>
+                            <option value="BB">Barbados</option>
+                            <option value="BY">Belarus</option>
+                            <option value="BE">Belgium</option>
+                            <option value="BZ">Belize</option>
+                            <option value="BJ">Benin</option>
+                            <option value="BM">Bermuda</option>
+                            <option value="BT">Bhutan</option>
+                            <option value="BO">Bolivia</option>
+                            <option value="BL">Bonaire</option>
+                            <option value="BA">Bosnia &amp; Herzegovina</option>
+                            <option value="BW">Botswana</option>
+                            <option value="BR">Brazil</option>
+                            <option value="BC">British Indian Ocean Ter</option>
+                            <option value="BN">Brunei</option>
+                            <option value="BG">Bulgaria</option>
+                            <option value="BF">Burkina Faso</option>
+                            <option value="BI">Burundi</option>
+                            <option value="KH">Cambodia</option>
+                            <option value="CM">Cameroon</option>
+                            <option value="CA">Canada</option>
+                            <option value="IC">Canary Islands</option>
+                            <option value="CV">Cape Verde</option>
+                            <option value="KY">Cayman Islands</option>
+                            <option value="CF">Central African Republic</option>
+                            <option value="TD">Chad</option>
+                            <option value="CD">Channel Islands</option>
+                            <option value="CL">Chile</option>
+                            <option value="CN">China</option>
+                            <option value="CX">Christmas Island</option>
+                            <option value="CS">Cocos Island</option>
+                            <option value="CO">Colombia</option>
+                            <option value="CC">Comoros</option>
+                            <option value="CG">Congo</option>
+                            <option value="CK">Cook Islands</option>
+                            <option value="CR">Costa Rica</option>
+                            <option value="CI">Cote D'Ivoire</option>
+                            <option value="HR">Croatia</option>
+                            <option value="CU">Cuba</option>
+                            <option value="CB">Curacao</option>
+                            <option value="CY">Cyprus</option>
+                            <option value="CZ">Czech Republic</option>
+                            <option value="DK">Denmark</option>
+                            <option value="DJ">Djibouti</option>
+                            <option value="DM">Dominica</option>
+                            <option value="DO">Dominican Republic</option>
+                            <option value="TM">East Timor</option>
+                            <option value="EC">Ecuador</option>
+                            <option value="EG">Egypt</option>
+                            <option value="SV">El Salvador</option>
+                            <option value="GQ">Equatorial Guinea</option>
+                            <option value="ER">Eritrea</option>
+                            <option value="EE">Estonia</option>
+                            <option value="ET">Ethiopia</option>
+                            <option value="FA">Falkland Islands</option>
+                            <option value="FO">Faroe Islands</option>
+                            <option value="FJ">Fiji</option>
+                            <option value="FI">Finland</option>
+                            <option value="FR">France</option>
+                            <option value="GF">French Guiana</option>
+                            <option value="PF">French Polynesia</option>
+                            <option value="FS">French Southern Ter</option>
+                            <option value="GA">Gabon</option>
+                            <option value="GM">Gambia</option>
+                            <option value="GE">Georgia</option>
+                            <option value="DE">Germany</option>
+                            <option value="GH">Ghana</option>
+                            <option value="GI">Gibraltar</option>
+                            <option value="GR">Greece</option>
+                            <option value="GL">Greenland</option>
+                            <option value="GD">Grenada</option>
+                            <option value="GP">Guadeloupe</option>
+                            <option value="GU">Guam</option>
+                            <option value="GT">Guatemala</option>
+                            <option value="GN">Guinea</option>
+                            <option value="GY">Guyana</option>
+                            <option value="HT">Haiti</option>
+                            <option value="HW">Hawaii</option>
+                            <option value="HN">Honduras</option>
+                            <option value="HK">Hong Kong</option>
+                            <option value="HU">Hungary</option>
+                            <option value="IS">Iceland</option>
+                            <option value="IN">India</option>
+                            <option value="ID">Indonesia</option>
+                            <option value="IA">Iran</option>
+                            <option value="IQ">Iraq</option>
+                            <option value="IR">Ireland</option>
+                            <option value="IM">Isle of Man</option>
+                            <option value="IL">Israel</option>
+                            <option value="IT">Italy</option>
+                            <option value="JM">Jamaica</option>
+                            <option value="JP">Japan</option>
+                            <option value="JO">Jordan</option>
+                            <option value="KZ">Kazakhstan</option>
+                            <option value="KE">Kenya</option>
+                            <option value="KI">Kiribati</option>
+                            <option value="NK">Korea North</option>
+                            <option value="KS">Korea South</option>
+                            <option value="KW">Kuwait</option>
+                            <option value="KG">Kyrgyzstan</option>
+                            <option value="LA">Laos</option>
+                            <option value="LV">Latvia</option>
+                            <option value="LB">Lebanon</option>
+                            <option value="LS">Lesotho</option>
+                            <option value="LR">Liberia</option>
+                            <option value="LY">Libya</option>
+                            <option value="LI">Liechtenstein</option>
+                            <option value="LT">Lithuania</option>
+                            <option value="LU">Luxembourg</option>
+                            <option value="MO">Macau</option>
+                            <option value="MK">Macedonia</option>
+                            <option value="MG">Madagascar</option>
+                            <option value="MY">Malaysia</option>
+                            <option value="MW">Malawi</option>
+                            <option value="MV">Maldives</option>
+                            <option value="ML">Mali</option>
+                            <option value="MT">Malta</option>
+                            <option value="MH">Marshall Islands</option>
+                            <option value="MQ">Martinique</option>
+                            <option value="MR">Mauritania</option>
+                            <option value="MU">Mauritius</option>
+                            <option value="ME">Mayotte</option>
+                            <option value="MX">Mexico</option>
+                            <option value="MI">Midway Islands</option>
+                            <option value="MD">Moldova</option>
+                            <option value="MC">Monaco</option>
+                            <option value="MN">Mongolia</option>
+                            <option value="MS">Montserrat</option>
+                            <option value="MA">Morocco</option>
+                            <option value="MZ">Mozambique</option>
+                            <option value="MM">Myanmar</option>
+                            <option value="NA">Nambia</option>
+                            <option value="NU">Nauru</option>
+                            <option value="NP">Nepal</option>
+                            <option value="AN">Netherland Antilles</option>
+                            <option value="NL">Netherlands (Holland, Europe)</option>
+                            <option value="NV">Nevis</option>
+                            <option value="NC">New Caledonia</option>
+                            <option value="NZ">New Zealand</option>
+                            <option value="NI">Nicaragua</option>
+                            <option value="NE">Niger</option>
+                            <option value="NG">Nigeria</option>
+                            <option value="NW">Niue</option>
+                            <option value="NF">Norfolk Island</option>
+                            <option value="NO">Norway</option>
+                            <option value="OM">Oman</option>
+                            <option value="PK">Pakistan</option>
+                            <option value="PW">Palau Island</option>
+                            <option value="PS">Palestine</option>
+                            <option value="PA">Panama</option>
+                            <option value="PG">Papua New Guinea</option>
+                            <option value="PY">Paraguay</option>
+                            <option value="PE">Peru</option>
+                            <option value="PH">Philippines</option>
+                            <option value="PO">Pitcairn Island</option>
+                            <option value="PL">Poland</option>
+                            <option value="PT">Portugal</option>
+                            <option value="PR">Puerto Rico</option>
+                            <option value="QA">Qatar</option>
+                            <option value="ME">Republic of Montenegro</option>
+                            <option value="RS">Republic of Serbia</option>
+                            <option value="RE">Reunion</option>
+                            <option value="RO">Romania</option>
+                            <option value="RU">Russia</option>
+                            <option value="RW">Rwanda</option>
+                            <option value="NT">St Barthelemy</option>
+                            <option value="EU">St Eustatius</option>
+                            <option value="HE">St Helena</option>
+                            <option value="KN">St Kitts-Nevis</option>
+                            <option value="LC">St Lucia</option>
+                            <option value="MB">St Maarten</option>
+                            <option value="PM">St Pierre &amp; Miquelon</option>
+                            <option value="VC">St Vincent &amp; Grenadines</option>
+                            <option value="SP">Saipan</option>
+                            <option value="SO">Samoa</option>
+                            <option value="SM">San Marino</option>
+                            <option value="ST">Sao Tome &amp; Principe</option>
+                            <option value="SA">Saudi Arabia</option>
+                            <option value="SN">Senegal</option>
+                            <option value="RS">Serbia</option>
+                            <option value="SC">Seychelles</option>
+                            <option value="SL">Sierra Leone</option>
+                            <option value="SG">Singapore</option>
+                            <option value="SK">Slovakia</option>
+                            <option value="SI">Slovenia</option>
+                            <option value="SB">Solomon Islands</option>
+                            <option value="OI">Somalia</option>
+                            <option value="ZA">South Africa</option>
+                            <option value="ES">Spain</option>
+                            <option value="LK">Sri Lanka</option>
+                            <option value="SD">Sudan</option>
+                            <option value="SR">Suriname</option>
+                            <option value="SZ">Swaziland</option>
+                            <option value="SE">Sweden</option>
+                            <option value="CH">Switzerland</option>
+                            <option value="SY">Syria</option>
+                            <option value="TA">Tahiti</option>
+                            <option value="TW">Taiwan</option>
+                            <option value="TJ">Tajikistan</option>
+                            <option value="TZ">Tanzania</option>
+                            <option value="TH">Thailand</option>
+                            <option value="TG">Togo</option>
+                            <option value="TK">Tokelau</option>
+                            <option value="TO">Tonga</option>
+                            <option value="TT">Trinidad &amp; Tobago</option>
+                            <option value="TN">Tunisia</option>
+                            <option value="TR">Turkey</option>
+                            <option value="TU">Turkmenistan</option>
+                            <option value="TC">Turks &amp; Caicos Is</option>
+                            <option value="TV">Tuvalu</option>
+                            <option value="UG">Uganda</option>
+                            <option value="UA">Ukraine</option>
+                            <option value="AE">United Arab Emirates</option>
+                            <option value="GB">United Kingdom</option>
+                            <option value="US">United States of America</option>
+                            <option value="UY">Uruguay</option>
+                            <option value="UZ">Uzbekistan</option>
+                            <option value="VU">Vanuatu</option>
+                            <option value="VS">Vatican City State</option>
+                            <option value="VE">Venezuela</option>
+                            <option value="VN">Vietnam</option>
+                            <option value="VB">Virgin Islands (Brit)</option>
+                            <option value="VA">Virgin Islands (USA)</option>
+                            <option value="WK">Wake Island</option>
+                            <option value="WF">Wallis &amp; Futana Is</option>
+                            <option value="YE">Yemen</option>
+                            <option value="ZR">Zaire</option>
+                            <option value="ZM">Zambia</option>
+                            <option value="ZW">Zimbabwe</option>
+                        </select>
+                    </div>
+                </div><!--Countries-->
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <select ui-jq="chosen" multiple class="form-control no-bg" ng-model="offersFilters.pricing" data-placeholder="Pricing Models"  ng-change="filterOffers()">
+                            <option value="cpa">CPA</option>
+                            <option value="cps">CPS</option>
+                            <option value="cpc">CPC</option>
+                            <option value="cpv">CPV</option>
+                            <option value="cpd">CPD</option>
+                            <option value="cpi">CPI</option>
+                            <option value="cpl">CPL</option>
+                            <option value="cpm">CPM</option>
+                            <option value="dclick">Double Click</option>
+                            <option value="ctc">Click To Call</option>
+                            <option value="ppcall">Pay Per Call</option>
+                        </select>
+                    </div>
+                </div><!--Pricing-->
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <select ui-jq="chosen" multiple class="form-control no-bg" ng-model="offersFilters.quality" data-placeholder="Qualities"  ng-change="filterOffers()">
+                            <option value="nonincentivized">Non Incentivized</option>
+                            <option value="incentivized">Incentivized</option>
+                        </select>
+                    </div>
+                </div><!--Qualities-->
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <select ui-jq="chosen" multiple class="form-control no-bg" ng-model="offersFilters.platform" data-placeholder="Platforms"  ng-change="filterOffers()">
+                            <option value="ios">iOS</option>
+                            <option value="android">Android</option>
+                            <option value="windows">Windows Phone</option>
+                            <option value="blackberry">Blackberry</option>
+                            <option value="web">Mobile Web HTML5</option>
+                            <option value="unity">Unity</option>
+                            <option value="bada">Bada</option>
+                        </select>
+                    </div>
+                </div><!--Platforms-->
+            </div>
+
+            <button class="btn-addOffer text-u-c pull-right pull-none-xs" ng-controller="NewOfferModalCtrl" ng-click="open('offer')">Add offer</button>
+
+            <tabset class="nav-tabs-alt">
+                <tab ng-repeat="tab in tabs" ng-click="changeTab(tab)" id="{{$parent.$parent.$parent.panelName}}.{{tab.view}}" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled" class="text-u-c"></tab>
+            </tabset>
+
+
+        </div>
+        <div ng-if="!user.username">
+            <div class="row text-center m-b-xxl">
+
+                <div class="col-md-offset-3 col-md-2" ng-click="redirect()">
+                   <a class="font-bold">
+                        <img class="stack-offer-img" src="{{app.baseUrl}}/img/add-your-offer.png">
+                        <div>
+                            Add your mobile traffic
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-2" ng-click="redirect()">
+                    <a class="font-bold">
+                        <img class="stack-offer-img" src="{{app.baseUrl}}/img/discover-new-sources.png">
+                        <div>
+                            Discover new traffic
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-2" ng-click="redirect()">
+                    <a class="font-bold">
+                        <img class="stack-offer-img" src="{{app.baseUrl}}/img/sell-traffic.png">
+                        <div>
+                            Sell your mobile traffic
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row m-b-xl">
+                <div class="col-xs-12">
+                    <a ui-sref="access.signup"  class="btn btn-primary r-2x navbar-btn font-bold text-sm hover-rotate pull-right" style="margin-right: 12%;">JOIN NOW</a>
+                    <h4 class="font-bold">Join Mobintouch to discover and connect with more than 3,500 professionals from the mobile advertising industry</h4>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" >
+    <div class="row offer-container"  >
+        
+
+        <!--***************************************All Offers*******************************************-->
+
+        <div ng-hide="hideAllOffers">
+            <div class="m-t m-b padder-v-sm b-b">
+                <div class="dropdown pull-right">
+                    <a class="text-u-c dropdown-toggle clear" data-toggle="dropdown">{{ 'orderBy.' + orderBy | translate }} <i class="fa fa-fw fa-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a data-ng-click="changeOrderBy('-date')">Newest</a></li>
+                        <li><a data-ng-click="changeOrderBy('-replies')">Trending</a></li>
+                    </ul>
+                </div>
+                <div class="text-u-c">
+                    <a data-ng-click="getAll()" data-ng-class="{'font-bold':filter == '!undefined'}">All ({{ offers.length || 0 }})</a> |
+                    <a data-ng-click="getFavorites()" data-ng-class="{'font-bold':filter == true}">Favorites ({{(offers| filter:{isFavorite:true}).length || 0 }})</a>
+                </div>
+            </div>
+            <div class="m-t m-b">
+                <div class="row">
+                    <div ng-if="(offers | filter:{isFavorite:filter} ).length == 0" class="m-t-3xl text-center text-muted">
+                        <i class="fa fa-moon-o fa-2x"></i>
+                        <span class="clear text-md m-t">No offers available.</span>
+                    </div>
+                    <div data-ng-repeat="offer in offers| filter:{isFavorite:filter} | orderBy:orderBy" class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="border-bottom: none;">
+                                <span ng-if="user.username != offer.username">
+                                    <a class="pull-right button" rel="nofollow" ng-if="(user.favoriteOffers | filter:offer._id.$id).length <= 0 || !user.favoriteOffers" ng-click="favorite(offer)">
+                                        <i class="fa fa-heart-o text"></i>
+                                    </a>
+                                    <a class="pull-right button active" rel="nofollow" ng-if="(user.favoriteOffers | filter:offer._id.$id).length > 0" ng-click="unfavorite(offer)">
+                                        <i class="fa fa-heart text-active"></i>
+                                    </a>
+                                </span>
+                                <span ng-if="user.username == offer.username">
+                                    <a ng-if="offer.status == 'LIVE'" class="text-muted pull-right" ng-click="editModal('offer', offer)">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </span>
+
+                                <span class="clearfix">
+                                    <a ui-sref="app.page.public({username: offer.username})" title="{{offer.userFirstName + ' ' + offer.userLastName}}">
+                                        <span class="pull-left thumb-sm avatar m-r">
+                                            <img ng-if="offer.userAvatar" src="{{app.baseUrl}}{{offer.userAvatar}}">
+                                            <img ng-if="!offer.userAvatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}">
+                                        </span>
+                                    </a>
+                                    <span class="text-ellipsis">
+                                        <a ui-sref="app.page.public({username: offer.username})" class="font-bold">{{ offer.userFirstName | capitalize }} {{ offer.userLastName | capitalize }}</a><br>
+                                        <a ui-sref="app.page.public({username: offer.username})">{{ offer.userCompany | capitalize }}</a>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="blur-overlay">
+                                <div ng-if="offer.userAvatar" class="blur"
+                                     style="background-position: center center;
+                                     background-image: url({{app.baseUrl}}{{offer.userAvatar}});
+                                     background-size: cover;
+                                     -webkit-filter: blur(1px) saturate(3);
+                                     -moz-filter: blur(4px) saturate(4);
+                                     -o-filter: blur(1px) saturate(3);
+                                     -ms-filter: blur(1px) saturate(3);
+                                     filter: blur(1px) saturate(3);
+                                     filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+                                     height: 2px;
+                                     width: 100%;
+                                     overflow: hidden;
+                                     margin-top: -2px;
+                                     background-repeat: round;">
+                                </div>
+                                <div ng-if="!offer.userAvatar" class="blur"
+                                     style="background-position: center center;
+                                     background-image: url({{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }});
+                                     background-size: cover;
+                                     -webkit-filter: blur(1px) saturate(3);
+                                     -moz-filter: blur(4px) saturate(4);
+                                     -o-filter: blur(1px) saturate(3);
+                                     -ms-filter: blur(1px) saturate(3);
+                                     filter: blur(1px) saturate(3);
+                                     filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+                                     height: 2px;
+                                     width: 100%;
+                                     overflow: hidden;
+                                     margin-top: -2px;
+                                     background-repeat: round;">
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="m-b text-ellipsis-sp">
+                                    <span class="text-muted text-u-c clear">Countries:</span>
+                                    <span data-ng-repeat="country in offer.countries" class="tag tag-default text-u-c">{{'country.' + country| translate}}</span>
+                                </div>
+                                <div class="m-b text-ellipsis-sp">
+                                    <span class="text-muted text-u-c clear">Pricing Model1:</span>
+                                    <span data-ng-repeat="(pricing, bool) in offer.pricingModels" ng-if="bool" class="tag tag-default text-u-c">{{pricing}}</span>
+                                </div>
+                                <div class="m-b text-ellipsis-sp">
+                                    <span class="text-muted text-u-c clear">Platforms:</span>
+                                    <span data-ng-repeat="(platform, bool) in offer.platforms"><span ng-if="bool" class="tag tag-default text-u-c">{{platform}}</span></span>
+                                </div>
+                                <div class="m-b text-ellipsis-sp">
+                                    <span class="text-muted text-u-c clear">Quality:</span>
+                                    <span data-ng-repeat="(q, bool) in offer.quality"><span ng-if="bool" class="tag tag-default text-u-c">{{'general.' + q| translate}}</span></span>
+                                </div>
+                            </div>
+                            <div class="panel-footer padder-v-xs text-center">
+                                <span class="text-xs text-muted"><i class="fa fa-calendar-o fa-fw"></i> Expiry Date: {{offer.expiryTimestamp * 1000| date:"d MMMM, yyyy 'at' HH'h'"}}</span>
+                            </div>
+                            <div class="panel-footer padder-v-xs">
+                                <span class="text-u-c text-xs">OFFER ID: <span class="font-bold">{{ offer.identifier}}</span></span>
+                                <span class="text-muted text-xs m-t-xxs pull-right">
+                                    <i class="fa fa-fw fa-eye m-r-xs"></i> <span class="m-r">{{ offer.dailyUniquePageViews.length || 0 }}</span>
+                                    <i class="fa fa-fw fa-reply m-r-xs"></i> {{ offer.replies || 0 }}
+                                </span>
+                            </div>
+                            
+                             <!-- share buttons -->
+                            <div class="b-t padder-v-xs text-center">
+                                <a class="no-bg no-shadow" target="popup"  ng-click="shareEmail(offer.id)">
+                                    <i class="fa fa-envelope-o m-r-xs"></i>Share by Email
+                                </a> |
+                                <a class="no-bg no-shadow" target="popup" ng-click="openWindow(offer)">
+                                    <i class="fa fa-linkedin m-r-xs"></i> Share on LinkedIn
+                                </a>    
+                            </div>
+                             <!-- share buttons -->
+                            
+                            <div ng-if="offer.username != user.username" class="b-t b-dark-lter">
+                                <button ng-if="(user.repliedOffers | filter:offer._id.$id).length <= 0 || !user.repliedOffers" type="button" class="btn btn-light btn-block no-shadow no-r m-n" ng-click="viewDetails('offer', offer)">
+                                    <span class="text-u-c text-xs font-bold"><i class="fa fa-eye fa-fw m-r-xs"></i>View details</span>
+                                </button>
+                                <span ng-if="(user.repliedOffers | filter:offer._id.$id).length > 0" ng-init="comments=(user.repliedOffers | filter:offer._id.$id | limitTo:1 )">
+                                    <button ng-if="comments[0].counter == 0" type="button" class="btn btn-disabled btn-block no-shadow no-r m-n" disabled>
+                                        <span class="text-u-c text-xs font-bold">Waiting for review...</span>
+                                    </button>
+                                    <button ui-sref="app.offers.details({offerid: offer._id.$id})" ng-if="comments[0].counter > 0"type="button" class="btn btn-dark btn-block no-shadow no-r m-n">
+                                        <span class="text-u-c text-xs font-bold"><i class="fa fa-comments fa-fw m-r-xs"></i>View comments ({{comments[0].counter|| 0 }})</span>
+                                    </button>
+                                </span>
+                            </div>
+                            <div ng-if="offer.username == user.username" class="b-t b-dark-lter">
+                                <button ui-sref="app.offers.details({offerid: offer._id.$id})" ng-if="offer.replies == 0" type="button" class="btn btn-dark btn-block no-shadow no-r m-n">
+                                    <span class="text-u-c text-xs font-bold"><i class="fa fa-reply-all fa-fw m-r-xs"></i>View replies ({{offer.replies}})</span>
+                                </button>
+                                <button ui-sref="app.offers.details({offerid: offer._id.$id})" ng-if="offer.replies > 0" type="button" class="btn btn-dark btn-block no-shadow no-r m-n">
+                                    <span class="text-u-c text-xs font-bold"><i class="fa fa-reply-all fa-fw m-r-xs"></i>View replies ({{offer.replies}})</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+          <!--***************************************End All Offers*******************************************-->
+        
+        <div ng-show="hideAllOffers">
+            <div class="col-sm-3">
+                <div class="offer-content">
+                    <div class="modal-header no-border bg-light lt" style="border-radius: 10px 10px 0 0;">
+                        <a ui-sref="app.page.public({username: offer.username})" class="clearfix" title="{{offer.userFirstName + ' ' + offer.userLastName}}">
+                            <span class="pull-left thumb-sm avatar m-r">
+                                <img ng-if="offer.userAvatar" src="{{app.baseUrl}}{{offer.userAvatar}}">
+                                <img ng-if="!offer.userAvatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}">
+                            </span>
+                            <span class="font-bold text-ellipsis clear">{{ offer.userFirstName | capitalize }} {{ offer.userLastName | capitalize }}</span>
+                            <small class="text-ellipsis clear">{{ offer.userCompany | capitalize }}</small>
+                        </a>
+                    </div>
+                    <div class="blur-overlay">
+                        <div class="blur"
+                             style="background-position: center center;
+                             background-image: url({{app.baseUrl}}{{offer.userAvatar}});
+                             background-size: cover;
+                             -webkit-filter: blur(1px) saturate(3);
+                             -moz-filter: blur(4px) saturate(4);
+                             -o-filter: blur(1px) saturate(3);
+                             -ms-filter: blur(1px) saturate(3);
+                             filter: blur(1px) saturate(3);
+                             filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+                             height: 2px;
+                             width: 100%;
+                             overflow: hidden;
+                             margin-top: -2px;
+                             background-repeat: round;">
+                        </div>
+                        <div ng-if="!offer.userAvatar" class="blur"
+                             style="background-position: center center;
+                             background-image: url({{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }});
+                             background-size: cover;
+                             -webkit-filter: blur(1px) saturate(3);
+                             -moz-filter: blur(4px) saturate(4);
+                             -o-filter: blur(1px) saturate(3);
+                             -ms-filter: blur(1px) saturate(3);
+                             filter: blur(1px) saturate(3);
+                             filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+                             height: 2px;
+                             width: 100%;
+                             overflow: hidden;
+                             margin-top: -2px;
+                             background-repeat: round;">
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="m-b">
+                            <span class="clear">The traffic I'm looking for:</span>
+                        </div>
+                        <div class="m-b">
+                            <span class="text-muted text-u-c clear">Countries:</span>
+                            <span data-ng-repeat="country in offer.countries" class="tag tag-default text-u-c">{{'country.' + country| translate}}</span>
+                        </div>
+                        <div class="m-b">
+                            <span class="text-muted text-u-c clear">Pricing Model:</span>
+                            <span data-ng-repeat="(pricing, bool) in offer.pricingModels" ng-if="bool"class="tag tag-default text-u-c">
+								{{pricing}}</span>
+                        </div>
+                        <div class="m-b">
+                            <span class="text-muted text-u-c clear" >Platforms:</span>
+                            <span data-ng-repeat="(platform, bool) in offer.platforms" ng-if="bool"class="tag tag-default text-u-c">{{platform}}</span>
+                        </div>
+                        <div class="m-b">
+                            <span class="text-muted text-u-c clear">Quality:</span>
+                            <span data-ng-repeat="(q, bool) in offer.quality" ng-if="bool"class="tag tag-default text-u-c">{{'general.' + q| translate}}</span>
+                        </div>
+                        <div ng-if="offer.dateRangeModalFormat" class="m-b">
+                            <span class="text-muted text-u-c clear">Campaign date range:</span>
+                            <span class="font-bold text-u-c text-sm">{{ offer.dateRangeModalFormat}}</span>
+                        </div>
+                        <div ng-if="offer.description" class="m-b">
+                            <span class="text-muted text-u-c clear">Details:</span>
+                            <p ng-if="offer.description" class="text-block" ng-bind-html="offer.description | linky:'_blank' | nl2br"></p>
+                        </div>
+                        <div ng-if="offer.questions" class="m-b">
+                            <span class="text-muted text-u-c clear">Specific question:</span>
+                            <div data-ng-repeat="question in offer.questions" class="input-group m-b">
+                                <span class="clear">{{ question.text || '' }}<span ng-if="question.required">*</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b-t padder-v-sm text-center">
+                        <span class="text-xs text-muted"><i class="fa fa-calendar-o fa-fw"></i> Expiry Date: {{offer.expiryTimestamp * 1000| date:"d MMMM 'at' HH'h'"}}</span>
+                    </div>
+                    
+                     <!-- share buttons -->
+                       <div class="b-t padder-v-xs text-center">
+                           <a class="no-bg no-shadow" target="popup"  ng-click="shareEmail(offer)">
+                               <i class="fa fa-envelope-o m-r-xs"></i>Share by Email
+                           </a> |
+                           <a class="no-bg no-shadow" target="popup" data-ng-click="track('LinkedIn Share')" ng-click="openWindow(offer)">
+                               <i class="fa fa-linkedin m-r-xs"></i> Share on LinkedIn
+                           </a>    
+                       </div>
+                        <!-- share buttons -->
+                    
+                    <div class="modal-footer padder-v-sm ">
+                        <span class="text-u-c text-xs pull-left">OFFER ID: <span class="font-bold">{{ offer.identifier}}</span></span>
+                        <span class="text-muted text-xs m-t-xxs">
+                            <i class="fa fa-fw fa-eye m-r-xs"></i> <span class="m-r">{{ offer.dailyUniquePageViews.length || 0 }}</span>
+                            <i class="fa fa-fw fa-reply m-r-xs"></i> {{ offer.replies || 0 }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-9">
+                <form id="replyForm" name="replyForm" class="form-validation">
+                    <div class="offer-content">
+                        <div class="modal-header no-border bg-light lt" style="border-radius: 10px 10px 0 0;">
+                            <span class="pull-left thumb-sm avatar m-r">
+                                <img ng-if="user.avatar" src="{{app.baseUrl}}{{user.avatar}}">
+                                <img ng-if="!user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}">
+                            </span>
+                            <span class="text-lg padder-v-sm m-b-xs clear">Select what you can provide</span>
+                        </div>
+                        <div class="blur-overlay">
+                            <div ng-if="offer.userAvatar" class="blur"
+                                 style="background-position: center center;
+                                 background-image: url({{app.baseUrl}}{{user.avatar}});
+                                 background-size: cover;
+                                 -webkit-filter: blur(1px) saturate(3);
+                                 -moz-filter: blur(4px) saturate(4);
+                                 -o-filter: blur(1px) saturate(3);
+                                 -ms-filter: blur(1px) saturate(3);
+                                 filter: blur(1px) saturate(3);
+                                 filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+                                 height: 2px;
+                                 width: 100%;
+                                 overflow: hidden;
+                                 margin-top: -2px;
+                                 background-repeat: round;">
+                            </div>
+                            <div ng-if="!offer.userAvatar" class="blur"
+                                 style="background-position: center center;
+                                 background-image: url({{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }});
+                                 background-size: cover;
+                                 -webkit-filter: blur(1px) saturate(3);
+                                 -moz-filter: blur(4px) saturate(4);
+                                 -o-filter: blur(1px) saturate(3);
+                                 -ms-filter: blur(1px) saturate(3);
+                                 filter: blur(1px) saturate(3);
+                                 filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+                                 height: 2px;
+                                 width: 100%;
+                                 overflow: hidden;
+                                 margin-top: -2px;
+                                 background-repeat: round;">
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group m-b-lg">
+                                <label class="control-label text-muted text-u-c col-sm-12 pull-in">Countries*:</label>
+                                <span data-ng-repeat="country in reply.countries">
+                                    <label class="btn btn-sm btn-default text-u-c" ng-model="country.bool" btn-checkbox><i class="fa fa-check text-active"></i> {{'country.' + country.name| translate}}</label>
+                                </span>
+                            </div>
+
+                            <div class="form-group m-b-lg">
+                                <label class="control-label text-muted text-u-c col-sm-12 pull-in">Pricing Model*:</label>
+                                <span ng-repeat="pricing in reply.pricingModels">
+                                    <label class="btn btn-sm btn-default text-u-c" ng-model="pricing.bool" btn-checkbox><i class="fa fa-check text-active"></i> {{pricing.name}}</label>
+                                </span>
+                            </div>
+
+                            <div class="form-group m-b-lg">
+                                <label class="control-label text-muted text-u-c col-sm-12 pull-in">Platforms*:</label>
+                                <span ng-repeat="platform in reply.platforms">
+                                    <label class="btn btn-sm btn-default text-u-c" ng-model="platform.bool" btn-checkbox><i class="fa fa-check text-active"></i> {{platform.name}}</label>
+                                </span>
+                            </div>
+
+                            <div class="form-group m-b-lg">
+                                <label class="control-label text-muted text-u-c col-sm-12 pull-in">Quality*:</label>
+                                <span ng-repeat="q in reply.quality">
+                                    <label class="btn btn-sm btn-default text-u-c" ng-model="q.bool" btn-checkbox><i class="fa fa-check text-active"></i> {{'general.' + q.name| translate}}</label>
+                                </span>
+                            </div>
+
+                            <div class="form-group m-b-lg">
+                                <div data-ng-repeat="question in reply.questions" class="m-b">
+                                    <input ng-if="question.required" type="text" class="form-control" ng-model="question.answer" placeholder="{{ question.text || ''}}*" required>
+                                    <input ng-if="!question.required" type="text" class="form-control" ng-model="question.answer" placeholder="{{ question.text || ''}}">
+                                </div>
+                            </div>
+
+                            <div class="row m-b">
+                                <div class="col-sm-12">
+                                    <i class="text-muted">*Required fields</i>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer" data-ng-init="sendingReply = false">
+                            <button class="btn btn-info r-2x" data-ng-click="replyOffer($event); $event.stopPropagation();" data-ng-disabled="replyForm.$invalid || !replyCheck() || sendingReply">
+                                <span><i class="fa fa-fw fa-spin fa-spinner" data-ng-if="sendingReply"></i></span>
+                                <span ng-if="replyForm.$invalid || !replyCheck()" class="text-u-c">waiting for review</span>
+                                <span ng-if="!replyForm.$invalid || replyCheck()" class="text-u-c">Reply now</span>
+                            </button>
+                            
+							<button class="btn btn-default r-2x pull-left" ng-click="cancelOffer()">	
+								<span class="text-u-c">Cancel</span>
+							</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    
+    $('#replyForm').bind('keydown', function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+        }
+    });
+    
+</script>

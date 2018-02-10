@@ -1,0 +1,61 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = true;">
+    <div class="col w-lg wrapper">
+
+        <!-- SETTINGS NAVBAR -->
+        <div class="wrapper b-a">
+            <ul class="nav nav-pills nav-stacked nav-sm">
+                <li class=""><a ui-sref="app.page.settings">Account</a></li>
+                <li class=""><a ui-sref="app.page.settings_password">Password</a></li>
+                <li class=""><a ui-sref="app.page.settings_notifications">Notifications</a></li>
+            </ul>
+        </div>
+        <!--/ SETTINGS NAVBAR -->
+
+    </div>
+
+
+    <div class="col wrapper" ng-controller="SettingsFormController">
+        <div class="row">
+
+            <!--ACCOUNT INFORMATIONS-->
+            <div class="col-lg-12">
+                <form ng-submit="savePassword()" name="settingsPasswordForm" class="form-validation form-horizontal">
+                    <div class="panel-body">
+                        <h3 class="m-b text-xl text-dark">Change password</h3>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label text-muted">Current Password</label>
+                            <div class="col-lg-9">
+                                <input type="password" class="form-control" name="currentPassword" ng-model="currentPassword" ng-minlength="5"  required >
+                                <p class="m-t-xs"><a  rel="nofollow" href="">Forgot your password?</a></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label text-muted">New Password</label>
+                            <div class="col-lg-9">
+                                <input type="password" class="form-control" name="newPassword1" ng-model="newPassword1" ng-minlength="5"  required >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label text-muted">Verify Password</label>
+                            <div class="col-lg-9">
+                                <input type="password" class="form-control" name="newPassword2" required ng-model="newPassword2" ng-minlength="5"  ui-validate=" '$value==newPassword1' " ui-validate-watch=" 'password' ">
+                                <span ng-show='form.confirm_password.$error.validator'>Passwords do not match!</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-3 col-lg-9">
+                                <button class="btn btn-success m-t" type="submit" ng-disabled='settingsPasswordForm.$invalid'>
+                                    <span ng-hide="loadingPassword" class="text-lg font-thin">Save changes</span>
+                                    <span ng-show="loadingPassword" class="text-lg font-thin">Saving changes...<i class="fa fa-spin fa-circle-o-notch"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--/ACCOUNT INFORMATIONS-->
+
+        </div>
+    </div>
+
+</div>

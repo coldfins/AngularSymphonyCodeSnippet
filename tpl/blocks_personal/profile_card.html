@@ -1,0 +1,83 @@
+<div class="panel panel-default no-border">
+    <div class="black-cover">
+        <div ng-if="user.avatar || user.cover"
+             class="blur animated fadeIn bg-black"
+             ng-style="user.avatar && !user.cover ? {'-webkit-filter': 'blur(60px)', '-moz-filter': 'blur(60px)', '-o-filter': 'blur(60px)', '-ms-filter': 'blur(60px)', 'filter': 'blur(60px)'} : {'-webkit-filter': 'opacity(0.3)', '-moz-filter': 'opacity(0.3)', '-o-filter': 'opacity(0.3)', '-ms-filter': 'opacity(0.3)', 'filter': 'opacity(0.3)'}"
+             style="background:url({{app.baseUrl}}{{ user.cover ? user.cover : user.avatar }}) center center;
+             background-size: cover;
+             height: 100%;
+             position: absolute;
+             width: 100%;
+             overflow: hidden;">
+        </div>
+
+        <div ng-if="!user.avatar && !user.cover"
+             class="blur animated fadeIn"
+             style="background:url({{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}) center center;
+             background-size: cover;
+             -webkit-filter: blur(60px);
+             -moz-filter: blur(60px);
+             -o-filter: blur(60px);
+             -ms-filter: blur(60px);
+             filter: blur(60px);
+             filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='60');
+             height: 100%;
+             position: absolute;
+             width: 100%;
+             overflow: hidden;">
+        </div>
+
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="text-left hidden-xs text-lg col-sm-6 col-xs-12">
+                    <span class="font-b">{{(user.inTouch| toArray | filter:{status:3}).length || 0}}</span> 
+                    <span class="font-thin opacity-8">{{ (user.inTouch | toArray | filter:{status:3}).length > 1 ? 'Connections' : 'Connection'}}</span>
+                </div>
+                <div class="text-right hidden-xs text-lg col-sm-6 col-xs-12">
+                    <span class="font-b">{{user.inBusinessRelationCounter|| 0}}</span> 
+                    <span class="font-thin opacity-8">{{ user.inBusinessRelationCounter > 1 ? 'Business Contacts' : 'Business Contact' }}</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 text-center m-t-md m-b-sm" resize>
+                    <div ng-controller="AvatarModalCtrl" class="col-sm-2 col-sm-offset-5 col-xs-4 col-xs-offset-4" ng-class="windowWidth <= 767 ? 'block' : ''">
+                        <img ng-show="user.avatar" src="{{app.baseUrl}}{{user.avatar}}" class="avatar w-full img-circle b b-white b-2x">
+                        <img ng-hide="user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="avatar w-full b b-white b-2x">
+                    </div>
+                </div>
+                <div class="clear clearfix"></div>
+                <div class="col-sm-12 text-center">
+                    <span class="text-xl text-white text-ellipsis font-b">{{ user.name | capitalize }} {{user.lastname| capitalize}}</span>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <span class="text-lg text-white text-ellipsis">{{ user.jobTitle}} <span ng-if="user.companyPage.employee.company || user.company">at</span> <a ng-if="user.companyPage.employee.company" ui-sref="app.page.company/public({companyusername : user.companyPage.employee.company})" class="text-white">{{ user.company}}</a><span ng-if="!user.companyPage.employee.company && user.company">{{ user.company}}</span> </span>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <span class="text-lg text-white">{{ user.city}}</span><span class="text-lg" ng-show="user.basedCountry">, {{ 'country.' + user.basedCountry | translate }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 b-b-white b-lter padder-v text-right">
+            <a ui-sref="app.page.profile" class="text-lg font-thin text-white">Edit my profile</a>
+        </div>
+    </div>
+    <div class="nav-tabs-alt profile-tab">
+        <a ui-sref="app.page.public({username: user.username})" class="text-muted wrapper-xs padder-t-md padder-sm pull-right">https://www.mobintouch.com/profile/{{ user.username}}</a>
+        <ul class="nav nav-tabs">
+            <li ng-show="user.competences.length || user.languages.length || user.summary || user.experiences[0].jobtitle" ng-class="(activetab == 'aboutme') ? 'active' : ''" ng-click="changetab('aboutme')">
+                <a href="" class="m-l">About Me</a>
+            </li>
+            <li ng-class="(activetab == 'mobiletraffic') ? 'active' : ''" data-ng-if="user.companyType != 'Visitor'" ng-click="changetab('mobiletraffic')">
+                <a href="" class="m-l">Mobile Traffic</a>
+            </li>
+            <li ng-show="hasTracking(user.trackingServices)" data-ng-if="user.companyType != 'Visitor'" ng-class="(activetab == 'tracking') ? 'active' : ''" ng-click="changetab('tracking')">
+                <a href="" class="m-l">Tracking</a>
+            </li>
+            <li ng-show="user.paymentTerms[0] || user.paymentMethods[0]" data-ng-if="user.companyType != 'Visitor'" ng-class="(activetab == 'payment') ? 'active' : ''" ng-click="changetab('payment')">
+                <a href="" class="m-l">Payment</a>
+            </li>
+        </ul>
+    </div>
+</div>

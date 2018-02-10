@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <span class="h4">Share your profile • Public profile link &nbsp;&nbsp;<i class="fa fa-link hover-pointer" ng-click="copyToClipBoard()" uib-tooltip="Copy to clipboard"></i></span>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel();" uib-tooltip="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <div class="b-a r-2x padder-v padder m-b-sm">
+        <span class="thumb-md pull-left img-circle m-r-sm">
+            <img ng-if="user.avatar" src="{{ app.baseUrl}}{{ user.avatar}}" class="r-2x">
+            <img ng-if="!user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" class="r-2x">
+        </span>
+        <span class="media-body m-b-none text-break">
+            <span class="block">
+                <a class="text-md" ui-sref="app.page.public({username: user.username})"><strong class="ng-binding">{{ user.name}} {{ user.lastname}}</strong></a>
+            </span>
+            <span ng-if="user.miniResume" class="text-gray block">{{ user.miniResume | subStr:0:160:true }}</span>
+            <span ng-if="!user.miniResume && user.summary" class="text-gray block">{{ user.summary | subStr:0:160:true }}</span>
+        </span>
+        <div class="clear clearfix"></div> 
+    </div>
+    <span class="block text-center m-t-md">
+        <a class="btn btn-blue-lt-bordered" ng-class="{'btn-blue-lt':mouseOverTwitter, 'btn-blue-lt-bordered':!mouseOverTwitter}" ng-mouseover="mouseOverTwitter = true" ng-mouseleave="mouseOverTwitter = false" href="https://twitter.com/intent/tweet?text=Connect with me on Mobintouch to share our insights about Mobile&url=https://www.mobintouch.com/profile/{{ user.username}}&hashtags=mobile advertising community,mobintouch&original_referer=https://www.mobintouch.com" target="_blank"><i class="fa fa-twitter"></i></a>
+        <a ng-if="user.avatar" class="btn btn-blue-lt-bordered" ng-class="{'btn-blue-lt':mouseOverFacebook, 'btn-blue-lt-bordered':!mouseOverFacebook}" ng-mouseover="mouseOverFacebook = true" ng-mouseleave="mouseOverFacebook = false" href="https://www.facebook.com/sharer.php?caption=Connect and Engage with professionals from mobile advertising&description=Connect with me on Mobintouch to share our insights about Mobile&u=https://www.mobintouch.com/profile/{{ user.username}}&picture={{app.baseUrl}}{{user.avatar}}" target="_blank"><i class="fa fa-facebook"></i></a>
+        <a ng-if="!user.avatar" class="btn btn-blue-lt-bordered" ng-class="{'btn-blue-lt':mouseOverFacebook, 'btn-blue-lt-bordered':!mouseOverFacebook}" ng-mouseover="mouseOverFacebook = true" ng-mouseleave="mouseOverFacebook = false" href="https://www.facebook.com/sharer.php?caption=Connect and Engage with professionals from mobile advertising&description=Connect with me on Mobintouch to share our insights about Mobile&u=https://www.mobintouch.com/profile/{{ user.username}}" target="_blank"><i class="fa fa-facebook"></i></a>
+        <a class="btn btn-blue-lt-bordered" ng-class="{'btn-blue-lt':mouseOverLinkedin, 'btn-blue-lt-bordered':!mouseOverLinkedin}" ng-mouseover="mouseOverLinkedin = true" ng-mouseleave="mouseOverLinkedin = false" href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.mobintouch.com/profile/{{ user.username}}&title=Connect and Engage with professionals from mobile advertising&summary=Connect with me on Mobintouch to share our insights about Mobile&source=https://www.mobintouch.com/profile/{{ user.username}}" target="_blank"><i class="fa fa-linkedin"></i></a>
+        <a class="btn btn-blue-lt-bordered" ng-class="{'btn-blue-lt':mouseOverMail, 'btn-blue-lt-bordered':!mouseOverMail}" ng-mouseover="mouseOverMail = true" ng-mouseleave="mouseOverMail = false" href="mailto:?subject=Connect with me on Mobintouch to share our insights about Mobile&body=Connect with me on Mobintouch to share our insights about Mobile https://www.mobintouch.com/profile/{{ user.username}}" target="_blank"><i class="fa fa-envelope-o"></i></a>
+    </span>
+
+    <!--<div class="text-center m-t" ng-init="url=app.page.public({username: user.username})">
+        <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.mobintouch.com/profile/{{ user.username}}&title=Connect and Engage with professionals from mobile advertising&summary=Connect with me on Mobintouch to share our insights about Mobile&source=https://www.mobintouch.com/profile/{{ user.username}}"><img src="{{ app.baseUrl}}/img/icons/linkedin.png" class="m-r"/></a>
+        <a target="_blank" href="https://twitter.com/intent/tweet?text=Connect with me on Mobintouch to share our insights about Mobile&url=https://www.mobintouch.com/profile/{{ user.username}}&hashtags=mobile advertising community,mobintouch&original_referer=https://www.mobintouch.com"><img src="{{ app.baseUrl}}/img/icons/twitter.png" class="m-r m-l"/></a>
+        <a target="_blank" href="https://www.facebook.com/sharer.php?caption=Connect and Engage with professionals from mobile advertising&description=Connect with me on Mobintouch to share our insights about Mobile&u=https://www.mobintouch.com/profile/{{ user.username}}&picture={{app.baseUrl}}{{user.avatar}}" ng-if="user.avatar"><img src="{{ app.baseUrl}}/img/icons/facebook.png" class="m-r m-l"/></a>
+        <a target="_blank" href="https://www.facebook.com/sharer.php?caption=Connect and Engage with professionals from mobile advertising&description=Connect with me on Mobintouch to share our insights about Mobile&u=https://www.mobintouch.com/profile/{{ user.username}}" ng-if="!user.avatar"><img src="{{ app.baseUrl}}/img/icons/facebook.png" class="m-r m-l"/></a>
+        <a href="https://medium.com/m/oauth/authorize?client_id=ff28a7659a6f&scope=basicProfile,publishPost&state=medium&response_type=code&redirect_uri=https://www.mobintouch.com/myprofile"><img src="cdn/img/icons/medium.png" class="m-r m-l"/></a>
+        <a target="_blank" href="mailto:?subject=Connect with me on Mobintouch to share our insights about Mobile&body=Connect with me on Mobintouch to share our insights about Mobile https://www.mobintouch.com/profile/{{ user.username}}"><img src="{{ app.baseUrl}}/img/icons/email.png" class="m-l"/></a>
+    </div>
+    <div class="m-t-lg text-md text-black-dker">
+        Your public profile link:
+    </div>
+    <div class="m-t padder-v-sm padder-sm text-md bg-light r-3x">
+        <i class="fa fa-link text-muted m-r-xs m-t-xs pull-left hover-pointer" ng-click="copyToClipBoard()"></i> <a ui-sref="app.page.public({username: user.username})" class="text-gray hover-text-blue-lt hover-underline" ng-click="cancel()">https://www.mobintouch.com/profile/{{ user.username}}</a>
+    </div>-->
+</div>

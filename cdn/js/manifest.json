@@ -1,0 +1,7 @@
+{
+  "name": "Mobintouch",
+  "short_name": "Mobintouch",
+  "start_url": "https://www-dev.mobintouch.com/",
+  "display": "standalone",
+  "gcm_sender_id": "239236715865"
+}

@@ -1,0 +1,51 @@
+<div ng-controller="ImgCropCtrl">
+    <div class="modal-header">
+        <h3 class="modal-title" ng-if="company.avatar">Edit company photo</h3>
+        <h3 class="modal-title" ng-if="!company.avatar">Edit company photo</h3>
+    </div>
+    <div class="modal-body">
+        <div class="wrapper-md">
+            <div class="m-b">
+                <h4>Select an image file</h4>
+                <input  ui-jq="filestyle" type="file" accept="image/*" id="fileInput" ui-options="{
+                        buttonText: 'Add image',
+                        iconName: 'icon-camera'
+                        }"/>
+            </div>
+            <div class="hbox hbox-auto-xs">
+                <div class="col">
+                    <h4>Adjust company photo</h4>
+                    <small>Drag the form to change position and size.</small>
+                    <div class="wrapper-sm b-a bg-white m-r-xs m-b-xs m-t">
+                        <div class="bg-light" style="height:320px">
+                            <img-crop
+                                image="myImage"
+                                result-image="myCroppedImage"
+                                result-image-size="160"
+                                area-type="square"
+                                ></img-crop>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <h4>Preview</h4>
+                    <small>How your company appear accross Mobintouch.</small><br>
+                    <div class="inline bg-white wrapper-sm b-a m-t">
+                        <div class="bg-light">
+                            <img width="160" height="160" ng-src="{{myCroppedImage}}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button ng-show="removingCompanyAvatar" class="btn btn-blue-lt-bordered pull-left" ng-if="company.avatar" ng-click="removeCompanyAvatar()" ng-disabled="removingCompanyAvatar">Removing company photo...<i class="fa fa-sun-o fa-circle-o-notch"></i></button>
+        <button ng-hide="removingCompanyAvatar" class="btn btn-blue-lt-bordered pull-left" ng-if="company.avatar" ng-click="removeCompanyAvatar()">Remove company photo</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-blue-lt" ng-click="companyAvatar()" ng-disabled="!myImage || loadingAvatar">
+            <span ng-hide="loadingAvatar" class="text">Save</span>
+            <span ng-show="loadingAvatar" class="text">Saving...<i class="fa fa-spin fa-circle-o-notch"></i></span>
+        </button>
+    </div>
+</div>

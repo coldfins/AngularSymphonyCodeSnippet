@@ -1,0 +1,40 @@
+<div class="modal-header">
+    <span class="h4">Share Job</span> <i class="fa fa-link hover-pointer clipboard" ng-click="copyToClipBoard()" uib-tooltip="Copy to clipboard"></i>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel();">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <div class="b-a r-2x padder-v padder">
+        <span class="thumb-md pull-left img-circle m-r-sm">
+            <img ng-if="job.company.avatar" src="{{ app.baseUrl}}{{ job.company.avatar}}" class="r-2x">
+            <img ng-if="!job.company.avatar" src="{{ app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" class="r-2x">
+        </span>
+        <span class="media-body m-b-none text-break">
+            <span class="block">
+                <a class="text-md"><strong class="ng-binding">{{ job.jobTitle}}</strong></a>
+            </span>
+            <span class="text-gray text-13 block">
+                <span class="text-capitalize">{{ job.location.city}}</span>
+                <span class="" ng-if="job.jobType == 'fullTime'"> • Full Time</span>
+                <span class="" ng-if="job.jobType == 'contract'"> • Contract</span>
+                <span class="" ng-if="job.jobType == 'intern'"> • Intern</span>
+                <span class="" ng-if="job.jobType == 'coFounder'"> • Co-Founder</span>
+                <span class="">• {{ job.currencySymbol}}{{ job.minSalary}}K - {{ job.currencySymbol}}{{ job.maxSalary}}K</span>
+
+                <span class="" ng-if="job.equityMin && job.equityMax">• ${{ job.equityMin}}% - {{ job.equityMax}}%</span>
+            </span>
+            <span class="block opacity-8" ng-if="job.description">
+                {{ job.description| subStr:0:160:true }}
+            </span>
+        </span>
+        <div class="clear clearfix"></div>
+    </div>
+    <span class="block text-center m-t-md">
+        <a class="btn" ng-class="{'btn-blue-lt':mouseOverTwitter, 'btn-blue-lt-bordered':!mouseOverTwitter}" ng-mouseover="mouseOverTwitter = true" ng-mouseleave="mouseOverTwitter = false" href="https://twitter.com/intent/tweet?text=Apply%20for%20job%20{{ job.jobTitle}}%20at%20{{ job.company.name}}&url=https://www.mobintouch.com/{{job.company.username}}/jobs/{{job.slug}}&hashtags=job%20at%20{{job.company.name}}&original_referer=https://www.mobintouch.com" target="_blank"><i class="fa fa-twitter"></i></a>
+        <a class="btn" ng-class="{'btn-blue-lt':mouseOverFacebook, 'btn-blue-lt-bordered':!mouseOverFacebook}" ng-mouseover="mouseOverFacebook = true" ng-mouseleave="mouseOverFacebook = false" href="https://www.facebook.com/sharer.php?caption={{ job.jobTitle}}%20job%20at%20{{job.company.name}}&description={{job.company.name}}%20is%20hiring%20{{ job.jobTitle}}!%20Apply%20now!&u=https://www.mobintouch.com/{{job.company.username}}/jobs/{{job.slug}}" target="_blank"><i class="fa fa-facebook"></i></a>
+        <a class="btn" ng-class="{'btn-blue-lt':mouseOverLinkedin, 'btn-blue-lt-bordered':!mouseOverLinkedin}" ng-mouseover="mouseOverLinkedin = true" ng-mouseleave="mouseOverLinkedin = false" href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.mobintouch.com/{{job.company.username}}/jobs/{{ job.slug}}&title={{job.jobTitle}}%20job%20at%20{{ job.company.name}}&summary={{ job.company.name}}%20is%20hiring%20{{ job.jobTitle}}!%20Apply%20Now!&source=https://www.mobintouch.com/{{job.company.username}}/jobs/{{ job.slug}}" target="_blank"><i class="fa fa-linkedin"></i></a>
+        <a class="btn" ng-class="{'btn-blue-lt':mouseOverMail, 'btn-blue-lt-bordered':!mouseOverMail}" ng-mouseover="mouseOverMail = true" ng-mouseleave="mouseOverMail = false" href="mailto:?subject={{job.jobTitle}}%20job%20at%20{{ job.company.name}}&body={{ job.company.name}}%20is%20hiring%20{{job.jobTitle}}%20now!%20Apply%20Now! https://www.mobintouch.com/{{ job.company.username}}/jobs/{{job.slug}}" target="_blank"><i class="fa fa-envelope-o"></i></a>
+    </span>
+</div>

@@ -1,0 +1,200 @@
+<div class="container">
+    <div class="w-full b-a r-2x m-t-lg">
+        <div class="m-t-lg col-xs-12">
+            <div class="text-20 text-black-d">
+                <i class="fa fa-unsorted text-muted m-r-sm hover-pointer" ng-click="profileOreder('share')"></i>
+                <span class="">Experience</span>
+                <i class="glyphicon glyphicon-pencil text-md font-bold m-l-sm text-black-lt"></i>
+                <a class="text-md font-bold m-l-sm text-black-lt" ng-if="!editModeExperience" ng-click="changeEditModeExperience(true);">Edit</a>
+                <a class="text-md font-bold m-l-sm text-black-lt" ng-if="editModeExperience" ng-click="changeEditModeExperience(false);">Done</a>
+            </div>
+            <div class="m-lg m-t-md m-b-md">
+                <form name="frmExperience" class="form-validation" ng-submit="addExperience(frmExperience)">
+                    <span class="text-md text-black-dk">Add Experience</span>
+                    <select type="text" 
+                            data-ng-include="'tpl/utils/experienceType.htmlv={{app.latestUpdate}}'" 
+                            class="form-control input-lg text-black-dk m-l-sm inline thumb-xxl text-17" 
+                            ng-model="experience.type"></select>
+                    <div class="has-feedback inline">
+                        <input type="text" 
+                               class="form-control input-lg text-black-dk m-l-sm inline thumb-xxl text-17"
+                               placeholder="Company"
+                               ng-keydown="unselectExperienceCompany()"
+                               ng-model="experience.company"
+                               typeahead="fuser.name for fuser in companyNameSearch($viewValue) | filter:$viewValue | limitTo:15" 
+                               ng-pattern="/^[a-zA-Z0-9- '.,-/\&]{2,100}$/" 
+                               maxlength="100" 
+                               typeahead-on-select='onSelectExperienceCompany($item)' 
+                               typeahead-loading='loading_companies' 
+                               typeahead-template-url="tpl/blocks_general/profile-company-autocomplete.html?v={{app.latestUpdate}}" 
+                               typeahead-wait-ms="300"
+                               required/>
+                        <i ng-show="loading_companies" class="fa fa-spinner fa-spin form-control-feedback input-loader-sm m-r-sm m-t-xs"></i>
+                    </div>
+                    <button type="submit" class="btn input-lg r-3x padder-md text-black-dk m-t-n-xs m-l-sm" ng-disabled="frmExperience.$invalid || addingExperiences">
+                        <span ng-hide="addingExperiences">Add</span>
+                        <span ng-show="addingExperiences">Adding <i class="fa fa-spin fa-spinner"></i></span>
+                    </button>
+                    <span class="text-primary m-l-sm text-17 text-bold" ng-if="!user.experiences || user.experiences.length <= 0"><i class="fa fa-info-circle"></i> Please add the companies you've worked with.</span>
+                </form>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+
+        <div class="col-xs-12 b-t padder-v-md" ng-if="user.experiences[0].company">
+            <div class="experience padder-v-md" ng-repeat="experience in user.experiences track by $index" ng-if="experience.company">
+                <!--
+                <div class="company-avatar pull-left">
+                    <img ng-if="!experience.logo" src="http://192.168.2.134/mobintouch/mobntouch/src/cdn/img/clients/avatars/marketing1481522596.png?1481522991" class="company-avatar b-a"/>
+                    <img ng-if="experience.logo" src="http://192.168.2.134/mobintouch/mobntouch/src/cdn//img/clients/avatars/marketing1481522596.png?1481522991" class="company-avatar b-a"/>
+                </div>
+                -->
+                <div class="pull-left" ng-if="!experience.companyid">
+                    <div class="company-avatar b-a" ng-if="experience.logo" style="background:url({{app.baseUrl}}{{ experience.logo}}) center center / cover;">
+                    </div>
+                    <div class="company-avatar b-a" ng-if="!experience.logo" style="background:url('{{app.baseUrl}}/img/mit-default-company-avatar-white.svg') center center / cover;background-color: red;">
+                    </div>
+                    <!--<div class="m-t-n-100 company-avatar bg-black dk hover-pointer" ng-click="addClientAvatar($index)" ng-class="experience.logo ? 'bg bg-lt' : 'bg'"></div>-->
+                </div>
+                <div class="pull-left" ng-if="experience.companyid">
+                    <div class="company-avatar b-a" ng-if="experience.logo" style="background:url({{app.baseUrl}}{{ experience.logo}}) center center / cover;">
+                    </div>
+                    <div class="company-avatar b-a" ng-if="!experience.logo" style="background:url('{{app.baseUrl}}/img/mit-default-company-avatar-white.svg') center center / cover;background-color: red;">
+                    </div>
+                </div>
+
+                <div class="details pull-left padder col-xs-7" ng-if="(experience.roles | toArray | filter:{'currently':true}).length > 0">
+                    <a class="text-19 font-bold text-black-dk" ng-if="experience.companyUsername" ui-sref="app.page.company/public({companyusername: experience.companyUsername})">{{experience.company}}</a>
+                    <div class="text-19 font-bold text-black-dk" ng-if="!experience.companyUsername">{{experience.company}}</div>
+                    <div class="text-md text-black-dk">
+                        <span class="font-bold m-r-md">{{ (experience.roles | toArray | filter:{'currently':true} | orderBy:'-fromperiod')[0].jobtitle}}</span> 
+                        <span ng-if="(experience.roles | toArray | filter:{'currently':true} | orderBy:'-fromperiod')[0].fromperiod" class="text-muted">{{(experience.roles| toArray | filter:{'currently':true} | orderBy:'-fromperiod')[0].fromperiod| date : 'yyyy' }} - Present</span>
+                        <span ng-if="!(experience.roles | toArray | filter:{'currently':true} | orderBy:'-fromperiod')[0].fromperiod" class="text-muted">I work currently here</span>
+                    </div>
+                    <div class="text-15 text-gray padder-v-sm">
+                        {{(experience.roles| toArray | filter:{'currently':true} | orderBy:'-fromperiod') [0].description}} 
+                    </div>
+                </div>
+
+                <div class="details pull-left padder col-xs-7" ng-if="(experience.roles | toArray | filter:{'currently':true}).length <= 0">
+                    <a class="text-19 font-bold text-black-dk" ng-if="experience.companyUsername" ui-sref="app.page.company/public({companyusername: experience.companyUsername})">{{experience.company}}</a>
+                    <div class="text-19 font-bold text-black-dk" ng-if="!experience.companyUsername">{{experience.company}}</div>
+                    <div class="text-md text-black-dk">
+                        <span class="font-bold m-r-md">{{ (experience.roles | toArray | orderBy:'-fromperiod')[0].jobtitle}}</span> 
+                        <span ng-if="(experience.roles | toArray | orderBy:'- fromperiod')[0].fromperiod && (experience.roles | orderBy:'-fromperiod')[0].toperiod" class="text-muted">
+                            <span ng-if="(((experience.roles | toArray | orderBy:'- fromperiod')[0].fromperiod) | dateDiff:((experience.roles | toArray | orderBy:'-fromperiod')[0].toperiod)).years > 0">{{ (((experience.roles | toArray | orderBy:'- fromperiod')[0].fromperiod) | dateDiff:((experience.roles | toArray | orderBy:'-fromperiod')[0].toperiod)).years}} years<span ng-if="(((experience.roles | toArray | orderBy:'- fromperiod')[0].fromperiod) | dateDiff:((experience.roles | toArray | orderBy:'-fromperiod')[0].toperiod)).months > 0">, {{ (((experience.roles | toArray | orderBy:'- fromperiod')[0].fromperiod) | dateDiff:((experience.roles | toArray | orderBy:'-fromperiod')[0].toperiod)).months}} months</span></span>
+                            <span ng-if="(((experience.roles | toArray | orderBy:'- fromperiod')[0].fromperiod) | dateDiff:((experience.roles | toArray | orderBy:'-fromperiod')[0].toperiod)).years <= 0 && (((experience.roles | toArray | orderBy:'- fromperiod')[0].fromperiod) | dateDiff:((experience.roles | toArray | orderBy:'-fromperiod')[0].toperiod)).months > 0">{{ (experience.roles | toArray | orderBy:'-fromperiod')[0].fromperiod | date:'yyyy'}} - {{ (experience.roles | toArray | orderBy:'-fromperiod')[0].toperiod | date:'yyyy'}} ({{ (((experience.roles | toArray | orderBy:'- fromperiod')[0].fromperiod) | dateDiff:((experience.roles | toArray | orderBy:'-fromperiod')[0].toperiod)).months}} months)</span>
+                        </span>
+                    </div>
+                    <div class="text-15 text-gray padder-v-sm">
+                        {{(experience.roles| toArray | orderBy:'-fromperiod') [0].description}} 
+                    </div>
+                </div>
+
+                <button class="btn pull-right r-3x text-black-dk" ng-if="editModeExperience" ng-click="changeEditExperience($index)">Edit</button>
+                <div class="clear clearfix"></div>
+                <div class="m-t-md" ng-if="editExperience == $index">
+                    <!--
+                    <div class="company-avatar pull-left">
+                        <img ng-if="!experience.logo" src="http://192.168.2.134/mobintouch/mobntouch/src/cdn/img/clients/avatars/marketing1481522596.png?1481522991" class="company-avatar b-a"/>
+                        <img ng-if="experience.logo" src="http://192.168.2.134/mobintouch/mobntouch/src/cdn//img/clients/avatars/marketing1481522596.png?1481522991" class="company-avatar b-a"/>
+                    </div>
+                    -->
+
+                    <div class="pull-left" ng-if="!experience.companyid">
+                        <div class="company-avatar b-a" ng-if="experience.logo" style="background:url({{app.baseUrl}}{{ experience.logo}}) center center / cover;">
+                        </div>
+                        <div class="company-avatar b-a" ng-if="!experience.logo" style="background:url('{{app.baseUrl}}/img/mit-default-company-avatar-white.svg') center center / cover;background-color: red;">
+                        </div>
+                        <div class="m-t-n-100 company-avatar bg-black dk hover-pointer" ng-click="addExperienceCompanyAvatar($index)" ng-class="experience.logo ? 'bg bg-lt' : 'bg'"></div>
+                    </div>
+                    <div class="pull-left" ng-if="experience.companyid">
+                        <div class="company-avatar b-a" ng-if="experience.logo" style="background:url({{app.baseUrl}}{{ experience.logo}}) center center / cover;">
+                        </div>
+                        <div class="company-avatar b-a" ng-if="!experience.logo" style="background:url('{{app.baseUrl}}/img/mit-default-company-avatar-white.svg') center center / cover;background-color: red;">
+                        </div>
+                    </div>
+                    <div class="clear col-sm-8">
+                        <div class="w-full">
+                            <div class="pull-left pull-none-xs">
+                                <span class="text-19 font-bold text-black-dk" ng-if="user.experiences[editExperience].type"><span class="hover-pointer" ng-click="changeExperienceType(editExperience)"><i class="fa fa-pencil"></i> {{ user.experiences[editExperience].type}}</span>, {{ user.experiences[editExperience].company}}</span>
+                                <span class="text-19 font-bold text-black-dk" ng-if="!user.experiences[editExperience].type" ng-init="user.experiences[editExperience].type = 'Employee'"><span class="hover-pointer" ng-click="changeExperienceType(editExperience)"><i class="fa fa-pencil"></i> {{ user.experiences[editExperience].type}}</span>, {{ user.experiences[editExperience].company}}</span>
+                            </div>
+                            <div class="pull-right pull-none-xs">
+                                <button class="btn btn-blue lt r-3x text-black-dk font-thin" ng-click="saveExperience(experience, $index)" ng-disabled="editingExperiences">
+                                    <span ng-hide="editingExperiences">Save</span>
+                                    <span ng-show="editingExperiences">Saving..<i class="fa fa-spin fa-spinner"></i></span>
+                                </button>
+                                <button class="btn btn-disabled r-3x text-black-lt m-l-xs" ng-click="cancelEditExperience()">Cancel</button>
+                                <button class="btn b-a b-black-lter r-3x text-black-dk m-l-lg" ng-click="deleteExperience(experience)">Delete</button>
+                            </div>
+                            <div class="clear clearfix"></div>
+                            <span class="arrow"></span>
+                            <div class="well lt m-t-sm b-a b-black-lter no-padder">
+                                <div ng-repeat="(key, role) in experience.roles">
+                                    <form class="m" id="role_{{ $parent.$index}}_{{ $index}}" >
+                                        <div class="pull-right text-sm font-italic text-black-dk hover-pointer" ng-click="removeExperienceRole(editExperience, role);">Remove</div> 
+                                        <div class="form-group">
+                                            <label class="control-label text-17 text-black-dk">Title</label>
+                                            <input class="form-control input-lg w-2xl text-black-dk" placeholder="Business developer, Designer...." ng-model="role.jobtitle"/> 
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label text-17 text-black-dk">Description</label>
+                                            <textarea class="form-control text-black-dk text-lg" placeholder="Give us more details about your mission." ng-model="role.description"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label text-17 text-black-dk">Dates</label>
+                                            <div>
+                                                <!--strating month-->
+                                                <select class="form-control w-sm input-lg inline m-r-xs text-black-dk dt" ng-model="role.frommonth" ng-change="updateFromDate(role);" required>
+                                                    <option value="">Month</option>
+                                                    <option ng-repeat="m in months" value="{{ m.key}}" ng-selected="m.key == role.frommonth">{{ m.value}}</option>
+                                                </select>
+                                                <!--/starting month-->
+
+                                                <!--starting year-->
+                                                <select class="form-control w-sm input-lg inline m-r-xs text-black-dk dt" ng-model="role.fromyear" ng-change="updateFromDate(role);" required>
+                                                    <option value="">Year</option>
+                                                    <option ng-repeat="y in years" ng-selected="role.fromyear == y">{{y}}</option>
+                                                </select>
+                                                <!--/starting year-->
+                                                <span class="text-lg inline text-black-dk m-r-xs">to</span>
+                                                <!--ending month-->
+                                                <select class="form-control w-sm input-lg inline m-r-xs text-black-dk dt" ng-model="role.tomonth" ng-change="updateToDate(role);" required>
+                                                    <option value="">Month</option>
+                                                    <option ng-repeat="m in months" value="{{ m.key}}" ng-selected="role.tomonth == m.key">{{ m.value}}</option>
+                                                </select>
+                                                <!--/end month-->
+                                                <!--end year-->
+                                                <select class="form-control w-sm input-lg inline m-r-xs text-black-dk dt" ng-model="role.toyear" ng-change="updateToDate(role);" required>
+                                                    <option value="">Year</option>
+                                                    <option ng-repeat="y in years">{{y}}</option>
+                                                </select>
+                                                <!--/end year-->
+                                            </div>
+                                            <div class="m-t-sm">
+                                                <label class="i-checks i-checks-lblue text-sm text-black-dk">
+                                                    <input type="checkbox" ng-model="role.currently">
+                                                    <i></i>
+                                                    Current position 
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <hr class="m-t-sm m-b-sm b-black-lter" ng-if="$last">
+                                    <hr class="b-black-lt m-t-xl m-b-xl" ng-if="!$last">
+                                </div>
+                                <div class="m">
+                                    <span class="text-blue font-bold hover-pointer" ng-click="addExperienceRole(editExperience)">Add another role</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear clearfix"></div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+</div>

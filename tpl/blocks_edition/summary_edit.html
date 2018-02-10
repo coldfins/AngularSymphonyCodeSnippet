@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div ng-controller="LinkedInSyncModalCtrl">
+            <a class="text-muted pull-right" ng-click="open('lg');trackLinkedin('Summary')">Sync <i class="fa fa-linkedin-square"></i></a>
+        </div>
+        <h4 class="h4">Summary</h4>
+    </div>
+    <div class="panel-body">
+        <textarea class="form-control" rows="10" maxlength="600" ng-model="user.summary" placeholder="Describe yourself…"></textarea>
+        <span class="pull-right opacity-6 m-b">{{600 - user.summary.length}} left</span>
+    </div>
+
+    <div class="panel-footer bg-light lter text-right">
+        <button class="btn btn-success" ng-click="saveSummary()">
+            <span ng-hide="loadingSummary" class="text">Save</span>
+            <span ng-show="loadingSummary" class="text"><i class="fa fa-spin fa-circle-o-notch"></i> Save</span>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+<style>
+    body{
+        background-color: #fbfbfb;
+    }
+    .tags-input.ng-invalid .tags{
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        border: 1px solid #e7ecee;
+        border-color: #e7ecee;
+    }
+    .text-red-dk{
+        color: #c35353 !important;
+    }
+    .tooltip.in{
+        opacity: 1;
+    }
+    .tooltip-inner{
+        white-space: normal;
+    }
+    .thumb-xxxs{
+        width: 27px !important;
+        height: 27px !important;
+    }
+</style>
+<div ng-init="app.settings.container = false;" class="m-t-xxl m-b-lg" ng-controller="connectionsUtilController">
+
+    <div class="text-center m-b-xxl">
+        <div class="text-xxl font-thin">
+            Who's visited your profile
+        </div>
+        <div class="text-black-dk text-gray text-17 m-t-xs">
+            People who have visited your profile this last days.
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- TODAY -->
+        <div ng-if="todayVisits.length" class="row m-t m-b">
+            <div class="col-sm-12">
+                <div class="text-center m-t m-b">
+                    <a class="text-muted text-u-c font-bold line-behind lt" ng-init="isCollapsed = false" ng-click="isCollapsed = !isCollapsed">Today {{ todayVisits.length || 0 }} people visited your profile <i class="fa {{isCollapsed == true ? 'fa-angle-down': 'fa-angle-up';}}"></i></a>
+                </div>
+            </div>
+
+            <div class="list-group list-group-lg list-group-sp" uib-collapse="isCollapsed">
+                <div class="col-md-4 col-sm-6 col-xs-12 people-suggestions m-t-lg pos-stc" ng-repeat="connection in todayVisits| orderBy:'-date' | limitTo:100">
+                    <div ng-include="'tpl/blocks_general/box_connection.html'"></div>
+                </div>
+            </div>
+        </div><!--/ TODAY -->
+
+        <!-- THIS WEEK -->
+        <div ng-if="weekVisits.length" class="row m-t m-b">
+            <div class="col-sm-12">
+                <div class="text-center m-t m-b">
+                    <a class="text-muted text-u-c font-bold line-behind lt" ng-init="isCollapsed = false" ng-click="isCollapsed = !isCollapsed">This week {{ weekVisits.length || 0 }} people visited your profile <i class="fa {{isCollapsed == true ? 'fa-angle-down': 'fa-angle-up';}}"></i></a>
+                </div>
+            </div>
+
+            <div class="list-group list-group-lg list-group-sp" uib-collapse="isCollapsed">
+                <div class="col-md-4 col-sm-6 col-xs-12 people-suggestions m-t-lg pos-stc" ng-repeat="connection in weekVisits| orderBy:'-date' | limitTo:100">
+                    <div ng-include="'tpl/blocks_general/box_connection.html'"></div>
+                </div>
+            </div>
+        </div><!--/ THIS WEEK -->
+
+        <!-- LAST 90 -->
+        <div ng-if="pastVisits.length" class="row m-t m-b">
+            <div class="col-sm-12">
+                <div class="text-center m-t m-b">
+                    <a class="text-muted text-u-c font-bold line-behind lt" ng-init="isCollapsed = false" ng-click="isCollapsed = !isCollapsed">90 Past days {{ pastVisits.length || 0 }} people visited your profile <i class="fa {{isCollapsed == true ? 'fa-angle-down': 'fa-angle-up';}}"></i></a>
+                </div>
+            </div>
+
+            <div class="list-group list-group-lg list-group-sp" uib-collapse="isCollapsed">
+                <div class="col-md-4 col-sm-6 col-xs-12 people-suggestions m-t-lg pos-stc" ng-repeat="connection in pastVisits| orderBy:'-date' | limitTo:100">
+                    <div ng-include="'tpl/blocks_general/box_connection.html'"></div>
+                </div>
+            </div>
+        </div><!--/ LAST 90 -->
+
+    </div>
+</div>

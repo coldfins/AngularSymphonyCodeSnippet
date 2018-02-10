@@ -1,0 +1,87 @@
+<div class="panel panel-default no-shadow ng-scope"  ng-controller="InviterController">
+    <div class="panel-heading font-bold">Add contacts</div>
+    <div class="panel-body">
+        <div class="hbox hbox-auto-xs hbox-auto-sm"  >
+
+            <div class="text-center">
+                <img src="cdn/img/mit-invite-contacts.svg" class="thumb-xl"  alt="mobintouch invite contacts">
+            </div>
+
+            <div class="text-center">
+                <h1 class="h4">See who you already know on Mobintouch.</h1>
+                <!-- <h2 class="h5 text-muted">Say to all your friends and colleagues to join us!</h2> -->
+            </div>
+
+            <div>
+                <!--<h3 class="text-center">You don't have a LinkedIn account ?</h3>-->
+                <div id="adi_inpage_login_root" class="adi_nc_inpage_panel_outer">
+
+
+                    <div class="adi_login_form_width">
+
+
+                        <div class="adi_current_section adi_section_separator">
+                            <div style="display:block;" class="adi_inner_section">
+
+                                <div class="adi_err_outer"></div>
+
+                                <form class="adi_clear_form adi_nc_oauth_submit_form adi_nc_addressbook_form ng-pristine ng-valid" method="POST" action="invite/inviter_inpage">
+                                    <input type="hidden" class="adi_service_key_val" name="adi_service_key_val" value="gmail">
+                                    <input type="hidden" value="get_contacts" name="adi_do">
+                                    <input type="hidden" value="addressbook" name="importer_type">
+                                    <input type="hidden" class="adi_nc_campaign_id" value="" name="campaign_id">
+                                    <input type="hidden" class="adi_nc_content_id" value="0" name="content_id">
+                                    <input type="hidden" class="adi_captcha_text_cls" name="adi_captcha_text">
+                                    <input type="hidden" value="" class="adi_cnttrgt" name="adi_contacts_target">
+                                    <div style="display:none;" class="adi_importer_cap_info_pass"></div>
+
+                                    <div class="row invite_buttons">
+                                        <div class="col-xs-12 text-center btn-container invite_btn_container">
+                                            <div class="action-btn adi_nc_external_login col-sm-6" service_id="gmail" onclick="$('.adi_service_key_val').val('gmail'); adi_open_oauth('gmail');" ng-click="trackInviter('Widget', 'gmail');">
+                                                <div class="adi_psp_gmail btn_gmail">
+                                                    <img class="adi_clear_img invite-icon" src="invite/find_friends/adiinviter/themes/Theme-1/images/custome/gmail.png"><span class="invite-text">gmail</span> 
+                                                </div>
+                                            </div>
+                                            <a class="action-btn adi_nc_external_login adi_nc_marked col-sm-6" service_id="hotmail" onclick="$('.adi_service_key_val').val('hotmail'); adi_open_oauth('hotmail');" ng-click="trackInviter('Widget', 'hotmail');">
+                                                <div class="adi_psp_hotmail btn_hotmail">
+                                                    <img class="adi_clear_img invite-icon" src="invite/find_friends/adiinviter/themes/Theme-1/images/custome/hotmail.png"><span class="invite-text">hotmail</span> 
+                                                </div>
+                                            </a>
+                                            <a class="action-btn adi_nc_external_login adi_nc_marked col-sm-6" service_id="yahoo" onclick="$('.adi_service_key_val').val('yahoo'); adi_open_oauth('yahoo');" ng-click="trackInviter('Widget', 'yahoo');">
+                                                <div class="adi_psp_yahoo btn_yahoo">
+                                                    <img class="adi_clear_img invite-icon" target="_self" src="invite/find_friends/adiinviter/themes/Theme-1/images/custome/yahoo.png"><span class="invite-text">yahoo</span> 
+                                                </div>
+                                            </a>
+                                            <a ui-sref="invites({ service : 'adi_psp_linkedin' })" target="_self" class="action-btn adi_nc_external_login adi_nc_marked col-sm-6" service_id="linkedin" ng-click="trackInviter('Widget', 'linkedin');">
+                                                <div class="adi_psp_linkedin btn_linkedin">
+                                                    <img class="adi_clear_img invite-icon" src="invite/find_friends/adiinviter/themes/Theme-1/images/custome/linkedin.png"><span class="invite-text">linkedin</span> 
+                                                </div>
+                                            </a>
+                                            <a ui-sref="invites({ service : 'manually-import' })" target="_self" class="action-btn adi_nc_external_login adi_nc_marked col-sm-6" ng-click="trackInviter('Widget', 'Manually');">
+                                                <div class="manually-import btn_manually" id="manuallyImportBtn">
+                                                    <span class="invite-text">Manually</span> 
+                                                </div>
+                                            </a>
+                                            <a ui-sref="invites({ service : 'file-import' })" target="_self" class="action-btn adi_nc_external_login adi_nc_marked col-sm-6" ng-click="trackInviter('Widget', 'Contact File');">
+                                                <div class="file-import btn_file" id="importcsv">
+                                                    <span class="invite-text">Import file</span> 
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" value="0" class="adi_oauth_submit">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                                                adjq(document).ready(function () {
+                                                adi.allocate_intr('lgip', adjq('#adi_inpage_login_root'));
+                                                adjq('.adi_goto_inviter_page_link').attr('onclick', 'window.location = window.location.pathname');
+                                                });
+                    </script>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>

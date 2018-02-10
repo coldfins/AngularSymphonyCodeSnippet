@@ -1,0 +1,41 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = true;">
+    <div class="wrapper-md hidden-print b-b">
+        <h1 class="font-thin h3">Followers ( {{company.followers.length|| 0 }} )</h1>
+    </div>
+
+    <!-- LAST VISITED PROFILES LIST -->
+    <div class="wrapper">
+        <div ng-repeat="follower in company.followers| orderBy:'-date'" class="col-lg-4">
+            <!-- PROFILE BOX -->
+            <div class="panel panel-default">
+                <div class="panel-heading connection-list">
+                    <div class="clearfix">
+                        <a ui-sref="app.page.public({username: follower.username})" class="pull-left thumb-md avatar b-3x m-r">
+                            <img ng-show="follower.avatar" src="{{app.baseUrl}}{{follower.avatar}}" class="img-circle">
+                            <img ng-hide="follower.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                        </a>
+                        <div class="clear">
+                            <div class="text-md font-bold">
+                                <a ui-sref="app.page.public({username: follower.username})">
+                                    {{ follower.name | capitalize }} {{ follower.lastname | capitalize }}<span class="premium-box"></span>
+                                </a>
+                            </div>
+                            <a class="text-sm" ng-if="follower.mutualConnections && follower.mutualConnections.length > 0" tooltip-html-unsafe="{{getMutualConnectionList(follower.mutualConnections)}}">{{ follower.mutualConnections.length}} Mutual Connections</a>
+                            <div class="text-sm"><a ui-sref="app.page.public({username: follower.username})" class="text-dark-dker">{{ follower.jobTitle | capitalize }}</a></div>
+                            <div class="text-sm"><a ui-sref="app.page.public({username: follower.username})" class="text-dark-lter">{{ follower.company | capitalize }}</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group no-radius alt">
+                    <a ui-sref="app.page.public({username: follower.username})" class="list-group-item">
+                        <i class="fa fa-eye fa-fw"></i> Visit the profile
+                    </a>
+                </div>
+            </div>
+            <!--/ PROFILE BOX -->
+        </div>
+    </div>
+
+    <!-- / LAST VISITED PROFILES LIST -->
+
+</div>

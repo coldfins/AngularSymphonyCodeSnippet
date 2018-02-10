@@ -1,0 +1,15 @@
+<div ng-if="user.summary" ng-controller="TooltipDemoCtrl" class="panel panel-default">
+    <div class="panel-heading">
+        <a ui-sref="app.page.edit/profile" class="text-muted pull-right" ng-click="app.activetab='aboutme'">Edit</a>
+        <h2 class="h4">Summary</h2>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="clear">
+                    <p class="text-base text-block" ng-bind-html="user.summary | nl2br"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

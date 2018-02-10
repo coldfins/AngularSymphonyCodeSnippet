@@ -1,0 +1,52 @@
+<div class="row">
+    <div ng-show="user.iosApps.length" class="col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a ui-sref="app.page.edit/profile" class="text-muted pull-right m-t-xxs">Add</a>
+                <h2 class="h4">iOS Apps</h2>
+                <small class="text-muted">The list of our apps available on the App Store.</small>
+            </div>
+            <ul class="list-group list-group-lg no-bg auto">
+                <li data-ng-repeat="iosApp in user.iosApps" class="list-group-item clearfix">
+                    <span class="pull-left thumb iosappicon m-r m-t-xs">
+                      <img src="{{iosApp.icon}}" alt="{{iosApp.name}}">
+
+                    </span>
+                    <span class="clear no-padder">
+                        <span class="text-ellipsis w-md">{{iosApp.name}}</span>
+                        <span class="text-muted text-ellipsis">
+                            <a  rel="nofollow" href="{{iosApp.url}}" target="_blank" class="btn btn-default btn-sm r-2x text-xs m-t-xs pull-right">App Store</a>
+                            <small><span data-ng-repeat="iosAppCategory in iosApp.categories" >{{iosAppCategory}} {{$last ? '' : ' / '}}</span> <br> {{iosApp.artistName}}</small>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div ng-show="user.androidApps.length" class="col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a ui-sref="app.page.edit/profile" class="text-muted pull-right m-t-xxs">Add</a>
+                <h2 class="h4">Android Apps</h2>
+                <small class="text-muted">The list of our apps available on the Play Store.</small>
+            </div>
+            <ul class="list-group list-group-lg no-bg auto">
+
+                <li data-ng-repeat="androidApp in user.androidApps" class="list-group-item clearfix">
+                     <span class="pull-left thumb iosappicon m-r m-t-xs">
+                      <img src="{{androidApp.icon}}" alt="{{androidApp.name}}">
+
+                    </span>
+                    <span class="clear no-padder">
+                        <span class="text-ellipsis w-md">{{androidApp.name }}</span>
+                        <span class="text-muted text-ellipsis">
+                            <a  rel="nofollow" href="{{androidApp.url}}" target="_blank" class="btn btn-default btn-sm r-2x text-xs m-t-xs pull-right">Google Play</a>
+                            <small><span data-ng-repeat="androidAppCategory in androidApp.categories" >{{androidAppCategory | capitalize }} {{$last ? '' : ' / '}}</span> <br> {{androidApp.artistName}}</small>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<!-- edit keywords-->
+<div class="edit_interest padder-t-xl padder-b-xxl b-b bg-light lt">
+    <div class="container">
+        <form name="editInterestedKeywordsForm" class="form-horizontal m-b-xxl padder-b-xl" ng-submit="editInterestedKeywords(editInterestedKeywordsForm)" ng-init="getSuggestKeywords()">
+            <div class="m-b-xxl w-full text-right">
+                <button class="btn btn-blue r-3x" type="submit" name="save" ng-disabled='editInterestedKeywords.$invalid || updateInterestedKeywords'>
+                    <span class="" ng-hide="updateInterestedKeywords">Save</span>
+                    <span class="" ng-show="updateInterestedKeywords">Updating <i class="fa fa-spinner fa-spin"></i></span> 
+                </button>
+                <button class="btn r-3x m-l-xs" type="button" ng-click="interestedKeywordsForm(false); cancel(editInterestedKeywordsForm);" name="cancel">Cancel</button>
+            </div>
+            <div class="col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1 col-xs-12">
+                <div class="text-center">
+                    <span class="text-xl">Edit you interests</span>
+                </div>
+                <div class="text-center m-b-xl">
+                    <span class="">We'll use your interests to suggest you people, companies, products and apps.</span>
+                </div>
+
+                <div class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 text-center">
+                    <div class="r-3x padder-v-sm padder text-center label-green-light hover-pointer" ng-repeat="keyword in keywords.slice(0, 15) track by $index" ng-click="addkeyword(keyword)">{{ keyword}}</div>
+                </div>
+                <div class="clear clearfix"></div>
+                <div class="text-center">
+                    <hr class="col-xs-12 or-divider m-t-xl m-b-xl opacity-8">
+                </div>
+                <div class="col-xs-12 has-feedback">
+                    Type a list of keywords that defines your interests
+                    <tags-input class="tags-input" replace-spaces-with-dashes="false" ng-model="user.keywords" add-from-autocomplete-only="false" placeholder="Insert interested keywords" add-on-paste="true">
+                        <auto-complete source="loadKeywords($query)" 
+                                       min-length="0" 
+                                       debounce-delay="300"
+                                       max-results-to-show="10"></auto-complete>
+                        <i ng-show="loadingkeywords" class="fa fa-spinner fa-spin form-control-feedback input-loader-lg"></i>
+                    </tags-input>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+            <div class="clear clearfix"></div>
+        </form>
+    </div>
+</div>
+<!-- edit keywords -->

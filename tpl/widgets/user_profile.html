@@ -1,0 +1,29 @@
+<div class="panel panel-default no-shadow">
+    <div class="panel-body no-padder">
+        <div class="padder padder-v b-b">
+            <a ui-sref="app.page.profile" class="pull-left m-r-sm" href="/mobintouch/mobntouch/src/myprofile">
+                <img ng-if="user.avatar" src="{{app.baseUrl}}{{user.avatar}}" alt="{{ user.name}} {{ user.lastname}}" class="thumb avatar">
+                <img ng-if="!user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" alt="{{ user.name}} {{ user.lastname}}" class="thumb avatar">
+            </a>
+            <div class="clear">
+                <a class="text-md font-bold text-ellipsis m-t-xs hover-black-dker" ui-sref="app.page.profile">{{ user.name}} {{ user.lastname}}</a>
+                <a class="text-sm text-gray text-blue-lt hover-text-blue-lt hover-underline" ui-sref="app.page.profile">View profile</a>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="padder padder-v">
+            <div class="">
+                <div class="text-md"><a class="hover-text-blue-lt hover-underline" ui-sref="app.page.connections({'type':'direct'})">{{ user.connections || 0}}</a></div>
+                <div class="text-muted">{{ connections.length <= 0 ? 'Connection' : 'Connections' }}</div>
+            </div>
+            <div class="m-t">
+                <div class="text-md"><a class="hover-text-blue-lt hover-underline" ui-sref="app.page.connections({'type':'secondary'})">{{ user.secConnections || 0}} people</a></div>
+                <div class="text-muted">In your network</div>
+            </div>
+            <div class="m-t">
+                <div class="text-md"><a class="text-blue-lt hover-text-blue-lt hover-underline" ui-sref="app.page.addconnections">Add connections</a></div>
+                <div class="text-muted">To see more people</div>
+            </div>
+        </div>
+    </div>
+</div>

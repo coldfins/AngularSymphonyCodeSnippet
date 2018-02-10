@@ -1,0 +1,97 @@
+<div class="form-group form-horizontal">
+    <div class="col-xs-12 col-sm-4 text-17 padder-t-sm text-black-dk">
+        *What are your areas of expertise?
+        <div class="text-sm text-primary" ng-show="formSubmited && (!user.services[selectedIndex].subServices || user.services[selectedIndex].subServices.length <= 0)">Required</div>
+    </div>
+    <div class="col-sm-8 m-t-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="advertising" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Advertising"/>
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Advertising</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="digitalMarketing" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Digital Marketing" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Digital Marketing</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="emailMarketing" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Email Marketing" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Email Marketing</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="growthHacking" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Growth Hacking" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Growth Hacking</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="marketingResearch" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Marketing Research" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Marketing Research</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="marketingStrategy" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Marketing Strategy" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Marketing Strategy</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="productMarketing" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Product Marketing" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Product Marketing</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="asoAndSeo" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="ASO and SEO" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">ASO and SEO</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="socialMedia" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Social Media" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Social Media</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="marketing" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Marketing" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Marketing</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="other" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Other" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Other</div>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

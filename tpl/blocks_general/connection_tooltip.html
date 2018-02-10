@@ -1,0 +1,8 @@
+<div class="padder-v">
+    <img class="inline pull-left" ng-show="mConnect[connectionIndex].avatar" src="{{app.baseUrl}}{{mConnect[connectionIndex].avatar}}" height="36px"/>
+    <img class="inline pull-left" ng-show="!mConnect[connectionIndex].avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" height="36px"/>
+    <div class="m-l-sm text-14 inline">
+        <div class="">You're connected to {{ mConnect[connectionIndex].name }} {{ mConnect[connectionIndex].lastname }}</div>
+        <div class="">{{mConnect[connectionIndex].name}} is connected to {{ connection.name }}</div>
+    </div>
+</div>

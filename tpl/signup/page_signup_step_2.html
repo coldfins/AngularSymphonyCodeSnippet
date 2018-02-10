@@ -1,0 +1,107 @@
+<div ng-init="app.settings.container = false; app.settings.headerFixed = false; pageLoad('Sign Up Step 2 Page', 'Page View')" ng-controller="RegisterStepsFormController">
+    <nav class="navbar navbar-fixed-top pos-rlt">
+        <div class="container-fluid">
+            <div class="padder-lg padder-v-lg">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <!--  <a ui-sref="index" class="navbar-brand hidden-xs signup-close" data-ng-click="track('Back On Landing Page', 'Navbar', 'Cross Button')">
+                        <span><svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path d="M6 4.586l4.24-4.24c.395-.395 1.026-.392 1.416-.002.393.393.39 1.024 0 1.415L7.413 6l4.24 4.24c.395.395.392 1.026.002 1.416-.393.393-1.024.39-1.415 0L6 7.413l-4.24 4.24c-.395.395-1.026.392-1.416.002-.393-.393-.39-1.024 0-1.415L4.587 6 .347 1.76C-.05 1.364-.048.733.342.343c.393-.393 1.024-.39 1.415 0L6 4.587z" fill-rule="evenodd"></path></svg></span>
+                    </a> -->
+                    <a ui-sref="index" class="navbar-brand w-xxs visible-xs" data-ng-click="track('Back On Landing Page', 'Navbar', 'Logo')" ><i class=" icon-arrow-left text-xl"></i></a>
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+    </nav>
+
+    <div class="vertical-center flex-center">
+        <div class="container pos-rlt animated fadeIn">
+            <div class="row">
+                <div class="">
+                    <div class="text-center">
+                        <span class="text-48 text-black-dker">Welcome to Mobintouch!</span>
+                    </div>
+                    <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+                        <div class="text-center padder padder-v text-lg">
+                            <span class="">Tell us a little bit more about yourself so we can customize your site experience.</span>
+                        </div>
+                        <form name="frmPersonalDetails" ng-submit="updatePersonalDetails()" class="form-horizontal form-validation">
+                            <div class="m-b-sm">
+                                <input class="form-control input-lg" placeholder="First name" type="text" ng-model="user.name" ng-pattern="/^[a-zA-Z-\u00E0-\u00FC ']{2,20}$/" maxlength="20" required/>
+                            </div>
+                            <div class="m-b-sm">
+                                <input class="form-control input-lg" placeholder="Last name" type="text" ng-model="user.lastname" ng-pattern="/^[a-zA-Z-\u00E0-\u00FC ']{2,40}$/" maxlength="40" required/>
+                            </div>
+                            <div class="m-b-sm">
+                                <!--<input id="places" type="text" class="form-control input-lg" placeholder="Location" ng-model="user.location" options="{ types: '(cities)', watchEnter: false }" details="details" id="location" ng-autocomplete/>-->
+                                <input
+                                    name="places"
+                                    id="places"
+                                    type="text"
+                                    placeholder="Enter a Location" 
+                                    class="form-control input-lg" 
+                                
+                                    ng-model="user.location" 
+                                    uib-typeahead="location.description for location in locationResult" 
+                                    maxlength="100" 
+                                    typeahead-on-select='onSelectLocation($item)' 
+                                    typeahead-template-url="tpl/blocks_general/location-autocomplete.html?v={{app.latestUpdate}}"
+                                    autocomplete="off"
+                                    required="required">
+                            </div>
+                            <div class="m-b-sm">
+                                <span class="text-sm padder">Birth date</span>
+                                <div class="clear clearfix"></div>
+                                <select class="b_month form-control input-lg col-xs-4" ng-model="user.birthdayMM" required>
+                                    <option value="">Month</option>
+                                    <option ng-repeat="m in months" value="{{ m.key}}">{{ m.value}}</option>
+                                </select>
+                                <select class="b_day form-control input-lg col-xs-3" style="margin-left: 2%;margin-right: 2%;" ng-model="user.birthdayDD" required>
+                                    <option value="">Day</option>
+                                    <option ng-repeat="d in days">{{ d}}</option>
+                                </select>
+                                <select class="b_year form-control input-lg col-xs-4" ng-model="user.birthdayYYYY" required>
+                                    <option value="">Year</option>
+                                    <option ng-repeat="y in years">{{ y}}</option>
+                                </select>
+                                <div class="clear clearfix"></div>
+                            </div>
+                            <div class="m-b-sm">
+                                <select class="form-control input-lg" ng-model="user.gender" required>
+                                    <option value="">Gender</option>
+                                    <option value="female">Female</option>
+                                    <option value="male">Male</option>
+                                </select>
+                            </div>
+                            <div class="m-b-sm">
+                                <button type="submit" ng-disabled='frmPersonalDetails.$invalid || loadingSignup' class="btn btn-lg btn-blue-lt col-xs-12">
+                                    <span ng-hide="loadingSignup" class="text-lg">Continue <span class="text-sm"> <i class="fa fa-angle-double-right"></i></span></span>
+                                    <span ng-show="loadingSignup" class="text-lg">Continue <i class="fa fa-spinner fa-spin text-md"></i></span>
+                                </button>
+                            </div>
+                            <div class="clear clearfix"></div>
+                            <div class="m-t-xxl">
+                                <div class="col-xs-8 col-xs-offset-2">
+                                    <div class="outer_progress">
+                                    </div>
+                                    <div class="inner_progress" style="width: 13%;"></div>
+                                </div>
+                                <div class="clear clearfix"></div>
+                                <div class="text-center m-t-sm m-b-xxl">
+                                    <span class="text-md">13% complete</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var input = document.getElementById('places');
+    google.maps.event.addDomListener(input, 'keydown', function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+        }
+    });
+</script>

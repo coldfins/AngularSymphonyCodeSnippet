@@ -1,0 +1,25 @@
+<div class="w-full b-a r-2x m-t-lg bg-white" id="visitors">
+    <div class="col-xs-12 padder-t-lg padder-md">
+        <div class="text-xl text-black-dker font-normal text-gray">Visitors</div>
+        <div class="clear clearfix"></div>
+    </div>
+    <div class="col-xs-12 padder-md list-group-item no-borders b-b r-2x" ng-if="publicCompany.visitors.length > 0">
+        <div class="padder-v pull-left w-full" ng-class="{'b-b':!$last}" ng-repeat="visitor in publicCompany.visitors.slice(0, 5)| orderBy:'-date'">
+            <span class="pull-left thumb-sm avatar m-r b-a">
+                <img ng-show="visitor.avatar" src="{{ app.baseUrl}}{{ visitor.avatar}}" alt="{{ visitor.name}} {{ visitor.lastname}}" class="">
+                <img ng-hide="visitor.avatar" src="{{ app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" alt="{{ visitor.name}} {{ visitor.lastname}}" class="">
+            </span>
+            <div class="clear">
+                <a class="font-bold text-ellipsis" ui-sref="app.page.public({username: visitor.username})">{{ visitor.name}} {{ visitor.lastname}}</a>
+                <div class="text-muted clear text-ellipsis">{{ visitor.jobTitle}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 padder-md list-group-item no-borders" ng-if="!publicCompany.visitors || publicCompany.visitors.length <= 0">
+        <span class="text-gray font-italic">No data available</span>
+    </div>
+    <div class="clear clearfix"></div>
+    <div class="text-center padder-b-lg" ng-if="publicCompany.visitors.length > 5 && (publicCompany.administrators | filter:user.username).length >= 0">
+        <span class="text-center text-md font-bold hover-pointer text-blue" ng-click="manageVisitors()">See all visitors</span>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="bg-primary bg-auto w-full " ng-init="app.settings.container = false; app.settings.headerFixed = false;">
+    <!-- header -->
+    <header id="header" class="navbar" data-spy="affix" data-offset-top="1">
+        <div class="padder-v m-t-xl">
+            <div class="container">
+                <div class="collapse navbar-collapse">
+                    <a  rel="nofollow" href="#" class="navbar-brand m-r-lg"><img src="{{app.baseUrl}}/img/logotype-white.svg" class="w-lg"></a>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <div class="m-t-sm">
+                                <a ui-sref="access.signin" class="wrapper-sm r-2x b b-light b-2x font-bold">LOGIN</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- / header -->
+    <div class="container-fluid animated fadeInRight" id="content" ng-controller="SignupFormController">
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1">
+                <div class="m-t-thumb-signup v-middle text-center">
+                    <img src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle thumb-signup">
+                </div>
+            </div>
+            <div class="col-lg-6 no-padder">
+
+                WELCOME!!!
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+    hello.init({
+        linkedin : '77qs31x0xkh7tz'
+    },{redirect_uri:'/linkedin'});
+
+    hello.on('auth.login', function(auth){
+
+        // call user information, for the given network
+        hello( auth.network ).api( '/me' ).then( function(r){
+            // Inject it into the container
+            var label = document.getElementById( "profile_"+ auth.network );
+            if(!label){
+                label = document.createElement('div');
+                label.id = "profile_"+auth.network;
+                document.getElementById('profile').appendChild(label);
+            }
+            label.innerHTML = '<img src="'+ r.thumbnail +'" /> Hey '+r.name;
+        });
+    });
+</script>

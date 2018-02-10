@@ -1,0 +1,162 @@
+<style>
+    .delete-badge{
+        margin: -9px -7px 0px 0px;
+        border-radius: 50%;
+        color: gray;
+    }
+    .delete-badge:hover{
+        color: black;
+    }
+</style>
+<div class="w-full b-a r-2x m-t-lg bg-white-only" id="about_us">
+    <div class="col-xs-12 padder-v">
+        <div class="pull-left text-xl text-black-dker padder font-normal text-gray">About us</div>
+        <div class="pull-right padder" ng-if="(publicCompany.administrators | filter:user.username).length > 0">
+
+            <a class="inline text-gray hover-text-blue-lt padder-v-sm padder-sm" ng-click="updateAboutUsMode(true);" ng-if="!editAboutUs">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <span class="m-l-xs inline">Edit</span>
+            </a>
+            <!--<button class="btn btn-blue-lt r-2x" ng-click="updateAboutUsMode(true);" ng-if="!editAboutUs">Edit</button>-->
+
+            <button class="btn btn-blue-lt r-2x m-r-xs" ng-click="updateAbout();" ng-if="editAboutUs" ng-disabled="updatingAbout">
+                <span ng-hide="updatingAbout">Save</span>
+                <span ng-show="updatingAbout">Saving...<i class="fa fa-spin fa-spinner"></i></span>
+            </button>
+            <button class="btn btn-default r-2x" ng-click="updateAboutUsMode(false); cancel();" ng-if="editAboutUs">Cancel</button>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+    <div class="col-xs-12 padder-v">
+        <div ng-if="!editAboutUs">
+            <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+            <div class="col-xs-12" id="about">
+                <div id="s_container" class="screenshots row" ng-if="publicCompany.images.length > 0 || publicCompany.video.videoId">
+                    <div class="image_wrapper" id="about_lightbox">
+                        <div class="pull-left" ng-if="publicCompany.video.type == 'youtube'">
+                            <iframe width="450px" height="284px" ng-src="{{ publicCompany.video.videoId | youtubeEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                        </div>
+                        <div class="pull-left" ng-if="publicCompany.video.type == 'vimeo'">
+                            <iframe width="450px" height="284px" ng-src="{{ publicCompany.video.videoId | vimeoEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                        </div>
+                        <a href="{{ app.baseUrl}}{{ image}}" ng-repeat="image in publicCompany.images track by $index">
+                            <img id="s_img_{{ $index}}" class="h-lg padder lightbox" src="{{ app.baseUrl}}{{ image}}"/>
+                        </a>
+                        <script>
+                            document.getElementById('about_lightbox').onclick = function (event) {
+
+                                event = event || window.event;
+                                var target = event.target || event.srcElement,
+                                        link = target.src ? target.parentNode : target,
+                                        options = {index: link, event: event},
+                                links = this.getElementsByTagName('a');
+                                var serializer = new XMLSerializer();
+                                var lightbox = serializer.serializeToString(target);
+                                if (lightbox && lightbox.indexOf("img") > 0 && lightbox.indexOf("lightbox") > 0)
+                                    blueimp.Gallery(links, options);
+                            };</script>
+                    </div>
+                </div>
+                <div class="screenshots_prev" ng-init="isVideo = publicCompany.video.videoId ? true : false">
+                    <img id="p_img_{{ $index}}" class="h-xxs padder b-a m-xs" src="{{ app.baseUrl}}{{ image}}" ng-repeat="image in publicCompany.images track by $index" ng-click="previewClick($index, 'about', isVideo)"/>
+                </div>
+                <div class="padder-v" ng-if="publicCompany.description.length > 0" ng-init="maxLength = 650">{{publicCompany.description|subStr:0:maxLength:true}}<a class="font-bold hover-pointer text-blue-lt hover-text-blue-lt hover-underline" ng-click="maxLength = publicCompany.description.length" ng-show="publicCompany.description.length > maxLength && maxLength != publicCompany.description">read more</a></div>
+                <div class="text-md text-muted font-italic" ng-if="(!publicCompany.description || publicCompany.description.length <= 0) && !publicCompany.video.videoId && (!publicCompany.images || publicCompany.images.length <= 0)">
+                    your company hasn't shared any details.
+                </div>
+
+            </div>
+
+            <!--<div class="form-group" ng-if="publicCompany.video.type && publicCompany.video.url && publicCompany.video.videoId">
+                <div class="col-sm-2">
+                    <label class="control-label text-gray">Video</label>
+                </div>
+                <div class="col-sm-10">
+                    <div class="" ng-if="publicCompany.video.type == 'youtube'">
+                        <iframe width="100%" height="280" ng-src="{{ publicCompany.video.videoId | youtubeEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                    </div>
+                    <div class="" ng-if="publicCompany.video.type == 'vimeo'">
+                        <iframe width="100%" height="280" ng-src="{{ publicCompany.video.videoId | vimeoEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                    </div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+
+            <div class="form-group" ng-if="publicCompany.images.length > 0">
+                <div class="col-sm-2">
+                    <label class="control-label text-gray">Images</label>
+                </div>
+                <div class="col-sm-10">
+                    <div class="w-xs h-xs pull-left m-xs b-a r-3x b-2x" ng-repeat="image in publicCompany.images" style="background-image: url({{ app.baseUrl}}{{ image}});background-size:cover;"></div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label class="control-label text-gray">Description</label>
+                </div>
+                <div class="col-sm-10">
+                    <div class="">{{publicCompany.description}}</div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>-->
+
+        </div>
+
+        <form ng-if="editAboutUs && (publicCompany.administrators | filter:user.username).length > 0" class="form-horizontal m-md m-t-none" novalidate>
+
+            <div class="text-gray font-bold opacity-7 m-b-sm">SCREENSHOTS AND VIDEO</div>
+
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label class="control-label text-gray">Video</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="publicCompany.video.url" placeholder="Enter link to youtube, vimeo etc" />
+                    <div class="m-t-sm" ng-if="publicCompany.video.type == 'youtube'">
+                        <iframe width="100%" height="280" ng-src="{{ publicCompany.video.videoId | youtubeEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                    </div>
+                    <div class="m-t-sm" ng-if="publicCompany.video.type == 'vimeo'">
+                        <iframe width="100%" height="280" ng-src="{{ publicCompany.video.videoId | vimeoEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                    </div>
+                    <div class="w-xs h-xs pull-left m-xs b-a r-3x b-2x pos-rlt" ng-if="publicCompany.video.thumbnail" style="background-image: url({{ publicCompany.video.thumbnail}});background-size:cover;background-position: center;width: 130px;">
+                        <i class="icon-close text-dark text-lg bg-white delete-badge pos-abt" ng-click="removeAboutVideo()" uib-tooltip="Delete"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label class="control-label text-gray">Images</label>
+                </div>
+                <div class="col-sm-10">
+                    <div>
+                        <input onchange="angular.element(this).scope().updateAboutImage(this);"  type="file" accept="image/*" class="form-control pull-left pull-none-xs m-r-xs text-gray" ng-class="{'w-2xl':windowWidth > 786,'w-full':windowWidth <= 480}"/>
+                        <button class="btn btn-blue" ng-click="uploadAboutImage()" ng-disabled="uploadingImage" ng-class="{'w-full m-t-xs':windowWidth <= 480}">
+                            <span ng-show="!uploadingImage">Upload</span>
+                            <span ng-show="uploadingImage">Upload...<i class="fa fa-spin fa-spinner"></i></span>
+                        </button>
+                    </div>
+                    <div class="m-t" ng-if="publicCompany.images.length > 0">
+                        <div class="w-xs h-xs pull-left m-xs b-a r-3x b-2x pos-rlt" ng-repeat="image in publicCompany.images" style="background-image: url({{ app.baseUrl}}{{ image}});background-size:cover;">
+                            <i class="icon-close text-dark text-lg bg-white delete-badge pos-abt" ng-click="removeAboutImage(image)" uib-tooltip="Delete"></i>
+                        </div>
+                        <div class="clear clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear clearfix"></div>
+            <div class="m-t-md">
+                <div class="text-gray font-bold opacity-7">COMPANY  DESCRIPTION</div>
+                <div class="m-t-sm">
+                    <textarea class="form-control" ng-model="publicCompany.description" maxlength="1000" rows="5"></textarea>
+                    <span class="text-black-dk text-sm text-muted">{{ publicCompany.description.length||0}}/1000</span>
+                </div>
+                <!--<div class="col-sm-2">
+                    <label class="control-label text-gray">Description</label>
+                </div>-->
+            </div>
+        </form>
+    </div>
+    <div class="clear clearfix"></div>
+</div>

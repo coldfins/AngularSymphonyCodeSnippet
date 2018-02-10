@@ -1,0 +1,9 @@
+<li class="clearfix wrapper b-b w-xxl" style="cursor: pointer;">
+    <span class="pull-left thumb-sm avatar m-t-sm m-r clear">
+        <img ng-if="match.model.avatar" src="{{$parent.$parent.$parent.$parent.app.baseUrl}}{{match.model.avatar}}" class="img-circle">
+        <img ng-if="!match.model.avatar" src="{{$parent.$parent.$parent.$parent.app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+    </span>
+    <div class="text-md text-dark text-ellipsis" ng-bind-html="match.model.name  + ' ' + match.model.lastname | uibTypeaheadHighlight:query"></div>
+    <div class="text-sm text-dark text-ellipsis" ng-bind-html="match.model.jobTitle | uibTypeaheadHighlight:query"></div>
+    <div class="text-sm text-dark text-ellipsis" ng-bind-html="match.model.company | uibTypeaheadHighlight:query" ng-if="match.model.company"></div>
+</li>

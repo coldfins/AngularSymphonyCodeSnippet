@@ -1,0 +1,29 @@
+<div class="pull-right pull-none-xs" ng-controller="GetConnectController" ng-if="user.username && user.username != viewUser.username">
+    <a ui-sref="app.mail.compose({username : '{{viewUser.username}}' })" ng-if="viewUser.services[selectedIndex].whoCanSendMessage == 'everyone'" class="btn padder-md font-light" ng-class="{'btn-blue-lt':mouseOver, 'btn-blue-lt-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false">Message</a>
+    <a ui-sref="app.mail.compose({username : '{{viewUser.username}}' })" ng-if="connectStatus == 3 && viewUser.services[selectedIndex].whoCanSendMessage == 'inConnections'" class="btn padder-md font-light" ng-class="{'btn-blue-lt':mouseOver, 'btn-blue-lt-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false">Message</a>
+    <a ui-sref="app.mail.compose({username : '{{viewUser.username}}' })" ng-if="(viewUser.mutualConnections.length > 0 || connectStatus == 3) && viewUser.services[selectedIndex].whoCanSendMessage == 'inNetwork'" class="btn padder-md font-light" ng-class="{'btn-blue-lt':mouseOver, 'btn-blue-lt-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false">Message</a>
+</div>
+<div class="col-sm-8 no-padder text-md text-black-d opacity-8">
+    <div class="m-t-sm">
+        <i class="fa fa-map-marker icon-md pull-left"></i>
+        <div class="clear">
+            <span ng-if="viewUser.services[selectedIndex].location.basedCountry">{{ viewUser.services[selectedIndex].location.city}}, {{ 'country.' + viewUser.services[selectedIndex].location.basedCountry | translate }}<span ng-if="viewUser.services[selectedIndex].remoteService">. Remote</span></span>
+            <span ng-if="!viewUser.services[selectedIndex].location.basedCountry">{{ viewUser.services[selectedIndex].location.city}} <span ng-if="viewUser.services[selectedIndex].remoteService">. Remote</span></span>
+        </div>
+    </div>
+    <div class="m-t-sm" ng-if="viewUser.services[selectedIndex].subServices.length > 0">
+        <i class="fa fa-check m-t-xs icon-md pull-left"></i>
+        <div class="clear">
+            <span class="padder-r-xs" ng-repeat="subService in viewUser.services[selectedIndex].subServices track by $index">{{ subService}}<span ng-if="!$last">,</span> </span>
+        </div>
+    </div>
+    <div class="m-t-sm">
+        <i class="fa fa-question icon-md pull-left"></i> 
+        <span class="clear">{{ viewUser.services[selectedIndex].experties}}</span>
+    </div>
+    <div class="m-t-sm"> 
+        <i class="fa fa-tag icon-md pull-left"></i> 
+        <span class="clear">${{ viewUser.services[selectedIndex].minCharge}} to ${{ viewUser.services[selectedIndex].maxCharge}} per hour</span>
+    </div>
+</div>
+<div class="clear clearfix"></div>

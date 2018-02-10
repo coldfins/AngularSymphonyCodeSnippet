@@ -1,0 +1,29 @@
+<div class="container" ng-class="windowWidth <= 480 ? 'm-t-lg' : 'm-t-xxl'">
+    <h3 class="text-black-dker m-b-lg" ng-class="windowWidth <= 480 ? 'm-b-sm' : 'm-b-lg'">People you may know</h3>
+    <div class="profile-suggestions" ng-class="windowWidth <= 480 ? 'm-b-sm col-xs-12 no-padder' : 'm-b-xs m-r-lg pull-left'" ng-repeat="n in '123'.split('')">
+        <div class="r-2x b-a box b-black-ltr timeline-item profile-suggestion" ng-style="windowWidth <= 480 ? {'width': '100%'} : {}">
+            <div class="animated-background">
+                <div class="background-masker header-avatar"></div>
+                <div class="background-masker header-top"></div>
+                <div class="background-masker header-left"></div>
+                <div class="background-masker header-subleft"></div>
+                <div class="background-masker header-bottom"></div>
+                <div class="background-masker subheader-left-one"></div>
+                <div class="background-masker subheader-right-one"></div>
+                <div class="background-masker subheader-bottom-one"></div>
+                <div class="background-masker subheader-left-two"></div>
+                <div class="background-masker subheader-right-two"></div>
+                <div class="background-masker subheader-left-three"></div>
+                <div class="background-masker subheader-left-four-subleft"></div>
+            </div>
+            <div class="" style="margin-top: 65px;">
+                <div class="no-padder text-center">
+                    <button class="btn btn-blue-lt text-lg w-auto">
+                        <span class="">Connect</span>
+                    </button>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

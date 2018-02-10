@@ -1,0 +1,198 @@
+<div class="hbox hbox-auto-xs" ng-init="app.settings.container = true;">
+    <div class="col w-lg wrapper">
+
+        <!-- SETTINGS NAVBAR -->
+        <div class="wrapper b-a">
+            <ul class="nav nav-stacked nav-sm">
+                <li class=""><a ui-sref="app.page.settings">Account</a></li>
+                <li class=""><a ui-sref="app.page.settings_password">Password</a></li>
+                <li class="active"><a ui-sref="app.page.settings_notifications">Notifications</a></li>
+                <li class=""><a ui-sref="app.page.settings_privacy">Privacy</a></li>
+            </ul>
+        </div>
+        <!--/ SETTINGS NAVBAR -->
+
+    </div>
+
+    <div ng-controller="SettingsFormController" class="col wrapper">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- MAIL NOTIFICATIONS BOX-->
+                <form ng-submit="saveNotifications()" name="settingsNotificationsForm" class="form-validation form-group form-horizontal">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-2 m-b-lg">
+                        <h3 class="m-b text-lg text-dark font-bold">Email Notifications</h3>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Notify me when I receive an connection Request</label>
+                        <div class="col-xs-3 col-sm-2 col-md-2">
+                            <label class="i-switch bg-success m-t-xs m-r">
+                                <input type="checkbox" ng-model="user.settings.notifications[0].email_intouchrequest" checked>
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Notify me when my connection Request has been accepted</label>
+                        <div class="col-xs-3 col-sm-2 col-md-2">
+                            <label class="i-switch bg-success m-t-xs m-r">
+                                <input type="checkbox" ng-model="user.settings.notifications[0].email_intouchvalidated" checked>
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Notify me when I receive a message</label>
+                        <div class="col-xs-3 col-sm-2 col-md-2">
+                            <label class="i-switch bg-success m-t-xs m-r">
+                                <input type="checkbox" ng-model="user.settings.notifications[0].email_touchmail" checked>
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Notify me when someone visits my profile</label>
+                        <div class="col-xs-3 col-sm-2 col-md-2">
+                            <label class="i-switch bg-success m-t-xs m-r">
+                                <input type="checkbox" ng-model="user.settings.notifications[0].email_whovisited" checked>
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Notify me if I need to add important information to my profile</label>
+                        <div class="col-xs-3 col-sm-2 col-md-2">
+                            <label class="i-switch bg-success m-t-xs m-r">
+                                <input type="checkbox" ng-model="user.settings.notifications[0].email_fillprofile" checked>
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Notify me when someone likes one of my actions</label>
+                        <div class="col-xs-3 col-sm-2 col-md-2">
+                            <label class="i-switch bg-success m-t-xs m-r">
+                                <input type="checkbox" ng-model="user.settings.notifications[0].email_userlike" checked>
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-2 m-b-lg">
+                        <h3 class="m-b text-lg text-dark font-bold">Jobs Email Notifications</h3>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Notify me when a new job match with my saved filters</label>
+                        <div class="col-xs-3 col-sm-2 col-md-2">
+                            <label class="i-switch bg-success m-t-xs m-r">
+                                <input type="checkbox" ng-model="user.settings.notifications[0].email_jobs" checked>
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!--<div class="col-xs-12 col-sm-10 col-sm-offset-2 m-b-lg">
+                        <h3 class="m-b text-lg text-dark font-bold">Offers Email Notifications</h3>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Receive a daily recap of all my active offers</label>
+                        <div class="col-xs-3 col-sm-2 col-md-2">
+                            <label class="i-switch bg-success m-t-xs m-r">
+                                <input type="checkbox" ng-model="user.settings.notifications[0].email_offersdailyrecap" checked>
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Receive an email when my offer is on due date (6 hours before closing)</label>
+                        <div class="col-xs-3 col-sm-2 col-md-2">
+                            <label class="i-switch bg-success m-t-xs m-r">
+                                <input type="checkbox" ng-model="user.settings.notifications[0].email_offeralertduedate" checked>
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Receive an email when my offer is closed</label>
+                        <div class="col-xs-3 col-sm-2 col-md-2">
+                            <label class="i-switch bg-success m-t-xs m-r">
+                                <input type="checkbox" ng-model="user.settings.notifications[0].email_offerclosed" checked>
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Receive an email when an offer which I have replied to is going to close</label>
+                        <div class="col-xs-3 col-sm-2 col-md-2">
+                            <label class="i-switch bg-success m-t-xs m-r">
+                                <input type="checkbox" ng-model="user.settings.notifications[0].email_replyclosed" checked>
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Receive an email when a conversation is engaged on a reply I did</label>
+                        <div class="col-xs-3 col-sm-2 col-md-2">
+                            <label class="i-switch bg-success m-t-xs m-r">
+                                <input type="checkbox" ng-model="user.settings.notifications[0].email_offerengagedconversation" checked>
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>-->
+
+
+                    <div ng-if="user.companyPage['administrator']">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-2 m-b-lg">
+                            <h3 class="m-b text-lg text-dark font-bold">Company email notifications</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Notify me when someone follows my company page</label>
+                            <div class="col-xs-3 col-sm-2 col-md-2">
+                                <label class="i-switch bg-success m-t-xs m-r">
+                                    <input type="checkbox" ng-model="user.settings.notifications[0].email_companyfollow" checked>
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Notify me when someone likes an action/post of my company</label>
+                            <div class="col-xs-3 col-sm-2 col-md-2">
+                                <label class="i-switch bg-success m-t-xs m-r">
+                                    <input type="checkbox" ng-model="user.settings.notifications[0].email_companylike" checked>
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-2 m-b-lg">
+                            <h3 class="m-b text-lg text-dark font-bold">Q&A email notifications</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-9 col-sm-10 col-md-6 control-label control-label">Notify me when someone post answer on my question</label>
+                            <div class="col-xs-3 col-sm-2 col-md-2">
+                                <label class="i-switch bg-success m-t-xs m-r">
+                                    <input type="checkbox" ng-model="user.settings.notifications[0].email_qa" checked>
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group m-t-xl">
+                        <div class="col-xs-12 col-sm-offset-8 col-sm-2 col-md-offset-5">
+                            <button class="btn btn-blue-lt" type="submit" ng-disabled='settingsNotificationsForm.$invalid'>
+                                <span ng-hide="loadingNotifications" class="text-lg">Save changes</span>
+                                <span ng-show="loadingNotifications" class="text-lg">Save changes <i class="fa fa-sun-o fa-circle-o-notch"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <!--/MAIL NOTIFICATIONS BOX -->
+            </div>
+        </div>
+    </div>
+
+</div>

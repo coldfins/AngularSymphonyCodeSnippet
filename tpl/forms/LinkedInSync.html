@@ -1,0 +1,60 @@
+<div class="modal-header no-border" style="background-color:#0077B5;border-radius: 4px 4px 0 0;">
+    <div class="text-center text-white">
+        <div class="wrapper-xl">
+            <i class="fa fa-linkedin fa-5x"></i>
+            <h4>Sync your LinkedIn profile*</h4>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="wrapper-md">
+        <h4 ng-if="syncdone" class="text-center text-success m-b text-xl">Synced with success!</h4>
+        <h4 ng-if="!syncdone" class="text-center m-b-lg">Build your profile by using the information from your LinkedIn profile. It takes seconds.</h4>
+        <ul class="list-group no-borders m-n">
+            <li class="list-group-item">
+                <i ng-if="!syncdone" class="icon-clock m-r text-light-dker"></i>
+                <i ng-if="syncdone"class="icon-check m-r text-success"></i>
+                <span class="text-md">Personal information (Birthday, Avatar...)</span></li>
+            <!--<li class="list-group-item">
+                <i ng-if="!syncdone"class="icon-clock m-r text-light-dker"></i>
+                <i ng-if="syncdone"class="icon-check m-r text-success"></i>
+                <span class="text-md">Experiences</span></li>
+            <li class="list-group-item">
+                <i ng-if="!syncdone"class="icon-clock m-r text-light-dker"></i>
+                <i ng-if="syncdone"class="icon-check m-r text-success"></i>
+                <span class="text-md">Skills/Languages</span></li>-->
+            <li class="list-group-item">
+                <i ng-if="!syncdone"class="icon-clock m-r text-light-dker"></i>
+                <i ng-if="syncdone"class="icon-check m-r text-success"></i>
+                <span class="text-md">Summary</span></li>
+            <!--<li class="list-group-item">
+                <i ng-if="!syncdone"class="icon-clock m-r text-light-dker"></i>
+                <i ng-if="syncdone"class="icon-check m-r text-success"></i>
+                <span class="text-md">Connections</span></li>-->
+        </ul>
+    </div>
+</div>
+<div class="modal-footer no-border">
+    <button ng-if="!syncdone" class="btn btn-default text-md pull-left" ng-click="cancel()">Not now!</button>
+   <a ng-if="!syncdone && syncModalAuth" class="btn btn-success" href="https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=77qs31x0xkh7tz&redirect_uri={{app.protocol}}%3A%2F%2F{{app.host}}%2Fedit%2Fprofile&state={{user.id}}&scope=r_basicprofile,r_emailaddress,w_share">
+     <!--<a ng-if="!syncdone && syncModalAuth" class="btn btn-success" href="https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=75hu5mydytl4vt&redirect_uri=http%3A%2F%2F192.168.2.46%2Fmobntouch%2Fsrc%2Fedit%2Fprofile&state={{user.id}}&scope=r_basicprofile,r_emailaddress,w_share">-->
+     
+        <span ng-hide="loadingLinkedinProfile" class="text-md">Synchronise with LinkedIn</span>
+        <span ng-show="loadingLinkedinProfile" class="text-md"><i class="fa fa-spin fa-circle-o-notch"></i> Synchronise with LinkedIn</span>
+    </a>
+    <a ng-if="!syncdone && !syncModalAuth" class="btn btn-success" data-ng-click="SyncLinkedinProfile()">
+        <span ng-hide="loadingLinkedinProfile" class="text-md">Synchronise with LinkedIn</span>
+        <span ng-show="loadingLinkedinProfile" class="text-md"><i class="fa fa-spin fa-circle-o-notch"></i> Synchronise with LinkedIn	</span>
+    </a>
+    <div ng-if="syncdone" class="text-center m-b">
+        <h5 class="text-md" data-ng-if="user.companyType != 'Visitor'">Last step: complete your others boxes (Buying / Selling Traffic...)</h5> 
+        <button class="btn btn-dark text-center" ng-click="close()">
+            <span ng-hide="loadingAvatar" class="text-md">Complete now <i class="icon-arrow-right text-sm m-l-xs"></i></span>
+        </button>
+    </div>
+    <div ng-if="!syncdone" class="b-t m-t">
+        <p class="m-t m-b-xs">By clicking "Synchronise with LinkedIn", you agree to let Mobintouch store your LinkedIn profile</p>
+        <small class="text-muted text-center"><i>*We never post on your behalf or communicate with your connections without your approval.</i></small>
+    </div>
+</div>
+

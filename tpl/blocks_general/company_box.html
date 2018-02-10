@@ -1,0 +1,28 @@
+<div class="panel bg-dark m-b-none">
+    <div class="panel-heading">
+        <div class="clearfix">
+            <a ui-sref="app.page.company/public({companyusername: result.username})" class="pull-left thumb-md m-r">
+                <img ng-show="result.avatar" src="{{app.baseUrl}}{{result.avatar}}" class="bg-white">
+                <img ng-hide="result.avatar" src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}">
+            </a>
+            <div class="clear">
+                <div class="row">
+                    <div class="col-xs-10 col-md-8">
+                        <div class="text-lg text-ellipsis"><a ui-sref="app.page.company/public({companyusername: result.username})"><strong>{{result.name}}</strong></a></div>
+                        <div class="text-sm text-ellipsis"><a ui-sref="app.page.company/public({companyusername: result.username})" class="text-dark-dker">{{ result.companyType | translate }}</a></div>
+                        <div class="text-sm text-ellipsis"><a ui-sref="app.page.company/public({companyusername: result.username})" class="text-dark-lter">{{ result.city | capitalize }}<span ng-show="result.basedCountry">, {{ 'country.' + result.basedCountry | translate }}</span></a></div>
+                    </div>
+                    <div class="col-xs-10 col-md-4">
+                        <button class="btn-primary btn btn-block pull-right pull-none-xs ng-scope" ng-if ="companypage" ng-click="integrateCompany(result)">Join</button>
+                    </div>					
+                </div>		
+            </div>
+        </div>
+    </div>
+    <div class="wrapper-sm no-radius alt lt">
+        <span class="pull-right text-white"><strong>{{ result.followers.length || 0  }}</strong> followers</span>
+        <a ui-sref="app.page.company/public({companyusername: result.username})">
+            <span class=""><i class="fa fa-eye fa-fw"></i> Visit the company</span>
+        </a>
+    </div>
+</div>

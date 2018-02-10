@@ -1,0 +1,24 @@
+<div class="modal-header no-border" style="background-color:#0077B5;border-radius: 4px 4px 0 0;">
+    <div class="text-center text-white" >
+        <div class="wrapper">
+            <i class="fa fa-linkedin fa-2x"></i>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <label class="control-label text-muted">Subject:</label>
+    <input type="text" placeholder="subject" class="form-control w-full m-b" value="{{messageSubject}}" ng-model="messageSubject">
+    <label class="control-label text-muted">Message:</label>
+    <textarea placeholder="message…" class="form-control w-full" rows="5" style="resize:vertical;" ng-model="messageText">{{messageText}}</textarea>
+</div>
+<div class="modal-footer no-padder">
+    <div class="text-center wrapper-sm b-r inline w-50">
+        <a class="text-lg" ng-click="cancel()">Cancel</a>
+    </div>
+    <div class="text-center wrapper-sm inline w-50">
+        <a class="font-bold text-lg" ng-click="close('1234')" data-ng-disabled="loadingSendInvites">
+            <span ng-hide="loadingSendInvites" class="text">Invite</span>
+            <span ng-show="loadingSendInvites" class="text">Invite<i class="fa fa-spin fa-circle-o-notch"></i></span>
+        </a>
+    </div>
+</div>

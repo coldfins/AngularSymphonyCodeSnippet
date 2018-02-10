@@ -1,0 +1,33 @@
+<div class="panel panel-default no-shadow" data-ng-controller="LinkedInWidgetCtrl">
+
+    <!-- NEVER SYNCED WITH LINKEDIN -->
+    <div class="panel-heading">
+        <div class="text-center" id="appBody">
+            <span class="text-xl"><i class="fa fa-linkedin-square"></i></span>
+            <p class="text-lg">Spread the word</p>
+        </div>
+    </div><!--/ NEVER SYNCED WITH LINKEDIN -->
+
+
+    <div ng-if="connections.length>0" class="panel-body no-padder">
+        <!-- ALREADY SYNC WITH LINKEDIN -->
+        <ul class="list-group no-bg no-borders pull-in m-n">
+            <li ng-repeat="connection in connections | limitTo:3" class="list-group-item">
+                <img ng-if="connection.pictureUrl" ng-src="{{connection.pictureUrl}}" class="pull-left thumb-sm avatar m-r">
+                <img ng-if="!connection.pictureUrl" ng-src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="pull-left thumb-sm avatar m-r">
+                <div class="clear">
+                    <div>{{connection.firstName + ' ' + connection.lastName | capitalize }}<span class="premium-box"></span></div>
+                    <small class="text-muted">{{connection.headline}}</small>
+                </div>
+            </li>
+        </ul>
+        <!--/ ALREADY SYNC WITH LINKEDIN -->
+    </div>
+
+    <div class="panel-footer bg-dark">
+        <div class="text-center" data-ng-click="track('Last Profile Visited','See more')">
+            <a ng-if="syncModalAuth" data-ng-click="track('Invite Your LinkedIn Relations', 'Linkedin Auth')" href="https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=77qs31x0xkh7tz&redirect_uri={{app.protocol}}%3A%2F%2F{{app.host}}%2Finvite-contacts&state={{user.id}}&scope=r_basicprofile,r_emailaddress,w_share">Invite your LinkedIn Connections</a>
+            <a ng-if="!syncModalAuth" data-ng-click="track('Invite Your LinkedIn Relations', 'Link')" href="/invite-contacts?code=SyncLinkedIn"> Invite your LinkedIn Connections</a>
+        </div>
+    </div>
+</div>

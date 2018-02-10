@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <span class="h4">Visitors of {{ publicCompany.name}}</span>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel();">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body no-padder">
+    <div class="clear clearfix"></div>
+    <ul class="scrollable mutual-container padder-md">
+        <li ng-repeat="visitor in publicCompany.visitors| orderBy:'-date'" class="b-b" style="list-style: none;">
+            <div class="padder-v">
+                <span class="thumb-sm pull-left img-circle m-r-sm">
+                    <img ng-if="visitor.avatar" src="{{ app.baseUrl}}{{visitor.avatar}}" class="img-circle">
+                    <img ng-if="!visitor.avatar" src="{{ app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                </span>
+                <div class="media-body m-b-none text-break">
+                    <div class="pull-left">
+                        <a ui-sref="app.page.public({username: visitor.username})" title="{{ visitor.name}} {{ visitor.lastname}}" ng-click="cancel()"><strong>{{visitor.name}} {{visitor.lastname}}</strong></a>
+                        <small class="text-muted block" ng-if="visitor.jobTitle">{{visitor.jobTitle}}</small>
+                    </div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+        </li>
+    </ul>
+</div>

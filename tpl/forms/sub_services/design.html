@@ -1,0 +1,120 @@
+<div class="form-group form-horizontal">
+    <div class="col-xs-12 col-sm-4 text-17 padder-t-sm text-black-dk">
+        *What are your areas of expertise?
+        <div class="text-sm text-primary" ng-show="formSubmited && (!user.services[selectedIndex].subServices || user.services[selectedIndex].subServices.length <= 0)">Required</div>
+    </div>
+    <div class="col-sm-8 m-t-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="3DModeling" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="3D Modeling"/>
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">3D Modeling</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="Animation" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Animation" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Animation</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="branding" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Branding" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Branding</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="fineArt" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Fine Art" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Fine Art</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="graphicDesign" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Graphic Design" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Graphic Design</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="illustration" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Illustration" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Illustration</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="industrialDesign" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Industrial Design" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Industrial Design</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="logoDesign" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Logo Design" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Logo Design</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="motionGraphics" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Motion Graphics" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Motion Graphics</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="serviceDesign" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Service Design" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Service Design</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="uIUXDesign" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="UI/UX Design" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">UI/UX Design</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="userResearch" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="User Research" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">User Research</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="webDesign" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Web Design" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Web Design</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="other" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Other" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Other</div>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

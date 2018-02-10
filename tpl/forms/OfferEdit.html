@@ -1,0 +1,257 @@
+<div class="row" resize>
+    <div class="col-sm-5 col-md-3">
+        <div class="modal-content">
+            <div class="modal-header no-border bg-light lt clearfix" style="border-radius: 10px 10px 0 0;">
+                <span class="pull-left thumb-sm avatar m-r">
+                    <img ng-if="user.avatar" src="{{app.baseUrl}}{{user.avatar}}">
+                    <img ng-if="!user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}">
+                </span>
+                <span class="font-bold text-ellipsis clear">{{ user.name | capitalize }} {{ user.lastname | capitalize }}</span>
+                <small class="text-ellipsis clear">{{ user.company | capitalize }}</small>
+            </div>
+            <div class="blur-overlay">
+                <div ng-if="user.avatar" class="blur"
+                     style="background-position: center center;
+                     background-image: url({{app.baseUrl}}{{user.avatar}});
+                     background-size: cover;
+                     -webkit-filter: blur(1px) saturate(3);
+                     -moz-filter: blur(4px) saturate(4);
+                     -o-filter: blur(1px) saturate(3);
+                     -ms-filter: blur(1px) saturate(3);
+                     filter: blur(1px) saturate(3);
+                     filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+                     height: 2px;
+                     width: 100%;
+                     overflow: hidden;
+                     margin-top: -2px;
+                     background-repeat: round;">
+                </div>
+                <div ng-if="!user.avatar" class="blur"
+                     style="background-position: center center;
+                     background-image: url({{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }});
+                     background-size: cover;
+                     -webkit-filter: blur(1px) saturate(3);
+                     -moz-filter: blur(4px) saturate(4);
+                     -o-filter: blur(1px) saturate(3);
+                     -ms-filter: blur(1px) saturate(3);
+                     filter: blur(1px) saturate(3);
+                     filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+                     height: 2px;
+                     width: 100%;
+                     overflow: hidden;
+                     margin-top: -2px;
+                     background-repeat: round;">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="m-b">
+                    <span class="text-muted text-u-c clear">Who can see my offer:</span>
+                    <span>{{offer.visibility}}</span>
+                </div>
+                <div class="m-b">
+                    <span class="text-muted text-u-c clear">Countries:</span>
+                    <span ng-repeat="country in offer.countries| unique: 'id' " class="tag tag-default text-u-c">{{'country.' + country| translate }}</span>
+                </div>
+                <div class="m-b">
+                    <span class="text-muted text-u-c clear">Pricing Model:</span>
+                    <span ng-repeat="(pricing, bool) in offer.pricingModels"><span ng-if="bool" class="tag tag-default text-u-c">{{pricing}}</span></span>
+                </div>
+                <div class="m-b">
+                    <span class="text-muted text-u-c clear">Platforms:</span>
+                    <span ng-repeat="(platform, bool) in offer.platforms"><span ng-if="bool" class="tag tag-default text-u-c">{{platform}}</span></span>
+                </div>
+                <div class="m-b">
+                    <span class="text-muted text-u-c clear">Quality:</span>
+                    <span ng-repeat="(q, bool) in offer.quality"><span ng-if="bool" class="tag tag-default text-u-c">{{'general.' + q| translate}}</span></span>
+                </div>
+                <div ng-if="offer.dateRangeModalFormat" class="m-b">
+                    <span class="text-muted text-u-c clear">Campaign date range:</span>
+                    <span class="font-bold text-u-c text-sm">{{ offer.dateRangeModalFormat}}</span>
+                </div>
+                <div ng-if="offer.description" class="m-b">
+                    <span class="text-muted text-u-c clear">Details:</span>
+                    <p class="text-block" ng-bind-html="offer.description | linky:'_blank' | nl2br"></p>
+                </div>
+                <div ng-if="offer.questions" class="m-b">
+                    <span class="text-muted text-u-c clear">Specific question for Seller:</span>
+                    <div data-ng-repeat="question in offer.questions" class="input-group m-b">
+                        <span class="clear">{{ question.text || '' }}<span ng-if="question.required">*</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="font-bold text-u-c text-sm pull-left">Expiry Date: {{offer.expiryDate| date:'d MMMM' }}</span>
+                <span class="text-muted text-xs m-t-xxs">
+                    <i class="fa fa-eye m-r-xs"></i> <span class="m-r">{{ offer.dailyUniquePageViews.length || 0 }}</span>
+                    <i class="fa fa-reply m-r-xs"></i> {{ offer.replies || 0 }}
+                </span>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-7 col-md-9">
+        <form name="offerForm" class="form-validation">
+            <div class="modal-content">
+                <div class="modal-header no-border bg-light lt" style="border-radius: 10px 10px 0 0;">
+                    <span ng-if="action != 'edit'" class="text-lg padder-v-sm clear">
+                        Add a new Offer
+                        <span class="text-xs text-muted clear">*Enter all the specificities of the traffic you are looking for</span>
+                    </span>
+                    <span ng-if="action == 'edit'" class="text-lg padder-v-sm clear">
+                        Update Offer
+                        <span class="text-xs text-muted clear">*After getting replies you can only modify the expiry date</span>
+                    </span>
+
+                </div>
+                <div class="modal-body">
+                    <div class="form-group m-b-lg">
+                        <span class="text-muted text-u-c clear">Who can see my offer ?*:</span>
+                        <select name="account" class="form-control m-b" data-ng-model="offer.visibility" required data-ng-disabled="offer.replies > 0">
+                            <option value="Everyone">Everyone</option>
+                            <option value="inTouch">Only my inTouch</option>
+                            <option value="MediaSellers">Only Media Sellers</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group m-b-lg">
+                        <span class="text-muted text-u-c clear">Offer expiry date:*</span>
+                        <div class="inline" ng-controller="DatepickerDemoCtrl">
+                            <div class="input-group w-md">
+                                <input min-date="{{startDate}}" init-date="{{startDate}}" type="text" class="form-control" datepicker-popup="{{format}}" ng-model="offer.expiryDate" is-open="opened" show-button-bar="false" datepicker-options="dateOptions" close-text="Close" isvalidrequired required/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-b-lg">
+                        <span class="text-muted text-u-c clear">Countries*:</span>
+                        <select name="countries" class="form-control" ui-jq="chosen" multiple ng-model="offer.countries" data-ng-include=" 'tpl/utils/countries.html?v=' + app.latestUpdate" data-placeholder="Select Traffic Countries" required data-ng-disabled="offer.replies > 0"></select>
+                    </div>
+
+                    <div class="form-group m-b-lg">
+                        <span class="text-muted text-u-c clear">Pricing Model*:</span>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.pricingModels['cpa']" data-ng-disabled="offer.replies > 0"><i></i> CPA
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.pricingModels['cps']" data-ng-disabled="offer.replies > 0"><i></i> CPS
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.pricingModels['cpc']" data-ng-disabled="offer.replies > 0"><i></i> CPC
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.pricingModels['cpv']" data-ng-disabled="offer.replies > 0"><i></i> CPV
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.pricingModels['cpd']" data-ng-disabled="offer.replies > 0"><i></i> CPD
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.pricingModels['cpi']" data-ng-disabled="offer.replies > 0"><i></i> CPI
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.pricingModels['cpl']" data-ng-disabled="offer.replies > 0"><i></i> CPL
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.pricingModels['cpm']" data-ng-disabled="offer.replies > 0"><i></i> CPM
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.pricingModels['dclick']" data-ng-disabled="offer.replies > 0"><i></i> Double Click
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.pricingModels['ctc']" data-ng-disabled="offer.replies > 0"><i></i> Click To Call
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.pricingModels['ppcall']" data-ng-disabled="offer.replies > 0"><i></i> Pay Per Call
+                        </label>
+                    </div>
+
+                    <div class="form-group m-b-lg">
+                        <span class="text-muted text-u-c clear">Platforms*:</span>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.platforms['ios']" data-ng-disabled="offer.replies > 0"><i></i> iOS
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.platforms['android']" data-ng-disabled="offer.replies > 0"><i></i> Android
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.platforms['windows']" data-ng-disabled="offer.replies > 0"><i></i> Windows Phone
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.platforms['blackberry']" data-ng-disabled="offer.replies > 0"><i></i> Blackberry
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.platforms['web']" data-ng-disabled="offer.replies > 0"><i></i> Mobile Web HTML5
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.platforms['unity']" data-ng-disabled="offer.replies > 0"><i></i> Unity
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.platforms['bada']" data-ng-disabled="offer.replies > 0"><i></i> Bada
+                        </label>
+                    </div>
+
+                    <div class="form-group m-b-lg">
+                        <span class="text-muted text-u-c clear">Quality*:</span>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.quality['incentivized']" data-ng-disabled="offer.replies > 0"><i></i> Incentivized
+                        </label>
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" ng-model="offer.quality['nonincentivized']" data-ng-disabled="offer.replies > 0"><i></i> Non Incentivized
+                        </label>
+                    </div>
+
+                    <div class="form-group m-b-lg" ng-if="windowWidth >= 767">
+                        <span class="text-muted text-u-c clear">Campaign date range:</span>
+                        <div class="inline">
+                            <input ui-jq="daterangepicker" ui-options="{format: 'MMM DD, YYYY', minDate: startDate, startDate: startDate, endDate: startDate}" ng-model="offer.dateRangeModalFormat" class="form-control w-md" data-ng-disabled="offer.replies > 0"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-b-lg">
+                        <span class="text-muted text-u-c clear">Details:</span>
+                        <textarea data-ng-model="offer.description" class="form-control inline" rows="6" placeholder="Add Apps links, description..." style="resize: vertical;" data-ng-disabled="offer.replies > 0"></textarea>
+                    </div>
+                    <div class="form-group m-b-lg">
+                        <span class="text-muted text-u-c clear">Add specific questions:</span>
+                        <div class="padder-v "data-ng-repeat="question in offer.questions">
+                            <div class="input-group">
+                                <input type="text" ng-model="question.text" class="form-control" id="input-id-3" placeholder="Add your own question. i.e. 'What is your daily volume?'"data-ng-disabled="offer.replies > 0" required>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="button" tooltip="Delete question" data-ng-click="deleteQuestion(question)" data-ng-disabled="offer.replies > 0"><i class="glyphicon glyphicon-remove"></i></button>
+                                </span>
+                            </div>
+                            <label class="checkbox-inline i-checks i-checks-sm">
+                                <input type="checkbox" ng-model="question.required" data-ng-disabled="offer.replies > 0"><i></i> Is a required question?
+                            </label>
+                        </div>
+                        <div class="row m-b">
+                            <div class="col-sm-12">
+                                <button class="btn btn-default inline" data-ng-click="addQuestion()" data-ng-disabled="offer.replies > 0">
+                                    <span class="text-u-c">Add Questions</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row m-b">
+                        <div class="col-sm-12">
+                            <i class="text-muted">*Required fields</i>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info r-2x" data-ng-click="addOffer()" ng-disabled="offerForm.$invalid || !(offer.pricingModels['cpa'] || offer.pricingModels['cps'] || offer.pricingModels['cpc'] || offer.pricingModels['cpv'] || offer.pricingModels['cpd'] || offer.pricingModels['cpi'] || offer.pricingModels['cpl'] || offer.pricingModels['cpm'] || offer.pricingModels['dclick'] || offer.pricingModels['ctc'] || offer.pricingModels['ppcall']) || !(offer.platforms['ios'] || offer.platforms['android'] || offer.platforms['windows'] || offer.platforms['blackberry'] || offer.platforms['web'] || offer.platforms['unity'] || offer.platforms['bada']) || !(offer.quality['incentivized'] || offer.quality['nonincentivized'])">
+                        <span ng-if="action == 'edit'" class="text-u-c">Save changes</span>
+                        <span ng-if="action != 'edit'" class="text-u-c">Add Offer</span>
+                    </button>
+                    <button class="btn btn-default r-2x pull-left" ng-click="cancel()">
+                        <span class="text-u-c">Cancel</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

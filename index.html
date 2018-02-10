@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app" resize>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;" charset="utf-8"/>
+
+    <meta name="fragment" content="!">
+    <base href="http://localhost/MobDemo/src/">
+    
+    <!-- OneSignla manifast -->
+    <link rel="manifest" href="https://cdn.mobintouch.com/js/manifest.json">
+    
+    <title id="pageTitle" ng-bind="pageTitle">Mobintouch | Mobile Advertising Social Network</title>
+    <meta property="og:description" content="{{pageDescription || 'Connect with people in the Mobile Advertising industry. Tell what kind of mobile traffic you sell or buy. Build and engage with your professional network.' }}" />
+    <meta name="description" content="{{pageDescription || 'Connect with people in the Mobile Advertising industry. Tell what kind of mobile traffic you sell or buy. Build and engage with your professional network.' }}" />
+
+    <meta name="keywords" content="{{pageKeyword ||'mobile,advertising,marketing,profesionnal,network,social,market,news,insights,oppotunities,user,acquisition,cpc,cpm,cpi,cpd,cpv,ad,adnetwork,affiliate,agency,dsp,ios,android,app,display,interstital,lead,games,offerwall,non incentivized,incentivized,push,analytics,rich,media,carrier,geo,premium,rtb'}}">
+   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+
+    <link rel="stylesheet" href="https://cdn.mobintouch.com/css/min/app.min.css?v=0.5.0" type="text/css" />
+        
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="https://cdn.mobintouch.com/img/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://cdn.mobintouch.com/img/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://cdn.mobintouch.com/img/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://cdn.mobintouch.com/img/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://cdn.mobintouch.com/img/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://cdn.mobintouch.com/img/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://cdn.mobintouch.com/img/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://cdn.mobintouch.com/img/favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.mobintouch.com/img/favicons/apple-touch-icon-180x180.png">
+    <meta name="apple-mobile-web-app-title" content="Mobintouch">
+    <link rel="icon" type="image/png" href="https://cdn.mobintouch.com/img/favicons/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="https://cdn.mobintouch.com/img/favicons/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="https://cdn.mobintouch.com/img/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="https://cdn.mobintouch.com/img/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="https://cdn.mobintouch.com/img/favicons/favicon-32x32.png" sizes="32x32">
+    <!--/ favicons -->
+
+    <!-- Google+ -->
+    <link href="https://plus.google.com/104973477522109221784" rel="publisher" />
+    <!--/ Google+ -->
+
+	<!--/ SEO --> 
+	<meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="https://cdn.mobintouch.com/img/favicons/mstile-144x144.png">
+    <meta name="application-name" content="Mobintouch">
+	
+	<meta name="referrer" content="default" id="meta_referrer" />
+	<meta propery="og:type" content="website" />
+	<meta property="og:url" content="{{ogUrl || 'https://www.mobintouch.com'}}" />
+	<meta property="og:title" content="{{ogTitle || 'Mobintouch | Mobile Advertising Social Network'}}" />
+	<meta property="og:image" content="{{ogImage || 'https://cdn.mobintouch.com/img/mobintouch-logo-325square.png' }}" />
+    <meta property="og:locale" content="en_US" />
+    <link rel="canonical" href="https://www.mobintouch.com" />
+    <meta name="robots" content="noodp,noydir" />
+    <noscript><meta http-equiv="X-Frame-Options" content="DENY" /></noscript>
+
+    <meta ng-init="isNoIndex=false" ng-if="isNoIndex" NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    <meta ng-init="isError404=false" ng-if="isError404" name="prerender-status-code" content="404">
+
+
+    <!--/ SEO -->
+    <!-- twitter card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@mobintouch">
+    <meta name="twitter:title" content="{{ogTitle || 'Mobintouch | Mobile Advertising Social Network'}}">
+    <meta name="twitter:description" content="{{ogDescription || 'Connect with people in the Mobile Advertising industry. Tell what kind of mobile traffic you sell or buy. Build and engage with your professional network.'}}">
+	<meta name="twitter:creator" content="@mobintouch">
+	<meta name="twitter:image" content="{{ogImage || 'https://cdn.mobintouch.com/img/mobintouch-logo-325square.png'}}" />
+    <!--/ twitter card -->
+
+    <!-- start Mixpanel -->
+    <script type="text/javascript">
+        var productionHost = 'www.mobintouch.com';
+        var devToken = 'ad3143c3780debee9ecd3050d312ef47';
+        var prodToken = 'c643ff34b35af3924ca30b585ae2f6fe';
+        /* If the hostname is anything other than your production domain, initialize the Mixpanel library with your Development Token */
+        (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+            for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+        if (window.location.hostname.toLowerCase().search(productionHost) < 0) {
+            mixpanel.init(devToken);
+        }else {
+            mixpanel.init(prodToken);
+        }
+    </script>
+    <!-- end Mixpanel -->
+
+    <!-- start Intercom -->
+    <script>
+        var appid = (window.location.host.indexOf('www.mobintouch.com') >= 0)?"tp8bvnjt":"rapfa6z9";
+        (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/'+appid;var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
+    </script>
+    <!-- end Intercom -->
+
+    <!-- Google Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-59023737-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics -->
+    
+    <!-- OneSignal -->
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+    <script>
+        var OneSignal = OneSignal || [];
+        OneSignal.push(["init", {
+          appId: "03811517-083a-40b5-80b1-1bca67c562a5",
+          autoRegister: true,
+          promptOptions: {
+                /* Change bold title, limited to 30 characters */
+                siteName: 'Mobintouch',
+                /* Subtitle, limited to 90 characters */
+                actionMessage: "We'd like to show you notifications for the latest news and updates.",
+                /* Example notification title */
+                exampleNotificationTitle: 'Notification title',
+                /* Example notification message */
+                exampleNotificationMessage: 'This is an example notification.',
+                /* Text below example notification, limited to 50 characters */
+                exampleNotificationCaption: 'You can unsubscribe anytime',
+                /* Accept button text, limited to 15 characters */
+                acceptButtonText: "ALLOW",
+                /* Cancel button text, limited to 15 characters */
+                cancelButtonText: "NO THANKS"
+            },
+          notifyButton: {
+            enable: true /* Set to false to hide */
+          },
+          safari_web_id: 'web.onesignal.auto.37e682f0-44ba-408e-8045-bbc89f9e01bb'
+        }]);
+        /*if(Notification.permission == 'default')
+        {
+           Notification.requestPermission(function(){
+               if(Notification.permission == 'granted')
+                    OneSignal.setSubscription(true);
+           }); 
+        }*/
+        if(Notification.permission == 'default'){
+            OneSignal.push(["registerForPushNotifications", {modalPrompt: true}]);
+        }
+    </script>
+    <!--End OneSignal -->
+
+</head>
+
+	<body ng-controller="AppCtrl"  ng-click="docClick();">
+
+		<div ui-butterbar></div>
+
+		<div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view></div>
+
+		<!-- jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js?v=0.5.0"></script>
+		<!-- Angular -->
+
+		<script src="https://cdn.mobintouch.com/js/libs/angular/angular.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/angular/angular-cookies.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/angular/angular-animate.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/angular/angular-resource.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/angular/angular-ui-router.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/angular/ngStorage.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/angular/ocLazyLoad.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/angular/ui-bootstrap-tpls.js?v=0.5.0"></script>
+                <script src="https://cdn.mobintouch.com/js/jquery/jquery-ui-1.10.3.custom.min.js?v=0.5.0"></script>
+                <script src="https://cdn.mobintouch.com/js/jquery/jquery.ui.touch-punch.min.js?v=0.5.0"></script>
+                <script src="https://cdn.mobintouch.com/js/libs/angular/sortable.min.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/angular/angular-ui-notification.min.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/angular/ngAutocomplete.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/angular/angular-sanitize.min.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/angular/angular-translate/angular-translate.js?v=0.5.0"></script>
+                <script src="https://cdn.mobintouch.com/js/angular/angular-translate/angular-translate-storage-cookie.min.js?v=0.5.0"></script>
+                <script src="https://cdn.mobintouch.com/js/angular/angular-translate/angular-translate-storage-local.min.js?v=0.5.0"></script>
+                <script src="https://cdn.mobintouch.com/js/angular/angular-translate/angular-translate-loader-static-files.min.js?v=0.5.0"></script>
+
+		<script src="https://cdn.mobintouch.com/js/libs/angular/ui-utils.min.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/angular/ui-map.min.js?v=0.5.0"></script>
+
+		<script src="https://cdn.mobintouch.com/js/angular/ui-jq.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/angular/ui-load.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/angular/ui-validate.js?v=0.5.0"></script>
+                
+		<script src="https://cdn.mobintouch.com/js/modules/ng-tags-input/ng-tags-input.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/modules/selectFX/classie.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/modules/selectFX/selectFx.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/modules/header/modernizr.custom.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/modules/notifications/classie.js?v=0.5.0"></script>
+                <script src="https://cdn.mobintouch.com/js/libs/moment.min.js?v=0.5.0"></script>
+
+                <!-- Angular-inview to track element inside inview -->
+                <script src="https://cdn.mobintouch.com/js/modules/angular-inview/angular-inview.js?v=0.5.0"></script>
+                <!-- ngFacebook for facebook social apis -->
+                <script src="https://cdn.mobintouch.com/js/modules/ngFacebook.js?v=0.5.0"></script>
+                <!-- google sign in for goole social apis -->
+                <script src="https://cdn.mobintouch.com/js/modules/ng-google-signin.js?v=0.5.0"></script>
+                <!-- all social login apis -->
+                <script src="https://cdn.mobintouch.com/js/modules/hello.all.min.js?v=0.5.0"></script>
+                <!-- Mobile device sidebar script -->
+                <script src="https://cdn.mobintouch.com/js/modules/sidebar.js?v=0.5.0"></script>
+                <!-- Text Angular plugin -->
+                <link rel='stylesheet' href='https://cdn.mobintouch.com/js/modules/textAngular/textAngular.css'/>
+                <script src='https://cdn.mobintouch.com/js/modules/textAngular/textAngular-rangy.min.js?v=0.5.0'></script>
+                <script src='https://cdn.mobintouch.com/js/modules/textAngular/textAngular-sanitize.min.js?v=0.5.0'></script>
+                <script src='https://cdn.mobintouch.com/js/modules/textAngular/textAngular.min.js?v=0.5.0'></script>
+        
+		<script src="https://cdn.mobintouch.com/js/libs/angular/daterangepicker.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/angular/angular-jwt.min.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/angular/elastic.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/libs/blueimp-gallery.min.js?v=0.5.0"></script>
+
+                <!-- cookie-law-popup js -->
+                <script src="https://cdn.mobintouch.com/js/jquery/cookie-law-popup/js/jquery-eu-cookie-law-popup.js?v=0.5.0"></script>
+                      <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-meta/1.0.2/ngMeta.min.js"></script>
+		<!-- BEGIN TRACKJS -->
+                <script type="text/javascript">
+                    /*window._trackJs = {
+			token: '84b18c6aaf4542f9a303c161f008e780',
+			onError: function (payload, error) {
+				// remove 401 network events, they happen all the time for us!
+				var isError = true;
+				var counter = 0;
+				payload.network = payload.network.filter(function (item){
+					counter++;
+					if(item.statusCode !== 401){
+						return true;
+					}
+					else {
+						isError = false;
+						return false;
+					}
+				});
+				return isError;
+			},
+			application: (window.location.host.indexOf('www.mobintouch.com') >= 0)?'production':'development'
+			//enabled: !(window.location.host.indexOf('angular.dev') >= 0)
+		};*/
+                </script>
+                <!--
+		<script type="text/javascript" src="//d2zah9y47r7bi2.cloudfront.net/releases/current/tracker.js" crossorigin="anonymous"></script>
+		-->
+                <!-- END TRACKJS -->
+
+		<!-- App -->
+
+		<script src="https://cdn.mobintouch.com/js/app.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/services.js?v=0.5.0"></script>
+		<script src="cdn/js/controllers.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/filters.js?v=0.5.0"></script>
+		<script src="https://cdn.mobintouch.com/js/directives.js?v=0.5.0"></script>
+		<script src="cdn/js/config.js?v=0.5.0"></script>
+
+		<script src="https://cdn.mobintouch.com/js/jquery.appear.js?v=0.5.0"></script>
+
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&language=en"></script>
+
+
+		<!-- Facebook Script Page -->
+		<!--
+		<script type='text/javascript' ng-if="('access.landing' | isState)" src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js?ver=1.18.2'></script>
+		<script type='text/javascript' ng-if="('access.landing' | isState)" src='https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react-with-addons.min.js?ver=0.14.8'></script>
+		<script type='text/javascript' ng-if="('access.landing' | isState)" src='https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react-dom.min.js?ver=0.14.8'></script>
+		-->
+		<!-- /Facebook Script Page -->
+
+		<!-- Inviter Scripts -->
+		<script src="invite/find_friends/adiinviter/js/adiinviter.js" defer></script>
+		<script src="invite/find_friends/adiinviter_params" defer></script>
+		<!-- /inviter Script -->
+
+		<!-- Lazy loading -->
+                
+                <!-- Google Analystics Event Tracking -->
+                <script>
+                    window.addEventListener('error', function (err) {
+                    var lineAndColumnInfo = err.colno ? ' line:' + err.lineno + ', column:' + err.colno : ' line:' + err.lineno;
+                    ga(
+                            'send',
+                            'event',
+                            'JavaScript Error',
+                            err.message,
+                            err.filename + lineAndColumnInfo + ' -> ' + navigator.userAgent,
+                            0,
+                            true
+                            );
+                    });
+                    jQuery.error = function (message) {
+                    ga(
+                            'send',
+                            'event',
+                            'jQuery Error',
+                            message,
+                            navigator.userAgent,
+                            0,
+                            true
+                            );
+                    }
+                    $(document).ajaxError(function (event, request, settings) {
+                    ga(
+                            'send',
+                            'event',
+                            'jQuery Ajax Error',
+                            settings.url,
+                            JSON.stringify({
+                            result: event.result,
+                                    status: request.status,
+                                    statusText: request.statusText,
+                                    crossDomain: settings.crossDomain,
+                                    dataType: settings.dataType
+                            }),
+                            0,
+                            true
+                            );
+                    });
+                </script>
+
+	</body>
+</html>

@@ -1,0 +1,48 @@
+<div class="hbox hbox-auto-xs" ng-controller="MailCtrl"  ng-init="app.settings.container = true;">
+    <div class="col w-lg wrapper">
+        <!--<div class="text-center m-b-xl m-t-lg hidden-xs"><img src="{{app.baseUrl}}/img/mit-touchmail-logo.svg" class="thumb-xxl"></div>-->
+        <div class="wrapper b-a m-t m-b">
+            <ul class="nav nav-stacked nav-sm text-md">
+                <li ng-repeat="fold in folds">
+                    <a ui-sref="app.mail.list({fold:fold.filter})" ui-sref-opts="{reload: true}" ng-class="{'text-gray font-thin hover-underline': $state.params.fold != fold.filter, 'hover-default hover-black-dker' : $state.params.fold == fold.filter}" data-ng-click="getMails()">{{fold.name}}</a>
+                </li>
+            </ul>
+        </div>
+
+        <a ui-sref="app.mail.compose" class="btn btn-blue-lt w-full font-bold text-md">NEW CONVERSATION</a>
+
+        <!--<div class="text-center m-b b-a lt wrapper">
+            <a ng-if="user.leftquota!=0" ui-sref="app.mail.compose" class="btn btn-primary w-full font-bold text-md">NEW CONVERSATION</a>
+            <a ng-if="user.leftquota==0" href="https://support.mobintouch.com/hc/en-us/articles/202640542-How-can-i-get-more-messages-" target="_blank"class="btn btn-primary w-full font-bold text-md">Get more conversations</a>
+            <p class="m-n" style="padding-top:10px;"><span class="text-xl font-bold">{{ user.leftquota }}</span><br>conversations left</p>
+        </div>-->
+        <div class="m-t m-b hidden-xs">
+            <input type="text" class="form-control w-full" ng-model="emailFilter" placeholder="Search…">
+        </div>
+        <div class="wrapper b-a hidden-xs">
+            <div class="text-center">
+                <div ui-jq="easyPieChart" ui-options="{
+                     percent: {{user.responseRate|| 0 | number:0 }},
+                     lineWidth: 6,
+                     trackColor: '#EAEAEA',
+                     barColor: '#1181d2',
+                     scaleColor: false,
+                     size: 115,
+                     rotate: 0,
+                     lineCap: 'round',
+                     animate: 1000,
+                     }" class="inline m-t easyPieChart" style="width: 115px; height: 115px; line-height: 115px;">
+                    <div><span class="text-blue-lt text-xl" data-percent="{{user.responseRate|| 0 | number:0 }}">
+                            <span ng-cloak ng-if="user.responseRate == 0 && user.totalReceivedEmails == 0">N/A</span>
+                            <span ng-cloak ng-if="user.responseRate != 0 || user.totalReceivedEmails != 0">{{user.responseRate|| 0 | number:0 }}%</span>
+                        </span></div>
+                    <canvas width="115" height="115"></canvas>
+                </div>
+                <div class="text-blue-lt font-bold text-xs m-t m-b updatePieCharts">My response rate</div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div ui-view ></div>
+    </div>
+</div>

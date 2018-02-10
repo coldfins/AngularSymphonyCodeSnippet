@@ -1,0 +1,35 @@
+<div class="modal-header bg-black dk font-bold text-white b-b no-radius">
+    <span class="h4 font-bold l-s-1x">{{ title}}</span>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel();">
+        <span class="text-white" aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body no-padder bg-white">
+    <div class="m-t-sm">
+        <div class="col-sm-4 m-t-sm padder-sm">
+            <a class="btn btn-default r-2x text-sm w-full padder-t-sm padder-b-sm" ng-click="signUpGoogle()" ng-disabled="loadingSignup">
+                <img class="icon-md m-r-xs" src="{{ app.baseUrl}}/img/icons/google.png" alt="google icon"/>
+                Sign up with Google
+            </a>
+        </div>
+
+        <div class="col-sm-4 m-t-sm padder-sm">
+            <a class="btn btn-default r-2x text-sm w-full padder-t-sm padder-b-sm" ng-click="signUpFacebook()" ng-disabled="loadingSignup">
+                <img class="icon-md m-r-xs" src="{{ app.baseUrl}}/img/icons/facebook.png" alt="facebook icon"/>
+                Sign up with Facebook
+            </a>
+        </div>
+
+        <div class="col-sm-4 m-t-sm padder-sm">
+            <a ui-sref="access.signup" class="btn btn-default r-2x text-sm w-full padder-t-sm padder-b-sm" ng-disabled="loadingSignup">
+                Sign up with email address
+            </a>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+
+    <div class="bg-gray m-t-md padder-v padder lt">
+        <div><a class="text-blue" ui-sref="access.signin" >Log in </a> if you already have an account</div>
+        <div class="text-gray m-t-sm text-sm">By signing up, I agree to Mobintouch's <a ui-sref="app.legal.user_agreement">User Agreement</a>, <a ui-sref="app.legal.privacy">Privacy Policy</a> and <a ui-sref="app.legal.cookies">Cookie Policy.</a></div>
+    </div>
+</div>

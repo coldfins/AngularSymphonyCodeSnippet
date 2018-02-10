@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <span class="h4">Share Jobs at {{ company.name}}</span> <i class="fa fa-link hover-pointer clipboard" ng-click="copyToClipBoard()" uib-tooltip="Copy to clipboard"></i>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel();">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <span class="block text-center padder-v-sm">
+        <a class="btn btn-lg" ng-class="{'btn-blue-lt':mouseOverTwitter, 'btn-blue-lt-bordered':!mouseOverTwitter}" ng-mouseover="mouseOverTwitter = true" ng-mouseleave="mouseOverTwitter = false" href="https://twitter.com/intent/tweet?text={{company.name}}%20is%20hiring!%20Apply%20now!&url=https://www.mobintouch.com/{{company.username}}/jobs&original_referer=https://www.mobintouch.com" target="_blank"><i class="fa fa-twitter"></i></a>
+        <a class="btn btn-lg" ng-class="{'btn-blue-lt':mouseOverFacebook, 'btn-blue-lt-bordered':!mouseOverFacebook}" ng-mouseover="mouseOverFacebook = true" ng-mouseleave="mouseOverFacebook = false" href="https://www.facebook.com/sharer.php?caption=Jobs%20at%20{{company.name}}&description={{company.name}}%20is%20hiring!%20Apply%20now!&u=https://www.mobintouch.com/{{company.username}}/jobs" target="_blank"><i class="fa fa-facebook"></i></a>
+        <a class="btn btn-lg" ng-class="{'btn-blue-lt':mouseOverLinkedin, 'btn-blue-lt-bordered':!mouseOverLinkedin}" ng-mouseover="mouseOverLinkedin = true" ng-mouseleave="mouseOverLinkedin = false" href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.mobintouch.com/{{company.username}}/jobs&title=Jobs%20at%20{{ company.name}}&summary={{ company.name}}%20is%20hiring!%20Apply%20Now!&source=https://www.mobintouch.com/{{company.username}}/jobs" target="_blank"><i class="fa fa-linkedin"></i></a>
+        <a class="btn btn-lg" ng-class="{'btn-blue-lt':mouseOverMail, 'btn-blue-lt-bordered':!mouseOverMail}" ng-mouseover="mouseOverMail = true" ng-mouseleave="mouseOverMail = false" href="mailto:?subject=Jobs%20at%20{{ company.name}}&body={{ company.name}}%20is%20hiring%20now!%20Apply%20Now! https://www.mobintouch.com/{{ user.username}}/jobs" target="_blank"><i class="fa fa-envelope-o"></i></a>
+    </span>
+</div>

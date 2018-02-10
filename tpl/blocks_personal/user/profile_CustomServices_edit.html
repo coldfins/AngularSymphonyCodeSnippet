@@ -1,0 +1,102 @@
+<div class="container" ng-mouseenter="CustomServiceReorder = true;" ng-mouseleave="CustomServiceReorder = false">
+    <div class="w-full b-a r-2x m-t-lg" id="other_services">
+        <div class="col-xs-12 m-t-lg" ng-class="{'m-b-xl':!editCustomServices}">
+            <div class="custom-service-header">
+                <div class="pull-left text-20 text-black-d">
+                    <span class="padder inline padder-v-sm">{{ user.customBoxname }}</span> <i ng-if="CustomServiceReorder" class="fa fa-unsorted text-muted m-r-sm hover-pointer text-blue-lt" ng-click="profileOreder('share')" uib-tooltip="Reorder your profile"></i>
+                </div>
+                <div class="pull-right padder">
+                    <a class="text-gray hover-text-blue-lt pull-right" ng-if="!editCustomServices" ng-click="changeEditModeCustomServices(true);">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="">Edit</span>
+                    </a>
+                    <button class="btn btn-default r-2x" ng-click="changeEditModeCustomServices(false);" ng-if="editCustomServices">Cancel</button>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+
+            <div class="custom-service-container" ng-if="!editCustomServices">
+                <div class="padder padder-v" ng-class="{'b-b':!$last}" ng-repeat="service in user.customServices track by $index">
+                    <div class="text-17 text-capitalize">{{ service.action}} {{ service.market}}</div>
+                    <div class="text-black-dk m-t-sm" ng-if="service.values.length > 0">
+                        <div ng-repeat="value in service.values" class="rounded padder-v-sm padder bg-light dk pull-left m-r-xs m-t-xs">{{ value}}</div>
+                        <div class="clear clearfix"></div>
+                    </div>
+                </div>
+
+                <div class="padder" ng-if="!user.customServices || user.customServices.length <= 0">
+                    <div class="text-md text-muted font-italic m-t-md">Click on edit button to add custom services you are providing.</div>
+                </div>
+
+            </div>
+
+            <div class="custom-service-container" ng-if="editCustomServices">
+                <div class="b-b">
+                    <div class="col-sm-6 form-group">
+                        <label class="control-label text-17 text-black-dk">Box name</label>
+                        <input class="form-control input-lg" 
+                               placeholder="Box name" 
+                               ng-model="user.customBoxname"
+                               required/> 
+                    </div>
+                    <div class="clear clearfix"></div>
+                </div>
+
+                <div class="padder padder-v b-b" ng-repeat="(key, service) in user.customServices">
+                    <form ng-submit="saveCustomService(key)" name="formCustomService{{key}}" class="form-validation">
+
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label class="control-label text-17 text-black-dk">Service</label>
+                                <input class="form-control input-lg" 
+                                       placeholder="Service that you are providing" 
+                                       ng-model="service.action"
+                                       required/> 
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label class="control-label text-17 text-black-dk">Market</label>
+                                <input class="form-control input-lg" 
+                                       placeholder="Market for service that you are providing" 
+                                       ng-model="service.market"
+                                       required/> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <div class="text-17">Values</div>
+                                <input type="text" 
+                                       class="form-control input-lg text-black-dk m-t-sm"
+                                       ng-class="windowWidth <= 480 ? 'w-full' : 'w-2xl'"
+                                       placeholder="Add service details in wording e.g Linkbuilding, article writing"
+                                       ng-model="service.value"
+                                       ng-pattern="/^[a-zA-Z0-9- '.,-/\&]{2,100}$/" 
+                                       maxlength="100" 
+                                       ng-enter="onSelectValue(service,service.value)"/>
+
+                                <div class="text-black-dk m-t-sm">
+                                    <div ng-repeat="value in service.values" class="rounded padder-v-sm padder-r-sm padder bg-light dk pull-left m-r-xs m-t-xs">
+                                        <span class="tag-label">{{ value}}</span>
+                                        <span class="tag-remove hover-pointer font-multicolore text-gray m-l-xs" ng-click="removeValue(service, value)">X</span>
+                                    </div>
+                                    <div class="clear clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row padder">
+                            <button type="submit" class="btn btn-blue-lt pull-right">Save</button>
+                            <button type="button" class="btn btn-danger pull-left" ng-click="deleteService(service)">Delete</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="m">
+                    <span class="text-blue-lt hover-underline font-bold hover-pointer" ng-click="addCustomService()"><i class="fa fa-plus"></i> Add more service</span>
+                </div>
+            </div>
+
+
+
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+</div>

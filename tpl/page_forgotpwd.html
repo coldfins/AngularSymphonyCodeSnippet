@@ -1,0 +1,21 @@
+<div class="container w-xxl" ng-init="app.settings.container = true;app.settings.headerFixed = true;">
+    <a ui-sref="index" class="brand-logo block m-t m-b-lg text-center"><img src="{{app.baseUrl}}/img/mobintouch-logo.png" alt="mobintouch logo" class="thumb-lg"></a>
+    <div class="m-b-lg" ng-controller="ForgottenPasswordFormController">
+        <div class="text-center">
+            <h2>Forgot password?</h2>
+            <h4>Change your password</h4>
+        </div>
+        <div class="wrapper text-center">
+            Please type the email address for your Mobintouch account.
+        </div>
+        <form name="reset" class="form-validation">
+            <div class="m-b">
+                <input type="email" placeholder="Email address" ng-model="user.email" class="form-control" required>
+            </div>
+            <button type="submit" ng-disabled="reset.$invalid" class="btn btn-lg btn-blue-lt btn-block"  ng-click="sendEmail()" >
+                <span ng-hide="loadingForgottenPassword" class="text">Reset my password</span>
+                <span ng-show="loadingForgottenPassword" class="text"><i class="fa fa-spin fa-circle-o-notch"></i> Reset my password</span>
+            </button>
+        </form>
+    </div>
+</div>

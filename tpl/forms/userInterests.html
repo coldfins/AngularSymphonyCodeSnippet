@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <span class="h4">{{ interestUser }} interested in</span>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel();">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body no-padder">
+    <div class="clear clearfix"></div>
+    <div class="padder-md padder-v-md">
+        <div class="hover-pointer text-blue-lt hover-underline inline m-r-sm" ng-repeat="interest in interestedin track by $index">#{{ interest.text ? interest.text : interest }}</div>
+    </div>
+</div>

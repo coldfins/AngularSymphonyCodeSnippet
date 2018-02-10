@@ -1,0 +1,120 @@
+<div ng-controller="TooltipDemoCtrl" class="panel panel-default">
+    <div class="panel-heading">
+        <!--<div ng-controller="LinkedInSyncModalCtrl">
+            <a class="text-muted pull-right" ng-click="open('lg');trackLinkedin('Experiences')">Sync <i class="fa fa-linkedin-square"></i></a>
+        </div>-->
+        <span class="h4">Professional Experiences</span>
+    </div>
+    <div data-ng-repeat="(key, experience) in user.experiences">
+        <div class="panel-body">
+            <div class="row">
+                <form name="formexperience{{key}}" ng-submit="saveExperiences(key)" class="form-horizontal form-validation" novalidate>
+                    <div class="wrapper">
+
+                        <div class="form-group form-horizontal">
+                            <label class="col-xs-12 col-sm-2 control-label">Company*:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <input type="text" class="form-control" placeholder="Company name" ng-model="experience.company" ng-pattern="/^[a-zA-Z-0-9 '.,-/\&]{2,100}$/" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-horizontal">
+                            <label class="col-xs-12 col-sm-2 control-label">Job Title*:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <input type="text" class="form-control" placeholder="Job Title" ng-model="experience.jobtitle" required >
+                            </div>
+                        </div>
+
+                        <div class="form-group form-horizontal">
+                            <label class="col-xs-12 col-sm-2 control-label">Location:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <input type="text" class="form-control" placeholder="City, Country" ng-model="experience.location" ng-autocomplete ng-model="autocomplete" options="{ types: '(cities)', watchEnter: true }" details="details"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-horizontal" resize>
+                            <label class="col-xs-12 col-sm-2 control-label">Time Period:</label>
+                            <div class="col-xs-12 col-sm-5" ng-controller="DatepickerDemoCtrl">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="From period" datepicker-popup="{{format}}" ng-model="experience.fromperiod" is-open="opened" datepicker-options="dateOptions" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-5" ng-controller="DatepickerDemoCtrl" ng-class="windowWidth <= 767 ? 'm-t-xs' : ''">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="To period" datepicker-popup="{{format}}" ng-model="experience.toperiod" is-open="opened" datepicker-options="dateOptions" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-5 col-sm-offset-7">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="experience.currently"> I currently work here
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-horizontal">
+                            <label class="col-xs-12 col-sm-2 control-label">Description:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <textarea class="form-control" rows="6" ng-model="experience.description" placeholder="My responsibilities include…"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-horizontal">
+                            <label class="col-xs-12 col-sm-2 control-label">Company website:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <input type="text" class="form-control" placeholder="http://…" ng-model="experience.companyWebsite">
+                            </div>
+                        </div>
+
+                        <div class="form-group form-horizontal">
+                            <label class="col-xs-12 col-sm-2 control-label">Company logo:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <input ui-jq="filestyle" type="file" accept="image/*" fileread="experience.logo" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control inline v-middle input-s">
+                                <span class="help-block m-b-none"><small>Maximum file size of 2MB (50x50px)</small></span>
+                            </div>
+                        </div>
+
+                        <div ng-if="experience.logo && experience.logo.indexOf('data:') == - 1">
+                            <div class="form-group form-horizontal">
+                                <label class="col-xs-12 col-sm-2 control-label">Preview:</label>
+                                <div class="col-xs-12 col-sm-10">
+                                    <img src="{{app.baseUrl}}{{experience.logo}}" class="thumb">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 no-padder">
+                            <p class="text-muted pull-right"><small>*Required fields</small></p>
+                        </div>
+
+                        <div class="col-xs-12 no-padder">
+                            <div nclass="clearfix" g-show="user.experiences.length">
+                                <button type="submit" class="btn btn-success pull-right" ng-disabled="formexperience{{key}}.$invalid" >
+                                    <span ng-hide="loadingExperiences[{{key}}]" class="text">Save</span>
+                                    <span ng-show="loadingExperiences[{{key}}]" class="text"><i class="fa fa-spin fa-circle-o-notch"></i> Save</span>
+                                </button>
+                                <button  class="btn btn-danger" ng-click="deleteExperiences(experience, $event)" >
+                                    <span ng-hide="loadingDeleteExperiences[{{key}}]" class="text">Delete</span>
+                                    <span ng-show="loadingDeleteExperiences[{{key}}]" class="text"><i class="fa fa-spin fa-circle-o-notch m-l-xs"></i></span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="b-b"></div>
+
+    <footer class="panel-footer bg-light lter">
+        <button class="btn btn-default btn-addon btn-sm" data-ng-click="addExperiencesForm()"><i class="fa fa-plus"></i>Add an experience</button>
+    </footer>
+
+</div>

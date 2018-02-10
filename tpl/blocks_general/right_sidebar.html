@@ -1,0 +1,60 @@
+<div data-ng-controller="RightSidebarController">
+
+    <!-- CREATE COMPANY -->
+    <div ng-if="user.username" data-ng-include=" 'tpl/widgets/create_company.html?v=' + app.latestUpdate" class="hidden-xs hidden-sm"></div><!--/ CREATE COMPANY -->
+
+    <!-- EVENT -->
+    <!--<div data-ng-include=" 'tpl/widgets/event.html?v=' + app.latestUpdate" class="hidden-xs hidden-sm"></div>-->
+    <!--/ EVENT -->
+
+    <!-- offer widget -->
+    <div data-ng-include=" 'tpl/widgets/random-offer.html?v=' + app.latestUpdate" class="hidden-xs hidden-sm"></div>
+    <!--/  offer widget-->
+
+    <!-- invite widget-->
+    <div ng-if="user.username" data-ng-include=" 'tpl/widgets/page_invite_contacts_widget.html?v=' + app.latestUpdate" class="hidden-xs hidden-sm" ></div>
+    <!--/ invite widget -->
+
+    <!-- LAST PROFILE VISITED -->
+    <div ng-if="user.username" data-ng-include=" 'tpl/widgets/last_profiles_visited.html?v=' + app.latestUpdate" class="hidden-xs hidden-sm"></div><!--/ LAST PROFILE VISITED -->
+
+    <!-- WHO VISITED PROFILE -->
+    <div ng-if="user.username" data-ng-include=" 'tpl/widgets/who_visited_profile.html?v=' + app.latestUpdate" class="hidden-xs hidden-sm"></div><!--/ WHO VISITED PROFILE -->
+
+    <!-- SOCIAL -->
+    <div class="padder-v padder">
+        <div class="m-b">
+            <span class="text-u-c text-muted font-bold text-xs">Follow us</span>
+        </div>
+        <div class="text-muted text-lg">
+            <a data-ng-click="track('Twitter Page', 'Footer', 'Twitter')" href="https://twitter.com/mobintouch" target="_blank"><button class="btn btn-rounded btn-sm btn-icon btn-default hover-text-blue-lt"><i class="fa fa-twitter"></i></button></a>
+            <a data-ng-click="track('LinkedIn Page', 'Footer', 'LinkedIn')" href="https://www.linkedin.com/company/mobintouch" target="_blank"><button class="btn btn-rounded btn-sm btn-icon btn-default hover-text-blue-lt"><i class="fa fa-linkedin"></i></button></a>
+            <a data-ng-click="track('Instagram Page', 'Footer', 'Instagram')" href="http://instagram.com/mobintouch/" target="_blank"><button class="btn btn-rounded btn-sm btn-icon btn-default hover-text-blue-lt"><i class="fa fa-instagram"></i></button></a>
+            <a data-ng-click="track('Facebook Page', 'Footer', 'Facebook')" href="https://www.facebook.com/mobintouch" target="_blank"><button class="btn btn-rounded btn-sm btn-icon btn-default hover-text-blue-lt"><i class="fa fa-facebook"></i></button></a>
+        </div>
+    </div>
+    <!--/ SOCIAL -->
+
+    <!-- FOOTER -->
+    <div class="padder-v padder">
+        <small class="text-muted">
+
+            <a class="hover-text-blue-lt" ui-sref="app.page.about" data-ng-click="track('About', 'About')">About</a> |
+
+            <a class="hover-text-blue-lt" href="https://mobintouch.zendesk.com/" target="_blank" data-ng-click="track('Support', 'Support')">Support</a> |
+
+            <a class="hover-text-blue-lt" ui-sref="app.legal.user_agreement" rel="nofollow" data-ng-click="track('User Agreement', 'User Agreement')">User Agreement</a> |
+
+            <a class="hover-text-blue-lt" ui-sref="app.legal.privacy" rel="nofollow" data-ng-click="track('Privacy Policy', 'Privacy Policy')">Privacy Policy</a> |
+
+            <a class="hover-text-blue-lt" ui-sref="app.legal.cookies" rel="nofollow" data-ng-click="track('Cookie Policy', 'Cookie Policy')">Cookie Policy</a> |
+
+            <a class="hover-text-blue-lt" href="https://blog.mobintouch.com"  target="_blank">Blog</a> |
+
+            <br>{{app.name}} &copy; <script>var d = new Date(); $('.full_year').html(d.getFullYear());</script><span class="full_year"></span>
+
+        </small>
+    </div>
+    <!--/ FOOTER -->
+
+</div>

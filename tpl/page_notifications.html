@@ -1,0 +1,20 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = true;">
+
+    <div class="bg-light lter wrapper-md hidden-print m-b">
+      <h1 class="m-n font-thin h3">Notifications</h1>
+    </div>
+
+    <!-- LAST VISITED PROFILES LIST -->
+    <div class="padder b-l">
+        <div class="wrapper-md">
+
+            <span data-ng-include=" 'tpl/page_notifications_timeline.html?v='+ app.latestUpdate "></span>
+
+        </div>
+    </div><!-- / LAST VISITED PROFILES LIST -->
+
+    <!--Right SideBar-->
+    <div class="col w-lg" data-ng-include=" 'tpl/blocks_general/right_sidebar.html?v='+ app.latestUpdate "></div>
+    <!--/ End Right SideBar-->
+
+</div>

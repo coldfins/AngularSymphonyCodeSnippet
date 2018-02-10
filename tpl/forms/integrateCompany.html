@@ -1,0 +1,23 @@
+<style>
+	.modal-header{
+		background: #E21417 none repeat scroll 0 0;
+		color: #fff;
+        border-radius: 4px 4px 0 0;
+	}
+</style>
+<div class="modal-header">
+	<div class="text-center" style=" margin-top: 4%;"><img src="{{ app.baseUrl }}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" class="thumb-xs m-r-xs avatar"></div>
+	<div class="text-center" style="font-size: 18px;font-weight: bolder;margin-bottom: 5%;margin-top: 5%;">Join a company page</div>
+	<div class="text-center" style="margin-bottom: 6%;">"Social Network for Mobile Advertising Professionals"</div>
+</div>
+<div class="modal-body">
+    <h3 class="text-center">Do you wish to join the <span class="font-bold">{{company.name | capitalize}}</span> company page?</h3>
+</div>
+<div class="modal-footer no-padder">
+    <div class="text-center wrapper-sm b-r inline w-50">
+        <a class="text-primary text-lg" ng-click="cancel()">No</a>
+    </div>
+    <div class="text-center wrapper-sm inline w-50">
+        <a class="font-bold text-primary text-lg" ng-click="integrateCompanyPage()">Yes</a>
+    </div>
+</div>

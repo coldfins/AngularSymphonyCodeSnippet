@@ -1,0 +1,20 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title h3">Edit your profile photo</h3>
+    </div>
+    <div class="modal-body">
+        <div class="wrapper-md">
+            <div class="m-b">
+                <h4>Select your best photo</h4>
+                <input ui-jq="filestyle" type="file" accept="image/*" id="fileInput" />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" ng-click="avatar()">
+            <span ng-hide="loadingAvatar" class="text">Save</span>
+            <span ng-show="loadingAvatar" class="text">Save<i class="fa fa-sun-o fa-circle-o-notch"></i></span>
+        </button>
+    </div>
+</div>

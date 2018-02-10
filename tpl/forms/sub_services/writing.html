@@ -1,0 +1,113 @@
+<div class="form-group form-horizontal">
+    <div class="col-xs-12 col-sm-4 text-17 padder-t-sm text-black-dk">
+        *What are your areas of expertise?
+        <div class="text-sm text-primary" ng-show="formSubmited && (!user.services[selectedIndex].subServices || user.services[selectedIndex].subServices.length <= 0)">Required</div>
+    </div>
+    <div class="col-sm-8 m-t-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="translationServices" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Translation Services"/>
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Translation Services</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="articleWriting" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Article Writing" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Article Writing</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="blogging" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Blogging" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Blogging</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="copywriting" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Copywriting" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Copywriting</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="creativeWriting" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Creative Writing" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Creative Writing</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="editing" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="editing" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Editing</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="grantWriting" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Grant Writing" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Grant Writing</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="proofreading" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Proofreading" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Proofreading</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="publishing" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Publishing" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Publishing</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="technicalWriting" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Technical Writing" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Technical Writing</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="webContent" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Web Content" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Web Content</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="writing" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Writing" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Writing</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="other" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Other" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Other</div>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<div ng-controller="TooltipDemoCtrl" class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="h4">Payment Conditions</h4>
+    </div>
+    <div class="panel-body">
+
+        <div class="row m-b">
+            <label class="col-xs-12 control-label">Terms*:</label>
+            <div class="col-xs-12">
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="user.paymentTerms[0].prepayment"> Pre-Paid
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="user.paymentTerms[0].daily"> Daily
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="user.paymentTerms[0].weekly"> Weekly
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="user.paymentTerms[0].monthly"> Monthly
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="user.paymentTerms[0].bimonthly"> Bi-monthly
+                </label>
+            </div>
+            <div class="col-xs-12 m-t-sm">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        Other
+                        <input type="checkbox" ng-model="user.paymentTerms[0].netXYChecked"/>
+                    </span>
+
+                    <input type="text" class="form-control" placeholder="Ex. NET 30" ng-model="user.paymentTerms[0].netXYvalue" ng-pattern="/^[a-zA-Z0-9 -,]{1,20}$/">
+                </div>
+            </div>
+        </div>
+
+        <div class="line line-dashed b-b line-lg"></div>
+
+        <div class="row">
+            <label class="col-xs-12 control-label">Method*:</label>
+            <div class="col-xs-12">
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="user.paymentMethods[0].BankTransfer"> Bank Transfer
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="user.paymentMethods[0].Alipay"> Alipay
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="user.paymentMethods[0].Cheque"> Cheque
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="user.paymentMethods[0].CreditCard"> Credit Card
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="user.paymentMethods[0].EPESE"> EPESE
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="user.paymentMethods[0].Payoneer"> Payoneer
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="user.paymentMethods[0].Paypal"> Paypal
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="user.paymentMethods[0].WebMoney"> WebMoney
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-footer bg-light lter text-right">
+        <button type="submit" class="btn btn-success" ng-click="savePayment()" data-ng-disabled="(!user.paymentTerms[0].prepayment && !user.paymentTerms[0].daily && !user.paymentTerms[0].weekly && !user.paymentTerms[0].monthly && !user.paymentTerms[0].bimonthly && !user.paymentTerms[0].netXYChecked && !user.paymentMethods[0].BankTransfer && !user.paymentMethods[0].Alipay && !user.paymentMethods[0].Cheque && !user.paymentMethods[0].CreditCard && !user.paymentMethods[0].EPESE && !user.paymentMethods[0].Payoneer && !user.paymentMethods[0].Paypal && !user.paymentMethods[0].WebMoney )">
+            <span ng-hide="loadingPayment" class="text">Save</span>
+            <span ng-show="loadingPayment" class="text">Saving...<i class="fa fa-spin fa-circle-o-notch"></i></span>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="w-full b-a r-2x m-t-lg bg-white" ng-if="publicCompany.similarCompanies.length > 0" id="similar_companies">
+    <div class="col-xs-12 padder-t-lg padder-md">
+        <div class="text-xl text-black-dker font-normal text-gray">Similar Companies</div>
+    </div>
+    <div class="col-xs-12 padder-md list-group-item no-borders b-b r-2x">
+        <div class="padder-v pull-left w-full" ng-class="{'b-b':!$last}" ng-repeat="sCompany in publicCompany.similarCompanies.slice(0, 10)">
+            <span class="pull-left thumb-sm m-r">
+                <img ng-show="sCompany.avatar" src="{{ app.baseUrl}}{{ sCompany.avatar}}" alt="{{ sCompany.name}} {{ sCompany.lastname}}" class="b-a r-2x">
+                <img ng-hide="sCompany.avatar" src="{{ app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" alt="{{ sCompany.name}} {{ sCompany.lastname}}" class="b-a r-2x">
+            </span>
+            <div class="clear">
+                <a class="font-bold text-ellipsis" ui-sref="app.page.company/public({companyusername: sCompany.username})">{{ sCompany.name}} {{ sCompany.lastname}}</a>
+                <div class="text-muted clear text-ellipsis">{{ sCompany.shortDescription}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="clear clearfix"></div>
+</div>

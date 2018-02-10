@@ -1,0 +1,28 @@
+<li class="clearfix w-xxl padder-sm padder-t-sm padder-b-sm" style="cursor: pointer;" ng-if="match.model.type == 'people'">
+    <a ui-sref="app.page.public({username: match.model.username})" class="pull-left thumb-sm avatar m-r clear" onclick="document.getElementById('sidebar_toggle').click()">
+        <img ng-if="match.model.avatar" ng-src="{{ $parent.$parent.$parent.$parent.$parent.cdnBaseUrl}}{{ match.model.avatar}}" class="img-circle">
+        <img ng-if="!match.model.avatar" ng-src="{{ $parent.$parent.$parent.$parent.$parent.cdnBaseUrl}}/img/mit-default-avatar.svg?v={{ $parent.$parent.$parent.$parent.$parent.app.latestUpdate }}" class="img-circle">
+    </a>
+    <a ui-sref="app.page.public({username: match.model.username})" onclick="document.getElementById('sidebar_toggle').click()">
+        <div class="text-md text-dark text-ellipsis" ng-bind-html="match.model.name + ' ' + match.model.lastname | uibTypeaheadHighlight:query"></div>
+        <div class="text-ellipsis">
+            <span class="text-sm text-dark" ng-bind-html="match.model.jobTitle | uibTypeaheadHighlight:query"></span>
+            <span class="text-sm text-dark" ng-if="match.model.company" ng-bind-html="'• ' + match.model.company | uibTypeaheadHighlight:query"></span>
+        </div>
+    </a>
+</li>
+
+<li class="clearfix w-xxl padder-sm padder-t-sm padder-b-sm" style="cursor: pointer;" ng-if="match.model.type == 'company'">
+    <a ui-sref="app.page.company/public({companyusername:match.model.username})" class="pull-left thumb-sm m-r clear" onclick="document.getElementById('sidebar_toggle').click()">
+        <img ng-if="match.model.avatar" ng-src="{{ $parent.$parent.$parent.$parent.$parent.cdnBaseUrl}}{{ match.model.avatar}}" class="">
+        <img ng-if="!match.model.avatar" ng-src="{{ $parent.$parent.$parent.$parent.$parent.cdnBaseUrl}}/img/mit-default-company-avatar.svg?v={{ $parent.$parent.$parent.$parent.$parent.app.latestUpdate}}" class="bg-gray">
+    </a>
+    <a ui-sref="app.page.company/public({companyusername:match.model.username})" onclick="document.getElementById('sidebar_toggle').click()">
+        <div class="text-md text-dark text-ellipsis" ng-bind-html="match.model.name | uibTypeaheadHighlight:query"></div>
+        <div class="text-sm text-dark text-ellipsis">Company</div>
+    </a>
+</li>
+
+<li class="clearfix w-xxl no-padder" style="cursor: pointer;" ng-if="match.model.type != 'people' && match.model.type != 'company'">
+    <a class="w-full inline wrapper" ui-sref="app.page.publicsearch({type:'all',query:query})" onclick="document.getElementById('sidebar_toggle').click()">Search for "<span class="font-bold">{{ query}}</span>"</a>
+</li>

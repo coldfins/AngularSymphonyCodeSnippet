@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <span class="h4">Team members of {{ publicCompany.name}}</span>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel();">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body no-padder">
+    <div class="clear clearfix"></div>
+    <ul class="scrollable mutual-container padder-md">
+        <li ng-if="employee" ng-repeat="employee in publicCompany.employees| orderBy:'-date'" class="b-b" style="list-style: none;">
+            <div class="padder-v">
+                <span class="thumb-sm pull-left img-circle m-r-sm">
+                    <img ng-if="employee.avatar" src="{{ app.baseUrl}}{{employee.avatar}}" class="img-circle">
+                    <img ng-if="!employee.avatar" src="{{ app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                </span>
+                <div class="media-body m-b-none text-break">
+                    <div class="pull-left">
+                        <a ui-sref="app.page.public({username: employee.username})" title="{{ employee.name}} {{ employee.lastname}}" ng-click="cancel()"><strong>{{employee.name}} {{employee.lastname}}</strong></a>
+                        <small class="text-muted block" ng-if="employee.jobTitle">{{employee.jobTitle}}</small>
+                    </div>
+                    <a class="btn btn-blue-lt r-2x pull-right m-t-xxs" ng-click="remove(employee.username)">Remove</a>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+        </li>
+    </ul>
+</div>

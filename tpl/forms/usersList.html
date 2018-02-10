@@ -1,0 +1,29 @@
+<div ng-if="action=='liked'" class="text-center modal-header ng-scope">
+   <i class="icon-like text-xl"></i><h4 class="text-center ng-binding">People Who Liked This</h4>
+</div>
+<div ng-if="action=='commented'" class="text-center modal-header ng-scope">
+   <i class="icon-bubbles text-xl"></i><h4 class="text-center ng-binding">People Who Commented This</h4>
+</div>
+<div class="modal-body">
+    <div class="panel-body no-padder">
+        <ul class="list-group no-bg no-borders pull-in m-n scrollable" style="padding-bottom: 0 !important; max-height: 600px;">
+            <li ng-repeat="usr in users" class="list-group-item">
+                    <a ui-sref="app.page.public({ username:'{{usr.username}}' })" class="pull-left thumb-sm avatar m-r" ng-click="cancel()">
+                        <img ng-if="usr.avatar" ng-src="{{app.baseUrl}}{{usr.avatar}}" class="img-circle">
+                        <img ng-if="!usr.avatar" ng-src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                    </a>
+                    <div class="clear">
+                        <a ui-sref="app.page.public({ username:'{{usr.username}}' })" ng-click="cancel()">
+                            <div>{{usr.name + ' ' + usr.lastname | capitalize }}<span class="premium-box"></span></div>
+                            <small class="text-muted">{{usr.jobTitle}}, {{usr.company}}</small>
+                        </a>
+                    </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="text-center">
+        <a ng-click="cancel()">Close</a>
+    </div>
+</div>

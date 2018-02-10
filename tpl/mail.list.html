@@ -1,0 +1,88 @@
+<div ng-controller="MailListCtrl">
+
+    <ul class="touchmail list-group list-group-lg no-radius m-b-none m-t m-b">
+
+        <!--  inbox -->
+        <li ng-if="fold != 'sent'" ng-repeat="mail in mails| toArray | filter:emailFilter" class="list-group-item clearfix list-group-item clearfix">
+
+            <a ui-sref="app.mail.detail({mailId:mail.id})" class="avatar thumb pull-left m-r">
+                <div ng-if="mail.fromID != user.id">
+                    <img ng-show="mail.senderAvatar" src="{{app.baseUrl}}{{mail.senderAvatar}}" class="img-circle">
+                    <img ng-hide="mail.senderAvatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                </div>
+                <div ng-if="mail.fromID == user.id">
+                    <img ng-show="mail.receiverAvatar" src="{{app.baseUrl}}{{mail.receiverAvatar}}" class="img-circle">
+                    <img ng-hide="mail.receiverAvatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                </div>
+            </a>
+            <div class="pull-right text-sm text-muted">
+                <span class="hidden-xs">{{ mail.updateDate | num | fromNow }}</span>
+            </div>
+            <div class="clear">
+                <a ui-sref="app.mail.detail({mailId:mail.id})">
+                    <div >
+                        <span ng-if="mail.read == false && mail.fromCurrentID != user.id" class="mail-not-read"></span>
+                        <span ng-if="mail.fromID != user.id" class="text-md font-bold">{{mail.senderName}}</span>
+                        <span ng-if="mail.fromID == user.id" class="text-md font-bold">{{mail.receiverName}}</span>
+                    </div>
+
+                    <div class="">{{mail.subject}}</div>
+                    <div class="text-ellipsis text-muted">{{mail.content| limitTo:100}}</div>
+                </a>
+            </div>
+        </li>
+        <!-- / inbox -->
+
+        <!--  sent -->
+        <li ng-if="fold == 'sent'" ng-repeat="mail in mails| toArray | filter:emailFilter" class="list-group-item clearfix">
+            <a ui-sref="app.mail.detail({mailId:mail.id})" class="avatar thumb pull-left m-r">
+                <div ng-if="mail.fromID != user.id">
+                    <img ng-show="mail.senderAvatar" src="{{app.baseUrl}}{{mail.senderAvatar}}" class="img-circle">
+                    <img ng-hide="mail.senderAvatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                </div>
+                <div ng-if="mail.fromID == user.id">
+                    <img ng-show="mail.receiverAvatar" src="{{app.baseUrl}}{{mail.receiverAvatar}}" class="img-circle">
+                    <img ng-hide="mail.receiverAvatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                </div>
+            </a>
+            <div class="pull-right text-sm text-muted">
+                <span class="hidden-xs">{{ mail.updateDate| num | fromNow }}</span>
+            </div>
+            <div class="clear">
+                <a ui-sref="app.mail.detail({mailId:mail.id})">
+                    <div>
+                        <span ng-if="mail.fromID != user.id" class="text-md font-bold">{{mail.senderName}}</span>
+                        <span ng-if="mail.fromID == user.id" class="text-md font-bold">{{mail.receiverName}}</span>
+                    </div>
+                    <div class="">{{mail.subject}}</div>
+                    <div class="text-ellipsis text-muted">{{mail.content| limitTo:100}}</div>
+                </a>
+            </div>
+        </li>
+        <!-- / sent -->
+
+        <!-- NO MAILS -->
+        <div ng-if="mails.length <= 0">
+            <div class="m-t-lg">
+                <div class="vbox bg-nomail">
+                    <div class="v-middle cell">
+                        <div class="wrapper text-center">
+                            <div class="text-xl m-b">Your mailbox is empty! Start by sending your first message and build your business network.</div>
+                            <a ui-sref="app.mail.compose" class="btn btn-blue-lt font-bold text-md">NEW CONVERSATION</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / NO MAILS -->
+
+        <div class="text-center m-t">
+            <button ng-cloak ng-if="count > mails.length" class="btn btn-sm btn-default m-b-3xl m-t-xxl no-shadow" ng-click="showMoreSearch()">
+                <span ng-hide="loadingSearch" class="text">Show me more messages</span>
+                <span ng-show="loadingSearch" class="text"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+            </button>
+        </div>
+
+    </ul>
+    <!-- / list -->
+</div>

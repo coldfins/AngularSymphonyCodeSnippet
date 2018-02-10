@@ -1,0 +1,19 @@
+<div class="modal-body sort-services">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel();" uib-tooltip="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+    <span class="font-normal title text-black m-l-xs">Reorder your profile</span>
+    <div class="m-t body">
+        <ul ui-sortable="sortableOptions" ng-model="user.profileOrder" class="list">
+            <li ng-repeat="item in user.profileOrder" 
+                class="b-a padder-sm padder-v m-b font-normal bg-white txt-black-d b-black-lt hover-pointer"
+                ng-class="windowWidth <= 480 ? 'w-md' : 'w-xxl'">
+                <i class="fa fa-unsorted text-muted m-r-sm"></i> {{item.text}}
+            </li>
+        </ul>
+        <button class="btn btn-blue-lt w-full text-lg font-normal r-3x" ng-disabled="updateProfileOrder" ng-click="editProfileOrder()">
+            <span class="" ng-hide="updateProfileOrder">Save</span>
+            <span class="" ng-show="updateProfileOrder">Updating <i class="fa fa-spinner fa-spin"></i></span> 
+        </button>
+    </div>
+</div>

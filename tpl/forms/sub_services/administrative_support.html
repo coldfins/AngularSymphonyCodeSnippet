@@ -1,0 +1,72 @@
+<div class="form-group form-horizontal">
+    <div class="col-xs-12 col-sm-4 text-17 padder-t-sm text-black-dk">
+        *What are your areas of expertise?
+        <div class="text-sm text-primary" ng-show="formSubmited && (!user.services[selectedIndex].subServices || user.services[selectedIndex].subServices.length <= 0)">Required</div>
+    </div>
+    <div class="col-sm-8 m-t-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="administrativeAssistant" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Administrative Assistant"/>
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Administrative Assistant</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="dataEntry" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Data Entry" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Data Entry</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="executiveAssistant" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Executive Assistant" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Executive Assistant</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="officeManagement" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Office Management" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Office Management</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="transcription" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Transcription" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Transcription</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="virtualAssistant" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Virtual Assistant" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Virtual Assistant</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="webResearch" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Web Research" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Web Research</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="other" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Other" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Other</div>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

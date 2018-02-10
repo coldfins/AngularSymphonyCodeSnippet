@@ -1,0 +1,72 @@
+<style>
+    .delete-badge{
+        margin: -9px -7px 0px 0px;
+        border-radius: 50%;
+        color: gray;
+    }
+    .delete-badge:hover{
+        color: black;
+    }
+    .image_wrapper{
+        position: relative;
+        zoom: 1;
+        max-width: 7000px;
+    }
+    .screenshots{
+        clear: both;
+        position: relative;
+        width: auto;
+        min-height: 320px;
+        max-height: 600px;
+        margin: 15px 0px;
+        padding: 16px;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        background-color: #f7f8f9;
+    }
+</style>
+<div class="w-full b-a r-2x m-t-lg bg-white-only padder-lg" id="about_us">
+    <div class="padder-v">
+        <div class="text-xl text-black-dker font-normal text-gray">About us</div>
+    </div>
+    <div class="">
+        <div id="s_container" class="screenshots row" ng-if="publicCompany.images.length > 0 || publicCompany.video.videoId">
+            <div class="image_wrapper" id="about_lightbox">
+                <div class="pull-left" ng-if="publicCompany.video.type == 'youtube'">
+                    <iframe width="450px" height="284px" ng-src="{{ publicCompany.video.videoId | youtubeEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                </div>
+                <div class="pull-left" ng-if="publicCompany.video.type == 'vimeo'">
+                    <iframe width="450px" height="284px" ng-src="{{ publicCompany.video.videoId | vimeoEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                </div>
+                <a href="{{ app.baseUrl}}{{ image}}" ng-repeat="image in publicCompany.images track by $index">
+                    <img id="s_img_{{ $index}}" class="h-lg padder lightbox" src="{{ app.baseUrl}}{{ image}}"/>
+                </a>
+                <script>
+                    document.getElementById('about_lightbox').onclick = function (event) {
+
+                        event = event || window.event;
+                        var target = event.target || event.srcElement,
+                                link = target.src ? target.parentNode : target,
+                                options = {index: link, event: event},
+                        links = this.getElementsByTagName('a');
+                        console.log(links);
+                        var serializer = new XMLSerializer();
+                        var lightbox = serializer.serializeToString(target);
+                        if (lightbox && lightbox.indexOf("img") > 0 && lightbox.indexOf("lightbox") > 0)
+                            blueimp.Gallery(links, options);
+                    };</script>
+            </div>
+        </div>
+        <div class="screenshots_prev" ng-init="isVideo = publicCompany.video.videoId ? true : false">
+            <img id="p_img_{{ $index}}" class="h-xxs padder b-a m-xs" src="{{ app.baseUrl}}{{ image}}" ng-repeat="image in publicCompany.images track by $index" ng-click="previewClick($index, 'about_us', isVideo)"/>
+        </div>
+
+        <div class="padder-v" ng-if="publicCompany.description.length > 0" ng-init="maxLength = 650">{{publicCompany.description|subStr:0:maxLength:true}}<a class="font-bold hover-pointer text-blue-lt hover-text-blue-lt hover-underline" ng-click="maxLength = publicCompany.description.length" ng-show="publicCompany.description.length > maxLength && maxLength != publicCompany.description">read more</a></div>
+        <div class="padder-v text-md text-muted font-italic" ng-if="(!publicCompany.description || publicCompany.description.length <= 0) && !publicCompany.video.videoId && (!publicCompany.images || publicCompany.images.length <= 0)">
+            {{ publicCompany.name}} hasn't shared any details.
+        </div>
+
+    </div>
+    <div class="clear clearfix"></div>
+</div>

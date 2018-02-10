@@ -1,0 +1,26 @@
+
+<div class="modal-body">
+    <div class="text-center">
+        <div class="row m-b-xxl m-t-xxl">
+            <div class="col-xs-12 text-center">
+                <img src="cdn/img/offerswall-icon.svg" class="thumb-2xl">
+                <div class="clear inline v-middle text-right text-center-xs">
+                    <h1 class="h1 font-thin offers-title"><span style="color:#bf0020;">Stack</span><span style="color:#ea2928;">Offers</span></h1>
+                    <span class="text-base text-muted">The most effective way to buy and sell mobile traffic</span>
+                </div>
+            </div>
+        </div>
+        <div class="b-t modal-body">
+            
+            <h4 class="m-b">Share this StackOffer</h4>
+            <form name="mailsForms" class="form-validation m-b">
+                <tags-input type="email" add-on-space="true" min-length="6" allowed-tags-pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+$" placeholder="Add emails separated by a comma e.g: collegue@company.com, friend@company.com, �" ng-model="list.mails" required></tags-input>
+
+                <button data-ng-disabled="list.mails.length==0" ng-click="shareOnMail()" class="btn btn-primary no-border r-2x w-md">Share</button>
+            </form>
+        
+        </div>
+        
+
+    </div>
+</div>

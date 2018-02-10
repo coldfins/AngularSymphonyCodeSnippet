@@ -1,0 +1,237 @@
+<!-- Edit Company Details Form-->
+<div class="b-b bg-light lt padder-b-3xl">
+    <div class="container padder-b-3xl">
+        <form id="frmCompanyDetails" name="frmCompanyDetails" class="form-horizontal" ng-submit="updateCompanyDetails(frmCompanyDetails)" novalidate>
+            <div class="padder-v-xl block">
+                <div class="pull-right pull-none-xs text-right">
+                    <button class="btn btn-blue-lt r-2x" type="submit" name="save" ng-disabled='updatingCompanyDetails'>
+                        <span class="" ng-hide="updatingCompanyDetails">Save</span>
+                        <span class="" ng-show="updatingCompanyDetails">Updating <i class="fa fa-spinner fa-spin"></i></span> 
+                    </button>
+                    <button class="btn btn-default r-2x m-l-xs" type="button" ng-click="updateCompanyDetailsMode(false);cancel(frmCompanyDetails);" name="cancel">Cancel</button>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+
+            <div class="">
+
+                <div class="col-sm-6" ng-class="windowWidth >= 786 ? 'padder-r-3xl' : ''">
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-12 no-padder">
+                            <label class="m-b-xs text-right padder-t text-md opacity-8" for="name">Company name</label>
+                            <div class="text-sm text-primary" ng-show="(frmCompanyDetails.name.$dirty && frmCompanyDetails.name.$invalid) || (frmCompanyDetails.$submitted && frmCompanyDetails.name.$invalid)">Required</div>
+                        </div>
+                        <div class="col-sm-8 col-xs-12 no-padder">
+                            <input id="name" name="name" type="text" class="w-full form-control" ng-model="publicCompany.name" ng-pattern="/^[a-zA-Z-\u00E0-\u00FC ']{2,20}$/" maxlength="20" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-12 no-padder">
+                            <label class="m-b-xs text-right padder-t text-md opacity-8" for="shortDescription">Short description</label>
+                            <div class="text-sm text-primary" ng-show="(frmCompanyDetails.shortDescription.$dirty && frmCompanyDetails.shortDescription.$invalid) || (frmCompanyDetails.$submitted && frmCompanyDetails.shortDescription.$invalid)">Required</div>
+                        </div>
+                        <div class="col-sm-8 col-xs-12 no-padder">
+                            <textarea 
+                                id="shortDescription" 
+                                name="shortDescription" 
+                                ng-model="publicCompany.shortDescription"
+                                maxlength="100"
+                                rows="3"
+                                class="form-control"
+                                required></textarea>
+                            <span class="text-black-dk text-sm text-muted pull-right">{{ publicCompany.shortDescription.length || 0 }}/100</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-12 no-padder">
+                            <label class="m-b-xs text-right padder-t text-md opacity-8" for="size">Company size</label>
+                        </div>
+                        <div class="col-sm-8 col-xs-12 no-padder">
+                            <select id="size" name="size" class="form-control" ng-model="publicCompany.size" required>
+                                <option value="Myself">Myself Only</option>
+                                <option value="2-10">2-10</option>
+                                <option value="11-50">11-50</option>
+                                <option value="51-200">51-200</option>
+                                <option value="201-500">201-500</option>
+                                <option value="501-1000">501-1000</option>
+                                <option value="1001-5000">1001-5000</option>
+                                <option value="5001-100000">5001-100000</option>
+                                <option value="100001+">100001+</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-12 no-padder">
+                            <label class="m-b-xs text-right padder-t text-md opacity-8" for="location">Location</label>
+                            <div class="text-sm text-primary" ng-show="(frmCompanyDetails.location.$dirty && !details) || (frmCompanyDetails.$submitted && frmCompanyDetails.location.$dirty && !details)">Required</div>
+                        </div>
+                        <div class="col-sm-8 col-xs-12 no-padder">
+                            <!--<input id="location" name="location" type="text" class="form-control" ng-model="publicCompany.formatedAddress" required/>-->
+                            <input
+                                id="location"
+                                name="location"
+                                type="text"
+                                placeholder="Enter a Location" 
+                                class="form-control" 
+                                ng-class="{'ng-invalid':!details}"
+                                ng-model="publicCompany.formatedAddress" 
+                                uib-typeahead="location.description for location in locationResult" 
+                                maxlength="100" 
+                                typeahead-on-select='onSelectLocation($item)' 
+                                typeahead-template-url="tpl/blocks_general/location-autocomplete.html?v={{app.latestUpdate}}"
+                                autocomplete="off"
+                                required="required">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-12 no-padder">
+                            <label class="m-b-xs text-right padder-t text-md opacity-8" for="market">Markets</label>
+                            <div class="text-sm text-primary" ng-show="(frmCompanyDetails.$submitted && publicCompany.markets.length <= 0) || (frmCompanyDetails.market.$dirty && publicCompany.markets.length <= 0)">Required</div>
+                        </div>
+                        <div class="col-sm-8 col-xs-12 no-padder">
+                            <div ng-repeat="market in publicCompany.markets" class="rounded padder-v-sm padder-r-sm padder bg-light dk pull-left m-r-xs m-b-xs">
+                                <span class="tag-label">{{ market.text ? market.text : market }}</span>
+                                <span class="tag-remove hover-pointer font-multicolore text-gray m-l-xs" ng-click="removeMarket(market.text ? market.text : market)">X</span>
+                            </div>
+                            <div class="clear clearfix"></div>
+                            <div class="input-group w-full has-feedback">
+                                <input 
+                                    id="market"
+                                    name="market"
+                                    type="text" 
+                                    class="form-control w-full"
+                                    placeholder="Add markets"
+                                    ng-model="market"
+                                    uib-typeahead="market for market in marketsSearch($viewValue) | limitTo:5" 
+                                    maxlength="100" 
+                                    autocomplete="off"
+                                    typeahead-on-select='onSelectMarket($item)' 
+                                    typeahead-focus-first='false'
+                                    typeahead-loading='loading_markets'
+                                    typeahead-template-url="tpl/blocks_general/skill-autocomplete.html?v={{app.latestUpdate}}" 
+                                    ng-keydown="keyPressed($event)"
+                                    typeahead-wait-ms="300"
+                                    ng-disabled="publicCompany.markets.length >= 4"/>
+                                <i ng-show="loading_markets && publicCompany.markets.length <= 0" class="fa fa-spinner fa-spin form-control-feedback input-loader-sm"></i>
+                            </div>
+                            <span class="text-gray text-sm opacity-6">Note: Companies can add only 4 markets</span>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-12 no-padder">
+                            <label class="m-b-xs text-right padder-t text-md opacity-8" for="companyType">Company type</label>
+                            <div class="text-sm text-primary" ng-show="(frmCompanyDetails.$submitted && publicCompany.companyTypes.length <= 0)">Required</div>
+                        </div>
+                        <div class="col-sm-8 col-xs-12 no-padder">
+                            <div ng-repeat="type in publicCompany.companyTypes" class="tag-green-remove pull-left r-3x m-xs m-l-none m-t-none">
+                                <span class="tag-label">{{ type.text ? type.text : type }}</span>
+                                <span class="tag-remove hover-pointer" ng-click="removeCompanyType(type.text ? type.text : type)">X</span>
+                            </div>
+                            <div class="input-group w-full has-feedback">
+                                <input 
+                                    id="companyType"
+                                    name="companyType"
+                                    type="text" 
+                                    class="form-control w-full"
+                                    placeholder="Add company type"
+                                    ng-model="companyType"
+                                    uib-typeahead="type for type in keywordsSearch($viewValue) | limitTo:5" 
+                                    maxlength="100" 
+                                    autocomplete="off"
+                                    typeahead-on-select='onSelectType($item)' 
+                                    typeahead-focus-first='false'
+                                    typeahead-loading='loading_types'
+                                    typeahead-template-url="tpl/blocks_general/skill-autocomplete.html?v={{app.latestUpdate}}" 
+                                    ng-keydown="keyPressed($event)"
+                                    typeahead-wait-ms="100"/>
+                                <i ng-show="loading_types" class="fa fa-spinner fa-spin form-control-feedback input-loader-sm"></i>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+                <div class="col-sm-6" ng-class="windowWidth >= 786 ? 'padder-l-3xl' : ''">
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-12 no-padder">
+                            <label class="m-b-xs text-right padder-t text-md opacity-8" for="website">Website</label>
+                            <div class="text-sm text-primary" ng-show="(frmCompanyDetails.website.$dirty && frmCompanyDetails.website.$invalid) || (frmCompanyDetails.$submitted && frmCompanyDetails.website.$invalid)">Invalid url</div>
+                        </div>
+                        <div class="col-sm-8 col-xs-12 no-padder">
+                            <input id="website" name="website" type="text" class="w-full form-control" ng-model="publicCompany.website" placeholder="Website" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-12 no-padder">
+                            <label class="m-b-xs text-right padder-t text-md opacity-8" for="twitter">Twitter</label>
+                            <div class="text-sm text-primary" ng-show="(frmCompanyDetails.twitter.$dirty && frmCompanyDetails.twitter.$invalid) || (frmCompanyDetails.$submitted && frmCompanyDetails.twitter.$invalid)">Invalid url</div>
+                        </div>
+                        <div class="col-sm-8 col-xs-12 no-padder">
+                            <input id="twitter" name="twitter" type="text" class="w-full form-control" ng-model="publicCompany.twitter" placeholder="Twitter" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-12 no-padder">
+                            <label class="m-b-xs text-right padder-t text-md opacity-8" for="facebook">Facebook</label>
+                            <div class="text-sm text-primary" ng-show="(frmCompanyDetails.facebook.$dirty && frmCompanyDetails.facebook.$invalid) || (frmCompanyDetails.$submitted && frmCompanyDetails.facebook.$invalid)">Invalid url</div>
+                        </div>
+                        <div class="col-sm-8 col-xs-12 no-padder">
+                            <input id="facebook" name="facebook" type="text" class="w-full form-control" ng-model="publicCompany.facebook" placeholder="Facebook" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-12 no-padder">
+                            <label class="m-b-xs text-right padder-t text-md opacity-8" for="linkedin">Linkedin</label>
+                            <div class="text-sm text-primary" ng-show="(frmCompanyDetails.linkedin.$dirty && frmCompanyDetails.linkedin.$invalid) || (frmCompanyDetails.$submitted && frmCompanyDetails.linkedin.$invalid)">Invalid url</div>
+                        </div>
+                        <div class="col-sm-8 col-xs-12 no-padder">
+                            <input id="linkedin" name="linkedin" type="text" class="w-full form-control" ng-model="publicCompany.linkedin" placeholder="Linkedin" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-12 no-padder">
+                            <label class="m-b-xs text-right padder-t text-md opacity-8" for="instagram">Instagram</label>
+                            <div class="text-sm text-primary" ng-show="(frmCompanyDetails.instagram.$dirty && frmCompanyDetails.instagram.$invalid) || (frmCompanyDetails.$submitted && frmCompanyDetails.instagram.$invalid)">Invalid url</div>
+                        </div>
+                        <div class="col-sm-8 col-xs-12 no-padder">
+                            <input id="instagram" name="instagram" type="text" class="w-full form-control" ng-model="publicCompany.instagram" placeholder="Instagram" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-12 no-padder">
+                            <label class="m-b-xs text-right padder-t text-md opacity-8" for="blog">Blog</label>
+                            <div class="text-sm text-primary" ng-show="(frmCompanyDetails.blog.$dirty && frmCompanyDetails.blog.$invalid) || (frmCompanyDetails.$submitted && frmCompanyDetails.blog.$invalid)">Invalid url</div>
+                        </div>
+                        <div class="col-sm-8 col-xs-12 no-padder">
+                            <input id="blog" name="blog" type="text" class="w-full form-control" ng-model="publicCompany.blog" placeholder="Blog url" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+            <a class="text-normal text-gray opacity-8 font-italic pull-right" target="_blank" href="https://mobintouch.zendesk.com/hc/en-us" rel="nofollow">Delete company page</a>
+        </form>
+    </div>
+</div>
+<!--end of edit personal details form -->
+<script>
+    var input = document.getElementById('location');
+    google.maps.event.addDomListener(input, 'keydown', function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+        }
+    });
+    $('#market,#companyType').keypress(function (e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code === 13) { //Enter keycode
+            return false;
+        }
+    });
+</script>

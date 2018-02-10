@@ -1,0 +1,82 @@
+<div class="hbox hbox-auto-xs" ng-init="app.settings.container = true;">
+    <div class="col w-lg wrapper">
+
+        <!-- SETTINGS NAVBAR -->
+        <div class="wrapper b-a">
+            <ul class="nav nav-stacked nav-sm">
+                <li class=""><a ui-sref="app.page.settings">Account</a></li>
+                <li class=""><a ui-sref="app.page.settings_password">Password</a></li>
+                <li class=""><a ui-sref="app.page.settings_notifications">Notifications</a></li>
+                <li class="active"><a ui-sref="app.page.settings_privacy">Privacy</a></li>
+            </ul>
+        </div>
+        <!--/ SETTINGS NAVBAR -->
+
+    </div>
+
+    <div ng-controller="SettingsFormController" class="col wrapper">
+        <div class="row">
+            <div class="col-xs-12">
+                <form ng-submit="savePrivacy()" name="settingsPrivacyForm" class="form-validation form-group form-horizontal">
+
+                    <!-- MAIL NOTIFICATIONS BOX-->
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-2 m-b-lg">
+                        <h3 class="m-b text-lg text-dark font-bold">Privacy</h3>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label class="col-xs-9 col-sm-10 col-md-6 control-label">Yes, share my data (including basic profile and contact information) with third party applications.</label>
+                            <div class="col-xs-3 col-sm-2 col-md-2">
+                                <label class="i-switch bg-success m-t-xs m-r">
+                                    <input type="checkbox" ng-model="user.settings.privacy[0].share_data" checked>
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label class="col-xs-9 col-sm-10 col-md-6 control-label">Also, allow my contact information to be shared with trusted third party platforms that outside developers can access.<br>
+                                <small class="text-light-dker"><i>For example, this means that if I share my contact information with Apple, other applications built for an Apple device or computer can access my contact information.</i></small>
+                            </label>
+                            <div class="col-xs-3 col-sm-2 col-md-2">
+                                <label class="i-switch bg-success m-t-xs m-r">
+                                    <input type="checkbox" ng-model="user.settings.privacy[0].contact_information" checked>
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label class="col-xs-9 col-sm-10 col-md-6 control-label">
+                                Mobintouch may use cookies and similar technologies on third party sites to understand my browsing interests and target ads and personalize services accordingly.<br>
+                                <small class="text-light-dker">
+                                    <i>Protecting your personal information Mobintouch does not share your personal information with advertisers, ad networks, publishers, or any third party. We are committed to maintaining privacy around your Mobintouch data. For more details, take a look at our Privacy Policy. We adhere to the Digital Advertising Alliance's self-regulatory principles for online behavioural advertising principles for online behavioral advertising and the European principles for online behavioural advertising. If you wish to not receive targeted ads from most third party companies, you may opt-out by, as applicable, clicking on the AdChoice icon in or next to the ad or by visiting https://www.aboutads.info or https://www.youronlinechoices.eu. Please note this does not opt you out of being served advertising. Keep in mind that even though Mobintouch does not share your personal data with any third party without your permission, when you view or interact with an ad, an advertiser or ad-serving company can infer that you fall in their target audience. For example, they can infer that you belong to the segment of Mobintouch members who are based in Barcelona and work in the Legal job function because their ads were set up to show to this target audience. Note: Your changes to this setting may take 24 hours to become effective.</i>
+                                </small>
+                            </label>
+                            <div class="col-xs-3 col-sm-2 col-md-2">
+                                <label class="i-switch bg-success m-t-xs m-r">
+                                    <input type="checkbox" ng-model="user.settings.privacy[0].cookies" checked>
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/MAIL NOTIFICATIONS BOX -->
+
+                    <div class="form-group m-t-xl">
+                        <div class="col-xs-12 col-sm-offset-8 col-sm-2 col-md-offset-5">
+                            <button class="btn btn-blue-lt" type="submit" ng-disabled='settingsPrivacyForm.$invalid'>
+                                <span ng-hide="loadingPrivacy" class="text-lg">Save changes</span>
+                                <span ng-show="loadingPrivacy" class="text-lg">Saving changes <i class="fa fa-sun-o fa-circle-o-notch"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

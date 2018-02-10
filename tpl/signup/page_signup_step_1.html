@@ -1,0 +1,82 @@
+<div ng-init="app.settings.container = false; app.settings.headerFixed = false;" ng-controller="SignupFormController">
+
+    <nav class="navbar navbar-fixed-top pos-rlt">
+        <div class="container-fluid">
+            <div class="padder-lg padder-v-lg">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <!--  <a ui-sref="index" class="navbar-brand hidden-xs signup-close" data-ng-click="track('Back On Landing Page', 'Navbar', 'Cross Button')">
+                        <span><svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path d="M6 4.586l4.24-4.24c.395-.395 1.026-.392 1.416-.002.393.393.39 1.024 0 1.415L7.413 6l4.24 4.24c.395.395.392 1.026.002 1.416-.393.393-1.024.39-1.415 0L6 7.413l-4.24 4.24c-.395.395-1.026.392-1.416.002-.393-.393-.39-1.024 0-1.415L4.587 6 .347 1.76C-.05 1.364-.048.733.342.343c.393-.393 1.024-.39 1.415 0L6 4.587z" fill-rule="evenodd"></path></svg></span>
+                    </a>--->
+                    <a ui-sref="index" class="navbar-brand w-xxs visible-xs" data-ng-click="track('Back On Landing Page', 'Navbar', 'Logo')" ><i class=" icon-arrow-left text-xl"></i></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-collapse-mit">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><button ui-sref="access.signin" data-ng-click="track('Sin In Page', 'Navbar', 'Sign In')" class="btn btn-blue-lt navbar-btn">SIGN IN</button></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </div>
+    </nav>
+
+    <div class="vertical-center flex-center">
+        <div class="container pos-rlt animated fadeIn">
+
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    
+                    <div class="text-center m-b-lg">
+                        <img src="{{app.baseUrl}}/img/mobintouch-logo.png?v={{ app.latestUpdate}}" class="thumb-lg">
+                    </div>
+                    <div class="text-center">
+                        <span class="text-2x text-black-dker font-bold">Sign up to Join The Community</span>
+                    </div>
+                    <div class="text-center padder text-lg">
+                        <span class="text-md">Mobintouch is a community of mobile apps & games creators who wants to learn and discover new things</span>
+                    </div>
+                    
+                    <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 b-a no-padder m-t-lg m-b-xl">
+                        <div class="padder-lg padder-v-lg b-b">
+                            <a class="btn btn-lg btn-social btn-google r-2x col-xs-12" ng-click="signUpGoogle()" ng-disabled="loadingSignup">
+                                <span class="fa fa-google"></span>
+                                Sign up with Google
+                            </a>
+                            <a class="btn btn-lg btn-social btn-facebook r-2x m-t-sm col-xs-12" ng-click="signUpFacebook()" ng-disabled="loadingSignup">
+                                <span class="fa fa-facebook"></span>
+                                Sign up with Facebook
+                            </a>
+                            <div class="clear clearfix"></div>
+                        </div>
+                        <div class="padder-lg padder-v-lg">
+                            <form name="signupform" ng-submit="signup()" class="form-validation ">
+                            <div class="form-group">
+                                <input class="form-control input-lg" placeholder="Email address" type="email" ng-model="user.email" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control input-lg" placeholder="Password (5 or more characters)" type="password" ng-model="user.password" ng-minlength="5" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" ng-disabled='signupform.$invalid || loadingSignup' class="btn btn-lg btn-blue-lt col-xs-12">
+                                    <span ng-hide="loadingSignup" class="text-lg">Sign up</span>
+                                    <span ng-show="loadingSignup" class="text-lg">Sign up<i class="fa fa-spinner fa-spin text-md"></i></span>
+                                </button>
+                                <div class="clear clearfix"></div>
+                                <div class="m-t-sm" ng-model="agree">
+                                    <p class="opacity-8">
+                                        By clicking "Sign up", you agree to {{app.name}}'s <br>
+                                            <a class="hover-black-dker hover-underline" ui-sref="app.legal.user_agreement" data-ng-click="track('Read User Agreement', 'Bottom', 'User Agreement')" rel="nofollow" target="_blank">User Agreement</a>,
+                                            <a class="hover-black-dker hover-underline" ui-sref="app.legal.privacy" data-ng-click="track('Read Privacy Policy', 'Bottom', 'Privacy Policy')" rel="nofollow" target="_blank">Privacy Policy</a> and
+                                            <a class="hover-black-dker hover-underline" ui-sref="app.legal.cookies" data-ng-click="track('Read Cookie Policy', 'Bottom', 'Cookie Policy')" rel="nofollow" target="_blank">Cookie Policy</a>.
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="visitor" ng-include="'tpl/blocks_general/footer/visitor_footer.html?v=' + app.latestUpdate"></div>

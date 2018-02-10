@@ -1,0 +1,16 @@
+<div class="m-b" ng-if="user.whoVisitedMe">
+    <div class="m-b-xs">
+        <span class="text-u-c text-muted font-bold text-xs">Who's visited your profile</span>
+    </div>
+    <div class="">
+        <a  ui-sref="app.page.public({ username:'{{visitor.username}}' })" uib-tooltip="{{visitor.name + ' ' + visitor.lastname}}" ng-repeat="visitor in user.whoVisitedMe| toArray | orderBy:'-date' | limitTo:5" data-ng-click="track('Who Visited Me','{{visitor.username}}')" ng-if="visitor.username" class="thumb-sm avatar" ng-class="{'m-l-n':!$first}">
+            <img ng-show="visitor.avatar" src="{{app.baseUrl}}{{visitor.avatar}}" alt="{{visitor.name + ' ' + visitor.lastname}}">
+            <img ng-hide="visitor.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" alt="{{visitor.name + ' ' + visitor.lastname}}">
+        </a>
+        <a ng-if="!visitor.username" ui-sref="app.page.public({ username:'{{visitor.username}}' })" uib-tooltip="{{visitor.name + ' ' + visitor.lastname}}" ng-repeat="visitor in user.whoVisitedMe| toArray | orderBy:'-date' | limitTo:5" data-ng-click="track('Who Visited Me','{{visitor.username}}')" class="thumb-sm avatar" ng-class="{'m-l-n':!$first}">
+            <img ng-src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}">
+        </a>
+
+        <a ui-sref="app.page.visitors" class="btn btn-default btn-rounded font-bold l-h-18 no-shadow hover-text-blue-lt m-l-n pos-rlt" data-ng-click="track('Who Visited Me', 'See more')" style="height:40px;width:40px;">+</a>
+    </div>
+</div>

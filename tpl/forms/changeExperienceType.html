@@ -1,0 +1,13 @@
+<div class="modal-body">
+    <img src="cdn/img/icons/close-remove.png" class="pull-right bg-white b-white b-a b-2x hover-pointer img-circle btn-close-popup" ng-click="cancel()">
+    <span class="font-normal title text-black m-l-xs">Experience Type</span>
+    <div class="m-t body padder-xs">
+        <div class="form-group">
+            <select type="text" data-ng-include="'tpl/utils/experienceType.html?v={{app.latestUpdate}}'" class="form-control input-lg text-black-dk" ng-model="user.experiences[editExperience].type"></select>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="text-right">
+            <a href="" class="text-black-d opacity-8" ng-click="cancel();">Close</a>
+        </div>
+    </div>
+</div>

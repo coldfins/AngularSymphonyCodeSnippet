@@ -1,0 +1,282 @@
+<!-- Edit Personal Details Form-->
+<div class="edit_profile padder-t-xl padder-b-xxl b-b bg-light lt">
+    <div class="container">
+        <form name="editPersonalDetailsForm" class="form-validation form-horizontal" ng-submit="editPersonalDetails(editPersonalDetailsForm)">
+            <div class="padder-v">
+                <span class="text-xxl">{{ user.name}} {{ user.lastname}} - Edit profile</span>
+                <div class="pull-right text-right col-xs-12 col-sm-3">
+                    <button class="btn btn-blue r-3x" type="submit" name="save" ng-disabled='editPersonalDetailsForm.$invalid || updateProfileDetails'>
+                        <span class="" ng-hide="updateProfileDetails">Save</span>
+                        <span class="" ng-show="updateProfileDetails">Updating <i class="fa fa-spinner fa-spin"></i></span> 
+                    </button>
+                    <button class="btn r-3x m-l-xs" type="button" ng-click="personalDetailsForm(false); cancel(editPersonalDetailsForm);" name="cancel">Cancel</button>
+                </div>
+            </div>
+            <div class="col-sm-6" ng-class="windowWidth >= 786 ? 'padder-r-3xl' : ''">
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">First name</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="w-full form-control" ng-model="user.name" ng-pattern="/^[a-zA-Z-\u00E0-\u00FC ']{2,20}$/" maxlength="20" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Last name</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="w-full form-control" ng-model="user.lastname" ng-pattern="/^[a-zA-Z-\u00E0-\u00FC ']{2,40}$/" maxlength="40" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Location</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="form-control" ng-model="user.formatedAddress" options="{ types: '(cities)', watchEnter: false }" details="user.addressDetails" id="location" ng-autocomplete required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Mini Resume</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <textarea class="form-control" ng-model="user.miniResume" maxlength="160" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Birth date</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <select class="b_month form-control col-xs-4" ng-model="user.birthdayMM" required>
+                            <option value="">Month</option>
+                            <option ng-repeat="m in months" value="{{ m.key}}" ng-selected="user.birthdayMM == m.key">{{ m.value}}</option>
+                        </select>
+                        <select class="b_day form-control col-xs-3" style="margin-left: 2%;margin-right: 2%;" ng-model="user.birthdayDD" required>
+                            <option value="">Day</option>
+                            <option ng-repeat="d in days">{{ d}}</option>
+                        </select>
+                        <select class="b_year form-control col-xs-4" ng-model="user.birthdayYYYY" required>
+                            <option value="">Year</option>
+                            <option ng-repeat="y in years">{{ y}}</option>
+                        </select>
+                        <div class="clear clearfix"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Gender</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <select class="form-control w-full" ng-model="user.gender" required>
+                            <option value="">Gender</option>
+                            <option value="female">Female</option>
+                            <option value="male">Male</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Job title</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="form-control" ng-model="user.jobTitle" ng-pattern="/^[a-zA-Z-\u00E0-\u00FC ',-/\&|]{2,120}$/" maxlength="120" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Role</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <select id="role" 
+                                name="role" 
+                                class="form-control" 
+                                ng-include="'tpl/utils/roles.html?v={{app.latestUpdate}}'" 
+                                ng-model="user.role" required></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Company</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <div class="has-feedback autocomplete-company m-b-sm" ng-if="user.companyPage.administrator">
+                            <span tooltip="Admins can not change the name of the company">
+                                <input
+                                    tooltip="Admins can not change the name of the company"
+                                    type="text" 
+                                    placeholder="Company" 
+                                    class="form-control" 
+                                    ng-keydown="unselectItem()" 
+                                    ng-model="user.company" 
+                                    typeahead="fuser.name for fuser in companyNameSearch($viewValue) | filter:$viewValue | limitTo:15" 
+                                    ng-pattern="/^[a-zA-Z0-9- '.,-/\&]{2,100}$/" 
+                                    maxlength="100" 
+                                    typeahead-on-select='onSelect($item)' 
+                                    typeahead-loading='loading_companies' 
+                                    typeahead-template-url="tpl/blocks_general/profile-company-autocomplete.html?v={{app.latestUpdate}}" 
+                                    typeahead-wait-ms="300" 
+                                    ng-disabled="hasEmployer == 'false' || !user.hasEmployer || user.companyPage.administrator" 
+                                    ng-required="hasEmployer == 'true'" 
+                                    ng-style="hasEmployer == 'false' ? {'border-color': '#eaeaea'} : {}">
+                            </span>
+                        </div>
+                        <div class="has-feedback autocomplete-company m-b-sm" ng-if="!user.companyPage.administrator">
+                            <input type="text" 
+                                   placeholder="Company" 
+                                   class="form-control" 
+                                   ng-keydown="unselectItem()" 
+                                   ng-model="user.company" 
+                                   typeahead="fuser.name for fuser in companyNameSearch($viewValue) | filter:$viewValue | limitTo:15" 
+                                   ng-pattern="/^[a-zA-Z0-9- '.,-/\&]{2,100}$/" 
+                                   maxlength="100" 
+                                   typeahead-on-select='onSelect($item)' 
+                                   typeahead-loading='loading_companies' 
+                                   typeahead-template-url="tpl/blocks_general/profile-company-autocomplete.html?v={{app.latestUpdate}}" 
+                                   typeahead-wait-ms="300" 
+                                   ng-disabled="hasEmployer == 'false' || !user.hasEmployer" 
+                                   ng-required="hasEmployer == 'true'" 
+                                   ng-style="hasEmployer == 'false' ? {'border-color': '#eaeaea'} : {}">
+                            <i ng-show="loading_companies" class="fa fa-spinner fa-spin form-control-feedback input-loader-sm"></i>
+                        </div>
+                        <div class="radio no-padder">
+                            <span ng-if="user.companyPage.administrator" tooltip="Admins always have employer">
+                                <label class="i-checks i-checks-lblue">
+                                    <input type="checkbox" ng-model="user.hasEmployer" ng-true-value="false" ng-false-value="true" ng-checked="!user.hasEmployer" ng-change="updateHasEmployer()" disabled="disabled">
+                                    <i></i>
+                                    I don't have an employer
+                                </label>
+                            </span>
+                            <span ng-if="!user.companyPage.administrator">
+                                <label class="i-checks i-checks-lblue">
+                                    <input type="checkbox" ng-model="user.hasEmployer" ng-true-value="false" ng-false-value="true" ng-checked="!user.hasEmployer" ng-init="checkEmployer()" ng-change="updateHasEmployer()">
+                                    <i></i>
+                                    I don't have an employer
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Annual Gross Salary</label>
+                        <span class="text-xs text-muted">Optional</span>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" placeholder="Annual Gross Salary (Optional)" class="form-control input-lg" style="width: 60%;float: left;margin-right: 3%;" ng-model="user.grossSalary" ng-pattern="/^[0-9]{0,9}$/" maxlength="120">
+                        <select class="form-control input-lg" ng-model="user.currency" ng-include=" 'tpl/utils/currencies.html?v=' + app.latestUpdate" style="width: 37%;float: left;">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Current Status</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <select class="form-control" ng-model="user.currentStatus" required>
+                            <option value="">Current Status</option>
+                            <option value="actively seeking job opportunities">Actively seeking job opportunities</option>
+                            <option value="not looking for a job but open to new opportunities">Not looking for a job but open to new opportunities</option>
+                            <option value="not looking for a job at this time">Not looking for a job at this time</option>
+                            <option value="never contact me about job opportunities">Never contact me about job opportunities</option>
+                        </select>
+                        <span class="text-xs"><span class="font-bold">Note: </span>Your salary information is totally private, career information you provide will only be visible to active and qualified recruiters.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6" ng-class="windowWidth >= 786 ? 'padder-l-3xl' : ''">
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Linkedin</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="w-full form-control" ng-model="user.linkedin" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Twitter</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="w-full form-control" ng-model="user.twitter" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Facebook</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="w-full form-control" ng-model="user.facebook" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Github</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="w-full form-control" ng-model="user.github" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Stack Overflow</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="w-full form-control" ng-model="user.stackOverflow" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Dribbble</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="w-full form-control" ng-model="user.dribbble" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Behance</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="w-full form-control" ng-model="user.behance" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Instagram</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="w-full form-control" ng-model="user.instagram" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Pinterest</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="w-full form-control" ng-model="user.pinterest" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Website / Blog</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="w-full form-control" ng-model="user.website" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-xs-12 no-padder">
+                        <label class="control-label text-lg opacity-8">Other</label>
+                    </div>
+                    <div class="col-sm-8 col-xs-12 no-padder">
+                        <input type="text" class="w-full form-control" ng-model="user.otherLink" ng-pattern="/(https?:\/\/)(www)?[A-Za-z0-9.\-@_~]+\.[A-Za-z]{2,}(:[0-9]{2,5})?(\/[A-Za-z0-9\/_\-.~?&=]*)*/"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--end of edit personal details form -->

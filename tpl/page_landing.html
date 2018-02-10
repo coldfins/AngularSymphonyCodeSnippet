@@ -1,0 +1,231 @@
+<div class="welcome-wrapper" ng-controller="LandingFormController" ng-init="app.settings.container = false; app.settings.headerFixed = false;">
+
+    <nav id="header-scroll" class="navbar navbar-fixed-top pos-abt wrapper-lg">
+        <div class="container-fluid">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed m-n visible-xs" ui-toggle-class="show" ui-sref="access.signin" data-ng-click="track('Sign In Page', 'Navbar', 'Sign In')">SIGN IN</button>
+
+                <a ui-sref="index" class="hidden-xs" data-ng-click="track('Landing Page', 'Navbar', 'Logo')">
+                    <img src="{{app.baseUrl}}/img/logotype-red.svg" class="w" alt="Mobintouch logo">
+                    <span class="hidden">Mobintouch Mobile Advertising Community</span>
+                </a>
+
+                <a ui-sref="index" class="navbar-brand w-3xs visible-xs" data-ng-click="track('Landing Page', 'Navbar', 'Logo')">
+                    <img src="{{app.baseUrl}}/img/mit-logo-red.svg" class="w-3xs" alt="Mobintouch logo red">
+                    <span class="hidden">Mobintouch Mobile Advertising Community</span>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-collapse-mit">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a  ui-sref="stack.publicOffer" href="" data-ng-click="track('Stackoffers', 'Navbar', 'Stackoffers')">
+                            <span class="font-bold text-sm">STACKOFFERS</span>
+                            <!--  <span ng-if="user.offersNotifications && user.offersNotifications=0" class="badge-notification">{{user.offersNotifications}}</span> -->
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://blog.mobintouch.com" data-ng-click="track('Blog', 'Navbar', 'Blog')">
+                            <span class="font-bold text-sm">BLOG</span>
+                        </a>
+                    </li>
+                    <li><a ui-sref="access.signin" data-ng-click="track('Sign In Page', 'Navbar', 'Sign In')" class="btn no-shadow no-border m-r-md text-dark text-sm font-bold">SIGN IN</a></li>
+                    <li><button ui-sref="access.signup" data-ng-click="track('Sign Up Page', 'Navbar', 'Sign up Free')" class="btn btn-primary r-2x navbar-btn font-bold text-sm hover-rotate">SIGN UP FREE	</button></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!--
+    <div id="intro">
+        <div id="heads"></div>
+    </div>
+    -->
+    <div id="hero" class="section hero">
+        <div class="container-fluid clear">
+            <div class="row">
+                <div class="col-xs-12 text-center" style="position: absolute;bottom: 0;">
+                    <div class="padder-v-xl">
+                        <h1 class="font-thin text-4x text-center-xs">Mobile Advertising Community</h1>
+                        <p class="text-lg text-dark-lter text-center-xs">Connect and Engage with professionals from mobile advertising.<br>Get access to accurate information about the traffic they’re selling or buying.</p>
+                        <button ui-sref="access.signup" data-ng-click="track('Sign Up Page', 'Section 1', 'JOIN NOW')" class="btn btn-primary btn-sm r-2x navbar-btn font-bold text-white text-lg hover-rotate l-s-1x">JOIN NOW</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section1">
+        <div class="container">
+            <div class="row padder-v-xxl">
+                <div class="col-xs-12 col-sm-4">
+                    <div class="m-t-xxl m-b-xl">
+                        <h2 class="font-thin text-4x text-center-xs m-b-md">One place.<br>One industry.</h2>
+                        <p class="text-lg text-center-xs opacity-6">A new way to find new partners and new mobile traffic sources all over the world. Meet with great Advertisers and Media Sellers. Get discovered and grow your business.</p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-8" data-ride="animated" data-animation="fadeInLeft" data-delay="300">
+                    <img src="{{app.baseUrl}}/img/landing/section-one-place.png" class="img-responsive center-block" alt="Advertisers meet Media Sellers">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section2" class="section b-b">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 text-center m-t-xxl">
+                    <h2 class="font-thin text-4x text-center-xs m-b-lg">Fill your profile with accurate information.</h2>
+                    <p class="text-lg opacity-6 text-center-xs">Eliminate time wasting - people inside the network will know exactly what you are selling<br>and/or buying (country, pricing model, traffic type, tracking, etc.).</p>
+                </div>
+                <div class="col-xs-12 m-t-xxl">
+                    <img src="{{app.baseUrl}}/img/landing/fill-profile-mobintouch.gif" class="img-responsive center-block" alt="Fill profile Mobintouch">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section3">
+        <div class="container">
+            <div class="row padder-v-xxl">
+                <div class="col-xs-12 col-sm-5">
+                    <h2 class="font-thin text-4x text-center-xs m-b-md">Easily find the right people and companies.</h2>
+                    <p class="text-lg text-center-xs opacity-6">A unique search engine with quality filters to perfectly match your needs. Save an incredible amount of time by using the most advanced search tool available for mobile advertising professionals.</p>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-sm-offset-1">
+                    <img src="{{app.baseUrl}}/img/landing/landing-search-demo.gif" class="img-responsive center-block" alt="Search engine demo">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section3" class="b-t">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <div class="m-t-3xl m-b-xl">
+                        <img src="{{app.baseUrl}}/img/landing/section-engage.png" class="img-responsive center-block" alt="Profile card example">
+                    </div>
+                </div>
+                <div class="col-xs-12 text-center">
+                    <div class="m-b-3xl">
+                        <h2 class="font-thin text-4x m-b-md">Engage with clients and partners.</h2>
+                        <p class="text-lg opacity-6">Effective communication is vital to success. Establish your position as a proactive company<br>and build permanent links between you and key people and businesses in the industry. With our direct<br>messaging system, it's easy to build rapport quickly with your prospects, clients and partners.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section4" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 class="m-t-xxl text-center opacity-3">Some of the greatest companies of the industry are using Mobintouch.</h3>
+                </div>
+            </div>
+            <div class="row m-t-xl m-b-xl">
+                <div class="col-xs-12 col-sm-4 m-t m-b">
+                    <div class="pull-left m-r-lg clear">
+                        <img src="https://cdn.mobintouch.com/img/profile/avatars/jingweiliu.png?1426499814" class="thumb-md avatar" alt="Jingwei Liu Avatar">
+                    </div>
+                    <div class="m-b-xs clear">
+                        <p class="text-muted text-lg font-bold m-n">Jingwei Liu</p>
+                        <p class="text-muted text-md m-n">Mobile Marketing Manager</p>
+                        <p class="text-muted text-md m-n">Funplus</p>
+                        <img src="{{app.baseUrl}}/img/landing/funplus-logo-landing.png" alt="Funplus logo">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 m-t m-b">
+                    <div class="pull-left m-r-lg clear">
+                        <img src="https://cdn.mobintouch.com/img/profile/avatars/gracelee.png?1427772205" class="thumb-md avatar" alt="Grace Lee Avatar">
+                    </div>
+                    <div class="m-b-xs clear">
+                        <p class="text-muted text-lg font-bold m-n">Grace Lee</p>
+                        <p class="text-muted text-md m-n">Director of US Office</p>
+                        <p class="text-muted text-md m-n">YeahMobi</p>
+                        <img src="{{app.baseUrl}}/img/landing/yeahmobi-logo-landing.png" alt="Yeahmobi logo">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 m-t m-b">
+                    <div class="pull-left m-r-lg clear">
+                        <img src="https://cdn.mobintouch.com/img/profile/avatars/jeetthakkar.png?1426784785" class="thumb-md avatar" alt="Jeet Thakkar Avatar">
+                    </div>
+                    <div class="m-b-xs clear">
+                        <p class="text-muted text-lg font-bold m-n">Jeet Thakkar</p>
+                        <p class="text-muted text-md m-n">Global Publisher Development Manager</p>
+                        <p class="text-muted text-md m-n">glispa GmbH</p>
+                        <img src="{{app.baseUrl}}/img/landing/glispa-logo-landing.png" alt="Glispa logo">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <div class="m-b-xl">
+                        <p class="font-thin text-2x text-primary"><i>Don't let the market grow without you!</i></p>
+                        <button ui-sref="access.signup" data-ng-click="track('Sign Up Page', 'Bottom', 'JOIN NOW')" class="btn btn-primary btn-sm r-2x navbar-btn font-bold text-white text-lg hover-rotate l-s-1x">JOIN NOW</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row m-t-3xl m-b-3xl">
+                <div class="col-xs-12 col-sm-3 col-md-2">
+                    <ul class="list-unstyled m-b-xl">
+                        <li class="text-u-c m-b font-bold h4">ABOUT</li>
+                        <li><a data-ng-click="track('About Page', 'Footer', 'Company')" ui-sref="app.page.about"><i class="m-r-sm"></i>Company</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-2">
+                    <ul class="list-unstyled m-b-xl">
+                        <li class="text-u-c m-b font-bold h4">SUPPORT</li>
+                        <li><a data-ng-click="track('Help Center Page', 'Footer', 'Help Center')" href="https://mobintouch.zendesk.com/" target="_blank"><i class="m-r-sm"></i>Help Center</a></li>
+                        <li><a data-ng-click="track('Read User Agreement', 'Footer', 'User Agreement')" ui-sref="app.legal.user_agreement" rel="nofollow" ><i class="m-r-sm"></i>User Agreement</a></li>
+                        <li><a data-ng-click="track('Read Privacy Policy', 'Footer', 'Privacy Policy')" ui-sref="app.legal.privacy" rel="nofollow" ><i class="m-r-sm"></i>Privacy Policy</a></li>
+                        <li><a data-ng-click="track('Read Cookie Policy', 'Footer', 'Cookie Policy')" ui-sref="app.legal.cookies" rel="nofollow" ><i class="m-r-sm"></i>Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-2">
+                    <ul class="list-unstyled m-b-xl">
+                        <li class="text-u-c m-b font-bold h4">GET IN TOUCH</li>
+                        <li><a data-ng-click="track('Blog', 'Footer', 'Blog')" href="https://blog.mobintouch.com"><i class="m-r-sm"></i>Blog</a></li>
+                        <li><a data-ng-click="track('Mobintouch Page', 'Footer', 'Mobintouch')" href="https://mobintouch.com/company/mobintouch"><i class="m-r-sm"></i>Mobintouch</a></li>
+                        <li><a data-ng-click="track('LinkedIn Page', 'Footer', 'LinkedIn')" href="https://www.linkedin.com/company/mobintouch" target="_blank"><i class="m-r-sm"></i>LinkedIn</a></li>
+                        <li><a data-ng-click="track('Twitter Page', 'Footer', 'Twitter')" href="https://twitter.com/mobintouch"  target="_blank"><i class="m-r-sm"></i>Twitter</a></li>
+                        <li><a data-ng-click="track('Facebook Page', 'Footer', 'Facebook')" href="https://www.facebook.com/mobintouch" target="_blank"><i class="m-r-sm"></i>Facebook</a></li>
+                        <li><a data-ng-click="track('Instagram Page', 'Footer', 'Instagram')" href="http://instagram.com/mobintouch/" target="_blank"><i class="m-r-sm"></i>Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-8 col-xs-offset-2 col-sm-3 col-sm-offset-0 col-md-2 col-md-offset-4 m-t text-center">
+                    <img class="m-b-sm opacity-2" src="{{app.baseUrl}}/img/logotype-black.svg" alt="Mobintouch logo"><span class="hidden">Mobile Advertising Community</span>
+                    <p class="text-xs text-dark-lter text-center">Copyright © <script>var d = new Date(); $('.full_year').html(d.getFullYear());</script><span class="full_year"></span> Mobintouch</p>
+                    <a href="https://mixpanel.com/f/partner"><img src="https://cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript">
+        $(window).scroll(function () {
+        var scroll = $(window).scrollTop();
+        if (scroll >= 16) {
+        $('#header-scroll').addClass('h-scroll');
+        } else {
+        $('#header-scroll').removeClass('h-scroll');
+        }
+        });
+    </script>
+
+</div>
+<!--
+<script type='text/javascript' ng-if="('access.landing' | isState)" src='https://cdn-dev.mobintouch.com/js/people_rel.js'></script>
+-->
+<!--<link rel="stylesheet" href="https://cdn-dev.mobintouch.com/css/people_rel.css?v=0.5.0" type="text/css" />-->

@@ -1,0 +1,41 @@
+<div class="modal-body" resize>
+    <button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+    <div class="clear clearfix"></div>
+    <ul class="no-padder bg-white scrollable" ng-style="{'height':windowHeight - 85}">
+        <li ng-if="!user.alerts">
+            <div class="text-center padder-v-xl">
+                <i class="fa fa-bell fa-fw text-xxl"></i><br><br>No notifications right now.
+            </div>
+        </li>
+        <li ng-if="user.alerts" ng-repeat="alert in user.alerts | orderBy:'-date'" class="b-b">
+            <a ng-click="viewAlert(alert)">
+                <div ng-if="!alert.read" class="notification-not-read">
+                    <div class="padder-v">
+                        <span class="thumb-sm pull-left img-circle m-r-sm">
+                            <img ng-if="alert.avatar" src="{{ app.baseUrl }}{{alert.avatar}}" class="img-circle">
+                            <img ng-if="!alert.avatar" src="{{ app.baseUrl }}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                        </span>
+                        <span class="media-body block m-b-none text-break">
+                            <span><strong>{{alert.name}} {{alert.lastname}}</strong> {{alert.action}}</span>
+                            <small class="text-muted block">{{alert.date| date : 'MMM dd, yyyy - HH:mm'  }}</small>
+                        </span>
+                    </div>
+                </div>
+                <div ng-if="alert.read" class="notification-read">
+                    <div class="padder-v">
+                        <span class="thumb-sm pull-left img-circle m-r-sm">
+                            <img ng-if="alert.avatar" src="{{ app.baseUrl }}{{alert.avatar}}" class="img-circle">
+                            <img ng-if="!alert.avatar" src="{{ app.baseUrl }}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                        </span>
+                        <span class="media-body block m-b-none text-break">
+                            <span><strong>{{alert.name}} {{alert.lastname}}</strong> {{alert.action}}</span>
+                            <small class="text-muted block">{{alert.date| date : 'MMM dd, yyyy - HH:mm'  }}</small>
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>

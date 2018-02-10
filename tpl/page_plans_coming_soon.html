@@ -1,0 +1,191 @@
+<div class="container-fluid bg-light lt" ng-init="app.settings.container = false;">
+    <div class="wrapper-xl">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <img src="{{app.baseUrl}}/img/mit-premium-logo.svg" class="thumb-lg m-b">
+                <h1 class="h1 font-thin text-4x">Don't let the market grow without you!</h1>
+                <h4 class="h4 m-t-sm"><i>From March to June 2015 - Free trial. 24/7 customer service. No credit card required.</i></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container wrapper-md hidden-print m-b">
+
+    <div class="wrapper-md">
+        <div class="row">
+            <!--START FREE-->
+            <div class="col-xs-4 col-md-4 col-xs-6">
+                <div class="panel">
+                    <div class="wrapper text-center bg-light" style="padding: 59px 0;">
+                        <h4 class="text-u-c m-b-none">Starter</h4>
+                        <h2 class="m-t-none">
+                            <span class="text-2x text-lt">FREE</span>
+                        </h2>
+                        <h4 class="text-u-c text-sm m-b">1 Account</h4>
+                    </div>
+                    <div class="wrapper bg-light lt text-center" tooltip="Plan available in June 2015">
+                        <a class="btn btn-light disabled"><span class="text-lg font-bold">DOWNGRADE</span> <br><span class="text-sm">(Plan available in June 2015)</span></a>
+                    </div>
+                    <ul class="list-group text-md">
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-search-plus m-r-xs"></i> Advanced Search
+                        </li>
+                        <li class="list-group-item wrapper-md text-muted">
+                            <i class="fa fa-fw fa-filter m-r-xs"></i> <span class="text-l-t">Filter results by: Pricing Model and Country</span>
+                        </li>
+                        <li class="list-group-item wrapper-md text-muted">
+                            <i class="fa fa-fw fa-exchange m-r-xs"></i> <span class="text-l-t">See Buying and Selling information</span>
+                        </li>
+                        <li class="list-group-item wrapper-md text-muted">
+                            <i class="fa fa-fw fa-user m-r-xs"></i> <span class="text-l-t">See full names</span>
+                        </li>
+                        <li class="list-group-item wrapper-md text-muted">
+                            <i class="fa fa-fw fa-envelope m-r-xs"></i> <span class="text-l-t">(0) Direct Messages (TouchMail)</span>
+                        </li>
+                        <li class="list-group-item wrapper-md text-muted">
+                            <i class="fa fa-fw fa-eye m-r-xs"></i> <span class="text-l-t">Who's visited your profile</span>
+                        </li>
+                        <li class="list-group-item wrapper-md text-muted">
+                            <i class="fa fa-fw fa-eye-slash m-r-xs"></i> <span class="text-l-t">Anonymous Mode</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--/ START FREE-->
+
+            <!--PROFESSIONAL-->
+            <div class="col-xs-4 col-md-4 col-xs-6">
+                <div class="panel">
+                    <div class="wrapper text-center bg-primary" style="padding: 59px 0;">
+                        <h4 class="text-u-c m-b-none">Premium*</h4>
+                        <h2 class="m-t-none">
+                            <sup class="pos-rlt" style="top:-22px">$</sup>
+                            <span class="text-2x text-lt">99</span>
+                            <span class="text-xs">/ mo</span>
+                        </h2>
+                        <h4 class="text-u-c text-sm m-b">1 Account</h4>
+                    </div>
+                    <div class="wrapper bg-primary lt text-center" tooltip="Plan available in June 2015">
+                        <a ui-sref="app.page.purchase" class="btn btn-primary disabled"><span class="text-lg font-bold">CURRENT PLAN</span> <br><span class="text-sm">(Plan available in June 2015)</span></a>
+                    </div>
+                    <ul class="list-group text-md">
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-search-plus m-r-xs"></i> Advanced Search
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-filter m-r-xs"></i> Filter results by: Pricing Model and Country
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-exchange m-r-xs"></i> See Buying and Selling information
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-user m-r-xs"></i> See full names
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-envelope m-r-xs"></i> Unlimited Direct Messages (TouchMail)
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-eye m-r-xs"></i> Who's visited your profile
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-eye-slash m-r-xs"></i> Anonymous Mode
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <span class="text-muted"><i>*You can easily cancel, downgrade or upgrade your premium account at any time.</i></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--/ PROFESSIONAL-->
+
+            <!--ENTERPRISE-->
+            <div class="col-xs-4 col-md-4 col-xs-6 hidden-md">
+                <div class="panel" ng-controller="SliderCtrl">
+                    <div class="wrapper text-center bg-dark">
+                        <h4 class="text-u-c m-b-none">Enterprise*</h4>
+                        <h2 class="m-t-none">
+                            <sup class="pos-rlt" style="top:-22px">$</sup>
+                            <span class="text-2x text-lt">{{price}}</span>
+                            <span class="text-xs">/ mo</span>
+                        </h2>
+                        <span class="text-lg text-primary">SAVE 20% : {{discount}}$</span>
+                        <div class="wrapper">
+                            <div class="form-group">
+                                <input id="slider" ui-jq="slider" ui-options="{min: 10,max: 200,step: 5,value: val }" class="slider slider-horizontal form-control" type="text">
+                                <h4 class="text-u-c text-sm m-b-none">{{val}} Accounts included</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper bg-dark lt text-center" tooltip="Plan available in June 2015">
+                        <a ui-sref="app.page.purchase" class="btn btn-dark disabled"><span class="text-lg font-bold">UPGRADE</span> <br><span class="text-sm">(Plan available in June 2015)</span></a>
+                    </div>
+                    <ul class="list-group text-md">
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-search-plus m-r-xs"></i> Advanced Search
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-filter m-r-xs"></i> Filter results by: Pricing Model and Country
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-exchange m-r-xs"></i> See Buying and Selling information
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-user m-r-xs"></i> See full names
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-envelope m-r-xs"></i> Unlimited Direct Messages (TouchMail)
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-eye m-r-xs"></i> Who's visited your profile
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <i class="fa fa-fw fa-eye-slash m-r-xs"></i> Anonymous Mode
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <a href="http://support.mobintouch.com/hc/en-us/requests/new">Need help with pricing?</a>.
+                        </li>
+                        <li class="list-group-item wrapper-md">
+                            <span class="text-muted"><i>*You can easily cancel, downgrade or upgrade your premium account at any time.</i></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--/ ENTERPRISE-->
+
+    </div>
+
+    <div class="wrapper-md">
+        <div class="row">
+            <div class="col-xs-12 m-b-lg m-t-xl">
+                <h4 class="text-center text-4x text-light">• Frequently Asked Questions •</h4>
+            </div>
+            <div class="col-xs-6">
+                <div class="wrapper-lg">
+                    <h4 class="h4 font-bold m-b">How long are your contracts?</h4>
+                    <p class="m-b-lg">Mobintouch plans are month-to-month. We make it simple to start or stop your premium account at any time.</p>
+
+                    <h4 class="h4 font-bold m-b">Is there a discount for companies?</h4>
+                    <p class="m-b-lg">Yes, with Enterprise plan we offer a 20% discount for companies with a minimum of 10 employees.</p>
+
+                    <h4 class="h4 font-bold m-b">How can I manage multiple accounts with the Enterprise plan?</h4>
+                    <p class="m-b-lg">When you take an Enterprise plan, in the settings of your account you can attribute the premium accounts to users inside the mobintouch network.</p>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="wrapper-lg">
+                    <h4 class="h4 font-bold m-b">Can I cancel my premium plan?</h4>
+                    <p class="m-b-lg">Canceling Mobintouch premium plan is an easy, no-questions-asked process. You just need to switch back to the Starter plan.</p>
+
+                    <h4 class="h4 font-bold m-b">Can I switch plans?</h4>
+                    <p class="m-b-lg">Yes, at any time on this page. When upgrading or downgrading your account plan, you will receive either a pro-rata charge or refund, depending on the cost of your new plan.</p>
+
+                    <h4 class="h4 font-bold m-b">Do you have more questions?</h4>
+                    <p class="m-b-lg">Our support team is available 24/7 and usually responds in well under an hour. Visit our <a href="http://support.mobintouch.com" target="_blank">Help Center</a> to contact them.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

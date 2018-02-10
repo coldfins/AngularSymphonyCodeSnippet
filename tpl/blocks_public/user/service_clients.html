@@ -1,0 +1,31 @@
+<div class="row" ng-if="viewUser.services[selectedIndex].clients.length > 0">
+    <div class="col-sm-12">
+        <h3 class="text-20 text-black-d opacity-8 m-n">Clients</h3>
+    </div>
+    <div class="" ng-class="windowWidth <= 480 ? '' : 'padder-l-md'">
+        <div class="clients m-sm inline-table" ng-repeat="client in viewUser.services[selectedIndex].clients track by $index">
+            <div class="">
+                <a ui-sref="app.page.company/public({companyusername: client.username})" ng-if="client.username">
+                    <div class="client-avatar b-a" ng-if="client.avatar" style="background:url({{app.baseUrl}}{{ client.avatar}}) center center / cover;">
+                    </div>
+                    <div class="client-avatar b-a" ng-if="!client.avatar" style="background:url('{{app.baseUrl}}/img/mit-default-company-avatar-white.svg') center center / cover;background-color: red;">
+                    </div>
+                </a>
+                <div ng-if="!client.username">
+                    <div class="client-avatar b-a" ng-if="client.avatar" style="background:url({{app.baseUrl}}{{ client.avatar}}) center center / cover;">
+                    </div>
+                    <div class="client-avatar b-a" ng-if="!client.avatar" style="background:url('{{app.baseUrl}}/img/mit-default-company-avatar-white.svg') center center / cover;background-color: red;">
+                    </div>
+                </div>
+            </div>
+            <a class="font-bold text-16 m-t-xs name" ui-sref="app.page.company/public({companyusername: client.username})" ng-if="client.username"><h4 class="m-n">{{ client.name}}</h4></a>
+            <span class="font-bold text-16 m-t-xs name" ng-if="!client.username">{{ client.name}}</span>
+            <div class="pull-left m-t-xs padder-v-xs padder-xs r-3x bg-light text-10 text-uppercase">{{ viewUser.services[selectedIndex].service}}</div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+    <div class="clear clearfix"></div>
+</div>
+
+
+

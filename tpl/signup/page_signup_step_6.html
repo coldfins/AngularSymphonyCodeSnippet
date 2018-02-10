@@ -1,0 +1,147 @@
+<div ng-init="app.settings.container = false; app.settings.headerFixed = false;" ng-controller="RegisterStepsFormController">
+    <nav class="navbar navbar-fixed-top pos-rlt">
+        <div class="container-fluid">
+            <div class="padder-lg padder-v-lg">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <!--  <a ui-sref="index" class="navbar-brand hidden-xs signup-close" data-ng-click="track('Back On Landing Page', 'Navbar', 'Cross Button')">
+                        <span><svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path d="M6 4.586l4.24-4.24c.395-.395 1.026-.392 1.416-.002.393.393.39 1.024 0 1.415L7.413 6l4.24 4.24c.395.395.392 1.026.002 1.416-.393.393-1.024.39-1.415 0L6 7.413l-4.24 4.24c-.395.395-1.026.392-1.416.002-.393-.393-.39-1.024 0-1.415L4.587 6 .347 1.76C-.05 1.364-.048.733.342.343c.393-.393 1.024-.39 1.415 0L6 4.587z" fill-rule="evenodd"></path></svg></span>
+                    </a> --->
+                    <a ui-sref="index" class="navbar-brand w-xxs visible-xs" data-ng-click="track('Back On Landing Page', 'Navbar', 'Logo')" ><i class=" icon-arrow-left text-xl"></i></a>
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+    </nav>
+
+    <div class="vertical-center flex-center">
+        <div class="container pos-rlt animated fadeIn">
+            <div class="row">
+
+                <div class="col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1 col-xs-12">
+                    <div class="text-center">
+                        <span class="text-48 text-black-dker">What are you interested in?</span>
+                    </div>
+                    <div class="text-center padder-v m-b-xl">
+                        <span class="text-20">This will customize you experience.</span>
+                    </div>
+                    <form name="frmInterest" ng-submit="updateInterestedIn()" class="form-horizontal form-validation text-md">
+                        <div class="col-xs-12 no-padder m-b-xl">
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="text-center">
+                                    <span>For individuals</span>
+                                    <hr class="m-t-sm">
+                                        <div class="text-left no-padder">
+                                            <label class="i-checks i-checks-lblue">
+                                                <input type="checkbox" ng-model="user.interestedIn.individual.jobs">
+                                                    <i></i>
+                                                    <div class="inline font-bold m-l-xs">Jobs</div>
+                                            </label>
+                                            <div class="text-sm interest-subtitle">Meet recruiters. Free & private.</div> 
+                                        </div>
+                                        <div class="text-left no-padder m-t-lg">
+                                            <label class="i-checks i-checks-lblue">
+                                                <input type="checkbox" ng-model="user.interestedIn.individual.building_network">
+                                                    <i></i>
+                                                    <div class="inline font-bold m-l-xs">Building your network</div>
+                                            </label>
+                                            <div class="text-sm interest-subtitle">Connect with thousands of other professionals.</div> 
+                                        </div>
+                                        <div class="text-left no-padder m-t-lg">
+                                            <label class="i-checks i-checks-lblue">
+                                                <input type="checkbox" ng-model="user.interestedIn.individual.mobile_news">
+                                                    <i></i>
+                                                    <div class="inline font-bold m-l-xs">Industry News</div>
+                                            </label>
+                                            <div class="text-sm interest-subtitle">Keep up with the latest in mobile.</div> 
+                                        </div>
+                                        <div class="text-left no-padder m-t-lg">
+                                            <label class="i-checks i-checks-lblue">
+                                                <input type="checkbox" ng-model="user.interestedIn.individual.discover">
+                                                    <i></i>
+                                                    <div class="inline font-bold m-l-xs">Discover</div>
+                                            </label>
+                                            <div class="text-sm interest-subtitle">Mobile Apps & Products.</div> 
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="text-center">
+                                    For companies
+                                    <hr class="m-t-sm">
+                                        <div class="text-left no-padder">
+                                            <label class="i-checks i-checks-lblue">
+                                                <input type="checkbox" ng-model="user.interestedIn.company.recruiting">
+                                                    <i></i>
+                                                    <div class="inline font-bold m-l-xs">Recruiting</div>
+                                            </label>
+                                            <div class="text-sm interest-subtitle">Meet thousands of high-quality candidates.</div> 
+                                        </div>
+                                        <div class="text-left no-padder m-t-lg">
+                                            <label class="i-checks i-checks-lblue">
+                                                <input type="checkbox" ng-model="user.interestedIn.company.promot_company">
+                                                    <i></i>
+                                                    <div class="inline font-bold m-l-xs">Promoting your company</div>
+                                            </label>
+                                            <div class="text-sm interest-subtitle">Share your work. Find potential clients and partners.</div> 
+                                        </div>
+                                        <div class="text-left no-padder m-t-lg">
+                                            <label class="i-checks i-checks-lblue">
+                                                <input type="checkbox" ng-model="user.interestedIn.company.raising_money">
+                                                    <i></i>
+                                                    <div class="inline font-bold m-l-xs">Raising Money</div>
+                                            </label>
+                                            <div class="text-sm interest-subtitle">Meet investors on Mobintouch.</div> 
+                                        </div>
+                                        <div class="text-left no-padder m-t-lg">
+                                            <label class="i-checks i-checks-lblue">
+                                                <input type="checkbox" ng-model="user.interestedIn.company.discover">
+                                                    <i></i>
+                                                    <div class="inline font-bold m-l-xs">Discover</div>
+                                            </label>
+                                            <div class="text-sm interest-subtitle">Companies, Products & Services.</div> 
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-t-xl col-sm-6 col-sm-offset-3 col-xs-12" ng-class="{'padder-xl':windowWidth >= 768}">
+                            <button type="submit" ng-disabled='frmInterest.$invalid || loadingSignup' class="btn btn-lg btn-blue-lt col-xs-12">
+                                <span ng-hide="loadingSignup" class="text-md">Continue <span class="text-sm"> <i class="fa fa-angle-double-right"></i></span></span>
+                                <span ng-show="loadingSignup" class="text-md">Continue <i class="fa fa-spinner fa-spin text-md"></i></span>
+                            </button>
+                        </div>
+                        <div class="clear clearfix"></div>
+                        <div class="m-t-lg m-b-md text-center text-md">
+                            <a ui-sref="access.step7">Skip this step</a>
+                        </div>
+                        <div class="clear clearfix"></div>
+                        <div class="m-t-xxl">
+                            <div class="col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">
+                                <div class="outer_progress">
+                                </div>
+                                <div class="inner_progress" style="width: 73%;"></div>
+                            </div>
+                            <div class="clear clearfix"></div>
+                            <div class="text-center m-t-sm m-b-xxl">
+                                <span class="text-md">73% complete</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function (el) {
+            new SelectFx(el, {
+                onChange: function (val) {
+                    var select = $('#selectCompanyType');
+                    select.val(val);
+                    $('.cs-skin-underline').css('border-color', '#eaeaea');
+                    select.trigger('change');
+                }
+            });
+        });
+    })();</script>

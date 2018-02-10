@@ -1,0 +1,270 @@
+<div ng-show="hasTracking(user.trackingServices)" class="panel panel-default">
+    <div class="panel-heading">
+        <a ui-sref="app.page.edit/profile" class="text-muted pull-right m-t-xxs" ng-click="app.activetab = 'tracking'">Edit</a>
+        <h2 class="h4">Tracking Solutions</h2>
+    </div>
+    <div class="panel-body m-b-n">
+        <div class="row">
+            <div ng-if="user.trackingServices.adxtracking" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/ad-x-logo.png" alt="ad-x">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.adjust" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/adjust-logo.png" alt="adjust">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.appannieanalytics" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/App-Annie-Logo.png" alt="appannie">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.appboy" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/appboy-logo.png" alt="appboy">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.appsee" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/Appsee-logo.png" alt="appsee">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.appsflyer" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/appsflyer-logo.png" alt="appsflyer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.appsalar" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/Apsalar-logo.svg" alt="apsalar">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.countly" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/countly-logo.png" alt="countly">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.distimo" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/distimo-logo.png" alt="distimo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.flurry" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/Flurry-logo.png" alt="flurry">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.kochava" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/kochava-logo.png" alt="kochava">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.localytics" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/Localytics-logo.png" alt="localytics">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.mixpanel" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/mixpanel-logo.png" alt="mixpanel">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.mobileapptracking" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/mobile-app-tracking-logo.png" alt="mobileapptracking">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.swrve" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/swrve-logo.png" alt="swrve">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.tapstream" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/Tapstream-logo.png" alt="tapstream">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.upsight" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/upsight-logo.svg" alt="upsight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.emma" class="col-xs-6 col-sm-3">
+                <div class="panel panel-default m-b no-shadow">
+                    <div class="panel-body tracking-company-box">
+                        <div class="clearfix text-center">
+                            <div class="inline">
+                                <div class="thumb-lg">
+                                    <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/emma-logo.svg" alt="emma">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="user.trackingServices.other" class="m-t">
+                <ul class="list-group">
+                    <div class="col-xs-6 col-sm-3 m-b" data-ng-repeat="(key, trackingService) in user.trackingServices.othertrackingSolutions">
+                        <li class="list-group-item text-center text-u-c">{{trackingService.text.replace("-", " ")}}</li>
+                    </div>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>

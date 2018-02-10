@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h1 class="h3 font-bold text-block"><a ui-sref="app.page.company/public({companyusername: publiccompany.username})">{{publiccompany.name}}</a></h1>
+                <a class="text-muted text-ellipsis m-b-xs" rel="nofollow" href="{{publiccompany.website}}" target="_blank">{{publiccompany.website}}</a>
+                <div ng-if="publiccompany.description!=null">
+                    <p class="text-1x" ng-bind-html="publiccompany.description | nl2br"></p>
+                </div>
+                <ul class="list-group no-borders no-bg m-n">
+                    <li class="list-group-item no-padder inline m-r" style="vertical-align: 15%;line-height: 1em;" tooltip="Public page link"><a ui-sref="app.page.company/public({companyusername: publiccompany.username})" target="_blank"><img src="{{app.baseUrl}}/img/mit-logo-black.svg" style="diplay:inline-block;width:18px;"></a></li>
+                    <li ng-if="publiccompany.twitter" class="list-group-item no-padder inline m-r"><a href="{{publiccompany.twitter}}" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></li>
+                    <li ng-if="publiccompany.linkedIn" class="list-group-item no-padder inline m-r"><a href="{{publiccompany.linkedIn}}" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></li>
+                    <li ng-if="publiccompany.instagram" class="list-group-item no-padder inline m-r"><a href="{{publiccompany.instagram}}" target="_blank"><i class="fa fa-instagram fa-lg"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+<div ng-controller="ImgCropCtrl">
+    <div class="modal-header">
+        <h3 class="modal-title h3" ng-if="user.avatar">Profile photo</h3>
+        <h3 class="modal-title h3" ng-if="!user.avatar">Profile photo</h3>
+    </div>
+    <div class="modal-body">
+        <div class="wrapper-md">
+            <div class="m-b">
+                <h4>Select your profile photo</h4>
+                <input ui-jq="filestyle" type="file" accept="image/*" id="fileInput" ui-options="{
+                       buttonText: 'Add photo',
+                       iconName: 'icon-camera'
+                       }"/>
+            </div>
+            <div class="hbox hbox-auto-xs">
+                <div class="col">
+                    <h4 class="h4">Crop</h4>
+                    <small>Drag to reposition photo and change size</small>
+                    <div class="wrapper-sm b-a bg-white m-r-xs m-b-xs m-t">
+                        <div class="bg-light img-avatar">
+                            <img-crop 
+                                image="myImage" 
+                                result-image="myCroppedImage" 
+                                result-image-size="400" 
+                                aspect-ratio="1" 
+                                area-type="circle"></img-crop>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <h4 class="h4">Preview</h4>
+                    <small>How you appear accross Mobintouch.</small><br>
+                    <div class="inline bg-white wrapper-sm b-a m-t img-circle">
+                        <div class="bg-light img-circle">
+                            <img width="160" height="160" class="img-circle" ng-src="{{myCroppedImage|| 'http://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif'}}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn m-t text-gray" ng-click="rotate(true);"><i class="fa fa-rotate-right"></i></button>
+            <button class="btn m-t text-gray" ng-click="rotate(false);"><i class="fa fa-rotate-left"></i></button>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-blue-lt-bordered pull-left" ng-if="user.avatar" ng-click="removeAvatar()" ng-disabled="removingAvatar">
+            <span ng-show="removingAvatar">Removing photo...<i class="fa fa-sun-o fa-circle-o-notch"></i></span>
+            <span ng-hide="removingAvatar">Remove my photo</span>
+        </button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-blue-lt" ng-click="avatar()" ng-disabled="!myImage || loadingAvatar">
+            <span ng-hide="loadingAvatar" class="text">Apply</span>
+            <span ng-show="loadingAvatar" class="text">Applying...<i class="fa fa-sun-o fa-circle-o-notch"></i></span>
+        </button>
+    </div>
+</div>

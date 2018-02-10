@@ -1,0 +1,38 @@
+
+<div class="modal-body">
+    <div>
+        
+        <h4 style="color:#ea2928;" >Mobintouch</h4>
+        <h5 class="text-muted"> <a href="#">mobintouch.com</a> Join me on Mobintouch, the world’s 1st Social Network for mobile advertising</h5>
+        <div class="b-t">
+            <form  class="form-validation">
+                <div class="form-group">
+                    <textarea class="form-control input-lg" rows="3" cols="50" placeholder="First name">
+                    </textarea>
+                </div>
+                 <div class="form-group">
+                     
+                     <select class="form-control input-lg" ng-model="selectedOption">
+                         <option ng-repeat="o in options" value="{{o}}" ng-selected="'public' == o">{{o}}</option>
+                     </select>
+                     
+<!--                     <select class="form-control input-lg" data-ng-options="o.name for o in options" data-ng-model="selectedOption"></select>-->
+                 </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" data-ng-click="shareLink()">Share</button>
+                </div>
+                    
+            </form>  
+        </div>
+    </div>
+</div>
+<!--
+<div class="modal-footer no-padder">
+    <div class="text-center wrapper-sm b-r inline w-50">
+        <a class="text-lg" ng-click="cancel()">No</a>
+    </div>
+    <div class="text-center wrapper-sm inline w-50">
+        <a class="font-bold text-lg" ng-click="close()">Yes</a>
+    </div>
+</div>
+-->

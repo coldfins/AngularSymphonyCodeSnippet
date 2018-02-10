@@ -1,0 +1,36 @@
+<div  ng-show="user.competences.length || user.languages.length" ng-controller="TooltipDemoCtrl" class="panel panel-default">
+    <div class="panel-heading">
+        <a ui-sref="app.page.edit/profile" class="text-muted pull-right" ng-click="app.activetab = 'aboutme'">Edit</a>
+        <h2 class="h4">Skills &amp; Languages</h2>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div ng-show="user.competences.length" class="col-xs-12 m-b">
+                <label>Skills:</label>
+                <div class="col-xs-12 pull-in">
+                    <span data-ng-repeat="competence in user.competences" class="tag tag-success">
+                        <span ng-if="competence.text">
+                            {{competence.text.replace("-", " ")}}
+                        </span>
+                        <span ng-if="!competence.text">
+                            {{competence.replace("-", " ")}}
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div ng-show="user.languages.length" class="col-xs-12">
+                <label>Languages:</label>
+                <div class="col-xs-12 pull-in">
+                    <span data-ng-repeat="lang in user.languages" class="tag tag-info">
+                        <span ng-if="lang.text">
+                            {{lang.text}}
+                        </span>
+                        <span ng-if="!lang.text">
+                            {{lang}}
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

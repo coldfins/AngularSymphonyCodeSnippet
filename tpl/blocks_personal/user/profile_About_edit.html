@@ -1,0 +1,93 @@
+<div class="container" ng-mouseover="aboutReorder = true;" ng-mouseleave="aboutReorder = false;">
+    <div class="w-full b-a r-2x m-t-lg" id="about">
+        <div class="col-xs-12">
+            <div class="m-t-lg">
+                <div class="pull-left text-20 text-black-d">
+                    <span class="padder" uib-popover="Those information are mandatory to access Jobs" popover-enable="fromJobModal && user.summary.length <= 0" popover-is-open="fromJobModal && user.summary.length <= 0" popover-trigger="'none'" popover-class="popover-validator">About</span> <i class="fa fa-unsorted text-muted m-r-sm hover-pointer text-blue-lt" ng-if="aboutReorder" ng-click="profileOreder('share')" uib-tooltip="Reorder your profile"></i>
+                </div>
+                <div class="pull-right">
+                    <a class="text-gray hover-text-blue-lt pull-right" ng-if="!editAbout" ng-click="changeEditModeAbout(true);">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="">Edit</span>
+                    </a>
+                    <!--<button class="btn btn-blue-lt r-2x" ng-click="changeEditModeAbout(true);" ng-if="!editAbout">Edit</button>-->
+                    <button class="btn btn-blue-lt r-2x m-r-xs" ng-click="saveAboutMe();" ng-if="editAbout" ng-disabled="loadingCompetences">
+                        <span ng-hide="loadingCompetences">Save</span>
+                        <span ng-show="loadingCompetences">Saving...<i class="fa fa-spin fa-spinner"></i></span>
+                    </button>
+                    <button class="btn btn-default r-2x" ng-click="changeEditModeAbout(false);" ng-if="editAbout">Cancel</button>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+            <div class="col-xs-12 col-sm-10 m-t-lg m-b-xl" ng-class="windowWidth <= 480 ? 'no-padder' : ''" ng-if="!editAbout">
+                <div class="text-17">What i am doing</div>
+                <div class="m-t-sm text-black-dker">{{ user.summary}}</div>
+
+                <div class="m-t-lg text-17">Skills</div>
+                <div class="text-black-dk m-t-sm">
+                    <div ng-repeat="competence in user.competences" class="rounded padder-v-sm padder bg-light dk pull-left m-r-xs m-t-xs">{{ competence.text ? competence.text : competence }}</div>
+                    <div class="clear clearfix"></div>
+                </div> 
+
+                <div class="m-t-lg text-17">Languages</div>
+                <div class="text-black-dk m-t-sm">
+                    <div ng-repeat="language in user.languages" class="rounded padder-v-sm padder bg-light dk pull-left m-r-xs m-t-xs">{{ language.text ? language.text : language}}</div>
+                    <div class="clear clearfix"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-10 m-t-lg m-b-xl" ng-class="windowWidth <= 480 ? 'no-padder' : ''" ng-if="editAbout">
+                <div class="text-17">What i am doing</div>
+                <textarea class="form-control m-t-sm" rows="4" maxlength="600" ng-model="user.summary" placeholder="Give us more details about what are you doing everyday."></textarea>
+                <div class="m-t-lg text-17">Skills</div>
+                <div class="has-feedback inline typeahead-autocomplete">
+                    <form ng-submit="onSelectSkill(about.skill)">
+                        <input type="text" 
+                               class="form-control input-lg text-black-dk m-t-sm"
+                               ng-class="windowWidth <= 480 ? 'w-full' : 'w-2xl'"
+                               placeholder="Add skills"
+                               ng-model="about.skill"
+                               uib-typeahead="skill for skill in skillSearch($viewValue) | limitTo:15" 
+                               ng-pattern="/^[a-zA-Z0-9- '.,-/\&]{2,100}$/" 
+                               maxlength="100" 
+                               typeahead-on-select='onSelectSkill($item)' 
+                               typeahead-focus-first='false'
+                               typeahead-loading='loading_skills'
+                               typeahead-template-url="tpl/blocks_general/skill-autocomplete.html?v={{app.latestUpdate}}" 
+                               typeahead-wait-ms="300"
+                               required/>
+                        <i ng-show="loading_skills" class="fa fa-spinner fa-spin form-control-feedback input-loader-lg m-t-sm m-r-sm"></i>
+                        <input type="submit" class="hidden"/>
+                    </form>
+                </div>
+                <div class="text-black-dk m-t-sm">
+                    <div ng-repeat="competence in user.competences" class="rounded padder-v-sm padder-r-sm padder bg-light dk pull-left m-r-xs m-t-xs">
+                        <span class="tag-label">{{ competence.text ? competence.text : competence }}</span>
+                        <span class="tag-remove hover-pointer font-multicolore text-gray m-l-xs" ng-click="removeSkill(competence.text ? competence.text : competence)">X</span>
+                    </div>
+                    <div class="clear clearfix"></div>
+                </div> 
+
+                <!--<tags-input class="tags-input" ng-model="user.competences" replace-spaces-with-dashes="false" placeholder="Write a skill and press enter" required></tags-input>-->
+
+                <div class="m-t-lg text-17">Languages</div>
+                <input type="text" 
+                       class="form-control input-lg text-black-dk m-t-sm"
+                       ng-class="windowWidth <= 480 ? 'w-full' : 'w-2xl'"
+                       placeholder="Add languages"
+                       ng-model="about.language"
+                       ng-pattern="/^[a-zA-Z0-9- '.,-/\&]{2,100}$/" 
+                       maxlength="100" 
+                       ng-enter="onSelectLanguage(about.language)"/>
+                <div class="text-black-dk m-t-sm">
+                    <div ng-repeat="language in user.languages" class="rounded padder-v-sm padder-r-sm padder bg-light dk pull-left m-r-xs m-t-xs">
+                        <span class="tag-label">{{ language.text ? language.text : language }}</span>
+                        <span class="tag-remove hover-pointer font-multicolore text-gray m-l-xs" ng-click="removeLanguage(language.text ? language.text : language)">X</span>
+                    </div>
+                    <div class="clear clearfix"></div>
+                </div> 
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+</div>

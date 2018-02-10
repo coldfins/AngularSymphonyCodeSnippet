@@ -1,0 +1,27 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm m-t" ng-init="app.settings.container = true;">
+
+    <div class="wrapper-xl text-center">
+        <img src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" class="thumb-xl m-b-lg">
+        <h1 class="h3">Final Check</h1>
+        <h3 class="text-lg text-center text-dark">
+			If your company is listed below, please click the "Join" button. Otherwise,you can create your company page by clicking on red link below the list.
+		</h3>
+    </div>
+
+    <div class="wrapper">
+		<div class="row">
+			<div class="col-xs-10 col-md-8  col-md-offset-2" id="main">
+				<ul  class="list-group no-bg no-borders pull-in m-b-none">
+					 <li class="list-group-item no-padder m-t m-b" ng-repeat="(key, result) in results.slice(0, 5) | unique: 'id' track by result.id | orderBy:'-id'" data-value="{{key+1}}" data-ng-include=" 'tpl/blocks_general/company_box.html?v='+ app.latestUpdate "></li>
+				</ul>
+				<a class="nav-header pull-left" ng-click="doTheBack()" style="font-weight: 600;margin-top: 5%;">< Back</a>
+				<a class="nav-header pull-right" ng-click="creteCompanyConformModel()" style="font-weight: 600;margin-top: 5%; color: #E21417">My company is not listed. I want to create a page ></a>
+			</div>
+		</div>
+		
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="col w-lg" data-ng-include=" 'tpl/blocks_general/right_sidebar.html?v='+ app.latestUpdate "></div><!--/ RIGHT SIDEBAR -->
+
+</div>

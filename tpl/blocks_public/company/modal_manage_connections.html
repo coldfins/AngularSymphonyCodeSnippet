@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <span class="h4">Connections working on {{ publicCompany.name}}</span>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel();">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body no-padder">
+    <div class="clear clearfix"></div>
+    <ul class="scrollable mutual-container padder-md">
+        <li ng-repeat="connection in publicCompany.directWorkingConnections | orderBy:'-date'" class="b-b" style="list-style: none;">
+            <div class="padder-v">
+                <span class="thumb-sm pull-left img-circle m-r-sm">
+                    <img ng-if="connection.avatar" src="{{ app.baseUrl}}{{connection.avatar}}" class="img-circle bg-white" />
+                    <img ng-if="!connection.avatar" src="{{ app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle bg-white" />
+                </span>
+                <div class="media-body m-b-none text-break">
+                    <div class="pull-left">
+                        <a ui-sref="app.page.public({username: connection.username})" title="{{ connection.name}} {{ connection.lastname}}" ng-click="cancel()"><strong>{{connection.name}} {{connection.lastname}}</strong></a>
+                        <small class="text-muted block" ng-if="connection.jobTitle">{{connection.jobTitle}}</small>
+                    </div>
+                    <a class="btn r-2x pull-right m-t-xxs" ng-class="{'btn-blue-lt':mouseOver, 'btn-blue-lt-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false" ng-click="mutualSendMessage(connection);">Message</a>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+        </li>
+    </ul>
+</div>

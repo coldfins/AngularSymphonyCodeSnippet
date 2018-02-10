@@ -1,0 +1,44 @@
+<div class="container" ng-mouseenter="serviceReorder = true;" ng-mouseleave="serviceReorder = false">
+    <form class="form-horizontal" name="formService" novalidate>
+        <div class="w-full b-a r-2x m-t-lg" id="services">
+            <div class="col-xs-12">
+                <div class="m-t-sm" ng-class="{'padder-r-md':windowWidth > 786}">
+                    <div class="text-20 text-black-d">
+                        <div class="pull-left" ng-class="{'padder-t-sm':serviceStep == 1,'padder-b-md':serviceStep != 1}">
+                            <span class="padder" ng-if="serviceStep == 1 || serviceStep == 2">Services</span> <i ng-if="serviceReorder && (serviceStep == 1 || serviceStep == 2)" class="fa fa-unsorted text-muted m-r-sm hover-pointer text-blue-lt" ng-click="profileOreder('share')" uib-tooltip="Reorder your profile"></i>
+                        </div>
+                        <div class="pull-left" ng-class="windowWidth <= 480 ? 'w-full' : 'm-l'" ng-show="serviceStep == 1">
+                            <uib-tabset class="nav-tabs-alt tabs-services">
+                                <uib-tab ng-repeat="service in serviceTabs track by $index" heading="{{service.service}}" active="service.active" ng-click="updateSelectedIndex($index);" class="text-u-c"></tab>
+                            </uib-tabset>
+                        </div>
+                        <div class="padder padder-b-md inline" ng-if="serviceStep == 3">Meet {{ user.services[selectedIndex].service|tolowercase }} clients</div>
+                        <div class="pull-right" ng-class="windowWidth <= 480 ? 'pull-none-xs text-right m-b-sm' : ''">
+                            <button class="btn btn-blue-lt r-2x" ng-if="serviceStep == 1" ng-click="changeServiceStep(2);">Add</button>
+                            <a class="text-md hover-text-blue-lt" href="" ng-if="serviceStep == 3 && serviceAction == 'add'" ng-click="backService();">Back</a>
+                            <button type="button" class="btn btn-default lt r-2x m-l-xs" ng-if="(serviceStep == 2 && user.services.length > 0) || serviceStep == 3" ng-click="cancelService(selectedIndex);">Cancel</button>
+                            <button type="button" class="btn btn-blue-lt r-2x m-l-xs" ng-if="serviceStep == 3" ng-disabled="savingService" ng-click="saveService(formService, selectedIndex)">
+                                <span class="" ng-hide="savingService">Save</span>
+                                <span class="" ng-show="savingService && serviceAction == 'edit'">Updating <i class="fa fa-spinner fa-spin"></i></span>
+                                <span class="" ng-show="savingService && serviceAction == 'add'">Adding <i class="fa fa-spinner fa-spin"></i></span>
+                            </button>
+                        </div>
+                        <div class="clear clearfix"></div>
+                    </div>
+                    <div class="clear clearfix"></div>
+                </div>
+                <div class="col-xs-12 m-b-lg" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+                    <div class="m-b-lg padder-lg padder-v-lg well lt r-2x">
+                        <div ng-include="'tpl/blocks_personal/user/service_listing_to_view_and_edit.html?v=' + app.latestUpdate" ng-if="serviceStep == 1"></div>
+                        <div ng-include="'tpl/blocks_personal/user/service_listing_to_add.html?v=' + app.latestUpdate" ng-if="serviceStep == 2"></div>
+                        <div ng-include="'tpl/blocks_personal/user/service.html?v=' + app.latestUpdate" ng-if="serviceStep == 3"></div>
+                    </div>
+                    <div ng-include="'tpl/blocks_personal/user/service_clients.html?v=' + app.latestUpdate" ng-if="serviceStep == 1"></div>
+                    <div class="clear clearfix"></div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,129 @@
+<div class="panel panel-default r-3x" ng-controller="randomOfferWidget">
+	<div ng-if= "offer.id">
+    <!--     <div class="panel-heading font-bold">Offer Widget</div>-->
+    <div class="modal-header no-border bg-light lt" style="border-radius: 10px 10px 0 0;">
+        <span ng-if="user.username != offer.username">
+            <a class="pull-right button" rel="nofollow" ng-if="!checkIsFavorite(offer.id);" ng-click="favorite(offer)">
+                <i class="fa fa-heart-o text"></i>
+            </a>
+            <a class="pull-right button active" rel="nofollow" ng-if="checkIsFavorite(offer.id);" ng-click="unfavorite(offer)">
+                <i class="fa fa-heart text-active"></i>
+            </a>
+        </span>
+        <a ui-sref="app.page.public({username: offer.username})" class="clearfix" title="{{offer.userFirstName + ' ' + offer.userLastName}}">
+            <span class="pull-left thumb-sm avatar m-r">
+                <img ng-if="offer.userAvatar" src="{{app.baseUrl}}{{offer.userAvatar}}">
+                <img ng-if="!offer.userAvatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}">
+            </span>
+            <span class="font-bold text-ellipsis clear">{{ offer.userFirstName | capitalize }} {{ offer.userLastName | capitalize }}</span>
+            <small class="text-ellipsis clear">{{ offer.userCompany | capitalize }}</small>
+        </a>
+    </div>
+    <div class="blur-overlay">
+        <div class="blur"
+             style="background-position: center center;
+             background-image: url({{app.baseUrl}}{{offer.userAvatar}});
+             background-size: cover;
+             -webkit-filter: blur(1px) saturate(3);
+             -moz-filter: blur(4px) saturate(4);
+             -o-filter: blur(1px) saturate(3);
+             -ms-filter: blur(1px) saturate(3);
+             filter: blur(1px) saturate(3);
+             filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+             height: 2px;
+             width: 100%;
+             overflow: hidden;
+             margin-top: -2px;
+             background-repeat: round;">
+        </div>
+        <div ng-if="!offer.userAvatar" class="blur"
+             style="background-position: center center;
+             background-image: url({{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }});
+             background-size: cover;
+             -webkit-filter: blur(1px) saturate(3);
+             -moz-filter: blur(4px) saturate(4);
+             -o-filter: blur(1px) saturate(3);
+             -ms-filter: blur(1px) saturate(3);
+             filter: blur(1px) saturate(3);
+             filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+             height: 2px;
+             width: 100%;
+             overflow: hidden;
+             margin-top: -2px;
+             background-repeat: round;">
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="m-b">
+            <span class="clear">The traffic I'm looking for:</span>
+        </div>
+        <div class="m-b text-ellipsis-sp">
+				<span class="text-muted text-u-c clear">Countries:</span>
+				<span data-ng-repeat="country in offer.countries" class="tag tag-default text-u-c">{{'country.' + country| translate}}</span>
+        </div>
+        <div class="m-b text-ellipsis-sp">
+			<span class="text-muted text-u-c clear">Pricing Model:</span>
+			<span data-ng-repeat="(pricing, bool) in offer.pricingModels" ng-if="bool" class="tag tag-default text-u-c">
+				{{pricing}}
+			</span>
+		</div>
+		<div class="m-b text-ellipsis-sp">
+			<span class="text-muted text-u-c clear">Platforms:</span>
+			<span data-ng-repeat="(platform, bool) in offer.platforms" ng-if="bool" class="tag tag-default text-u-c">
+				{{platform}}
+			</span>
+		</div>
+		<div class="m-b text-ellipsis-sp">
+			<span class="text-muted text-u-c clear">Quality:</span>
+			<span data-ng-repeat="(q, bool) in offer.quality" ng-if="bool" class="tag tag-default text-u-c">
+				{{'general.' + q| translate}}
+			</span>
+		</div>
+        <!--
+        <div ng-if="offer.dateRangeModalFormat" class="m-b">
+            <span class="text-muted text-u-c clear">Campaign date range:</span>
+            <span class="font-bold text-u-c text-sm">{{ offer.dateRangeModalFormat}}</span>
+        </div>
+        <div ng-if="offer.description" class="m-b">
+            <span class="text-muted text-u-c clear">Details:</span>
+            <p ng-if="offer.description" class="text-block" ng-bind-html="offer.description | linky:'_blank' | nl2br"></p>
+        </div>
+        -->
+        <!--
+        <div ng-if="offer.questions" class="m-b">
+            <span class="text-muted text-u-c clear">Specific question:</span>
+            <div data-ng-repeat="question in offer.questions" class="input-group m-b">
+                <span class="clear">{{ question.text || '' }}<span ng-if="question.required">*</span></span>
+            </div>
+        </div>
+        -->
+    </div>
+    <div class="b-t padder-v-sm text-center">
+        <span class="text-xs text-muted"><i class="fa fa-calendar-o fa-fw"></i> Expiry Date: {{offer.expiryTimestamp * 1000| date:"d MMMM 'at' HH'h'"}}</span>
+    </div>
+
+    <div class="modal-footer padder-v-sm ">
+        <span class="text-u-c text-xs pull-left">OFFER ID: <span class="font-bold">{{ offer.identifier}}</span></span>
+        <span class="text-muted text-xs m-t-xxs">
+            <i class="fa fa-fw fa-eye m-r-xs"></i> <span class="m-r">{{ offer.dailyUniquePageViews.length || 0 }}</span>
+            <i class="fa fa-fw fa-reply m-r-xs"></i> {{ offer.replies || 0 }}
+        </span>
+    </div>
+    <!-- share buttons -->
+    <div class="text-center b-t padder-v-xs">
+        <a class="no-bg no-shadow"  ng-click="shareEmail(offer)">
+            <i class="fa fa-envelope-o m-r-xs"></i>Share by Email
+        </a>	|
+        <a class="no-bg no-shadow" target="popup" ng-click="openWindow(offer)">
+            <i class="fa fa-linkedin m-r-xs"></i> Share on LinkedIn
+        </a>				
+    </div> 
+    <!-- share buttons -->
+    <div  class="b-t b-dark-lter">
+        <button  type="button" class="btn btn-light btn-block no-shadow no-r m-n" ng-click="viewDetails('offer', offer)">
+            <span class="text-u-c text-xs font-bold"><i class="fa fa-eye fa-fw m-r-xs"></i>View details</span>
+        </button>
+    </div>
+	</div>
+</div>

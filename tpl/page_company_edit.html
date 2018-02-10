@@ -1,0 +1,23 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="CompanyEditFormController" ng-init="app.settings.container = true;">
+    <div class="col padder">
+
+        <div class="row">
+            <!-- COMPANY PROFILE CARD -->
+            <div class="col-xs-12 col-sm-8">
+                <div data-ng-include=" 'tpl/blocks_edition/company_card_edit.html?v=' + app.latestUpdate" ></div>
+                <!--/ COMPANY PROFILE CARD -->
+                <!-- COMPANY DESCRIPTION -->
+                <div data-ng-include=" 'tpl/blocks_edition/company_description_edit.html?v=' + app.latestUpdate"></div><!--/ COMPANY DESCRIPTION -->
+            </div>
+
+            <!-- COMPANY ADMIN -->
+            <div class="col-xs-12 col-sm-4">
+                <div data-ng-include=" 'tpl/blocks_edition/company_admin_edit.html?v='+ app.latestUpdate "></div>
+                <div data-ng-include=" 'tpl/blocks_edition/company_team_edit.html?v='+ app.latestUpdate "></div>
+            </div>
+            <!--/ COMPANY ADMIN -->
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,480 @@
+<div class="profile_card_container" ng-show="!editprofile && !editinterest">
+    <div class="pos-rlt overflow-hidden" ng-style="user.cover && windowWidth > 480 ? {'height': '380px'} : {'height': '200px'}" id="user_cover">
+        <div ng-if="user.avatar && !user.cover"
+             class="animated bg-black"
+             ng-class="{fadeIn : user.cover, profile_cover : user.avatar && !user.cover}"
+             style="background:url({{app.baseUrl}}{{ user.cover ? user.cover : user.avatar }}) center top / cover;
+             position: absolute;
+             width: 100%;
+             overflow: hidden;
+             z-index: -1;
+             height: inherit;
+             -webkit-filter: blur(60px);
+             -moz-filter: blur(60px);
+             -o-filter: blur(60px);
+             -ms-filter: blur(60px);
+             filter: blur(60px);
+             filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='60');">
+            <div ng-if="user.avatar && !user.cover" style="left:0;
+                 right:0;
+                 bottom: 0;
+                 top: 0;
+                 margin: auto;
+                 background: rgba(255, 255, 255, 0.8);
+                 opacity: 0.7;
+                 height: 100%;
+                 width: 100%;
+                 position: absolute;">
+            </div>
+        </div>
+        <div ng-if="(user.avatar && user.cover) || (!user.avatar && user.cover)"
+             class="animated bg-black"                 
+             style="background:url({{app.baseUrl}}{{ user.cover ? user.cover : user.avatar }}) center center / cover;
+             position: absolute;
+             width: 100%;
+             overflow: hidden;
+             z-index: -1;
+             height: inherit;">
+            <!--<div ng-if="viewUser.avatar && !viewUser.cover" style="left:0;
+                 right:0;
+                 bottom: 0;
+                 top: 0;
+                 margin: auto;
+                 background: white;
+                 opacity: 0.7;
+                 height: 100%;
+                 width: 100%;
+                 position: absolute;">
+            </div>-->
+        </div>
+        <div ng-if="!user.avatar && !user.cover"
+             class="animated"
+             style="background:url({{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}) center center;
+             background-size: cover;
+             -webkit-filter: blur(60px);
+             -moz-filter: blur(60px);
+             -o-filter: blur(60px);
+             -ms-filter: blur(60px);
+             filter: blur(60px);
+             filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='60');
+             height: 200px;
+             position: absolute;
+             width: 100%;
+             overflow: hidden;
+             z-index: -1">
+            <div style="left:0;
+                 right:0;
+                 bottom: 0;
+                 top: 0;
+                 margin: auto;
+                 background: #7d7d7d;
+                 opacity: 0.7;
+                 height: 100%;
+                 width: 100%;
+                 position: absolute;">
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12" ng-controller="CoverModalCtrl">
+                    <button ng-if="!user.cover" 
+                            ng-click="open('lg')" 
+                            class="btn btn-transparent-white pull-right text-white r-2x b-white hidden-xs hover-text-blue-lt"
+                            ng-class="windowWidth <= 480 ? 'padder-xs m-t-md text-sm' : 'padder-lg padder-t-sm padder-b-sm m-t-lg text-md'">Update cover</button>
+                    <button ng-if="user.cover" 
+                            ng-click="open('lg')" 
+                            class="btn btn-transparent-white pull-right text-white r-2x b-white hidden-xs hover-text-blue-lt"
+                            ng-class="windowWidth <= 480 ? 'padder-xs m-t-md text-sm' : 'padder-lg padder-t-sm padder-b-sm m-t-lg text-md'">Update cover</button>
+                </div>
+            </div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+    <div class="container pos-rlt" ng-if="windowWidth > 768" id="user_info">
+        <div ng-controller="AvatarModalCtrl" class="pull-left col-sm-3 no-padder" ng-class="windowWidth <= 480 ? 'w-xs m-t-n' : 'w m-t-n-xl'">
+            <div class="" id="user_avatar">
+                <a ng-click="open('lg')" class="avatar b b-white" ng-class="windowWidth <= 480 ? '' : 'b-2x'">
+                    <img ng-if="user.avatar" src="{{app.baseUrl}}{{user.avatar}}" class="avatar w-full img-circle" crossorigin="anonymous" onload="getAverageRGB(this)"/>
+                    <img ng-if="!user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" class="avatar w-full bg-white" />
+                    <!--<div class="avatar w-full bg-black dk" style="background-image: url('cdn/img/icons/camera.png');background-repeat: no-repeat;background-position: center;opacity: 0.7;" ng-style="windowWidth <= 480 ? {'background-size': '30px'} : {}">
+                        <img src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="avatar w-full b b-white b-2x opacity-0 m-t-n-100"/>
+                    </div>-->
+                    <div class="update-img avatar">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-5 col-xs-12" ng-class="windowWidth <= 480 ? 'no-padder' : 'padder-v-sm padder-t-sm'">
+            <div class="">
+                <h1 class="text-head text-black-d font-normal inline m-n">{{ user.name}} {{ user.lastname}}</h1>
+                <span class="text-black-dk m-l-sm" ng-class="windowWidth <= 480 ? 'm-b-sm no-padder' : 'm-l-sm m-r-sm'">
+                    <span class="fa fa-map-marker"></span>
+                    <span ng-if="user.basedCountry"> {{ user.city}}, {{ 'country.' + user.basedCountry | translate }}</span>
+                    <span ng-if="!user.basedCountry"> {{ user.city}} </span>
+                </span>                
+            </div>
+        </div>
+        <div class="col-sm-5 col-xs-12 pos-abt right-0" 
+             ng-class="windowWidth <= 480 ? 'pull-none-xs' : 'pull-right text-right padder-v-sm padder-t-sm'">
+            <div class="padder-v-sm padder-xs" ng-class="windowWidth <= 480 ? 'block pull-none-xs' : 'inline pull-right'">
+                <a class="m-l-xs text-black-dk" ng-if="user.linkedin" href="{{ user.linkedin}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-linkedin"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.twitter" href="{{ user.twitter}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-twitter"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.facebook" href="{{ user.facebook}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-facebook"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.github" href="{{ user.github}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-github"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.stackOverflow" href="{{ user.stackOverflow}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-stack-overflow"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.dribbble" href="{{ user.dribbble}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-dribbble"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.behance" href="{{ user.behance}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-behance"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.instagram" href="{{ user.instagram}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-instagram"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.pinterest" href="{{ user.pinterest}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-pinterest"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.website" href="{{ user.website}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-globe"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.otherLink" href="{{ user.otherLink}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-link"></span>
+                </a>
+            </div>
+            <div class="inline-only pull-right" dropdown auto-close="outsideClick" is-open="status.isopen" uib-dropdown>
+                <a href="" class="text-black-dk m-l-sm b-r padder-r dropdown-toggle inline hover-pointer padder-v-sm hover-text-blue-lt" data-toggle="dropdown" uib-dropdown-toggle>
+                    <span class="fa fa-address-card-o"></span>
+                    <span class="m-l-xs inline" uib-popover="Those information are mandatory to access Jobs" popover-enable="fromJobModal && (!user.contactEmail || !user.phone || !user.imContacts)" popover-is-open="fromJobModal && (!user.contactEmail || !user.phone || !user.imContacts) && !status.isopen" popover-is-open="true" popover-class="popover-validator" popover-placement="bottom">Contact Info</span>
+                </a>
+            
+                <div class="dropdown-menu contact-info well lt" uib-dropdown-menu>
+                <span class="arrow top contact-info"></span>
+                <form name="updateIMDetails" class="w-lg padder padder-v form-validation form-horizontal" ng-submit="editInstantContactDetails(updateIMDetails)">
+                    <div class="">
+                        <label>Email Contact</label>
+                        <input type="email" class="form-control" ng-model="user.contactEmail"/>
+                    </div>
+                    <div class="m-t-sm">
+                        <label>Phone</label>
+                        <input type="text" class="form-control" ng-model="user.phone"/>
+                    </div>
+                    <div class="m-t-sm im">
+                        <label>IM</label>
+                        <div class="clear clearfix"></div>
+                        <select data-ng-include="'tpl/utils/IM.html?v=' + app.latestUpdate" class="form-control pull-left" ng-model="user.imContacts[0]"></select>
+                        <input type="text" class="form-control pull-left" ng-model="user.imContacts[1]"/>
+                        <div class="clear clearfix"></div>
+                    </div>
+                    <div class="m-t-sm text-right">
+                        <button class="btn btn-blue-lt r-2x" type="submit" ng-disabled="updateIMDetails.$invalid || updateInstantContacts">
+                            <span class="" ng-hide="updateInstantContacts">Save</span>
+                            <span class="" ng-show="updateInstantContacts">Updating <i class="fa fa-spinner fa-spin"></i></span> 
+                        </button>
+                        <button class="btn btn-default r-2x m-l-xs" type="button" ng-click="personalDetailsForm(false); cancel(updateIMDetails);" name="cancel" onclick="$('html').trigger('click');">Cancel</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            
+            <a href="" class="text-black-dk m-l-sm b-r padder-r padder-v-sm hover-text-blue-lt hidden-xs pull-right" ng-click="shareProfile('sm')">
+                <span class="fa fa-share-alt"></span>
+                <span class="m-l-xs inline">Share</span>
+            </a>
+            
+            <a href="" class="text-black-dk b-r padder-r padder-v-sm hover-text-blue-lt pull-right" ng-click="personalDetailsForm(true)">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <span class="m-l-xs inline" uib-popover="Those information are mandatory to access Jobs" popover-enable="fromJobModal && (!user.miniResume || user.miniResume.length <= 0)" popover-is-open="fromJobModal && (!user.miniResume || user.miniResume.length <= 0) && !editprofile" popover-trigger="'none'" popover-class="popover-validator">Edit</span>
+            </a>
+            
+        </div>
+        <div class="">
+            <div class="job_details" ng-class="windowWidth <= 480 ? 'block' : ''" ng-if="user.jobTitle">
+                <div class="col-sm-9 col-xs-12 text-md text-black-dker padder-v-sm"
+                     ng-class="windowWidth <= 480 ? 'm-t-xs m-b-xs no-padder' : ''">
+                    <span>{{ user.jobTitle}}</span> 
+                    <span ng-if="!user.companyPage.employee.company && user.company">at {{ user.company}}</span>
+                    <span ng-if="user.companyPage.employee.company && user.company"> at <a class="hover-text-blue-lt hover-underline" ui-sref="app.page.company/public({companyusername: user.companyPage.employee.company})">{{ user.company}}</a></span>
+                </div>
+            </div>
+            <div class="mini_resume" ng-class="windowWidth <= 480 ? 'block' : ''" ng-if="user.miniResume">
+                <div class="col-sm-9 col-xs-12 text-md text-gray-lter padder-v-sm"
+                     ng-class="windowWidth <= 480 ? 'm-t-xs m-b-xs no-padder' : ''">{{ user.miniResume}}</div>
+            </div>
+            <div class="keyword_tags padder-v-xs" ng-class="windowWidth <= 480 ? 'block' : ''">
+
+                <div class="col-sm-9 col-xs-12 padder-v-sm">
+                    <div class="inline-only text-md m-r-sm text-gray-lter">
+                        Interests: 
+                    </div> 
+
+                    <div ng-if="user.keywords.length > 0" class="inline-only m-l-n-xs m-t-xs text-gray text-md m-r-xs">
+                        <span class="text-blue-lt hover-text-blue-lt hover-pointer hover-underline m-r-sm" ng-repeat="keyword in user.keywords.slice(0, 5) track by $index">
+                            #{{ keyword.text ? keyword.text : keyword }}
+                        </span>
+                    </div>
+
+                    <span class="text-gray hover-text-blue-lt inline hover-pointer" ng-click="interestedKeywordsForm(true);">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </span>
+
+
+                </div>
+                <!--
+                <a href="" 
+                   class="font-bold padder-v-xs pull-left text-black-dk hover-text-blue-lt" 
+                   ng-class="{'m-l-xs': windowWidth <= 480, 'm-t-sm m-l-sm' : windowWidth > 480, 'm-l': user.keywords.length <= 0}"
+                   ng-click="interestedKeywordsForm(true);">
+                    <span ng-if="user.keywords.length > 0">Edit your interests</span>
+                    <span ng-if="user.keywords.length <= 0">Add your interests</span>
+                </a>
+
+                <div ng-if="user.keywords.length > 0" class="pull-left padder-t-xs" ng-class="windowWidth <= 480 ? '' : 'text-ellipsis-sp padder-l-sm'">
+                    <div class="r-3x padder-v-sm padder text-center label-green-light hover-pointer" ng-repeat="keyword in user.keywords.slice(0, 5) track by $index">{{ keyword.text}}</div>
+                </div>-->
+
+            </div>
+            <div class="mutual_connections">
+                <div class="col-sm-9 text-black-dk" 
+                     ng-class="windowWidth <= 480 ? '' : 'padder-v-sm'" 
+                     ng-init="connections = (user.inTouch | toArray | filter:{status: '3'} | orderBy:'-date')">
+                    <div class="inline">
+                        <img class="thumb-xxxs img-circle bg-white" 
+                             ng-if="connections[0]" src="{{app.baseUrl}}{{connections[0].avatar ? connections[0].avatar : '/img/mit-default-avatar.svg'}}?v={{ app.latestUpdate}}"/>
+                        <img class="thumb-xxxs img-circle m-l-n bg-white"
+                             ng-if="connections[1]" src="{{app.baseUrl}}{{connections[1].avatar ? connections[1].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate}}"/>
+                        <img class="thumb-xxxs img-circle m-l-n bg-white"
+                             ng-if="connections[2]" src="{{app.baseUrl}}{{connections[2].avatar ? connections[2].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate}}"/>
+                    </div>
+                    <div class="inline" ng-class="windowWidth <= 480 ? 'm-l-sm' : ''">
+                        <a class="hover-text-blue-lt hover-underline text-gray-lter" ng-class="windowWidth <= 480 ? 'block' : 'm-l-sm'" ui-sref="app.page.connections" ng-if="connections.length > 0"> {{ connections.length}} Connections</a>
+                        <a class="hover-text-blue-lt hover-underline text-gray-lter" ng-class="windowWidth <= 480 ? 'block' : ''" ui-sref="app.page.connections" ng-if="connections.length <= 0"> 0 Connections</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" ng-if="windowWidth <= 768">
+        <div>
+            <div ng-controller="AvatarModalCtrl" class="pull-left col-sm-3 no-padder" ng-class="windowWidth <= 480 ? 'w-xs m-t-n' : 'w m-t-n-xl'">
+                <div class="">
+                    <a ng-click="open('lg')" class="avatar b b-white" ng-class="windowWidth <= 480 ? '' : 'b-2x'">
+                        <img ng-if="user.avatar" src="{{app.baseUrl}}{{user.avatar}}" class="avatar w-full img-circle" crossorigin="anonymous" onload="getAverageRGB(this)"/>
+                        <img ng-if="!user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" class="avatar w-full bg-white" />
+                        <!--<div class="avatar w-full bg-black dk" style="background-image: url('cdn/img/icons/camera.png');background-repeat: no-repeat;background-position: center;opacity: 0.7;" ng-style="windowWidth <= 480 ? {'background-size': '30px'} : {}">
+                            <img src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" class="avatar w-full b b-white b-2x opacity-0 m-t-n-100"/>
+                        </div>-->
+                        <div class="update-img avatar">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="pull-left m-l-xs">
+                <h1 class="text-head text-black-d font-normal inline m-n">{{ user.name}} {{ user.lastname}}</h1>
+                <div class="text-black-dk" ng-class="windowWidth <= 480 ? 'no-padder' : 'm-r-sm'">
+                    <span class="fa fa-map-marker"></span>
+                    <span ng-if="user.basedCountry"> {{ user.city}}, {{ 'country.' + user.basedCountry | translate }}</span>
+                    <span ng-if="!user.basedCountry"> {{ user.city}} </span>
+                </div>
+                <div ng-class="windowWidth <= 480 ? 'block' : 'inline'">
+                    <a class="m-l-xs text-black-dk" ng-if="user.linkedin" href="{{ user.linkedin}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-linkedin"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="user.twitter" href="{{ user.twitter}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-twitter"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="user.facebook" href="{{ user.facebook}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-facebook"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="user.github" href="{{ user.github}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-github"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="user.stackOverflow" href="{{ user.stackOverflow}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-stack-overflow"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="user.dribbble" href="{{ user.dribbble}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-dribbble"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="user.behance" href="{{ user.behance}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-behance"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="user.instagram" href="{{ user.instagram}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-instagram"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="user.pinterest" href="{{ user.pinterest}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-pinterest"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="user.website" href="{{ user.website}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-globe"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="user.otherLink" href="{{ user.otherLink}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-link"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="job_details" ng-class="windowWidth <= 480 ? 'block' : ''" ng-if="user.jobTitle">
+                <div class="col-sm-9 col-xs-12 text-md text-black-dker"
+                     ng-class="windowWidth <= 480 ? 'm-t-xs no-padder' : ''">
+                    <span>{{ user.jobTitle}}</span> 
+                    <span ng-if="!user.companyPage.employee.company && user.company">at {{ user.company}}</span>
+                    <span ng-if="user.companyPage.employee.company && user.company"> at <a class="hover-text-blue-lt hover-underline" ui-sref="app.page.company/public({companyusername: user.companyPage.employee.company})">{{ user.company}}</a></span>
+                </div>
+                <div class="mini_resume" ng-class="windowWidth <= 480 ? 'block' : ''">
+                    <div class="col-sm-9 col-xs-12 text-md text-gray-lter"
+                         ng-class="windowWidth <= 480 ? 'm-t-xs no-padder' : ''">{{ user.miniResume}}</div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="pull-left">
+                <div class="text-black-dk" 
+                     ng-class="windowWidth <= 480 ? 'm-t-xs' : 'm-t-sm'" 
+                     ng-init="connections = (user.inTouch | toArray | filter:{status: '3'} | orderBy:'-date')">
+                    <div class="inline">
+                        <img class="thumb-xxxs img-circle bg-white" 
+                             ng-if="connections[0]" src="{{app.baseUrl}}{{connections[0].avatar ? connections[0].avatar : '/img/mit-default-avatar.svg'}}?v={{ app.latestUpdate}}"/>
+                        <img class="thumb-xxxs img-circle m-l-n bg-white"
+                             ng-if="connections[1]" src="{{app.baseUrl}}{{connections[1].avatar ? connections[1].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate}}"/>
+                        <img class="thumb-xxxs img-circle m-l-n bg-white"
+                             ng-if="connections[2]" src="{{app.baseUrl}}{{connections[2].avatar ? connections[2].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate}}"/>
+                    </div>
+                    <div class="inline" ng-class="windowWidth <= 480 ? 'm-l-sm' : ''">
+                        <a class="hover-text-blue-lt hover-underline text-gray-lter" ng-class="windowWidth <= 480 ? 'block' : 'm-l-sm'" ui-sref="app.page.connections" ng-if="connections.length > 0"> {{ connections.length}} Connections</a>
+                        <a class="hover-text-blue-lt hover-underline text-gray-lter" ng-class="windowWidth <= 480 ? 'block' : ''" ui-sref="app.page.connections" ng-if="connections.length <= 0"> 0 Connections</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pull-right">
+                <div class="col-sm-3 col-xs-12 dropdown padder-xs padder-t-xs" 
+                     ng-class="windowWidth <= 480 ? 'pull-none-xs' : 'pull-right text-right'"
+                     auto-close="outsideClick" is-open="status.isopen" uib-dropdown>
+                    <a href="" class="text-black-dk b-r padder-r padder-v-sm hover-text-blue-lt hidden-xs" ng-click="shareProfile('sm')">
+                        <span class="fa fa-share-alt"></span>
+                        <span class="m-l-xs inline">Share</span>
+                    </a>
+                    <a href="" class="text-black-dk m-l-sm b-r padder-r padder-v-sm hover-text-blue-lt" ng-click="personalDetailsForm(true)">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="m-l-xs inline" uib-popover="Those information are mandatory to access Jobs" popover-enable="fromJobModal && (!user.miniResume || user.miniResume.length <= 0)" popover-is-open="fromJobModal && (!user.miniResume || user.miniResume.length <= 0) && !editprofile" popover-trigger="'none'" popover-class="popover-validator">Edit</span>
+                    </a>
+                    <a href="" class="text-black-dk m-l-sm dropdown-toggle inline hover-pointer padder-v-sm hover-text-blue-lt" data-toggle="dropdown" uib-dropdown-toggle>
+                        <span class="fa fa-address-card-o"></span>
+                        <span class="m-l-xs inline" uib-popover="Those information are mandatory to access Jobs" popover-enable="fromJobModal && (!user.contactEmail || !user.phone || !user.imContacts)" popover-is-open="fromJobModal && (!user.contactEmail || !user.phone || !user.imContacts) && !status.isopen" popover-is-open="true" popover-class="popover-validator" popover-placement="bottom">Contact Info</span>
+                    </a>
+                    <div class="dropdown-menu contact-info well lt" uib-dropdown-menu>
+                        <span class="arrow top contact-info"></span>
+                        <form name="updateIMDetails" class="w-lg padder padder-v form-validation form-horizontal" ng-submit="editInstantContactDetails(updateIMDetails)">
+                            <div class="">
+                                <label>Email Contact</label>
+                                <input type="email" class="form-control" ng-model="user.contactEmail"/>
+                            </div>
+                            <div class="m-t-sm">
+                                <label>Phone</label>
+                                <input type="text" class="form-control" ng-model="user.phone"/>
+                            </div>
+                            <div class="m-t-sm im">
+                                <label>IM</label>
+                                <div class="clear clearfix"></div>
+                                <select data-ng-include="'tpl/utils/IM.html?v=' + app.latestUpdate" class="form-control pull-left" ng-model="user.imContacts[0]"></select>
+                                <input type="text" class="form-control pull-left" ng-model="user.imContacts[1]"/>
+                                <div class="clear clearfix"></div>
+                            </div>
+                            <div class="m-t-sm text-right">
+                                <button class="btn btn-blue-lt r-2x" type="submit" ng-disabled="updateIMDetails.$invalid || updateInstantContacts">
+                                    <span class="" ng-hide="updateInstantContacts">Save</span>
+                                    <span class="" ng-show="updateInstantContacts">Updating <i class="fa fa-spinner fa-spin"></i></span> 
+                                </button>
+                                <button class="btn btn-default r-2x m-l-xs" type="button" ng-click="personalDetailsForm(false); cancel(updateIMDetails);" name="cancel" onclick="$('html').trigger('click');">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="keyword_tags" ng-class="windowWidth <= 480 ? 'block' : ''">
+            <!--<div ng-if="user.keywords.length > 0" class="pull-left padder-t-xs" ng-class="windowWidth <= 480 ? '' : 'text-ellipsis-sp padder-l-sm'">
+                <div class="r-3x padder-v-sm padder text-center label-green-light hover-pointer" ng-repeat="keyword in user.keywords.slice(0, 5) track by $index">{{ keyword.text}}</div>
+            </div>-->
+            <div class="col-sm-9 col-xs-12" ng-class="windowWidth <= 480 ? 'm-t-xs no-padder' : ''">
+                <div class="inline-only text-md m-r-sm text-gray-lter">
+                    Interests: 
+                </div> 
+
+                <div ng-if="user.keywords.length > 0" class="inline-only m-l-n-xs m-t-xs text-gray text-md m-r-xs">
+                    <span class="text-blue-lt hover-text-blue-lt hover-pointer hover-underline m-r-sm" ng-repeat="keyword in user.keywords.slice(0, 5) track by $index">
+                        #{{ keyword.text ? keyword.text : keyword }}
+                    </span>
+                </div>
+
+                <span class="text-gray hover-text-blue-lt inline hover-pointer" ng-click="interestedKeywordsForm(true);">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of edit keywords -->
+<script>
+    function getAverageRGB(imgEl) {
+
+        if (angular.element('.profile_cover').length <= 0) {
+            return;
+        }
+
+        var cover = angular.element('.profile_cover');
+        var innerCover = angular.element('.profile_cover div');
+        var blockSize = 5, // only visit every 5 pixels
+                defaultRGB = {r: 0, g: 0, b: 0}, // for non-supporting envs
+        canvas = document.createElement('canvas'),
+                context = canvas.getContext && canvas.getContext('2d'),
+                data, width, height,
+                i = -4,
+                length,
+                rgb = {r: 0, g: 0, b: 0},
+        count = 0;
+        if (!context) {
+            return defaultRGB;
+        }
+
+        height = canvas.height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
+        width = canvas.width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
+        context.drawImage(imgEl, 0, 0);
+        try {
+            data = context.getImageData(0, 0, width, height);
+        } catch (e) {
+            /* security error, img on diff domain */alert('x');
+            return defaultRGB;
+        }
+
+        length = data.data.length;
+        while ((i += blockSize * 4) < length) {
+            ++count;
+            rgb.r += data.data[i];
+            rgb.g += data.data[i + 1];
+            rgb.b += data.data[i + 2];
+        }
+
+        // ~~ used to floor values
+        rgb.r = ~~(rgb.r / count);
+        rgb.g = ~~(rgb.g / count);
+        rgb.b = ~~(rgb.b / count);
+        cover.css({'background': 'rgb(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')', 'filter': 'blur(0px)'});
+        innerCover.css({'background': 'rgba(255, 255, 255, 1)', 'opacity': '0.75'});
+        return rgb;
+    }
+</script>

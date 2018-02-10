@@ -1,0 +1,28 @@
+<div id="services" class="container" ng-if="viewUser.services.length > 0">
+    <div class="w-full b-a r-2x m-t-lg">
+        <div class="col-xs-12">
+            <div class="m-t-sm" ng-class="windowWidth <= 480 ? '' : 'padder-r-md'">
+                <div class="text-20 text-black-d">
+                    <div class="pull-left m-t-sm padder">
+                        <h3 class="text-20 m-n">Services</h3>
+                    </div>
+                    <div class="pull-left" ng-class="windowWidth <= 480 ? 'w-full' : 'm-l'">
+                        <uib-tabset class="nav-tabs-alt tabs-services">
+                            <uib-tab ng-repeat="service in serviceTabs track by $index" heading="{{service.service}}" active="service.active" ng-click="updateSelectedIndex($index);" class="text-u-c"></tab>
+                        </tabset>
+                    </div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+            <div class="col-xs-12 m-b-lg" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+                <div class="m-b-lg b-a padder-lg padder-v-lg bg-light lt r-3x">
+                    <div ng-include="'tpl/blocks_public/user/service_listing_to_view.html?v={{app.latestUpdate}}'"></div>
+                </div>
+                <div ng-include="'tpl/blocks_public/user/service_clients.html?v={{app.latestUpdate}}'"></div>
+                <div class="clear clearfix"></div>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+</div>

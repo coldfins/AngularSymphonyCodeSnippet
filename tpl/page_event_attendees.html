@@ -1,0 +1,55 @@
+<div ng-cloak class="hbox hbox-auto-xs hbox-auto-sm m-t" ng-init="app.settings.container = true;">
+    <div class="col padder" ng-controller="EventController">
+
+        <div class="col-xs-12 no-padder b-b m-b">
+            <div class="pull-right m-t-sm">
+                <a ng-if="(user.attending | filter:event.username).length <= 0 || !user.attending" class="btn btn-sm btn-dark w-xs" rel="nofollow" ng-click="attend('mss', 'MAX SUMMIT 2015 SEOUL')">
+                    <span class="font-bold" ng-hide="loadingAttendingEvent">I will attend</span>
+                    <span ng-show="loadingAttendingEvent"><i class="fa fa-spin fa-spinner"></i></span>
+                </a>
+                <!--<a ng-if="(user.attending | filter:'mgs').length > 0" class="btn btn-sm btn-default w-xs" rel="nofollow" ng-click="dontattend('mgs')">
+                    <span class="font-bold" ng-hide="loadingAttendingEvent" >I'm not going</span>
+                    <span ng-show="loadingAttendingEvent"><i class="fa fa-spin fa-spinner"></i></span>
+                </a>-->
+            </div>
+            <h3 class="h3 text-primary m-b-xs">{{event.name}}: {{event.attendees.length || '0'}} attendees</h3>
+            <p class="text-muted m-b-xs">People attending to {{event.name}}.</p>
+        </div>
+
+        <div ng-if="event.attendees.length" class="row">
+            <div ng-repeat="attendee in event.attendees | orderBy:'-date'" class="col-xs-12 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="clearfix">
+                            <a ui-sref="app.page.public({username: attendee.username})" class="pull-left thumb-md avatar b-3x m-r">
+                                <img ng-show="attendee.avatar" src="{{app.baseUrl}}{{attendee.avatar}}" class="img-circle">
+                                <img ng-hide="attendee.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                            </a>
+                            <div class="clear">
+                                <div class="text-md font-bold">
+                                    <a ui-sref="app.page.public({username: attendee.username})">
+                                        {{ attendee.name | capitalize }} {{ attendee.lastname | capitalize }}<span class="premium-box"></span>
+                                    </a>
+                                </div>
+                                <div class="text-sm"><a ui-sref="app.page.public({username: attendee.username})" class="text-dark-dker">{{ attendee.jobTitle | capitalize }}</a></div>
+                                <div class="text-sm"><a ui-sref="app.page.public({username: attendee.username})" class="text-dark-lter">{{ attendee.company  | capitalize }}</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group no-radius alt">
+                        <a ui-sref="app.page.public({username: attendee.username})" class="list-group-item">
+                            <i class="fa fa-eye fa-fw"></i> Visit the profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ TODAY -->
+
+
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="col w-lg" data-ng-include=" 'tpl/blocks_general/right_sidebar.html?v='+ app.latestUpdate "></div><!--/ RIGHT SIDEBAR -->
+
+</div>

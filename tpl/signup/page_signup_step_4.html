@@ -1,0 +1,91 @@
+<style>
+    .popover{
+        min-width: 345px;
+        width: 345px;
+    }
+</style>
+<div ng-init="app.settings.container = false; app.settings.headerFixed = false;" ng-controller="RegisterStepsFormController">
+    <nav class="navbar navbar-fixed-top pos-rlt">
+        <div class="container-fluid">
+            <div class="padder-lg padder-v-lg">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+            <!--        <a ui-sref="index" class="navbar-brand hidden-xs signup-close" data-ng-click="track('Back On Landing Page', 'Navbar', 'Cross Button')">
+                        <span><svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path d="M6 4.586l4.24-4.24c.395-.395 1.026-.392 1.416-.002.393.393.39 1.024 0 1.415L7.413 6l4.24 4.24c.395.395.392 1.026.002 1.416-.393.393-1.024.39-1.415 0L6 7.413l-4.24 4.24c-.395.395-1.026.392-1.416.002-.393-.393-.39-1.024 0-1.415L4.587 6 .347 1.76C-.05 1.364-.048.733.342.343c.393-.393 1.024-.39 1.415 0L6 4.587z" fill-rule="evenodd"></path></svg></span>
+                    </a> --->
+                    <a ui-sref="index" class="navbar-brand w-xxs visible-xs" data-ng-click="track('Back On Landing Page', 'Navbar', 'Logo')" ><i class=" icon-arrow-left text-xl"></i></a>
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+    </nav>
+
+    <div class="vertical-center flex-center">
+        <div class="container pos-rlt animated fadeIn">
+            <div class="row">
+
+                <div class="">
+                    <div class="text-center">
+                        <span class="text-2x text-black-dker text-48">Upload a photo of yourself</span>
+                    </div>
+                    <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4" ng-if="!user.facebookId || !user.googleId">
+                        <div class="text-center padder-v text-md">
+                            <span class="">Although we're just getting to know each other, we're fairly confident that you look a lot better than the default profile image below.</span>
+                        </div>
+                        <div class="text-center padder-v text-md">
+                            <span class="">You can use the default profile image if you want but we recommend a real photo for your profile.</span>
+                        </div>
+                        <form name="signupform3" ng-controller="AvatarModalCtrl" class="form-horizontal form-validation">
+                            <div class="col-xs-12 text-center m-t-md m-b-md">
+                                <div class="col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3">
+                                    <a ng-click="open('lg')" class="avatar b b-2x b-white">
+                                        <img ng-show="user.avatar" src="{{app.baseUrl}}{{user.avatar}}" class="avatar w-full img-circle" />
+                                        <img ng-hide="user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" class="avatar w-full"/>
+                                        <!--<div ng-if="!user.avatar" class="avatar w-full bg-black dk" style="background-image: url('cdn/img/upload-profile-photo.png');background-repeat: no-repeat;background-position: center;opacity: 0.7;">
+                                            <img src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="avatar w-full b b-white b-2x opacity-0 m-t-n-100">
+                                        </div>
+                                        <div ng-if="user.avatar" class="avatar w-full bg-black dk" style="background-image: url('cdn/img/upload-profile.png');background-repeat: no-repeat;background-position: center;opacity: 0.7;">
+                                            <img src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="avatar w-full b b-white b-2x opacity-0 m-t-n-100">
+                                        </div>-->
+                                        <div class="update-img">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="clear clearfix"></div>
+                            </div>
+                            <div class="m-b-xxl" ng-if="user.avatar">
+                                <a ui-sref="access.step5" class="btn btn-lg btn-blue-lt m-t-lg col-xs-12">
+                                    <span class="text-lg">Continue <span class="text-sm"> <i class="fa fa-angle-double-right"></i></span></span>
+                                </a>
+                                <div class="clear clearfix"></div>
+                            </div>
+                            <div class="clear clearfix"></div>
+                            <div class="m-t-lg m-b-xxl text-center" ng-if="!user.avatar">
+                                <a href="" uib-popover-template="'popover.html'" popover-trigger="'click'" popover-is-open="popover.isOpen" popover-trigger="'click'">Skip this step</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="popover.html">
+<div class='padder padder-t-md text-center'>
+<div class='text-md'>
+Recruiters spends 19% of their time looking at profile pictures, then, current job position and education.
+</div>
+<div class='text-md m-t-md m-b-md'>
+Are you sure you want to skip this step?
+</div>
+<div class='col-xs-12 m-b-md'>
+<div class='col-xs-6'>
+<a class='btn no-border pull-right text-md' ui-sref='access.step5'>Yes</a>
+</div>
+<div class='col-xs-6'>
+<a class='btn btn-blue-lt no-border pull-left text-md padder r-3x no' ng-click='$parent.popover.isOpen=false;'>No</a>
+</div>
+</div>
+</div>
+</script>

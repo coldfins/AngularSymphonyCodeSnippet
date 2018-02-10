@@ -1,0 +1,41 @@
+<style>
+    body{
+        background-color: #f6f6f6;
+    }
+</style>
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+<div class="hbox hbox-auto-xs hbox-auto-sm visitor" ng-init="app.settings.container = false;app.settings.headerFixed = true;" ng-cloak>
+    <!--COMPANY CARD EDIT-->
+    <div data-ng-include=" 'tpl/blocks_public/company/company_card.html?v=' + app.latestUpdate"></div>
+    <div class="container no-padder">
+        <div class="col-sm-8">
+            <div data-ng-include=" 'tpl/blocks_public/company/company_about_us.html?v=' + app.latestUpdate"></div>
+            <div data-ng-include=" 'tpl/blocks_public/company/company_product.html?v=' + app.latestUpdate"></div>
+            <div data-ng-include=" 'tpl/blocks_public/company/company_direct_connection.html?v=' + app.latestUpdate"></div>
+            <div data-ng-include=" 'tpl/blocks_public/company/company_teams.html?v=' + app.latestUpdate"></div>
+            <div id="recent_updates" data-ng-include=" 'tpl/blocks_public/company/company_feed.html?v=' + app.latestUpdate"></div>
+        </div>
+        <div class="col-sm-4">
+            <div data-ng-include=" 'tpl/blocks_public/company/company_widget_jobs.html?v=' + app.latestUpdate"></div>
+            <div data-ng-include=" 'tpl/blocks_public/company/company_widget_similar_company.html?v=' + app.latestUpdate"></div>
+        </div>
+    </div>
+</div>
+<div class="m-t-3xl visitor" ng-if="userMode == 'visitor'" ng-include="'tpl/blocks_general/footer/visitor_footer.html?v=' + app.latestUpdate"></div>
+<div class="m-t-lg" ng-if="userMode == 'member'" ng-include="'tpl/blocks_general/footer/member_footer.html?v=' + app.latestUpdate"></div>
+<script>
+            $("#location").keypress(function (e) {
+                if (e.which === 13) {
+                    return false;
+                }
+            });
+</script>
+

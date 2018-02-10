@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /json/
+Disallow: /l10n/
+Disallow: /psd/
+Disallow: /tpl/

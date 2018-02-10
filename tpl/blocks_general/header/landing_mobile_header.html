@@ -1,0 +1,84 @@
+<nav class="navbar-md navbar-fixed-top bg-white">
+    <div class="container" ng-controller="TypeaheadSearchCtrl">
+        <div class="navbar-header" ng-class="{'w-lg':windowWidth >= 767}">
+            <button class="pull-right visible-xs" id="sidebar_toggle" data-toggle="sidebar" data-target=".sidebar-right">
+                <i class="fa fa-navicon fa-fw"></i>
+            </button>
+
+            <a ui-sref="index" data-ng-click="track('Landing Page', 'Navbar', 'Logo')">
+                <img src="{{app.baseUrl}}/img/landing/company-logo/mobintouch-logo.png" class="logo pull-left" alt="Mobintouch logo red">
+                <span class="hidden">Mobintouch Mobile Advertising Community</span>
+                <div class="inline pull-left m-t-sm m-l-xs">
+                    <div class="font-multicolore blue text-uppercase text-md">MOBINTOUCH</div>
+                    <div class="font-roboto gray site-subtitle">Mobile Apps &amp; Games Community</div>
+                </div>
+                <div class="clear clearfix"></div>
+            </a>
+
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="col-xs-10 sidebar sidebar-right sidebar-animate bg-white no-padder" style="overflow-x: hidden" ng-style="{'height':windowHeight - 60}" resize>
+            <!-- SEARCH -->
+            <form class="navbar-left hidden-sm hidden-md" target=".navbar-collapse" ui-shift="prependTo" role="search">
+                <div class="b-b search-wrapper has-feedback">
+                    <div class="search icon pull-left" style="background: url('{{ app.baseUrl}}/img/icons/search.png') no-repeat"></div>
+                    <input 
+                        type="text" 
+                        class="padder-sm search" 
+                        style="width: calc(100% - 20px);"
+                        placeholder="SEARCH"
+                        ng-model="query.headerString"
+                        min-length="1"
+                        uib-typeahead="fuser.name for fuser in (autocomplete($viewValue) | limitTo:5)"
+                        typeahead-loading='loading_search'
+                        typeahead-focus-first="false"
+                        typeahead-template-url="tpl/blocks_general/header/header-autocomplete.html?v={{app.latestUpdate}}"
+                        typeahead-dropdown-custom-class="demo-class"
+                        typeahead-on-select="itemSelect($item, $model, $label)"/>
+                    <i ng-show="loading_search" class="fa fa-spinner fa-spin form-control-feedback input-loader-sm m-t"></i>
+                </div>
+            </form>
+            <!--/ SEARCH -->
+
+            <!-- NAVBAR RIGHT -->
+            <ul class="nav navbar-stacked navbar-nav navbar-right m-n">
+                <li>
+                    <a ui-sref="app.page.jobs" onclick="document.getElementById('sidebar_toggle').click()">
+                        <span class="text-uppercase font-roboto gray text-normal">Jobs</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="access.recruit" onclick="document.getElementById('sidebar_toggle').click()">
+                        <span class="text-uppercase font-roboto gray text-normal">Recruit</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.page.companies" onclick="document.getElementById('sidebar_toggle').click()">
+                        <span class="text-uppercase font-roboto gray text-normal">Companies</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.page.peoples" onclick="document.getElementById('sidebar_toggle').click()">
+                        <span class="text-uppercase font-roboto gray text-normal">People</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.page.qa" onclick="document.getElementById('sidebar_toggle').click()">
+                        <span class="text-uppercase font-roboto gray text-normal">Q&A</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="access.signin" onclick="document.getElementById('sidebar_toggle').click()">
+                        <span class="text-uppercase font-roboto gray text-normal">Log In</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="access.signup" onclick="document.getElementById('sidebar_toggle').click()">
+                        <span class="text-uppercase font-roboto gray text-normal">Sign Up</span>
+                    </a>
+                </li>
+            </ul><!-- /NAVBAR RIGHT -->
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

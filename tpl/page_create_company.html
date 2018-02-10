@@ -1,0 +1,35 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm m-t" ng-controller="CompanyCreateFormController" ng-init="app.settings.container = true;">
+
+    <div class="wrapper-xl text-center">
+        <img src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" class="thumb-xl m-b-lg">
+        <h1 class="h3">Create a company page</h1>
+        <h3 class="text-lg text-center text-dark">Your company page does not exist. Do you wish to create one?</h3>
+    </div>
+
+    <div class="wrapper">
+        <div class="row">
+            <div class="form-group text-center">
+                <form ng-submit="createCompanyPage()" name="createCompanyPageForm" class="form-validation form-horizontal">
+                    <div class="col-lg-12">
+                        Company name:
+                        <input type="text" class="form-control inline w-xl" ng-pattern="/^[a-zA-Z-0-9 '.,-/\&]{2,100}$/" maxlength="100" ng-model="user.company" ng-trim="true" required >
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="m-t-lg text-center">
+                            <button class="btn btn-blue-lt" type="submit" ng-disabled='createCompanyPageForm.$invalid || isAvailable==false'>
+                                <span ng-hide="loadingCreatingPage" class="text-lg">Create Company Page</span>
+                                <span ng-show="loadingCreatingPage" class="text-lg"><i class="fa fa-spin fa-circle-o-notch"></i>Creating company page</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="col w-lg" data-ng-include=" 'tpl/blocks_general/right_sidebar.html?v='+ app.latestUpdate "></div><!--/ RIGHT SIDEBAR -->
+
+</div>

@@ -1,0 +1,45 @@
+<style>
+    .progress {
+        background-color: #131e26;
+    }
+    .progress {
+        border-radius: 4px;
+        height: 3px;
+        margin-bottom: 5px;
+    }
+</style>
+<div class="row" ng-if="companyPercentage < 100">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p class="h4 font-bold text-center clear" style="color: rgb(64, 64, 64);font-weight: 600;padding: 0 7%;word-spacing: 2.5px;">Complete your company profile and get more visibility.</p>
+                <div class="row no-gutter m-t-lg">
+                    <div class="text-lg text-center col-xs-12" >
+                        <p class="clear">
+                            <span class="col-xs-1"></span>
+                            <span class="col-xs-4 text-left" style="color:#636363;font-size: 13px;font-style: initial;font-weight: 100;">Profile Completion</span>
+                            <span class="col-xs-3"></span>
+                            <span class="col-xs-3 text-right" style="color:#636363;font-size: 13px;font-style: initial;font-weight: 100;">{{companyPercentage}}%</span>
+                            <span class="col-xs-1"></span>
+                        </p>
+                        <p class="">
+                            <span ng-if="companyPercentage < 100" class="col-xs-10 col-xs-offset-1">
+                                <progressbar style=" transition: width 1s ease-in-out;" class="progress-striped active" animate="true" max="100" value="companyPercentage" type="info"></progressbar>
+                            </span>
+                            <span ng-if="companyPercentage >= 100" class="col-xs-10 col-xs-offset-1" style="padding-bottom:10px">
+                                <progressbar style=" transition: width 1s ease-in-out;" class="progress-striped active" animate="true" max="100" value="companyPercentage" type="success"></progressbar>
+                            </span>
+                        </p>
+                        <p class="" ng-if="companyPercentage < 100"> 
+                            <span class="col-xs-10 col-xs-offset-1" style="color:#FF5F00;font-size: 14px;font-style: initial;font-weight: 100;padding-bottom:10px;">
+                                <img src="{{app.baseUrl}}/img/mobintouch-waring-logo.png" alt="Mobintouch warning logo" width="17px">
+                                Complete your profile, recruiters may not find you!
+                            </span>
+                        </p>
+                    </div>
+                    <div class="text-lg text-center col-xs-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

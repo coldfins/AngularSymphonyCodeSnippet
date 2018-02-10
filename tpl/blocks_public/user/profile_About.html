@@ -1,0 +1,29 @@
+<div class="container" ng-if="viewUser.summary || viewUser.competences.length > 0 || viewUser.languages.length > 0">
+    <div class="w-full b-a r-2x m-t-lg" id="about">
+        <div class="col-xs-12" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+            <div class="m-t-lg">
+                <div class="text-black-d m-l">
+                    <h3 class="m-n text-20">About</h3>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-10 m-t-lg m-b-xl">
+                <h4 class="text-17 m-n">What i am doing</h4>
+                <div class="m-t-sm text-black-dker">{{ viewUser.summary}}</div>
+
+                <h4 class="m-t-lg text-17">Skills</h4>
+                <div class="text-black-dk m-t-sm">
+                    <div ng-repeat="competence in viewUser.competences" class="rounded padder-v-sm padder bg-light dk pull-left m-r-xs m-t-xs">{{ competence.text ? competence.text : competence }}</div>
+                    <div class="clear clearfix"></div>
+                </div> 
+
+                <h4 class="m-t-lg text-17">Languages</h4>
+                <div class="text-black-dk m-t-sm">
+                    <div ng-repeat="language in viewUser.languages" class="rounded padder-v-sm padder bg-light dk pull-left m-r-xs m-t-xs">{{ language.text ? language.text : language}}</div>
+                    <div class="clear clearfix"></div>
+                </div>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+</div>

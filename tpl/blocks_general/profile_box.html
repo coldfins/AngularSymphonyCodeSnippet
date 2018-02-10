@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="clearfix">
+            <a ui-sref="app.page.public({username: result.username})" class="pull-left thumb-md avatar b-3x m-r">
+                <img ng-show="result.avatar" src="{{app.baseUrl}}{{result.avatar}}" class="img-circle">
+                <img ng-hide="result.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+            </a>
+            <div class="clear">
+                <div class="text-md text-ellipsis">
+                    <a ui-sref="app.page.public({username: result.username})" class="font-bold">{{ result.name | capitalize }} {{ result.lastname | capitalize }}
+                        <span class="premium-box"></span>
+                    </a>
+                </div>
+                <a class="text-sm" ng-if="result.mutualConnections && result.mutualConnections.length > 0" tooltip-html-unsafe="{{getMutualConnectionList(result.mutualConnections)}}">{{ result.mutualConnections.length}} Mutual Connections</a>
+                <div class="text-sm text-ellipsis"><a ui-sref="app.page.public({username: result.username})" class="text-dark-dker">{{ result.jobTitle | capitalize }}</a></div>
+                <div class="text-sm text-ellipsis"><a ui-sref="app.page.public({username: result.username})" class="text-dark-lter">{{ result.company | capitalize }}</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="list-group no-radius alt">
+        <a ui-sref="app.page.public({username: result.username})" class="list-group-item">
+            <span ng-cloak ng-if="result.responseRate == 0 && result.totalReceivedEmails == 0" class="pull-right text-xs font-bold">Response rate N/A</span>
+            <span ng-cloak ng-if="result.responseRate != 0 || result.totalReceivedEmails != 0" class="pull-right text-xs font-bold">Response rate {{result.responseRate|| 0 | number:0 }}%</span>
+            <i class="fa fa-eye fa-fw"></i> Visit the profile
+        </a>
+    </div>
+</div>

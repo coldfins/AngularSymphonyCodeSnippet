@@ -1,0 +1,122 @@
+<div class="w-full b-a r-2x m-t-lg bg-white" ng-if="user && user.username" id="direct_connections">
+    <div class="col-xs-12 padder-v">
+        <div class="pull-left text-xl text-black-dker padder font-normal text-gray" ng-if="publicCompany.directWorkingConnections.length > 0">{{ publicCompany.directWorkingConnections.length}} Direct connections at this company</div>
+        <div class="pull-left text-xl text-black-dker padder font-normal text-gray" ng-if="publicCompany.directWorkingConnections.length <= 0">Direct connections at this company</div>
+        <div class="clear clearfix"></div>
+    </div>
+    <div class="col-xs-12 padder-v" ng-if="publicCompany.directWorkingConnections.length > 0">
+        <div class="col-sm-12 m-t padder-b" ng-class="{'b-b':!$last}" ng-repeat="dConnection in publicCompany.directWorkingConnections.slice(0, 5)| orderBy:'-date'">
+            <span class="pull-left thumb-md avatar m-r b-a">
+                <img ng-show="dConnection.avatar" src="{{ app.baseUrl}}{{ dConnection.avatar}}" alt="{{ dConnection.name}} {{ dConnection.lastname}}" class="">
+                <img ng-hide="dConnection.avatar" src="{{ app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" alt="{{ dConnection.name}} {{ dConnection.lastname}}" class="">
+            </span>
+            <div class="clear" ng-style="windowWidth <= 420 ? {'width': 'auto'} : {'width': '75%'}">
+                <a class="font-bold text-lg inline-block hover-black-dker hover-underline" ui-sref="app.page.public({username: dConnection.username})">{{ dConnection.name}} {{ dConnection.lastname}}</a>
+                <div>
+                    <span>{{ dConnection.jobTitle}}</span>
+                    <span ng-if="dConnection.city" class="m-l-n-xxs">, {{ dConnection.city}}</span>
+                    <span ng-if="dConnection.miniResume" class="text-gray"> • {{ dConnection.miniResume | subStr:0:160:true }}</span>
+                    <span ng-if="!dConnection.miniResume && dConnection.summary" class="text-gray"> • {{ dConnection.summary | subStr:0:160:true }}</span>
+                    <div class="interest-container padder-v-sm" ng-init="slice = 3" ng-if="dConnection.keywords.length > 0">
+                        <div class="hover-pointer text-blue-lt hover-underline inline m-r-sm" ng-repeat="keyword in dConnection.keywords.slice(0, slice)">#{{ keyword}}</div>
+                        <a class="inline text-xs text-gray" ng-if="dConnection.keywords.length > slice" ng-click="$parent.slice = ($parent.slice + 5)">More</a>
+                    </div>
+                    <div class="b-t padder-v m-t-sm" ng-if="dConnection.mutualConnections.length > 0" ng-init="mConnect = (dConnection.mutualConnections | toArray | orderBy:'- date'); connectionIndex = 0;">
+                        <a ui-sref="app.page.public({username: mConnect[1].username})">
+                            <img class="thumb-xxxs img-circle bg-white"
+                                 ng-if="mConnect[0]" src="{{app.baseUrl}}{{mConnect[0].avatar ? mConnect[0].avatar : '/img/mit-default-avatar.svg'}}?v={{ app.latestUpdate }}" uib-popover-template="'popover0.html'" popover-is-open="popoverIsopen0" ng-mouseenter="pConnection = mConnect[0]; popoverIsopen0 = true;" ng-mouseleave="popoverIsopen0 = false;" popover-trigger="'mouseenter'" popover-append-to-body="true"/>
+                        </a>
+                        <a ui-sref="app.page.public({username: mConnect[1].username})">
+                            <img class="thumb-xxxs img-circle m-l-n bg-white"
+                                 ng-if="mConnect[1]" src="{{app.baseUrl}}{{mConnect[1].avatar ? mConnect[1].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate }}" uib-popover-template="'popover1.html'" popover-is-open="popoverIsopen1" ng-mouseenter="pConnection = mConnect[1]; popoverIsopen1 = true;" ng-mouseleave="popoverIsopen1 = false;"/>
+                        </a>
+                        <a class="thumb-xxxs btn-rounded btn btn-default bg-white m-l-n" style="padding: 3px;" ng-if="mConnect.length > 2" uib-tooltip="+{{ mConnect.length - 2}} other connection" ng-click="viewMutualConnections(dConnection);">+</a>
+                        <span class="m-l-sm text-gray" ng-if="mConnect.length == 1">
+                            Mutual Connections with <a class="hover-black-dker hover-underline" ui-sref="app.page.public({username: mConnect[0].username})" uib-tooltip-template="'tooltip.html'" ng-mouseover="connectionIndex = 0">{{ mConnect[0].name}} {{ mConnect[0].lastname}}</a>
+                        </span>
+                        <span class="m-l-sm text-gray" ng-if="mConnect.length == 2">
+                            Mutual Connections with <a class="hover-black-dker hover-underline" ui-sref="app.page.public({username: mConnect[0].username})" uib-tooltip-template="'tooltip.html'" ng-mouseover="connectionIndex = 0">{{ mConnect[0].name}} {{ mConnect[0].lastname}}</a> and <a ng-if="mConnect[1]" class="hover-black-dker hover-underline" ui-sref="app.page.public({username: mConnect[1].username})" uib-tooltip-template="'tooltip.html'" ng-mouseover="connectionIndex = 1">{{ mConnect[1].name}} {{ mConnect[1].lastname}}</a>
+                        </span>
+                        <span class="m-l-sm text-gray" ng-if="mConnect.length > 2">
+                            Mutual Connections with <a class="hover-black-dker hover-underline" ui-sref="app.page.public({username: mConnect[0].username})" uib-tooltip-template="'tooltip.html'" ng-mouseover="connectionIndex = 0">{{ mConnect[0].name}} {{ mConnect[0].lastname}}</a>, <a ng-if="mConnect[1]" class="hover-black-dker hover-underline" ui-sref="app.page.public({username: mConnect[1].username})" uib-tooltip-template="'tooltip.html'" ng-mouseover="connectionIndex = 1">{{ mConnect[1].name}} {{ mConnect[1].lastname}}</a> and <a class="hover-black-dker hover-underline" ng-click="viewMutualConnections(dConnection);" uib-tooltip="+{{ mConnect.length - 2}} other connection">{{ mConnect.length - 2}} more</a>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="connection-action pull-right top-0 right-15" ng-class="windowWidth > 480 ? 'pos-abt' : ''">
+                <button class="btn" ng-class="{'btn-blue-lt':mouseOver, 'btn-blue-lt-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false" ng-click="sendMessage(dConnection)">Message</button>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="clear clearfix"></div>
+        <div class="text-center" ng-if="publicCompany.directWorkingConnections.length > 5">
+            <span class="text-center text-md font-bold m hover-pointer text-blue-lt hover-text-blue-lt hover-underline inline" ng-click="manageConnections()">See all {{ publicCompany.directWorkingConnections.length || 0 }} direct connections</span>
+        </div>
+    </div>
+    <div class="col-xs-12 padder-v" ng-if="publicCompany.directWorkingConnections.length <= 0">
+        <span class="text-md text-muted font-italic padder">0 direct connections work here</span>
+    </div>
+    <div class="clear clearfix"></div>
+</div>
+
+<script type="text/ng-template" id="popover0.html">
+    <div ng-mouseenter="$parent.popoverIsopen0 = true;" ng-mouseleave="$parent.popoverIsopen0 = false;">
+    <div ng-class="{'avatar-container':!pConnection.cover}">
+    <div ng-if="pConnection.cover"><img class="cover" src="{{app.baseUrl}}{{pConnection.cover}}"/></div>
+    <div class="inline pull-left">
+    <img class="thumb-md b-a img-circle" ng-class="{'avatar-cover':pConnection.cover,'avatar':!pConnection.cover}" ng-show="pConnection.avatar" src="{{app.baseUrl}}{{pConnection.avatar}}"/>
+    <img class="thumb-md b-a img-circle" ng-show="!pConnection.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}"/>
+    </div>
+    <div class="inline description">
+    <div class="padder-l-sm">
+    <a class="font-bold text-md block" ui-sref="app.page.public({username:  pConnection.username })" > {{pConnection.name}} {{pConnection.lastname}}</a>
+    <span class="text-gray text-sm" ng-if="!pConnection.miniResume && !pConnection.summary">{{ pConnection.jobTitle}}</span>
+    <span ng-if="connection.city && !pConnection.miniResume && !pConnection.summary" class="m-l-n-xxs text-gray text-sm">, {{ pConnection.city}}</span>
+    <div class="text-gray text-sm" ng-if="pConnection.miniResume">{{ pConnection.miniResume | subStr:0:160:true }}</div>
+    <div class="text-gray text-sm" ng-if="!pConnection.miniResume && pConnection.summary">{{ pConnection.summary | subStr:0:160:true }}</div>
+    </div>
+    </div>
+    <div class="clear clearfix"></div>
+    </div>
+    <div class="padder-v-sm padder-l-sm b-t m-t-sm">
+    <button class="btn" ng-class="{'btn-blue-lt':mouseOver, 'btn-blue-lt-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false" ng-click="$parent.popoverIsopen0 = false;sendMessage(pConnection);" ng-if="pConnection.isConnected">Message</button>
+    <button class="btn btn-blue-lt" ng-if="!pConnection.isConnected && !pConnection.isRequested && !pConnection.isRequest" ng-click="$parent.popoverIsopen0 = false;connect(pConnection);">Connect</button>
+    </div>
+    </div>
+</script>
+<script type="text/ng-template" id="popover1.html">
+    <div ng-mouseenter="$parent.popoverIsopen1 = true;" ng-mouseleave="$parent.popoverIsopen1 = false;">
+    <div ng-class="{'avatar-container':!pConnection.cover}">
+    <div ng-if="pConnection.cover"><img class="cover" src="{{app.baseUrl}}{{pConnection.cover}}"/></div>
+    <div class="inline pull-left">
+    <img class="thumb-md b-a img-circle" ng-class="{'avatar-cover':pConnection.cover,'avatar':!pConnection.cover}" ng-show="pConnection.avatar" src="{{app.baseUrl}}{{pConnection.avatar}}"/>
+    <img class="thumb-md b-a img-circle" ng-show="!pConnection.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}"/>
+    </div>
+    <div class="inline description">
+    <div class="padder-l-sm">
+    <a class="font-bold text-md block" ui-sref="app.page.public({username:  pConnection.username })" > {{pConnection.name}} {{pConnection.lastname}}</a>
+    <span class="text-gray text-sm" ng-if="!pConnection.miniResume && !pConnection.summary">{{ pConnection.jobTitle}}</span>
+    <span ng-if="connection.city && !pConnection.miniResume && !pConnection.summary" class="m-l-n-xxs text-gray text-sm">, {{ pConnection.city}}</span>
+    <div class="text-gray text-sm" ng-if="pConnection.miniResume">{{ pConnection.miniResume | subStr:0:160:true }}</div>
+    <div class="text-gray text-sm" ng-if="!pConnection.miniResume && pConnection.summary">{{ pConnection.summary | subStr:0:160:true }}</div>
+    </div>
+    </div>
+    <div class="clear clearfix"></div>
+    </div>
+    <div class="padder-v-sm padder-l-sm b-t m-t-sm">
+    <button class="btn" ng-class="{'btn-blue-lt':mouseOver, 'btn-blue-lt-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false" ng-click="$parent.popoverIsopen1 = false;sendMessage(pConnection);" ng-if="pConnection.isConnected">Message</button>
+    <button class="btn btn-blue-lt" ng-if="!pConnection.isConnected && !pConnection.isRequested && !pConnection.isRequest" ng-click="$parent.popoverIsopen1 = false;connect(pConnection);">Connect</button>
+    </div>
+    </div>
+</script>
+<script type="text/ng-template" id="tooltip.html">
+    <div class="padder-v">
+    <img class="inline pull-left bg-white img-circle" ng-show="mConnect[connectionIndex].avatar" src="{{app.baseUrl}}{{mConnect[connectionIndex].avatar}}" height="36px"/>
+    <img class="inline pull-left bg-white img-circle" ng-show="!mConnect[connectionIndex].avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" height="36px"/>
+    <div class="m-l-sm text-14 inline">
+    <div class="">You're connected to {{ mConnect[connectionIndex].name }} {{ mConnect[connectionIndex].lastname }}</div>
+    <div class="">{{mConnect[connectionIndex].name}} is connected to {{ dConnection.name }}</div>
+    </div>
+    </div>
+</script>

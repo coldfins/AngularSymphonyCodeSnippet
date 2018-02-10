@@ -1,0 +1,71 @@
+<div class="col-sm-2 text-md font-bold">
+    Offer service in
+</div>
+<div class="col-sm-10">
+    <div class="col-sm-3">
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Marketing') >= 0">Marketing</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Marketing') < 0" ng-click="selectServiceToAdd('Marketing');">Marketing </a>
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Monetization') >= 0">Monetization</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Monetization') < 0" ng-click="selectServiceToAdd('Monetization');">Monetization</a>
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Software Development') >= 0">Software Development</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Software Development') < 0" ng-click="selectServiceToAdd('Software Development');">Software Development</a>
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Design') >= 0">Design</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Design') < 0" ng-click="selectServiceToAdd('Design');">Design</a>
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Data Analysis') >= 0">Data Analysis</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Data Analysis') == 0" ng-click="selectServiceToAdd('Data Analysis');">Data Analysis</a>
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Information Technology') >= 0">Information Technology</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Information Technology') < 0" ng-click="selectServiceToAdd('Information Technology');">Information Technology</a>
+
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Sales') >= 0">Sales</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Sales') < 0" ng-click="selectServiceToAdd('Sales');">Sales</a>
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Coaching and Mentoring') >= 0">Coaching and Mentoring</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Coaching and Mentoring') < 0" ng-click="selectServiceToAdd('Coaching and Mentoring');">Coaching and Mentoring</a>
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Administrative Support') >= 0">Administrative Support</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Administrative Support') < 0" ng-click="selectServiceToAdd('Administrative Support');">Administrative Support</a>
+
+    </div>
+    <div class="col-sm-3">
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Customer Service') >= 0">Customer Service</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Customer Service') < 0" ng-click="selectServiceToAdd('Customer Service');">Customer Service</a>
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Event Planning') >= 0">Event Planning</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Event Planning') < 0" ng-click="selectServiceToAdd('Event Planning');">Event Planning</a>
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Human Resources') >= 0">Human Resources</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Human Resources') < 0" ng-click="selectServiceToAdd('Human Resources');">Human Resources</a>
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Recruiting') >= 0">Recruiting</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Recruiting') < 0" ng-click="selectServiceToAdd('Recruiting');">Recruiting</a>
+
+        <a class="text-muted hover-muted text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Writing') >= 0">Writing</a>
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-if="addedServices.indexOf('Writing') < 0" ng-click="selectServiceToAdd('Writing');">Writing</a>
+
+        <a class="text-gray hover-text-blue-lt text-md block font-normal padder-v-sm" ng-click="addServiceSuggestion(true);">Other</a>
+
+    </div>
+    <div class="col-sm-9 add-transactions" ng-if="otherService == true">
+
+        <div ng-form="frmService">
+            <button class="btn btn-blue-lt r-3x text-lg font-light pull-right m-l-sm" ng-click="addServiceForSuggestion();" ng-disabled="frmService.$invalid || loadingServiceSuggestion">
+                <span ng-hide="loadingServiceSuggestion">Submit</span>
+                <span ng-show="loadingServiceSuggestion">Saving..<i class="fa fa-spin fa-spinner"></i></span>
+            </button>
+            <input type="text" class="form-control input-lg w-xxl pull-right padder-sm" placeholder="Which transaction would you like us to add?" ng-model="service.serviceName" ng-pattern="/^[a-zA-Z-\u00E0-\u00FC ',-/\&|]{2,120}$/" required/>
+        </div>
+        <div class="col-sm-10 text-sm m-t-xs text-black-dk font-italic">
+            We're slowly adding more transactions and may not be able to accommodate all requests immediately. 
+        </div>
+
+    </div>
+</div>
+<div class="clear clearfix"></div>

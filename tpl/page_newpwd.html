@@ -1,0 +1,24 @@
+<div class="container w-xxl w-auto-xs" ng-init="app.settings.container = false;">
+    <a  rel="nofollow" href class="brand-logo block m-t m-b-lg text-center"><img src="{{app.baseUrl}}/img/mobintouch-logo.png" alt="mobintouch logo" class="thumb-lg"></a>
+    <div class="m-b-lg" ng-controller="NewPasswordFormController">
+        <div class="text-center m-b-lg">
+            <h2>Change your password</h2>
+        </div>
+        <form name="newpwd" class="form-validation">
+            <div class="list-group list-group-sm">
+                <div class="m-b">
+                    <input  name="newPassword1" type="password" placeholder="New password (minimum 5 chars)" ng-model="user.first" class="form-control" ng-minlength="5" pattern=".{5,}" required>
+                </div>
+            </div>
+            <div class="list-group list-group-sm">
+                <div class="m-b">
+                    <input name="newPassword2" type="password" placeholder="Verify Password" ng-model="user.second" class="form-control" ng-minlength="5"  ui-validate=" '$value==user.first' " ui-validate-watch=" 'password' " required>
+                </div>
+            </div>
+            <button type="submit" ng-disabled="newpwd.$invalid" class="btn btn-lg btn-blue-lt btn-block"  ng-click="newPassword()" >
+                <span ng-hide="loadingResetPassword" class="text">Save</span>
+                <span ng-show="loadingResetPassword" class="text"><i class="fa fa-spin fa-circle-o-notch m-r-xs"></i> Save</span>
+            </button>
+        </form>
+    </div>
+</div>

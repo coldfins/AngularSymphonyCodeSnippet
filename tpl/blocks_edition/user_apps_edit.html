@@ -1,0 +1,98 @@
+<div class="row">
+    <!--iOS APPS-->
+    <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="h4 m-n">iOS Apps</h4>
+                <small class="text-muted">Add the apps edited by your company.</small>
+            </div>
+            <ul class="list-group list-group-lg no-bg auto">
+                <li ng-hide="user.iosApps" class="list-group-item clearfix">
+                    No app added yet
+                </li>
+
+                <li data-ng-repeat="(key, iosApp) in user.iosApps" class="list-group-item clearfix">
+                    <a ng-hide="loadingDeleteIosApp[{{key}}]" ng-click="deleteIosApp(iosApp.appid, key)">
+                        <i class="glyphicon glyphicon-trash m-t-md m-r text-muted text-xs pull-left"></i>
+                    </a>
+                    <span ng-show="loadingDeleteIosApp[{{key}}]" class="text m-t-md m-r pull-left"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+                    <span class="pull-left thumb iosappicon m-r m-t-xs">
+                        <img src="{{iosApp.icon}}" alt="{{iosApp.name}}">
+                    </span>
+                    <span class="clear">
+                        <span class=" text-ellipsis w-md">{{iosApp.name}}</span>
+                        <small class="text-muted text-ellipsis"><span data-ng-repeat="iosAppCategory in iosApp.categories" >{{iosAppCategory}} {{$last ? '' : ' / '}}</span></small>
+                        <small class="text-muted text-ellipsis">{{iosApp.artistName}}</small>
+                    </span>
+                </li>
+
+                <li class="list-group-item clearfix no-padder" id="addappios">
+                    <div class="form-group col-xs-12 m-t">
+                        <label class="control-label">iTunes URL :</label>
+                            <form name="formiosapp" class="form-validation">
+                            <div class="input-group">
+                                <input type="url" class="form-control" ng-model="app.itunesURL" required>
+                                  <span class="input-group-btn">
+                                    <button class="btn btn-default" ng-click="addIosApp()" ng-disabled="formiosapp.$invalid">
+                                        <span ng-hide="loadingIosApp" class="text">Add</span>
+                                        <span ng-show="loadingIosApp" class="text"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+                                    </button>
+                                  </span>
+                            </div>
+                        </form>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--/ iOS APPS-->
+
+    <!--Android APPS-->
+    <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="h4 m-n">Android Apps</h4>
+                <small class="text-muted">Add the apps edited by your company.</small>
+            </div>
+            <ul class="list-group list-group-lg no-bg auto">
+                <li ng-hide="user.androidApps" class="list-group-item clearfix">
+                    No app added yet
+                </li>
+
+                <li data-ng-repeat="(key, androidApp) in user.androidApps" class="list-group-item clearfix">
+                    <a ng-hide="loadingDeleteAndroidApp[{{key}}]" ng-click="deletAndroidApp(androidApp.appid, key)">
+                        <i class="glyphicon glyphicon-trash m-t-md m-r pull-left text-muted text-xs"></i>
+                    </a>
+                    <span ng-show="loadingDeleteAndroidApp[{{key}}]" class="text m-t-md m-r pull-left"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+                    <span class="pull-left thumb iosappicon m-r m-t-xs">
+                      <img src="{{androidApp.icon}}" alt="{{androidApp.name }}">
+                    </span>
+                    <span class="clear">
+                        <span class=" text-ellipsis w-md">{{androidApp.name }}</span>
+                        <small class="text-muted text-ellipsis"><span data-ng-repeat="androidAppCategory in androidApp.categories" >{{androidAppCategory | capitalize }} {{$last ? '' : ' / '}}</span></small>
+                        <small class="text-muted text-ellipsis">{{androidApp.artistName}}</small>
+                    </span>
+                </li>
+
+                <li class="list-group-item clearfix no-padder" id="addappandroid">
+                    <div class="form-group col-xs-12 m-t">
+                        <label class="control-label">Google Play URL :</label>
+                        <form name="formandroidapp" class="form-validation">
+                            <div class="input-group">
+                                <input type="url" class="form-control" ng-model="app.googlePlayURL" required>
+                                  <span class="input-group-btn">
+                                      <button class="btn btn-default" ng-click="addAndroidApp()" ng-disabled="formandroidapp.$invalid">
+                                          <span ng-hide="loadingAndroidApp" class="text">Add</span>
+                                          <span ng-show="loadingAndroidApp" class="text"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+                                      </button>
+                                  </span>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--/ Android APPS-->
+</div>

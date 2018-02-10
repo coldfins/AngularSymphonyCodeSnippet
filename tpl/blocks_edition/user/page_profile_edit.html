@@ -1,0 +1,32 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = false;" ng-cloak>
+    <!--PROFILE CARD EDIT-->
+    <div data-ng-include=" 'tpl/blocks_edition/user/profile_card_edit.html?v=' + app.latestUpdate"></div>
+    <!--/ PROFILE CARD EDIT -->
+
+    <!-- PERSONAL PROFILE EDIT -->
+    <div data-ng-include=" 'tpl/blocks_edition/user/personal_details_edit.html?v=' + app.latestUpdate" data-ng-show="editprofile"></div>
+    <!--/PERSONAL PROFILE EDIT -->
+
+    <!--EDIT INTERESTED KEYWORDS -->
+    <div data-ng-include=" 'tpl/blocks_edition/user/interested_keywords_edit.html?v=' + app.latestUpdate" data-ng-show="editinterest"></div>
+    <!--/EDIT INTERESTED KEYWORDS-->
+
+    <!--PROFILE SUGGESTIONS -->
+    <div data-ng-include="'tpl/blocks_general/user/people-suggestions.html?v=' + app.latestUpdate" data-ng-hide="!connectionSuggestions || connectionSuggestions.length <= 0"></div>
+    <!--/PROFILE SUGGESTIONS -->
+
+    <!--<div data-ng-repeat="tpl in user.profileOrder" data-ng-include="'tpl/blocks_edition/user/profile_{{ tpl.text }}_edit.html?v='+ app.latestUpdate"></div>-->
+
+    <div data-ng-repeat="tpl in user.profileOrder" id="{{tpl.text}}">
+        <ng-include src="'tpl/blocks_edition/user/profile_'+ tpl.text + '_edit.html?v={{app.latestUpdate}}'"></ng-include>
+    </div>
+
+</div>
+<script>
+$("#location").keypress(function(e) {
+  if (e.which === 13) {
+    return false;
+  }
+});
+</script>
+

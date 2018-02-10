@@ -1,0 +1,39 @@
+<div class="container" ng-if="viewUser.educations.length > 0">
+    <div class="w-full b-a r-2x m-t-lg" id="education">
+        <div class="col-xs-12" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+            <div class="m-t-lg">
+                <div class="text-black-d m-l">
+                    <h4 class="text-20 m-n">Education</h4>
+                </div>
+            </div>
+            <div class="col-xs-12 padder-v-md" ng-if="viewUser.educations.length > 0">
+                <div class="educations padder-v-md" ng-repeat="education in viewUser.educations track by $index">
+                    <div class="pull-left hidden-xs" ng-if="!education.collegeid" ng-class="windowWidth <= 480 ? 'm-b-sm' : ''">
+                        <div class="college-avatar b-a" ng-if="education.avatar" style="background:url({{app.baseUrl}}{{ education.avatar}}) center center / cover;">
+                        </div>
+                        <div class="college-avatar b-a" ng-if="!education.avatar" style="background:url('{{app.baseUrl}}/img/icons/education.png') no-repeat center center / cover;background-size: 50px;">
+                        </div>
+                    </div>
+                    <div class="pull-left hidden-xs" ng-if="education.collegeid">
+                        <div class="college-avatar b-a" ng-if="education.avatar" style="background:url({{app.baseUrl}}{{ education.logo}}) center center / cover;">
+                        </div>
+                        <div class="college-avatar b-a" ng-if="!education.avatar" style="background:url('{{app.baseUrl}}/img/icons/education.png') no-repeat center center / cover;background-size: 50px;">
+                        </div>
+                    </div>  
+
+                    <div class="details pull-left padder col-xs-12 col-sm-7" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+                        <h5 class="text-19 font-bold text-black-dk m-n">{{ education.college}}</h5>
+                        <div class="text-md text-black-dk">
+                            <h5 class="font-bold m-n inline" ng-if="education.degree">{{ education.degree}}</h5>
+                            <span class="text-muted m-l">{{ education.graduation}}</span>
+                        </div>
+                    </div>
+                    <div class="clear clearfix"></div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+</div>

@@ -1,0 +1,234 @@
+<div class="hbox hbox-auto-xs" ng-init="app.settings.container = true;">
+
+
+    <!-- SETTINGS NAVBAR -->
+    <div class="col w-lg wrapper">
+        <div class="wrapper b-a">
+            <ul class="nav nav-stacked nav-sm">
+                <li class="active"><a ui-sref="app.page.settings">Account</a></li>
+                <li class=""><a ui-sref="app.page.settings_password">Password</a></li>
+                <li class=""><a ui-sref="app.page.settings_notifications">Notifications</a></li>
+                <li class=""><a ui-sref="app.page.settings_privacy">Privacy</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--/ SETTINGS NAVBAR -->
+
+
+
+    <div class="col wrapper" ng-controller="SettingsFormController">
+        <div class="row">
+            <div class="col-xs-12">
+                <!--PERSONALS INFORMATIONS-->
+                <form ng-submit="savePersonal()" name="settingsPersonalForm" class="form-validation form-horizontal">
+
+                    <!--PERSONAL INFORMATIONS-->
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-2 m-b-sm">
+                        <h3 class="text-lg text-dark font-bold">Login</h3>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-2 control-label text-dark">Login email*:</label>
+                        <div class="col-xs-12 col-sm-8 col-md-6">
+                            <input type="email" class="form-control" ng-model="user.email" required >
+                        </div>
+                    </div>
+                    <!--/ PERSONAL INFORMATIONS-->
+
+                    <!--PERSONAL INFORMATIONS-->
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-2 m-b-sm">
+                        <h3 class="text-lg text-dark font-bold">Specialities</h3>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-2 control-label text-dark">Role*:</label>
+                        <div class="col-xs-12 col-sm-8 col-md-6">
+                            <select name="account" 
+                                    placeholder="I work for" 
+                                    class="form-control" 
+                                    ng-model="user.companyType" 
+                                    ng-include="'tpl/utils/roles.html?v=' + app.latestUpdate" 
+                                    required></select>
+                        </div>
+                    </div>
+                    <div ng-if="user.companyType" class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-2 control-label text-dark">Subrole*:</label>
+                        <div class="col-xs-12 col-sm-8 col-md-6">
+                            <div ng-switch on="user.companyType">
+                                <span ng-switch-when="Software Engineer">
+                                    <select ui-jq="chosen" multiple class="form-control" ng-model="user.companySubType">
+                                        <option value="Mobile Developer">Mobile Developer</option>
+                                        <option value="Frontend Developer">Frontend Developer</option>
+                                        <option value="Backend Developer">Backend Developer</option>
+                                        <option value="Full-Stack Developer">Full-Stack Developer</option>
+                                        <option value="Engineering Manager">Engineering Manager</option>
+                                        <option value="QA Engineer">QA Engineer</option>
+                                        <option value="DevOps">DevOps</option>
+                                        <option value="Software Architect">Software Architect</option>
+                                    </select>
+                                </span>
+                                <span ng-switch-when="Designer">
+                                    <select ui-jq="chosen" multiple class="form-control" ng-model="user.companySubType">
+                                        <option value="UI/UX Designer">UI/UX Designer</option>
+                                        <option value="User Researcher">User Researcher</option>
+                                        <option value="Visual Designer">Visual Designer</option>
+                                        <option value="Creative Director">Creative Director</option>
+                                    </select>
+                                </span>
+                                <span ng-switch-when="Operations">
+                                    <select ui-jq="chosen" multiple class="form-control" ng-model="user.companySubType">
+                                        <option value="Finance/Accounting">Finance/Accounting</option>
+                                        <option value="H.R.">H.R.</option>
+                                        <option value="Recruiter">Recruiter</option>
+                                        <option value="Customer Service">Customer Service</option>
+                                        <option value="Operations Manager">Operations Manager</option>
+                                    </select>
+                                </span>
+                                <span ng-switch-when="Sales">
+                                    <select ui-jq="chosen" multiple class="form-control" ng-model="user.companySubType">
+                                        <option value="Business Development">Business Development</option>
+                                        <option value="BD Manager">BD Manager</option>
+                                        <option value="Account Manager">Account Manager</option>
+                                        <option value="Sales Manager">Sales Manager</option>
+                                    </select>
+                                </span>
+                                <span ng-switch-when="Investor">
+                                    <select ui-jq="chosen" multiple class="form-control" ng-model="user.companySubType">
+                                        <option value="Syndicate Lead">Syndicate Lead</option>
+                                        <option value="Angel">Angel</option>
+                                        <option value="Seed Fund">Seed Fund</option>
+                                        <option value="VC">VC</option>
+                                    </select>
+                                </span>
+                                <span ng-switch-when="Management">
+                                    <select ui-jq="chosen" multiple class="form-control" ng-model="user.companySubType">
+                                        <option value="CEO">CEO</option>
+                                        <option value="CFO">CFO</option>
+                                        <option value="CMO">CMO</option>
+                                        <option value="COO">COO</option>
+                                        <option value="CTO">CTO</option>
+                                    </select>
+                                </span>
+                                <span ng-switch-when="Marketing">
+                                    <select ui-jq="chosen" multiple class="form-control" ng-model="user.companySubType">
+                                        <option value="Growth Hacker">Growth Hacker</option>
+                                        <option value="Marketing Manager">Marketing Manager</option>
+                                        <option value="Content Creator">Content Creator</option>
+                                    </select>
+                                </span>
+                                <span ng-switch-when="Other Engineering">
+                                    <select ui-jq="chosen" multiple class="form-control" ng-model="user.companySubType">
+                                        <option value="Hardware Engineer">Hardware Engineer</option>
+                                        <option value="Mechanical Engineer">Mechanical Engineer</option>
+                                        <option value="Systems Engineer">Systems Engineer</option>
+                                    </select>
+                                </span>
+                                <span ng-switch-when="Other">
+                                    <select ui-jq="chosen" multiple class="form-control" ng-model="user.companySubType">
+                                        <option value="Attorney">Attorney</option>
+                                        <option value="Business Analyst">Business Analyst</option>
+                                        <option value="Data Scientist">Data Scientist</option>
+                                        <option value="Product Manager">Product Manager</option>
+                                        <option value="Project Manager">Project Manager</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ PERSONAL INFORMATIONS-->
+
+                    <!--EXTRA INFORMATIONS-->
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-2 m-b-sm">
+                        <h3 class="text-lg text-dark font-bold">Personal</h3>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-2 control-label text-dark">Gender:</label>
+                        <div class="col-xs-12 col-sm-4 col-md-2">
+                            <select class="form-control" ng-model="user.gender" >
+                                <option value="">Please choose</option>
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-2 control-label text-dark">Birthday:</label>
+                        <div class="col-xs-12 col-sm-8 col-md-6">
+                            <input type="text" maxlength="2" class="form-control w-xs inline" placeholder="MM" ng-model="user.birthdayMM" ng-pattern="/[0-9]{2}$/" >
+                            <input type="text" maxlength="2" class="form-control w-xs inline" placeholder="DD" ng-model="user.birthdayDD" ng-pattern="/[0-9]{2}$/" >
+                            <input type="text" maxlength="4" class="form-control w-sm inline" placeholder="YYYY" ng-model="user.birthdayYYYY" ng-pattern="/[0-9]{4}$/" >
+                        </div>
+                    </div>
+                    <!--/ EXTRA INFORMATIONS-->
+
+                    <!--CONTACT INFORMATIONS-->
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-2 m-b-sm">
+                        <h3 class="text-lg text-dark font-bold">Informations</h3>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-2 control-label text-dark">Contact email*:</label>
+                        <div class="col-xs-12 col-sm-8 col-md-6">
+                            <input type="email" class="form-control" ng-model="user.contactEmail" required >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-2 control-label text-dark">Your website:</label>
+                        <div class="col-xs-12 col-sm-8 col-md-6">
+                            <input type="url" class="form-control" placeholder="http://" ng-model="user.website">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-2 control-label text-dark">Skype:</label>
+                        <div class="col-xs-12 col-sm-8 col-md-6">
+                            <input type="text" class="form-control" placeholder="pseudo skype" ng-model="user.skype" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-2 control-label text-dark">LinkedIn:</label>
+                        <div class="col-xs-12 col-sm-8 col-md-6">
+                            <input type="url" class="form-control" placeholder="LinkedIn URL. Ex: https://www.linkedin.com/in/username" ng-model="user.linkedin" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-2 control-label text-dark">Twitter:</label>
+                        <div class="col-xs-12 col-sm-8 col-md-6">
+                            <input type="url" class="form-control" placeholder="Twitter URL. Ex: https://twitter.com/username" ng-model="user.twitter" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-2 control-label text-dark">Phone number:</label>
+                        <div class="col-xs-12 col-sm-8 col-md-6">
+                            <input type="text" class="form-control" ng-model="user.phone" >
+                        </div>
+                    </div>
+                    <!--/CONTACT INFORMATIONS-->
+
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-offset-8 col-sm-2 col-md-offset-2 col-md-8">
+                            <button class="btn btn-blue-lt" type="submit" ng-disabled='settingsPersonalForm.$invalid'>
+                                <span ng-hide="loadingPersonal" class="text-lg">Save changes</span>
+                                <span ng-show="loadingPersonal" class="text-lg"><i class="fa fa-sun-o fa-circle-o-notch"></i> Save changes</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 no-padder">
+                        <small class="block text-muted m-t"><i>This information is private, please read our <a ui-sref="app.legal.privacy" target="_blank">Privacy Policy</a>.</i></small>
+                    </div>
+
+
+                </form>
+                <!--/PERSONALS INFORMATIONS-->
+
+                <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 no-padder">
+                    <div class="line b-b line-lg m-t"></div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 no-padder">
+                    <div class="m-t m-b-xl">
+                        <a href="https://mobintouch.zendesk.com/hc/en-us/requests/new" data-ng-click="track('Deactivate my account')" target="_blank" class="btn btn-link no-padder">Deactivate my account</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

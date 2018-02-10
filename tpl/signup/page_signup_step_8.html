@@ -1,0 +1,83 @@
+<style>
+    .popover{
+        min-width: 345px;
+        width: 345px;
+    }
+</style>
+<div ng-init="app.settings.container = false; app.settings.headerFixed = false;" ng-controller="RegisterStepsFormController">
+    <nav class="navbar navbar-fixed-top pos-rlt">
+        <div class="container-fluid">
+            <div class="padder-lg padder-v-lg">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                   <!-- <a ui-sref="index" class="navbar-brand hidden-xs signup-close" data-ng-click="track('Back On Landing Page', 'Navbar', 'Cross Button')">
+                        <span><svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path d="M6 4.586l4.24-4.24c.395-.395 1.026-.392 1.416-.002.393.393.39 1.024 0 1.415L7.413 6l4.24 4.24c.395.395.392 1.026.002 1.416-.393.393-1.024.39-1.415 0L6 7.413l-4.24 4.24c-.395.395-1.026.392-1.416.002-.393-.393-.39-1.024 0-1.415L4.587 6 .347 1.76C-.05 1.364-.048.733.342.343c.393-.393 1.024-.39 1.415 0L6 4.587z" fill-rule="evenodd"></path></svg></span>
+                    </a> --->
+                    <a ui-sref="index" class="navbar-brand w-xxs visible-xs" data-ng-click="track('Back On Landing Page', 'Navbar', 'Logo')" ><i class=" icon-arrow-left text-xl"></i></a>
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+    </nav>
+
+    <div class="vertical-center flex-center padder-v-xl" ng-init="filedownloaded = false; fileuploaded = false;">
+        <div class="container pos-rlt animated fadeIn">
+            <div class="row">
+
+                <div class="col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1 col-xs-12">
+                    <div class="text-center">
+                        <span class="text-48">Let's find some people you know.</span>
+                        <hr class="m-t-lg"/>
+                    </div>
+
+                    <form name="frmLinkedinContacts" class="form-horizontal" ng-submit="uploadLinkedinContacts()" enctype="multipart/form-data" id='importcontact'>
+
+                        <div class="m-t-lg m-b-md">
+                            <div class="text-center text-20 text-black m-b-lg">
+                                2. Upload your Linkedin contacts CSV file
+                            </div>
+                            <div class="text-lg">
+                                1. Check your inbox, your LinkedIn data archive should be ready! You can now download it.
+                            </div>
+                            <div class="text-lg">
+                                2. Unzip your archive and upload or drag and drop below the file "Connections.csv"
+                            </div>
+                            <div class="text-lg">
+                                3. <a class="text-blue-lt hover-text-blue-lt hover-underline" onclick="angular.element('#contactfile').click()" ng-show="!loadingSignup" ng-disabled="loadingSignup">Click to upload</a> <a class="text-blue" ng-show="loadingSignup" ng-disabled="loadingSignup">Click to upload</a> and choose the file Contacts.csv or drag & drop the file in the below zone 
+                            </div>
+                            <div class="w-full r-3x m-t-lg upload-container" ng-disabled="loadingSignup">
+                                <div class="text-center text-lg padder-v-md font-bold pos-abt w-full upload-text" ng-disabled="loadingSignup">
+                                    Drag & Drop your CSV file here
+                                    <div class="text-center padder-v" ng-disabled="loadingSignup">
+                                        <span ng-show="!loadingSignup"><i class="fa fa-plus text-18 text-blue"></i></span>
+                                        <span class="text-gray" ng-show="loadingSignup">Uploading file...<i class="fa fa-spin fa-spinner text-18 text-blue"></i></span>
+                                    </div>
+                                </div>
+                                <input class="opacity-0 w-full h-full upload-input" type="file" onchange="angular.element(this).scope().checkfile(event, frmLinkedinContacts)" name="" id="contactfile" accept=".csv" ng-disabled="loadingSignup"/>
+                            </div>
+                        </div>
+                        <div class="clear clearfix"></div>
+                        <div class="m-t-lg m-b-md text-center text-md">
+                            <a href="" uib-popover-template="'popover.html'" popover-is-open="popover.isOpen" popover-trigger="'click'">Skip for now</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="popover.html">
+    <div class='padder padder-t-md text-center'>
+    <div class='text-md'>
+    Synicing your contacts is the best way to start building your network.
+    </div>
+    <div class='text-md m-t-md m-b-md'>Are you sure you want to skip this step?</div>
+    <div class='col-xs-12 m-b-md'>
+    <div class='col-xs-6'>
+    <a class='btn no-border pull-right text-md' ui-sref='app.page.profile'>Yes</a>
+    </div>
+    <div class='col-xs-6'>
+    <a class='btn btn-blue-lt no-border pull-left text-md padder r-3x no' ng-click='$parent.popover.isOpen=false;'>No</a>
+    </div>
+    </div>
+    </div>
+</script>

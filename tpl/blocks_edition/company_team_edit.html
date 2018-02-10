@@ -1,0 +1,54 @@
+<div ng-controller="TooltipDemoCtrl" class="panel panel-default m-b-xl no-shadow">
+    <div class="panel-heading">
+        <span class="pull-right badge badge-bg">{{company.employees.length||0}}</span>
+        Team
+    </div>
+
+    <div class="panel-body">
+        <div class="row">
+            <div ng-repeat="(key, teammate) in company.employees" class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="clearfix">
+                            <a ui-sref="app.page.public({username: teammate.username})" class="pull-left thumb-md avatar b-3x m-r">
+                                <img ng-show="teammate.avatar" src="{{app.baseUrl}}{{teammate.avatar}}" class="img-circle">
+                                <img ng-hide="teammate.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                            </a>
+                            <div class="clear" ng-controller="DeleteTeammateModalCtrl">
+                                <i ng-if="(company.administrators | filter:teammate.username).length <= 0" class="icon-close text-dark text-lg bg-white delete-badge" ng-click="open('sm', teammate.username)" tooltip="Delete"></i>
+                                <a ui-sref="app.page.public({username: teammate.username})">
+                                    <div class="text-md font-bold m-t-xs m-b-xs text-ellipsis">
+                                        {{ teammate.name | capitalize }} {{ teammate.lastname | capitalize }}
+                                    </div>
+                                </a>
+                                <small class="text-muted m-b"><a ui-sref="app.page.public({username: teammate.username})">{{ teammate.jobTitle | capitalize }}</a></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group no-radius alt">
+                        <a ui-sref="app.page.public({username: teammate.username})" class="list-group-item">
+                            <span ng-cloak ng-if="teammate.responseRate == 0 && teammate.totalReceivedEmails == 0" class="pull-right text-xs font-bold">Response rate N/A</span>
+                            <span ng-cloak ng-if="teammate.responseRate != 0 || teammate.totalReceivedEmails != 0" class="pull-right text-xs font-bold">Response rate {{teammate.responseRate|| 0 | number:0 }}%</span>
+                            <i class="fa fa-eye fa-fw"></i> Visit the profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="row">
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <div class="input-group">
+                        <input type="text" ng-model="company.teammate" typeahead-on-select="selectTeammate($item.username)"  typeahead="fuser.username for fuser in company.employees | filter:$viewValue | limitTo:15" class="form-control" placeholder="Type First name and Last name…" typeahead-template-url="tpl/blocks_general/mail-user-autocomplete.html">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="addTeammate($item.username)" type="button">
+                                <span ng-hide="loadingTeam">Add as teammate</span>
+                                <span ng-show="loadingTeam"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>

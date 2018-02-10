@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <span class="h4">Followers of {{ publicCompany.name}}</span>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel();">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body no-padder">
+    <div class="clear clearfix"></div>
+    <ul class="scrollable mutual-container padder-md">
+        <li ng-repeat="follower in publicCompany.followers| orderBy:'-date'" class="b-b" style="list-style: none;">
+            <div class="padder-v">
+                <span class="thumb-sm pull-left img-circle m-r-sm">
+                    <img ng-if="follower.avatar" src="{{ app.baseUrl}}{{follower.avatar}}" class="img-circle">
+                    <img ng-if="!follower.avatar" src="{{ app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                </span>
+                <div class="media-body m-b-none text-break">
+                    <div class="pull-left">
+                        <a ui-sref="app.page.public({username: follower.username})" title="{{ follower.name}} {{ follower.lastname}}" ng-click="cancel()"><strong>{{follower.name}} {{follower.lastname}}</strong></a>
+                        <small class="text-muted block" ng-if="follower.jobTitle">{{follower.jobTitle}}</small>
+                    </div>
+                    <div ng-if="user.username && userMode == 'member'">
+                        <button class="btn btn-default btn-disabled-default r-2x pull-right m-t-xxs" ng-if="follower.isRequested">Sent</button>
+                        <a class="btn btn-blue-lt r-2x pull-right m-t-xxs" ng-if="!follower.isConnected && !follower.isRequested && follower.username != user.username" ng-click="connect(follower)">Connect</a>
+                        <a ui-sref="app.mail.compose({username : follower.username })"  class="btn r-2x pull-right m-t-xxs" ng-class="{'btn-blue-lt':mouseOver, 'btn-blue-lt-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false"  ng-if="follower.isConnected && follower.username != user.username">Message</a>
+                    </div>
+                    <div ng-if="!user.username && userMode == 'visitor'">
+                        <a ui-sref="app.page.public({username : follower.username })"  class="btn btn-blue-lt r-2x pull-right m-t-xxs">Visit Profile</a>
+                    </div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+        </li>
+    </ul>
+</div>

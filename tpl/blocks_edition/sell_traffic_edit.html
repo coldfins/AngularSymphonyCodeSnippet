@@ -1,0 +1,190 @@
+<div ng-controller="TooltipDemoCtrl" class="panel panel-default">
+    <div class="panel-heading">
+        <span class="h4">Selling</span>
+    </div>
+    <div data-ng-repeat="(key, selltraffic) in user.sellTraffic">
+        <div class="panel-body">
+            <div class="row">
+                <form ng-submit="saveSellTraffic(key)" name="formselltraffic{{key}}" class="form-horizontal form-horizontal form-validation">
+                    <div class="wrapper">
+
+                        <div class="form-group form-horizontal">
+                            <label class="col-xs-12 col-sm-2 control-label">Platforms*:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.platform[0].ios"> iOS
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.platform[0].android"> Android
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.platform[0].windows"> Windows Phone
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.platform[0].blackberry"> Blackberry
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.platform[0].web"> Mobile Web HTML5
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.platform[0].unity"> Unity
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.platform[0].bada"> Bada
+                                </label>
+                            </div>
+                            <div class="col-xs-12 col-sm-10 col-sm-offset-2 m-t-sm">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <input type="checkbox" ng-model="selltraffic.isOtherPlatform">
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Other" ng-model="selltraffic.otherPlatform" ng-pattern="/^[a-zA-Z0-9 -,]{3,20}$/">
+                                </div><!-- /input-group -->
+                            </div><!-- /.col-lg-6 -->
+                        </div>
+
+                        <div class="line line-dashed b-b line-lg"></div>
+
+                        <div class="form-group form-horizontal">
+                            <label class="col-xs-12 col-sm-2 control-label">Countries*:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <select class="form-control" ui-jq="chosen" multiple ng-model="selltraffic.countries" data-ng-include=" 'tpl/utils/regions.html?v='+ app.latestUpdate " required></select>
+                            </div>
+                        </div>
+
+                        <div class="line line-dashed b-b line-lg"></div>
+
+                        <div class="form-group form-horizontal">
+                            <input type="hidden" ng-model="selltraffic.valid" ng-init="selltraffic.valid=true"/>
+                            <input type="hidden" ng-model="selltraffic.pricingQty" ng-init="selltraffic.pricingQty=0"/>
+                            <input type="hidden" ng-model="selltraffic.platformQty" ng-init="selltraffic.platformQty=0"/>
+
+                            <label class="col-xs-12 col-sm-2 control-label">Pricing Model*:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.pricing[0].cpa"> CPA
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.pricing[0].cps"> CPS
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.pricing[0].cpc"> CPC
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.pricing[0].cpv"> CPV
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.pricing[0].cpd"> CPD
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.pricing[0].cpi"> CPI
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.pricing[0].cpl"> CPL
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.pricing[0].cpm"> CPM
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.pricing[0].dclick"> Double Click
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.pricing[0].ctc"> Click To Call
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.pricing[0].ppcall"> Pay Per Call
+                                </label>
+                            </div>
+                            <div class="col-xs-12 col-sm-10 col-sm-offset-2 m-t-sm">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <input type="checkbox" ng-model="selltraffic.isOtherPricing">
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Other" ng-model="selltraffic.otherPricing" ng-pattern="/^[a-zA-Z0-9 -,]{3,20}$/">
+                                </div><!-- /input-group -->
+                            </div><!-- /.col-lg-6 -->
+                        </div>
+
+                        <div class="line line-dashed b-b line-lg"></div>
+
+                        <div class="form-group form-horizontal">
+                            <label class="col-xs-12 col-sm-2 control-label">Quality:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.incentivized"> Incentivized
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" ng-model="selltraffic.nonincentivized"> Non Incentivized
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="line line-dashed b-b line-lg"></div>
+
+                        <div class="form-group form-horizontal">
+                            <label class="col-xs-12 col-sm-2 control-label">Ad format:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <select class="form-control" ui-jq="chosen" multiple ng-model="selltraffic.adformat" data-ng-include=" 'tpl/utils/adFormat.html?v='+ app.latestUpdate " ></select>
+                            </div>
+                        </div>
+
+                        <div class="line line-dashed b-b line-lg"></div>
+
+                        <div class="form-group form-horizontal">
+                            <label class="col-xs-12 col-sm-2 control-label">Targeting:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <select class="form-control" ui-jq="chosen" multiple ng-model="selltraffic.targeting" data-ng-include=" 'tpl/utils/targeting.html?v='+ app.latestUpdate " ></select>
+                            </div>
+                        </div>
+
+                        <div class="line line-dashed b-b line-lg"></div>
+
+                        <div class="form-group form-horizontal">
+                            <label class="col-xs-12 col-sm-2 control-label">Verticals:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <select class="form-control" ui-jq="chosen" multiple ng-model="selltraffic.userType" data-ng-include=" 'tpl/utils/trafficType.html?v='+ app.latestUpdate " ></select>
+                            </div>
+                        </div>
+
+                        <div class="line line-dashed b-b line-lg"></div>
+
+                        <div class="form-group form-horizontal">
+                            <label class="col-xs-12 col-sm-2 control-label">Trading Models:</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <select class="form-control" ui-jq="chosen" multiple ng-model="selltraffic.trading" data-ng-include=" 'tpl/utils/tradingModels.html?v='+ app.latestUpdate " ></select>
+                            </div>
+                        </div>
+
+                        <div class="line line-dashed b-b line-lg"></div>
+
+                        <div class="col-xs-12 no-padder">
+                            <p class="text-muted pull-right"><small>*Required fields</small></p>
+                        </div>
+
+                        <div class="col-xs-12 no-padder">
+                            <div class="clearfix">
+                                <button type="submit" class="btn btn-success pull-right" ng-disabled='formselltraffic{{key}}.$invalid || !(selltraffic.pricing[0].cpa || selltraffic.pricing[0].cps || selltraffic.pricing[0].cpc || selltraffic.pricing[0].cpv || selltraffic.pricing[0].cpd || selltraffic.pricing[0].cpi || selltraffic.pricing[0].cpl || selltraffic.pricing[0].cpm || selltraffic.pricing[0].dclick  || selltraffic.pricing[0].ctc  || selltraffic.pricing[0].ppcall) || !(selltraffic.platform[0].ios || selltraffic.platform[0].android || selltraffic.platform[0].windows || selltraffic.platform[0].blackberry || selltraffic.platform[0].web || selltraffic.platform[0].unity || selltraffic.platform[0].bada)'>
+                                    <span ng-hide="loadingSellTraffic[{{key}}]" class="text">Save</span>
+                                    <span ng-show="loadingSellTraffic[{{key}}]" class="text"><i class="fa fa-spin fa-circle-o-notch m-l-xs"></i> Save</span>
+                                </button>
+                                <button ng-click="deleteSellTraffic(selltraffic)" class="btn btn-danger">
+                                    <span ng-hide="loadingDeleteSellTraffic[{{key}}]" class="text">Delete</span>
+                                    <span ng-show="loadingDeleteSellTraffic[{{key}}]" class="text"><i class="fa fa-spin fa-circle-o-notch m-l-xs"></i> Delete</span>
+                                </button>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="b-b"></div>
+
+    <footer class="panel-footer bg-light lter">
+        <button class="btn btn-default btn-addon btn-sm" data-ng-click="addSellTrafficForm()"><i class="fa fa-plus"></i>Add</button>
+    </footer>
+
+</div>

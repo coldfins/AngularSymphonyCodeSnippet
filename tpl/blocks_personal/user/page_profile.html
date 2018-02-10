@@ -1,0 +1,37 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = false;app.settings.headerFixed = true;" ng-cloak>
+    <!--PROFILE CARD EDIT-->
+    <div data-ng-include=" 'tpl/blocks_personal/user/profile_card_edit.html?v=' + app.latestUpdate"></div>
+    <!--/ PROFILE CARD EDIT -->
+
+    <!-- PERSONAL PROFILE EDIT -->
+    <div data-ng-include=" 'tpl/blocks_personal/user/personal_details_edit.html?v=' + app.latestUpdate" data-ng-if="editprofile"></div>
+    <!--/PERSONAL PROFILE EDIT -->
+
+    <!--EDIT INTERESTED KEYWORDS -->
+    <div data-ng-include=" 'tpl/blocks_personal/user/interested_keywords_edit.html?v=' + app.latestUpdate" data-ng-show="editinterest"></div>
+    <!--/EDIT INTERESTED KEYWORDS-->
+
+    <!--PROFILE SUGGESTIONS -->
+    <div data-ng-include="'tpl/connections/connection_incentivize.html?v=' + app.latestUpdate" data-ng-if="(user.inTouch | toArray | filter:{status:3}).length <= 0"></div>
+    <div id="people_suggestion" data-ng-include="'tpl/connections/people_suggestions.html?v=' + app.latestUpdate" data-ng-if="(user.inTouch | toArray | filter:{status:3}).length > 0 && connectionSuggestions.length > 0 && !loadingConnectionSuggestions"></div>
+    <div data-ng-include="'tpl/loader/people_suggestion.html?v=' + app.latestUpdate" data-ng-if="(user.inTouch | toArray | filter:{status:3}).length > 0 && loadingConnectionSuggestions"></div>
+    <!--/PROFILE SUGGESTIONS -->
+
+    <!--<div data-ng-repeat="tpl in user.profileOrder" data-ng-include="'tpl/blocks_edition/user/profile_{{ tpl.text }}_edit.html?v='+ app.latestUpdate"></div>-->
+
+    <div data-ng-repeat="tpl in user.profileOrder">
+        <ng-include src="'tpl/blocks_personal/user/profile_'+ tpl.text + '_edit.html?v=' + app.latestUpdate" ng-if="tpl.text == 'Services' || tpl.text == 'Experience' || tpl.text == 'Education' || tpl.text == 'About'"></ng-include>
+        <ng-include src="'tpl/blocks_personal/user/profile_CustomServices_edit.html?v=' + app.latestUpdate" ng-if="tpl.text != 'Services' && tpl.text != 'Experience' && tpl.text != 'Education' && tpl.text != 'About'"></ng-include>
+    </div>
+    
+    <!--<div data-ng-include="'tpl/blocks_personal/user/profile_Extra_edit.html?v=' + app.latestUpdate"></div>-->
+    
+</div>
+<script>
+    $("#location").keypress(function (e) {
+        if (e.which === 13) {
+            return false;
+        }
+    });
+</script>
+

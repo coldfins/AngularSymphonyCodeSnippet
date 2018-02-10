@@ -1,0 +1,15 @@
+.offer-container{
+    margin-top: 20px;
+}
+
+.offer-content{
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    outline: 0 none;
+    position: relative;
+}
+.stack-offer-img{
+    width: 40px;
+}

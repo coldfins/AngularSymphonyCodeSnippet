@@ -1,0 +1,352 @@
+<style>
+
+    .progress {
+        background-color: #131e26;
+    }
+    .progress {
+        border-radius: 4px;
+        height: 3px;
+        margin-bottom: 20px;
+    }
+</style>
+<nav class="navbar-md navbar-fixed-top bg-white" resize>
+    <div class="container" ng-controller="TypeaheadSearchCtrl">
+
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button class="pull-right visible-xs" ui-toggle-class="show" data-target="#navbar-collapse-mit" ng-class="('invites' | isState) ? 'm-t' : ''">
+                <i class="fa fa-navicon fa-fw"></i>
+            </button>
+
+            <a ng-if="user.username && !('invites' | isState)" title="Go to Mobintouch home" ui-sref="app.page.feed" data-ng-click="trackHeader('Feed', 'Logo')" ui-sref-opts="{reload: true}" class="navbar-brand m-n">
+                <img src="cdn/img/mit-fingerprint-logo-white.svg" alt="Mobintouch white logo beta" class="thumb-sm">
+                <span class="hidden">Mobintouch Mobile Advertising Social Network</span>
+            </a>
+            <a ng-if="!user.username && !('invites' | isState)" title="Go to Mobintouch home" ui-sref="index" data-ng-click="trackLink('Back On Landing Page', 'Logo')" ui-sref-opts="{reload: true}" class="navbar-brand m-n">
+                <img src="{{app.baseUrl}}/img/mit-fingerprint-logo-white.svg" alt="Mobintouch white logo beta" class="thumb-sm">
+                <span class="hidden">Mobintouch Mobile Advertising Social Network</span>
+            </a>
+            <a ng-if="user.username && 'invites' | isState" target="_self" title="Go to Mobintouch home" ui-sref="app.page.feed" data-ng-click="trackHeader('Feed', 'Logo')" ui-sref-opts="{reload: true}" class="navbar-brand m-n">
+                <img src="cdn/img/mit-fingerprint-logo-white.svg" alt="Mobintouch white logo beta" class="thumb-sm">
+                <span class="hidden">Mobintouch Mobile Advertising Social Network</span>
+            </a>
+            <a ng-if="!user.username && 'invites' | isState" target="_self" title="Go to Mobintouch home" ui-sref="index" data-ng-click="trackLink('Back On Landing Page', 'Logo')" ui-sref-opts="{reload: true}" class="navbar-brand m-n">
+                <img src="{{app.baseUrl}}/img/mit-fingerprint-logo-white.svg" alt="Mobintouch white logo beta" class="thumb-sm">
+                <span class="hidden">Mobintouch Mobile Advertising Social Network</span>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse nav-bar-min" id="navbar-collapse-mit">
+
+            <!-- SEARCH -->
+            <form class="navbar-form navbar-left shift hidden-sm hidden-md" target=".navbar-collapse" ui-shift="prependTo" role="search">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-btn dropdown">
+                            <span class="btn btn-light dk w-s no-shadow dropdown-toggle" data-toggle="dropdown">
+                                <span ng-if="query.profileType == 'people'"><i class="glyphicon glyphicon-user m-r-xs"></i><span>People</span></span>
+                                <span ng-if="query.profileType == 'companies'"><i class="fa fa-building m-r-xs"></i><span>Companies</span></span>
+                                <b class="caret"></b>
+                            </span>
+
+                            <div class="dropdown-menu w-sm">
+                                <div class="panel bg-white">
+                                    <ul class="list-group">
+                                        <li class="media list-group-item" ng-click="onChangeType('people')">
+                                            <a><i class="glyphicon glyphicon-user m-r-xs"></i>People</a>
+                                        </li>
+                                        <li class="media list-group-item" ng-click="onChangeType('companies')">
+                                            <a><i class="fa fa-building m-r-xs"></i>Companies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </span>
+
+                        <span ng-if="query.profileType == 'people'" class="search_query">
+
+                            <input type="text"
+                                   ng-model="query.headerString"
+                                   min-length="1"
+                                   typeahead="fuser.name for fuser in autocomplete($viewValue) | limitTo:5"
+                                   typeahead-focus-first="false"
+                                   class="form-control bg-light no-border no-r padder text-base"
+                                   typeahead-template-url="tpl/blocks_general/user-autocomplete.html?v={{app.latestUpdate}}"
+                                   placeholder="Search people…">
+                        </span>
+                        <span ng-if="query.profileType == 'companies'" class="search_query">
+
+                            <input type="text"
+                                   ng-model="query.headerString"
+                                   min-length="1"
+                                   typeahead="fuser.name for fuser in autocomplete($viewValue) | limitTo:5"
+                                   typeahead-focus-first="false"
+                                   class="form-control bg-light no-border no-r padder text-base"
+                                   typeahead-template-url="tpl/blocks_general/company-autocomplete.html?v={{app.latestUpdate}}"
+                                   placeholder="Search companies…">
+                        </span>
+
+
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn bg-light no-shadow" ng-click="advancedSearch()" >
+                                <span ng-if="!loadingSearch"><i class="fa fa-fw fa-search"></i></span>
+                                <span ng-if="loadingSearch"><i class="fa fa-fw fa-spin fa-spinner"></i></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <!--/ SEARCH -->
+
+            <ul ng-if="user.username" class="nav navbar-nav">
+                <li>
+                    <a rel="nofollow" class="font-bold" ui-sref="app.page.search" ng-if="'invites' | isState" target="_self">EXPLORE</a>
+                    <a rel="nofollow" ng-click="explore()" class="font-bold" ng-if="!('invites' | isState)">EXPLORE</a>
+                </li>
+            </ul>
+
+            <!-- NAVBAR RIGHT -->
+            <ul class="nav navbar-nav navbar-right">
+                <li><a ng-if="user.username" ui-sref="invites" target="_self"><span class="text-muted font-bold text-sm">INVITE</span></a></li>
+                <li ng-if="user.username">
+                    <a ui-sref="app.offers.all" ui-sref-opts="{reload: true}" ng-if="'invites' | isState" target="_self">
+                        <span class="font-bold text-sm">STACKOFFERS</span>
+                        <span ng-if="user.offersNotifications && user.offersNotifications > 0" class="badge-notification">{{user.offersNotifications}}</span>
+                    </a>
+                    <a ui-sref="app.offers.all" ui-sref-opts="{reload: true}" ng-if="!('invites' | isState)">
+                        <span class="font-bold text-sm">STACKOFFERS</span>
+                        <span ng-if="user.offersNotifications && user.offersNotifications > 0" class="badge-notification">{{user.offersNotifications}}</span>
+                    </a>
+                </li>
+                <li ng-if="user.username">
+                    <a ui-sref="app.mail.list" ui-sref-opts="{reload: true}" data-ng-click="trackHeader('Touch Mail', 'TouchMail')" ng-if="'invites' | isState" target="_self">
+                        <span class="font-bold text-sm">TOUCHMAIL</span>
+                        <span ng-if="user.emailsNotifications > 0" class="badge-notification">{{user.emailsNotifications}}</span>
+                    </a>
+                    <a ui-sref="app.mail.list" ui-sref-opts="{reload: true}" data-ng-click="trackHeader('Touch Mail', 'TouchMail')" ng-if="!('invites' | isState)">
+                        <span class="font-bold text-sm">TOUCHMAIL</span>
+                        <span ng-if="user.emailsNotifications > 0" class="badge-notification">{{user.emailsNotifications}}</span>
+                    </a>
+                </li>
+
+                <!-- Notifications menu dropdown -->
+                <li ng-if="user.username" class="dropdown" ng-controller="AlertsCtrl" ng-class="{'open': status.isopen}">
+                    <a  rel="nofollow" href class="dropdown-toggle clear" data-toggle="dropdown" ng-click="resetAlerts()">
+                        <span class="font-bold text-sm">NOTIFICATIONS</span>
+                        <span ng-if="user.alertsNotifications && user.alertsNotifications > 0" class="badge-notification">{{user.alertsNotifications}}</span>
+                    </a>
+                    <ul class="dropdown-menu w-xxl bg-white scrollable" style="max-height:530px;margin-top: -1px;">
+                        <li ng-if="!user.alerts">
+                            <div class="text-center padder-v-xl">
+                                <i class="fa fa-bell fa-fw text-xxl"></i><br><br>No notifications right now.
+                            </div>
+                        </li>
+                        <li ng-if="user.alerts" ng-repeat="alert in user.alerts| orderBy:'-date'" class="b-b">
+                            <a ng-click="viewAlert(alert)">
+                                <div ng-if="!alert.read" class="notification-not-read">
+                                    <div class="padder-v">
+                                        <span class="thumb-sm pull-left img-circle m-r-sm">
+                                            <img ng-if="alert.avatar" src="{{app.baseUrl}}{{alert.avatar}}" class="img-circle">
+                                            <img ng-if="!alert.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                                        </span>
+                                        <span class="media-body block m-b-none text-break">
+                                            <span><strong>{{alert.name}} {{alert.lastname}}</strong> {{alert.action}}</span>
+                                            <small class="text-muted block">{{alert.date| date : 'MMM dd, yyyy - HH:mm'  }}</small>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div ng-if="alert.read" class="notification-read">
+                                    <div class="padder-v">
+                                        <span class="thumb-sm pull-left img-circle m-r-sm">
+                                            <img ng-if="alert.avatar" src="{{app.baseUrl}}{{alert.avatar}}" class="img-circle">
+                                            <img ng-if="!alert.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                                        </span>
+                                        <span class="media-body block m-b-none text-break">
+                                            <span><strong>{{alert.name}} {{alert.lastname}}</strong> {{alert.action}}</span>
+                                            <small class="text-muted block">{{alert.date| date : 'MMM dd, yyyy - HH:mm'  }}</small>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- / Notifications menu dropdown -->
+
+                <!-- Profile menu dropdown -->
+                <li ng-if="user.username" class="dropdown" ng-class="windowWidth >= 767 ? {'open': status.isopen} : {}">
+                    <a rel="nofollow" href class="dropdown-toggle clear" data-toggle="dropdown" style="padding-top:21px;" ng-mouseenter="status.isopen = true" ng-mouseleave="status.isopen = false">
+                        <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm">
+                            <img ng-show="user.avatar" src="{{app.baseUrl}}{{user.avatar}}" class="img-circle">
+                            <img ng-hide="user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                        </span>
+                        <span class="col-xs-1 hidden-xs" style="position:relative;"  ng-if="user.profilePercentage < 100">
+                            <img src="{{app.baseUrl}}/img/mobintouch-warning-logo.png" alt="Mobintouch warning logoa" width="17px" style="position: absolute;top: 14px;left: 56px;">
+                        </span>
+                        <span ui-sref="app.page.profile" class="hidden-sm hidden-md hidden-lg font-bold">{{ user.name | capitalize }} {{user.lastname| capitalize}}</span>
+                    </a>
+                    <ul class="dropdown-menu profile w-xxl" ng-mouseenter="status.isopen = true" ng-mouseleave="status.isopen = false">
+                        <span class="arrow top profile"></span>
+                        <div class="row no-gutter padder-v-lg b-black-lter">
+                            <li class="text-lg text-center text-white col-xs-6" ng-if="user.companyPage">
+                                <a ui-sref="app.page.company" class="clear" style="position:relative" ng-if="'invites' | isState" target="_self">
+                                    <img ng-show="company.avatar" src="{{app.baseUrl}}{{company.avatar}}" alt="{{company.name}}" class="thumb-md">
+                                    <img ng-hide="company.avatar" src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" alt="{{company.name}}" class="thumb-md">
+                                    <span class="clear m-t-sm m-b-sm">{{user.company}}</span>
+                                </a>
+                                <span ng-if="companyPercentage < 100">
+                                    <img src="{{app.baseUrl}}/img/mobintouch-warning-logo.png" alt="Mobintouch warning logoa" width="17px" style="position: absolute;top: -11px;left: 113px;">
+                                </span>
+                                <a ui-sref="app.page.company" class="btn btn-default no-bg no-shadow r-3x" ng-if="'invites' | isState" target="_self">View company</a>
+                                <a ui-sref="app.page.company" class="clear" style="position:relative" ng-if="!('invites' | isState)">
+                                    <img ng-show="company.avatar" src="{{app.baseUrl}}{{company.avatar}}" alt="{{company.name}}" class="thumb-md">
+                                    <img ng-hide="company.avatar" src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" alt="{{company.name}}" class="thumb-md">
+                                    <span class="clear m-t-sm m-b-sm">{{user.company}}</span>
+                                </a>
+                                <span ng-if="companyPercentage < 100">
+                                    <img src="{{app.baseUrl}}/img/mobintouch-warning-logo.png" alt="Mobintouch warning logoa" width="17px" style="position: absolute;top: -11px;left: 113px;">
+                                </span>
+                                <a ui-sref="app.page.company" class="btn btn-default no-bg no-shadow r-3x" ng-if="!('invites' | isState)">View company</a>
+
+                            </li>
+
+                            <li class="text-lg text-center text-white col-xs-6" ng-if="!user.companyPage">
+                                <a ui-sref="app.page.createCompany" class="clear">
+                                    <img src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" alt="{{company.name}}" class="thumb-md">
+                                    <span class="clear m-t-sm m-b-sm">My Company</span>
+                                </a>
+                                <a ui-sref="app.page.createCompany" class="btn btn-default no-bg no-shadow r-3x">Create my Company</a>
+                            </li>
+
+                            <li class="text-lg text-center col-xs-6">
+                                <a ui-sref="app.page.profile" class="clear" ng-if="'invites' | isState" target="_self">
+                                    <img ng-show="user.avatar" src="{{app.baseUrl}}{{user.avatar}}" alt="{{ user.name}} {{ user.lastname}}" class="thumb-md avatar">
+                                    <img ng-hide="user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" alt="{{ user.name}} {{ user.lastname}}" class="thumb-md avatar">
+                                    <span class="clear m-t-sm m-b-sm">{{ user.name | capitalize }} {{user.lastname| capitalize}}</span>
+                                </a>
+                                <a ui-sref="app.page.profile" class="btn btn-default no-bg no-shadow r-3x" ng-if="'invites' | isState" target="_self">View profile</a>
+
+                                <a ui-sref="app.page.profile" class="clear" ng-if="!('invites' | isState)">
+                                    <img ng-show="user.avatar" src="{{app.baseUrl}}{{user.avatar}}" alt="{{ user.name}} {{ user.lastname}}" class="thumb-md avatar">
+                                    <img ng-hide="user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" alt="{{ user.name}} {{ user.lastname}}" class="thumb-md avatar">
+                                    <span class="clear m-t-sm m-b-sm">{{ user.name | capitalize }} {{user.lastname| capitalize}}</span>
+                                </a>
+                                <a ui-sref="app.page.profile" class="btn btn-default no-bg no-shadow r-3x" ng-if="!('invites' | isState)">View profile</a>
+                            </li>
+                        </div>
+
+                        <div class="row no-gutter b-b" style="margin-top: -4%;">
+                            <div class="text-lg text-center col-xs-1"></div>
+                            <div class="text-lg text-center col-xs-10" >
+                                <p class="row clear">
+                                    <span class="col-xs-1"></span>
+                                    <span class="col-xs-4" style="color:#636363;font-size: 13px;font-style: initial;padding-left:1%;font-weight: 100;">Profile Completion</span>
+                                    <span class="col-xs-3"></span>
+                                    <span class="col-xs-4" style="color:#636363;font-size: 13px;font-style: initial;font-weight: 100;">{{user.profilePercentage}}%</span>
+
+                                </p>
+                                <p class="row">
+                                    <span class="col-xs-1"></span>
+                                    <span ng-if="user.profilePercentage < 100" class="col-xs-9" style="margin-left: 2.5%;">
+                                        <progressbar style=" transition: width 1s ease-in-out;" class="progress-striped active" animate="true" max="100" value="user.profilePercentage" type="info"></progressbar>
+                                    </span>
+                                    <span ng-if="user.profilePercentage >= 100" class="col-xs-9" style="margin-left: 2.5%;">
+                                        <progressbar style=" transition: width 1s ease-in-out;" class="progress-striped active" animate="true" max="100" value="user.profilePercentage" type="success"></progressbar>
+                                    </span>
+                                    <span class="col-xs-1"></span>
+                                    <span class="col-xs-1"></span>
+                                </p>
+                                <p class="row" ng-if="user.profilePercentage < 100">
+                                    <span class="col-xs-1" style="position:relative;">
+                                        <img src="{{app.baseUrl}}/img/mobintouch-warning-logo.png" alt="Mobintouch warning logoa" width="17px" style="position: absolute;top: -21px;left: 5px;">
+                                    </span>
+                                    <span class="col-xs-10" style="color:#FF5F00;font-size: 14px;font-style: initial;font-weight: 100;margin-left: -4%;margin-top: -7.5%;">
+                                        Complete your profile, recruiters may not find you!
+                                    </span>
+                                    <span class="col-xs-1"></span>
+                                </p>
+                            </div>
+                            <div class="text-lg text-center col-xs-1"></div>
+                        </div>
+
+                        <div class="row no-gutter b-b b-black-lter bg-white-only">
+                            <li class="text-ellipsis text-center col-xs-6 b-r b-black-lter">
+                                <div class="wrapper">
+                                    <a ui-sref="app.page.connections" ng-if="'invites' | isState" target="_self">
+                                        <div class="text-xl">{{(user.inTouch| toArray | filter:{status:3}).length || 0}}</div>
+                                        <span class="text-md clear">Connections</span>
+                                    </a>
+                                    <a ui-sref="app.page.connections" ng-if="!('invites' | isState)">
+                                        <div class="text-xl">{{(user.inTouch| toArray | filter:{status:3}).length || 0}}</div>
+                                        <span class="text-md clear">Connections</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="text-ellipsis text-center col-xs-6">
+                                <div class="wrapper">
+                                    <a ui-sref="app.page.settings" ng-if="'invites' | isState" target="_self">
+                                        <div class="text-xl"><i class="icon-settings"></i></div>
+                                        <span class="text-md clear">Settings</span>
+                                    </a>
+                                    <a ui-sref="app.page.settings" ng-if="!('invites' | isState)">
+                                        <div class="text-xl"><i class="icon-settings"></i></div>
+                                        <span class="text-md clear">Settings</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="row no-gutter bg-white-only">
+                            <li class="text-ellipsis text-center col-xs-6 b-r b-black-lter">
+                                <div class="wrapper">
+                                    <a href="https://mobintouch.zendesk.com/" target="_blank">
+                                        <div class="text-xl"><i class="icon-question"></i></div>
+                                        <span class="text-md clear">Help Center</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="text-ellipsis text-center col-xs-6">
+                                <div class="wrapper">
+                                    <a ng-click="logout()" ng-if="'invites' | isState" target="_self" ui-sref="access.signin">
+                                        <div class="text-xl"><i class="icon-logout"></i></div>
+                                        <span class="text-md clear">Sign Out</span>
+                                    </a>
+                                    <a ng-click="logout()" ng-if="!('invites' | isState)">
+                                        <div class="text-xl"><i class="icon-logout"></i></div>
+                                        <span class="text-md clear">Sign Out</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </div>
+                    </ul>
+                </li><!-- / Profile menu dropdown -->
+                <!-- STACKOFFERS-->
+                <li ng-if="!user.username">
+                    <a  ui-sref="stack.publicOffer" href="" ng-click="trackLink('Stackoffers', 'Navbar', 'Stackoffers')">
+                        <span class="font-bold text-sm">STACKOFFERS</span>
+                        <!--  <span ng-if="user.offersNotifications && user.offersNotifications=0" class="badge-notification">{{user.offersNotifications}}</span> -->
+                    </a>
+                </li> 
+                <!-- STACKOFFERS -->
+                <!-- SIGN IN -->
+                <li ng-if="!user.username">
+                    <a ui-sref="access.signin" class="btn visible-md no-shadow no-border m-r-md text-dark text-sm font-bold" data-ng-click="trackLink('Sign In Page', 'Sign in')">SIGN IN</a>
+                    <a ui-sref="access.signin" class="hidden-md no-border text-dark text-sm font-bold" data-ng-click="trackLink('Sign In Page', 'Sign in')">SIGN IN</a>
+                </li>
+                <!-- / SIGN IN -->
+
+                <!-- SIGN UP -->
+                <li ng-if="!user.username">
+                    <button ui-sref="access.signup" data-ng-click="trackLink('Sign Up Page', 'Navbar', 'Sign up Free')" class="btn visible-md btn-primary r-2x navbar-btn font-bold text-sm hover-rotate">SIGN UP FREE</button>
+                    <a ui-sref="access.signup" data-ng-click="trackLink('Sign Up Page', 'Navbar', 'Sign up Free')" class="hidden-md no-border text-dark text-sm font-bold">SIGN UP</a>
+                </li>
+                <!-- / SIGN UP -->
+
+
+            </ul><!-- /NAVBAR RIGHT -->
+
+        </div><!-- /.navbar-collapse -->
+
+    </div><!-- /.container-fluid -->
+
+</nav>

@@ -1,0 +1,38 @@
+<div class="w-full b-a r-2x m-t-lg bg-white" id="team">
+    <div class="col-xs-12 padder-v">
+        <div class="pull-left text-xl text-black-dker padder font-normal text-gray">Team</div>
+        <div class="clear clearfix"></div>
+    </div>
+    <div class="col-xs-12 padder-v">
+        <div class="" ng-repeat="employee in publicCompany.employees track by $index">
+            <div class="col-sm-6 m-b-lg">
+                <span class="pull-left thumb-lg avatar m-r b-a">
+                    <img ng-show="employee.avatar" src="{{ app.baseUrl}}{{ employee.avatar}}" alt="{{ employee.name}} {{ employee.lastname}}" class="">
+                    <img ng-hide="employee.avatar" src="{{ app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" alt="{{ employee.name}} {{ employee.lastname}}" class="">
+                </span>
+                <div class="clear m-t-sm">
+                    <a class="font-bold text-lg inline-block hover-black-dker hover-underline" ui-sref="app.page.public({username: employee.username})">{{ employee.name}} {{ employee.lastname}}</a>
+                    <span class="block font-bold text-gray">{{ employee.jobTitle}}</span>
+                    <div class="padder-v-xs" ng-init="mConnect = (employee.mutualConnections | orderBy:'- date');" ng-if="employee.username != user.username">
+                        <div class="inline-only">
+                            <img class="thumb-xxxs img-circle bg-white" 
+                                 ng-if="mConnect[0]" src="{{app.baseUrl}}{{mConnect[0].avatar ? mConnect[0].avatar : '/img/mit-default-avatar.svg'}}?v={{ app.latestUpdate}}"/>
+                            <img class="thumb-xxxs img-circle m-l-n bg-white"
+                                 ng-if="mConnect[1]" src="{{app.baseUrl}}{{mConnect[1].avatar ? mConnect[1].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate}}"/>
+                            <img class="thumb-xxxs img-circle m-l-n bg-white"
+                                 ng-if="mConnect[2]" src="{{app.baseUrl}}{{mConnect[2].avatar ? mConnect[2].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate}}"/>
+                        </div>
+                        <div class="inline-only" ng-class="{'padder-xs' : mConnect.length > 0}">{{ employee.inTouchCounter || 0 }} connections <span class="text-gray" ng-if="employee.mutualConnections.length > 0">({{ employee.mutualConnections.length || 0 }} mutual)</span></div>
+                    </div>
+                    <div class="m-t-xs info-miniresume text-gray">{{ employee.miniResume}}</div>
+                </div>
+            </div>
+            <div class="clear clearfix" ng-if="$odd"></div>
+        </div>
+        <div class="clear clearfix"></div>
+        <div class="text-center" ng-if="publicCompany.employees.length > 2">
+            <span class="text-center text-md font-bold m hover-pointer text-blue-lt hover-text-blue-lt hover-underline inline" ng-click="manageTeamMates()">See all {{ publicCompany.employees.length || 0}} employees</span>
+        </div>
+    </div>
+    <div class="clear clearfix"></div>
+</div>

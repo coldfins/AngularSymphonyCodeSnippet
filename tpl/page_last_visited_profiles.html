@@ -1,0 +1,77 @@
+<style>
+    body{
+        background-color: #fbfbfb;
+    }
+    .tags-input.ng-invalid .tags{
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        border: 1px solid #e7ecee;
+        border-color: #e7ecee;
+    }
+    .text-red-dk{
+        color: #c35353 !important;
+    }
+    .tooltip.in{
+        opacity: 1;
+    }
+    .tooltip-inner{
+        white-space: normal;
+    }
+    .thumb-xxxs{
+        width: 27px !important;
+        height: 27px !important;
+    }
+</style>
+<div ng-init="app.settings.container = false;" class="m-t-xxl m-b-lg" ng-controller="connectionsUtilController">
+
+    <div class="text-center m-b-xxl">
+        <div class="text-xxl font-thin">
+            You recently visited
+        </div>
+        <div class="text-black-dk text-gray text-17 m-t-xs">
+            People you recently visited this last days.
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- TODAY -->
+        <div ng-if="todayVisits.length" class="col-xs-12 no-padder m-t m-b">
+            <h4 class="text-dark-lter m-b-xs">Today <span class="text-muted">{{ todayVisits.length || 0 }} profiles visited</span></h4>
+        </div>
+
+        <div ng-if="todayVisits.length" class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12 people-suggestions pos-stc m-b-lg" ng-repeat="connection in todayVisits| orderBy:'-date' | limitTo:100" ng-init="hide = 'test'">
+                <div ng-include="'tpl/blocks_general/box_connection.html'"></div>
+            </div>
+        </div>
+        <!--/ TODAY -->
+
+        <!-- THIS WEEK -->
+        <div ng-if="weekVisits.length" class="col-xs-12 no-padder m-t m-b">
+            <h4 class="text-dark-lter m-b-xs">This week <span class="text-muted">{{ weekVisits.length || 0 }} profiles visited</span></h4>
+        </div>
+
+        <div ng-if="weekVisits.length" class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12 people-suggestions pos-stc m-b-lg" ng-repeat="connection in weekVisits| orderBy:'-date' | limitTo:100" ng-init="hide = true;">
+                <div ng-include="'tpl/blocks_general/box_connection.html'"></div>
+            </div>    
+        </div>
+        <!--/ THIS WEEK -->
+
+        <!-- LAST 90 -->
+        <div ng-if="pastVisits.length" class="col-xs-12 no-padder m-t m-b">
+            <h4 class="text-dark-lter m-b-xs">Past days <span class="text-muted">{{ pastVisits.length || 0 }} profiles visited</span></h4>
+        </div>
+
+        <div ng-if="pastVisits.length" class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12 people-suggestions pos-stc m-b-lg" ng-repeat="connection in pastVisits| orderBy:'-date' | limitTo:100" ng-init="hide = true;">
+                <div ng-include="'tpl/blocks_general/box_connection.html'"></div>
+            </div>  
+        </div>
+        <!--/ LAST 90 -->
+
+    </div>
+
+</div>

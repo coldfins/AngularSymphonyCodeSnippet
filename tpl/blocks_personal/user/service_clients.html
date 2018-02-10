@@ -1,0 +1,41 @@
+<div class="row" id="clients">
+    <div class="col-sm-12">
+        <span class="text-20 text-black-d opacity-8">Clients</span>
+    </div>
+    <div class="" ng-class="{'padder-l-md' : windowWidth > 480}">
+        <div class="clients m-sm inline-table" ng-repeat="client in user.services[selectedIndex].clients track by $index">
+            <button type="button" class="close text-gray hover-gray opacity-9 m-r-xs"  aria-label="Close" ng-click="removeServiceClient(selectedIndex, $index, 'sm')" uib-tooltip="Remove">
+                <span aria-hidden="true">×</span>
+            </button>
+            <div class="" ng-if="!client.id">
+                <div class="client-avatar b-a" ng-if="client.avatar" style="background:url({{app.baseUrl}}{{ client.avatar}}) center center / cover;">
+                    <!--<div class="pull-right bg-white b-white b-a hover-pointer img-circle btn-close" ng-click="removeServiceClient(selectedIndex, $index, 'sm')"></div>-->
+                </div>
+                <div class="client-avatar b-a" ng-if="!client.avatar">
+                    <!--<div class="pull-right bg-white b-white b-a hover-pointer img-circle btn-close" ng-click="removeServiceClient(selectedIndex, $index, 'sm')"></div>-->
+                </div>
+                <div class="m-t-n-100 client-avatar bg-black dk hover-pointer" ng-click="addClientAvatar($index)" ng-class="client.avatar ? 'bg bg-lt' : 'bg'"></div>
+            </div>
+            <div class="" ng-if="client.id">
+                <div class="client-avatar b-a" ng-if="client.avatar" style="background:url({{app.baseUrl}}{{ client.avatar}}) center center / cover;">
+                    <!--<div class="pull-right bg-white b-white b-a hover-pointer img-circle btn-close" ng-click="removeServiceClient(selectedIndex, $index, 'sm')" uib-tooltip="Remove"></div>-->
+                </div>
+                <div class="client-avatar b-a" ng-if="!client.avatar" style="background:url('{{app.baseUrl}}/img/mit-default-company-avatar-white.svg') center center / cover;background-color: red;">
+                    <!-- <div class="pull-right bg-white b-white b-a hover-pointer img-circle btn-close" ng-click="removeServiceClient(selectedIndex, $index, 'sm')" uib-tooltip="Remove"></div>-->
+                </div>
+            </div>
+            <a class="font-bold text-16 m-t-xs name" ui-sref="app.page.company/public({companyusername: client.username})" ng-if="client.username">{{ client.name}}</a>
+            <span class="font-bold text-16 m-t-xs name" ng-if="!client.username">{{ client.name}}</span>
+            <div class="pull-left m-t-xs padder-v-xs padder-xs r-3x bg-light text-10 text-uppercase">{{ user.services[selectedIndex].service}}</div>
+        </div>
+        <div class="clients m-b-md inline">
+            <div class="client-add b-a">
+                <div class="text-blue hover-pointer font-bold text-xxl" ng-click="addServiceClient('share')">+</div>
+            </div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+</div>
+
+
+

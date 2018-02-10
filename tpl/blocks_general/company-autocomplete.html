@@ -1,0 +1,21 @@
+<li class="clearfix wrapper b-b w-xxl" style="cursor: pointer;">
+
+    <a ui-sref="app.page.company/public({companyusername: match.model.username})" class="pull-left thumb-md avatar b-3x m-r" ng-if="'invites' | isState" target="_self">
+        <img ng-show="match.model.avatar" src="{{ $parent.$parent.$parent.$parent.$parent.cdnBaseUrl }}{{match.model.avatar}}" class="img-circle">
+        <img ng-hide="match.model.avatar" src="{{ $parent.$parent.$parent.$parent.$parent.cdnBaseUrl }}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" class="img-circle">
+    </a>
+    <a ui-sref="app.page.company/public({companyusername: match.model.username})" class="pull-left thumb-md avatar b-3x m-r" ng-if="!('invites' | isState)">
+        <img ng-show="match.model.avatar" src="{{ $parent.$parent.$parent.$parent.$parent.cdnBaseUrl }}{{match.model.avatar}}" class="img-circle">
+        <img ng-hide="match.model.avatar" src="{{ $parent.$parent.$parent.$parent.$parent.cdnBaseUrl }}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" class="img-circle">
+    </a>
+    
+    <a ui-sref="app.page.company/public({companyusername: match.model.username})" ng-if="'invites' | isState" target="_self">
+        <div class="text-md text-dark text-ellipsis" bind-html-unsafe="match.model.name | typeaheadHighlight:query"></div>
+        <div class="text-sm text-dark text-ellipsis" bind-html-unsafe="match.model.companyType  || '' | typeaheadHighlight:query"></div>
+    </a>
+    <a ui-sref="app.page.company/public({companyusername: match.model.username})" ng-if="!('invites' | isState)">
+        <div class="text-md text-dark text-ellipsis" bind-html-unsafe="match.model.name | typeaheadHighlight:query"></div>
+        <div class="text-sm text-dark text-ellipsis" bind-html-unsafe="match.model.companyType  || '' | typeaheadHighlight:query"></div>
+    </a>
+    
+</li>

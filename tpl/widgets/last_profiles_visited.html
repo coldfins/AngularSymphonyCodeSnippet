@@ -1,0 +1,12 @@
+<div class="m-b" ng-if="user.iVisited">
+    <div class="m-b-xs">
+        <span class="text-u-c text-muted font-bold text-xs">You recently visited</span>
+    </div>
+    <div class="">
+        <a ui-sref="app.page.public({ username:'{{visited.username}}' })" uib-tooltip="{{visited.name + ' ' + visited.lastname}}"  class="pull-left thumb-sm avatar" data-ng-click="track('Last Profile Visited','{{visited.username}}')" ng-repeat="visited in user.iVisited| toArray | orderBy:'-date' | limitTo:3" class="thumb-sm avatar" ng-class="{'m-l-n':!$first}">
+            <img ng-if="visited.avatar" ng-src="{{app.baseUrl}}{{visited.avatar}}" class="img-circle">
+            <img ng-if="!visited.avatar" ng-src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+        </a>
+        <a ui-sref="app.page.history" class="btn btn-default btn-rounded font-bold l-h-18 no-shadow hover-text-blue-lt pos-rlt" data-ng-click="track('Last Profile Visited', 'See more')" style="height:40px;width:40px;" ng-class="{'m-l-n':!$first}">+</a>
+    </div>
+</div>

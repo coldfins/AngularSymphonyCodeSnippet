@@ -1,0 +1,79 @@
+<div ng-controller="TooltipDemoCtrl" class="panel panel-default">
+    <div class="panel-heading">
+        <a ui-sref="app.page.edit/profile" class="text-muted pull-right m-t-xxs" ng-click="app.activetab='mobiletraffic'">Edit</a>
+        <h2 class="h4">Buying</h2>
+    </div>
+    <div class="hbox text-center text-sm padder-v-md">
+        <div class="hidden-xs col-sm-2 text-center text-muted">
+            <i class="icon-target block m-b-xs fa-2x"></i>
+            <span>Gender/Age</span>
+        </div>
+        <div class="col-xs-4 col-sm-2 text-center text-muted">
+            <i class="icon-screen-smartphone block m-b-xs fa-2x"></i>
+            <span>Platforms</span>
+        </div>
+        <div class="hidden-xs col-sm-2 text-center text-muted">
+            <i class="icon-badge block m-b-xs fa-2x"></i>
+            <span>Quality</span>
+        </div>
+        <div class="hidden-xs col-sm-2 text-center text-muted">
+            <i class="icon-tag block m-b-xs fa-2x"></i>
+            <span>Interests</span>
+        </div>
+        <div class="col-xs-4 col-sm-2 text-center text-muted">
+            <i class="icon-flag block m-b-xs fa-2x"></i>
+            <span>Pricing Model</span>
+        </div>
+        <div class="col-xs-4 col-sm-2 text-center text-muted">
+            <i class="icon-globe block m-b-xs fa-2x"></i>
+            <span>Country</span>
+        </div>
+    </div>
+    <div class="panel-body no-padder">
+        <div data-ng-repeat="(key, buytraffic) in user.buyTraffic"
+             ng-show="buytraffic.gender"
+             class="row no-gutter b-t padder-v"
+             popover="{{dateArray[key]}}"
+             popover-title="Time"
+             popover-trigger="mouseenter"
+             Popover-animation="true">
+
+            <div class="hidden-xs col-sm-2 text-center">
+                <span>{{buytraffic.gender | capitalize }}</span>
+                <div>-</div>
+                <span ng-if="!buytraffic.fromage && !buytraffic.toage">Any</span>
+                <span ng-if="buytraffic.fromage || buytraffic.toage">{{buytraffic.fromage}} to {{buytraffic.toage}}</span>
+            </div>
+            <div class="col-xs-4 col-sm-2 text-center">
+                <span ng-repeat="array in buytraffic.platform">
+                    <span ng-repeat="(os, bool) in array" class="tag">{{os}}</span>
+                </span>
+                <span ng-show="buytraffic.otherPlatform" class="tag">{{ buytraffic.otherPlatform }}</span>
+            </div>
+            <div class="hidden-xs col-sm-2 text-center">
+                <span ng-if="buytraffic.incentivized" class="tag text-C">Incentivized</span>
+                <span ng-if="buytraffic.nonincentivized" class="tag text-C">Non Incentivized</span>
+            </div>
+            <div class="hidden-xs col-sm-2 text-center">
+                <span data-ng-repeat="interests in buytraffic.interests" class="tag text-C">{{interests.text}}</span>
+                <span ng-if="buytraffic.interests.length==0">Any</span>
+            </div>
+            <div class="col-xs-4 col-sm-2 text-center">
+                <span data-ng-repeat="(model, value) in buytraffic.pricing[0] ">
+                    <span ng-show="value" class="tag">{{ model | uppercase }}</span>
+                </span>
+                <span ng-if="buytraffic.isOtherPricing" class="tag">{{ buytraffic.otherPricing }}</span>
+            </div>
+            <div class="col-xs-4 col-sm-2 text-center">
+                <span data-ng-repeat="country in buytraffic.countries" class="tag"  tooltip="{{ 'country.'+country | translate }}">{{ country }} </span>
+            </div>
+        </div>
+        <div  ng-show="!user.buyTraffic[0].valid" class="row list-icon">
+            <div class="col-sm-12 text-center">
+                <div class="wrapper">
+                    <a ui-sref="app.page.edit/profile" class="b-a line-dashed b-2x wrapper text-md"><i class="icon-plus m-l"></i>add new buying traffic</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,195 @@
+<style>
+    .progress {
+        background-color: #131e26;
+    }
+    .progress {
+        border-radius: 4px;
+        height: 3px;
+        margin-bottom: 5px;
+    }
+</style>
+<nav class="navbar-md navbar-fixed-top bg-white">
+
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button class="pull-right" id="sidebar_toggle" data-toggle="sidebar" data-target=".sidebar-right" ng-class="('invites' | isState) ? 'm-t' : ''">
+                <i class="fa fa-navicon fa-fw"></i>
+            </button>
+            <a ng-if="user.username && !('invites' | isState)" title="Go to Mobintouch home" ui-sref="app.page.feed" data-ng-click="trackHeader('Feed', 'Logo')" ui-sref-opts="{reload: true}" class="navbar-brand m-n">
+                <img src="{{app.baseUrl}}/img/mobintouch-logo.png" alt="Mobintouch white logo beta" class="thumb-sm">
+                <span class="hidden">Mobintouch Mobile Advertising Social Network</span>
+            </a>
+            <a ng-if="!user.username && !('invites' | isState)" title="Go to Mobintouch home" ui-sref="index" data-ng-click="trackLink('Back On Landing Page', 'Logo')" ui-sref-opts="{reload: true}" class="navbar-brand m-n">
+                <img src="{{app.baseUrl}}/img/mobintouch-logo-white-pure.png" alt="Mobintouch white logo beta" class="thumb-sm">
+                <span class="hidden">Mobintouch Mobile Advertising Social Network</span>
+            </a>
+            <a ng-if="user.username && 'invites' | isState" target="_self" title="Go to Mobintouch home" ui-sref="app.page.feed" data-ng-click="trackHeader('Feed', 'Logo')" ui-sref-opts="{reload: true}" class="navbar-brand m-n">
+                <img src="{{app.baseUrl}}/img/mobintouch-logo-white-pure.png" alt="Mobintouch white logo beta" class="thumb-sm">
+                <span class="hidden">Mobintouch Mobile Advertising Social Network</span>
+            </a>
+            <a ng-if="!user.username && 'invites' | isState" target="_self" title="Go to Mobintouch home" ui-sref="index" data-ng-click="trackLink('Back On Landing Page', 'Logo')" ui-sref-opts="{reload: true}" class="navbar-brand m-n">
+                <img src="{{app.baseUrl}}/mobintouch-logo-white-pure.png" alt="Mobintouch white logo beta" class="thumb-sm">
+                <span class="hidden">Mobintouch Mobile Advertising Social Network</span>
+            </a>
+        </div>
+    </div><!-- /.container-fluid -->
+
+    <div class="col-xs-10 sidebar sidebar-right sidebar-animate bg-white no-padder" style="overflow-x: hidden" ng-style="{
+                'height':windowHeight - 60}" ng-controller="TypeaheadSearchCtrl" resize>
+        <ul class="nav navbar-stacked navbar-nav navbar-right m-n">
+            <li>
+                <div class="col-xs-6 text-center m-t-md" ng-if="user.companyPage">
+                    <a ui-sref="app.page.company" class="clear" style="position:relative" ng-if="'invites' | isState" target="_self">
+                        <img ng-show="company.avatar" src="{{app.baseUrl}}{{company.avatar}}" alt="{{company.name}}" class="thumb-md">
+                        <img ng-hide="company.avatar" src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" alt="{{company.name}}" class="thumb-md">
+                        <span class="clear m-t-sm m-b-sm">{{user.company}}</span>
+                    </a>
+                    <a ui-sref="app.page.company" onclick="document.getElementById('sidebar_toggle').click()" class="clear" style="position:relative" ng-if="!('invites' | isState)">
+                        <img ng-show="company.avatar" src="{{app.baseUrl}}{{company.avatar}}" alt="{{company.name}}" class="thumb-md">
+                        <img ng-hide="company.avatar" src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" alt="{{company.name}}" class="thumb-md">
+                        <span class="clear m-t-sm m-b-sm">{{user.company}}</span>
+                    </a>
+                </div>
+                <div class="col-xs-6 text-center m-t-md" ng-if="!user.companyPage">
+                    <a ui-sref="app.page.createCompany" class="clear" ng-if="'invites' | isState" target="_self">
+                        <img src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" alt="{{company.name}}" class="thumb-md">
+                        <span class="clear m-t-sm m-b-sm">Create my Company</span>
+                    </a>
+                    <a ui-sref="app.page.createCompany" class="clear"  ng-if="!('invites' | isState)" onclick="document.getElementById('sidebar_toggle').click()">
+                        <img src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" alt="{{company.name}}" class="thumb-md">
+                        <span class="clear m-t-sm m-b-sm">Create my Company</span>
+                    </a>
+                </div>
+                <div class="col-xs-6 text-center m-t-md">
+                    <a ui-sref="app.page.profile" class="clear" ng-if="'invites' | isState" target="_self">
+                        <img ng-show="user.avatar" src="{{app.baseUrl}}{{user.avatar}}" alt="{{ user.name}} {{ user.lastname}}" class="thumb-md avatar">
+                        <img ng-hide="user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" alt="{{ user.name}} {{ user.lastname}}" class="thumb-md avatar">
+                        <span class="clear m-t-sm m-b-sm">{{ user.name | capitalize }} {{user.lastname| capitalize}}</span>
+                    </a>
+                    <a ui-sref="app.page.profile" class="clear" onclick="document.getElementById('sidebar_toggle').click()" ng-if="!('invites' | isState)">
+                        <img ng-show="user.avatar" src="{{app.baseUrl}}{{user.avatar}}" alt="{{ user.name}} {{ user.lastname}}" class="thumb-md avatar">
+                        <img ng-hide="user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" alt="{{ user.name}} {{ user.lastname}}" class="thumb-md avatar">
+                        <span class="clear m-t-sm m-b-sm">{{ user.name | capitalize }} {{user.lastname| capitalize}}</span>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="no-gutter b-b">
+                    <div class="text-lg text-center col-xs-12" >
+                        <p class="clear">
+                            <span class="col-xs-1"></span>
+                            <span class="col-xs-4 text-left" style="color:#636363;font-size: 13px;font-style: initial;font-weight: 100;">Profile Completion</span>
+                            <span class="col-xs-3"></span>
+                            <span class="col-xs-3 text-right" style="color:#636363;font-size: 13px;font-style: initial;font-weight: 100;">{{user.profilePercentage}}%</span>
+                            <span class="col-xs-1"></span>
+                        </p>
+                        <p class="">
+                            <span ng-if="user.profilePercentage < 100" class="col-xs-10 col-xs-offset-1">
+                                <uib-progressbar style=" transition: width 1s ease-in-out;" class="progress-striped active" animate="true" max="100" value="user.profilePercentage" type="info"></uib-progressbar>
+                            </span>
+                            <span ng-if="user.profilePercentage >= 100" class="col-xs-10 col-xs-offset-1" style="padding-bottom:10px">
+                                <uib-progressbar style=" transition: width 1s ease-in-out;" class="progress-striped active" animate="true" max="100" value="user.profilePercentage" type="success"></uib-progressbar>
+                            </span>
+                        </p>
+                        <p class="" ng-if="user.profilePercentage < 100">
+                            <span class="col-xs-10 col-xs-offset-1" style="color:#FF5F00;font-size: 14px;font-style: initial;font-weight: 100;padding-bottom:10px;">
+                                Complete your profile, recruiters may not find you!
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li class="clear clearfix"></li>
+            <!-- SEARCH -->
+            <li class="search-dropdown">
+                <form role="search" ng-submit="itemSelect(null);" onsubmit="document.getElementById('sidebar_toggle').click();">
+                    <div class="b-l search-wrapper has-feedback">
+                        <div class="search icon pull-left" style="background: url('{{ app.baseUrl}}/img/icons/search.png') no-repeat"></div>
+                        <input 
+                            type="text" 
+                            class="padder-sm search" 
+                            placeholder="SEARCH"
+                            ng-model="query.headerString"
+                            min-length="1"
+                            uib-typeahead="fuser.name for fuser in autocomplete($viewValue) | limitTo:5"
+                            typeahead-loading='loading_search'
+                            typeahead-focus-first="false"
+                            typeahead-template-url="tpl/blocks_general/header/header-autocomplete.html?v={{app.latestUpdate}}"
+                            typeahead-dropdown-custom-class="demo-class"
+                            typeahead-on-select="itemSelect($item, $model, $label)"/>
+                        <i ng-show="loading_search" class="fa fa-spinner fa-spin form-control-feedback input-loader-sm ng-show m-t m-r"></i>
+                    </div>
+                </form>
+            </li>
+            <!--/ SEARCH -->
+            <li class="clear clearfix"></li>
+            <li ng-if="!user.username">
+                <a rel="nofollow" class="font-normal" ui-sref="app.page.search">STARTUP JOBS</a>
+            </li>
+            <li ng-if="user.username" class="headerlink" ng-class="activelink == 'profile' ? 'active' : ''" >
+                <a rel="nofollow" class="font-bold text-sm" ui-sref="app.page.profile" ng-click="updateActiveLink('profile')" onclick="document.getElementById('sidebar_toggle').click()">PROFILE</a>
+            </li>
+            <li ng-if="user.username" class="dropdown connections headerlink" ng-class="activelink == 'connections' ? 'active' : ''">
+                <a rel="nofollow" class="font-bold text-sm">CONNECTIONS</a>
+                <ul class="dropdown-menu" style="width: 100%;">
+                    <li>
+                        <a rel="nofollow" class="font-normal" ui-sref="app.page.connections({'type':'secondary'})" onclick="document.getElementById('sidebar_toggle').click()">Connections</a>
+                    </li>
+                    <li>
+                        <a rel="nofollow" class="font-normal" ui-sref="app.page.peopleyoumayknow" onclick="document.getElementById('sidebar_toggle').click()">People you may know</a>
+                    </li>
+                    <li>
+                        <a rel="nofollow" class="font-normal" ui-sref="app.page.addconnections" onclick="document.getElementById('sidebar_toggle').click()">Add Connections</a>
+                    </li>
+                    <li>
+                        <a rel="nofollow" class="font-normal" ui-sref="app.page.manageconnections" onclick="document.getElementById('sidebar_toggle').click()">Manage your Connections</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a rel="nofollow" ng-if="user.username" class="font-bold text-sm" ui-sref="app.page.jobs" onclick="document.getElementById('sidebar_toggle').click()">JOBS</a>
+                <a rel="nofollow" ng-if="!user.username" class="font-bold text-sm" ui-sref="access.signin" onclick="document.getElementById('sidebar_toggle').click()">JOBS</a>
+            </li>
+
+            <li>
+                <a rel="nofollow" class="font-bold text-sm" ui-sref="app.recruits.manage" ng-if="user.username && user.hasPostedJob && user.companyPage.administrator" onclick="document.getElementById('sidebar_toggle').click()">RECRUIT</a>
+                <a rel="nofollow" class="font-bold text-sm" ui-sref="app.page.addjobtutorial" ng-if="user.username && (!user.hasPostedJob || !user.companyPage.administrator)" onclick="document.getElementById('sidebar_toggle').click()">RECRUIT</a>
+                <a rel="nofollow" class="font-bold text-sm" ui-sref="access.signup" ng-if="!user.username" onclick="document.getElementById('sidebar_toggle').click()">RECRUIT</a>
+            </li>
+            <li>
+                <a rel="nofollow" class="font-bold text-sm" ui-sref="app.page.companies" onclick="document.getElementById('sidebar_toggle').click()">COMPANIES</a>
+            </li>
+            <li class="headerlink" ng-class="activelink == 'qa' ? 'active' : ''">
+                <a rel="nofollow" class="font-bold text-sm" ui-sref="app.page.qa" onclick="document.getElementById('sidebar_toggle').click()">Q&A</a>
+            </li>
+            <li ng-if="!user.username" class="">
+                <a rel="nofollow" class="font-bold text-sm" ui-sref="app.page.search" onclick="document.getElementById('sidebar_toggle').click()">PEOPLE</a>
+            </li>
+            <li ng-if="user.username" class="">
+                <a ui-sref="app.page.settings" onclick="document.getElementById('sidebar_toggle').click()" ng-if="'invites' | isState" target="_self">
+                    <span class="font-bold text-sm">SETTINGS</span>
+                </a>
+                <a ui-sref="app.page.settings" onclick="document.getElementById('sidebar_toggle').click()" ng-if="!('invites' | isState)">
+                    <span class="font-bold text-sm">SETTINGS</span>
+                </a>
+            </li>
+            <li ng-if="user.username" class="">
+                <a href="https://mobintouch.zendesk.com/" target="_blank">
+                    <span class="font-bold text-sm">HELP CENTER</span>
+                </a>
+            </li>
+            <li ng-if="user.username" class="">
+                <a ng-click="logout()" ng-if="'invites' | isState" target="_self" ui-sref="access.signin">
+                    <span class="font-bold text-sm">SIGN OUT</span>
+                </a>
+                <a ng-click="logout()" onclick="document.getElementById('sidebar_toggle').click()" ng-if="!('invites' | isState)">
+                    <span class="font-bold text-sm">SIGN OUT</span>
+                </a>
+            </li>
+        </ul>
+        <div class="clear clearfix"></div>
+    </div>
+    <div class="clear clearfix"></div>
+</nav>
+

@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="form-group form-horizontal">
+        <div class="col-xs-12 col-sm-4 text-17 padder-t-sm padder-l-xl text-black-dk">
+            *Where can you offer marketing services? 
+            <div class="text-sm text-primary" ng-show="(formService.location.$dirty && formService.location.$invalid) || (formSubmited && formService.location.$invalid)">Required</div>
+        </div>
+        <div class="col-sm-8">
+            <input type="text" name="location" class="form-control w-2xl input-lg pull-left text-black-dk" ng-model="user.services[selectedIndex].formatted_address" ng-blur="checkLocation(selectedIndex)" placeholder="Location" options="{ types: '(cities)', watchEnter: false }" details="user.services[selectedIndex].location" id="location" required="required" allow-only-results="true" ng-autocomplete/>
+            <label class="i-checks i-checks-lblue m-t-sm m-l-sm">
+                <input type="checkbox" ng-model="user.services[selectedIndex].remoteService">
+                <i></i>
+                <div class="inline text-sm m-l-xs text-black-dk">Remote</div>
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group form-horizontal">
+        <div class="col-xs-12 col-sm-4 text-17 padder-t-sm padder-l-xl text-black-dk">
+            Who should be able to message you? 
+        </div>
+        <div class="col-sm-8">
+            <select ng-include="'tpl/utils/whoCanSendMessage.html?v={{app.latestUpdate}}'" class="form-control w-2xl input-lg text-black-dk" ng-model="user.services[selectedIndex].whoCanSendMessage"></select>
+        </div>
+    </div>
+
+    <div class="form-group form-horizontal">
+        <div class="col-xs-12 col-sm-4 text-17 padder-t-sm padder-l-xl text-black-dk">
+            *Why should the Mobintouch community work with you? 
+            <div class="text-sm text-primary" ng-show="(formService.experties.$dirty && formService.experties.$invalid) || (formSubmited && formService.experties.$invalid)">Required</div>
+        </div>
+        <div class="col-sm-8">
+            <textarea name="experties" class="form-control col-sm-10 text-md w-3xl r-2x text-black-dk" ng-model="user.services[selectedIndex].experties" placeholder="Talk about your aeas of experties, pas client of collaborators, how long you've been in the field." required="required"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group form-horizontal has-feedback has-feedback-left">
+        <div class="col-xs-12 col-sm-4 text-17 padder-t-sm padder-l-xl text-black-dk">
+            Price range
+            <div class="text-sm text-primary" ng-show="(formService.minPrice.$dirty && formService.minPrice.$invalid) || (formService.maxPrice.$dirty && formService.maxPrice.$invalid)">Hourly charge must be in digit</div>
+        </div>
+        <div class="col-sm-8">
+            <div class="input-group lt pull-left w-s">
+                <input name="minPrice" type="text" class="form-control w-sm input-lg pull-left text-black-dk" ng-model="user.services[selectedIndex].minCharge" ng-pattern="/^[0-9]+$/"/>
+                <i class="fa fa-usd form-control-feedback text-black-dk"></i>
+            </div>
+            <span class="pull-left text-md padder-t-sm m-l-sm text-black-dk">to</span>
+            <div class="input-group lt pull-left w-s m-l-sm">
+                <input name="maxPrice" type="text" class="form-control w-sm input-lg pull-left text-black-dk" ng-model="user.services[selectedIndex].maxCharge" ng-pattern="/^[0-9]+$/"/>
+                <i class="fa fa-usd form-control-feedback text-black-dk"></i>
+            </div>
+            <span class="pull-left text-md padder-t-sm m-l-sm text-black-dk">per hour</span>
+        </div>
+    </div>
+    <ng-include src="serviceTpl"></ng-include>
+</div>
+
+
+

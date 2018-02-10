@@ -1,0 +1,103 @@
+<style>
+    .popover{
+        min-width: 345px;
+        width: 345px;
+    }
+</style>
+<div ng-init="app.settings.container = false; app.settings.headerFixed = false;" ng-controller="RegisterStepsFormController">
+    <nav class="navbar navbar-fixed-top pos-rlt">
+        <div class="container-fluid">
+            <div class="padder-lg padder-v-lg">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                   <!-- <a ui-sref="index" class="navbar-brand hidden-xs signup-close" data-ng-click="track('Back On Landing Page', 'Navbar', 'Cross Button')">
+                        <span><svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path d="M6 4.586l4.24-4.24c.395-.395 1.026-.392 1.416-.002.393.393.39 1.024 0 1.415L7.413 6l4.24 4.24c.395.395.392 1.026.002 1.416-.393.393-1.024.39-1.415 0L6 7.413l-4.24 4.24c-.395.395-1.026.392-1.416.002-.393-.393-.39-1.024 0-1.415L4.587 6 .347 1.76C-.05 1.364-.048.733.342.343c.393-.393 1.024-.39 1.415 0L6 4.587z" fill-rule="evenodd"></path></svg></span>
+                    </a> -->
+                    <a ui-sref="index" class="navbar-brand w-xxs visible-xs" data-ng-click="track('Back On Landing Page', 'Navbar', 'Logo')" ><i class=" icon-arrow-left text-xl"></i></a>
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+    </nav>
+
+    <div class="vertical-center flex-center">
+        <div class="container pos-rlt animated fadeIn">
+            <div class="row">
+
+                <div class="col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1 col-xs-12">
+                    <div class="text-center">
+                        <span class="text-48 text-black-dker">Add your interests</span>
+                    </div>
+                    <div class="text-center padder-v m-b-xl">
+                        <span class="text-20">We'll use your interests to suggest you people, companies, products and apps.</span>
+                    </div>
+                    <form name="frmKeywords" class="form-horizontal" ng-submit="updateKeywords()" ng-init="getSuggestKeywords()">
+                        <div class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 text-center text-lg">
+                            <div class="text-blue-lt hover-underline hover-pointer inline m-xs" ng-repeat="keyword in keywords.slice(0, 15) track by $index" ng-click="keywordSelected(keyword)">#{{ keyword}}</div>
+                        </div>
+                        <div class="clear clearfix"></div>
+                        <div class="text-center" ng-show="keywords.length > 0">
+                            <hr class="col-xs-12 or-divider m-t-xl m-b-xl opacity-8">
+                        </div>
+                        <div class="col-xs-12 has-feedback">
+                            Type a list of keywords that defines your interests
+                            <tags-input class="tags-input" 
+                                        replace-spaces-with-dashes="false" 
+                                        ng-model="user.keywords" 
+                                        add-from-autocomplete-only="false" 
+                                        on-tag-added="keywordSelected($tag.text)"
+                                        on-tag-removed="keywordRemoved($tag.text)"
+                                        placeholder="Insert interested keywords" 
+                                        add-on-paste="true">
+                                <auto-complete source="loadKeywords($query)" 
+                                               min-length="0" 
+                                               debounce-delay="300"
+                                               max-results-to-show="10"></auto-complete>
+                                <i ng-show="loadingkeywords" class="fa fa-spinner fa-spin form-control-feedback input-loader-lg"></i>
+                            </tags-input>
+                        </div>
+                        <div class="m-t-xl col-sm-6 col-sm-offset-3 col-xs-12" ng-class="{'padder-xl':windowWidth >= 768}">
+                            <button type="submit" ng-disabled='frmKeywords.$invalid || loadingSignup' class="btn btn-lg btn-blue-lt col-xs-12">
+                                <span ng-hide="loadingSignup" class="text-md">Continue <span class="text-sm"> <i class="fa fa-angle-double-right"></i></span></span>
+                                <span ng-show="loadingSignup" class="text-md">Continue <i class="fa fa-spinner fa-spin text-md"></i></span>
+                            </button>
+                        </div>
+                        <div class="clear clearfix"></div>
+                        <div class="m-t-lg m-b-md text-center text-md">
+                            <a href="" uib-popover-template="'popover.html'" popover-is-open="popover.isOpen" popover-trigger="'click'">Skip this step</a>
+                        </div>
+                        <div class="clear clearfix"></div>
+                        <div class="m-t-xxl">
+                            <div class="col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">
+                                <div class="outer_progress">
+                                </div>
+                                <div class="inner_progress" style="width: 85%;"></div>
+                            </div>
+                            <div class="clear clearfix"></div>
+                            <div class="text-center m-t-sm m-b-xxl">
+                                <span class="text-md">85% complete</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="popover.html">
+    <div class='padder padder-t-md text-center'>
+    <div class='text-md m-t-md m-b-md'>
+    <b>Keywords are extremely important</b> for our algorithm to suggest you professionals, companies, content and jobs.
+    </div>
+    <div class='text-md m-t-md m-b-md'>
+    Are you sure you want to skip this step?
+    </div>
+    <div class='col-xs-12 m-b-md'>
+    <div class='col-xs-6'>
+    <a class='btn no-border pull-right text-md' ng-click='skipKeywordStep()'>Yes</a>
+    </div>
+    <div class='col-xs-6'>
+    <a class='btn btn-blue-lt no-border pull-left text-md padder r-3x no' ng-click='$parent.popover.isOpen=false;'>No</a>
+    </div>
+    </div>
+    </div>
+</script>

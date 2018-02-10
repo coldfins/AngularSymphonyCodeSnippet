@@ -1,0 +1,348 @@
+<style>
+    .delete-badge{
+        margin: -9px -7px 0px 0px;
+        border-radius: 50%;
+        color: gray;
+    }
+    .delete-badge:hover{
+        color: black;
+    }
+    .image_wrapper{
+        position: relative;
+        zoom: 1;
+        max-width: 7000px;
+    }
+    .screenshots{
+        clear: both;
+        position: relative;
+        width: auto;
+        min-height: 320px;
+        max-height: 600px;
+        margin: 0px 0px 15px 0px;
+        padding: 16px;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        background-color: #f7f8f9;
+    }
+</style>
+<div class="w-full b-a r-2x m-t-lg bg-white-only" id="product">
+    <form class="" novalidate>
+        <div class="col-xs-12 padder-v">
+            <div class="pull-left text-xl text-black-dker padder font-normal text-gray">Product</div>
+            <div class="pull-right padder" ng-if="(publicCompany.administrators | filter:user.username).length > 0">
+
+                <!--<button class="btn btn-blue-lt r-2x" ng-click="updateProductMode(true);" ng-if="!publicCompany.product && !editProduct">Add Product</button>-->
+                <a class="inline text-gray hover-text-blue-lt padder-v-sm padder-sm" ng-click="updateProductMode(true);" ng-if="!publicCompany.product && !editProduct">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span class="m-l-xs inline">Add Product</span>
+                </a>
+
+                <!--<button class="btn btn-blue-lt r-2x" ng-click="updateProductMode(true);" ng-if="publicCompany.product && !editProduct">Edit Product</button>-->
+                <a class="inline text-gray hover-text-blue-lt padder-v-sm padder-sm" ng-click="updateProductMode(true);" ng-if="publicCompany.product && !editProduct">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span class="m-l-xs inline">Edit Product</span>
+                </a>
+
+                <button class="btn btn-blue-lt r-2x m-r-xs" ng-click="saveProduct();" ng-if="editProduct" ng-disabled="updatingProduct">
+                    <span ng-hide="updatingProduct">Save</span>
+                    <span ng-show="updatingProduct">Saving...<i class="fa fa-spin fa-spinner"></i></span>
+                </button>
+                <button class="btn btn-default r-2x" ng-click="updateProductMode(false); cancel();" ng-if="editProduct">Cancel</button>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="col-xs-12 padder-v padder-lg" ng-show="!editProduct">
+            <span class="text-md text-muted font-italic" ng-if="(!publicCompany.product.apps || publicCompany.product.apps.length <= 0) && !publicCompany.product.logo">
+                Product details isn't available.
+            </span>
+            <div class="" ng-if="publicCompany.product.case && publicCompany.product.case == 'custom'">
+                <div class="text-muted text-lg">{{ publicCompany.product.title}}</div>
+                <div id="s_container" class="screenshots row">
+                    <div id="product_custom_lightbox" class="image_wrapper">
+                        <div class="pull-left" ng-if="publicCompany.product.video.type == 'youtube'">
+                            <iframe width="450px" height="284px" ng-src="{{ publicCompany.product.video.videoId | youtubeEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                        </div>
+                        <div class="pull-left" ng-if="publicCompany.product.video.type == 'vimeo'">
+                            <iframe width="450px" height="284px" ng-src="{{ publicCompany.product.video.videoId | vimeoEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                        </div>
+                        <a href="{{ app.baseUrl}}{{ image}}" ng-repeat="image in publicCompany.product.images track by $index">
+                            <img id="s_img_{{ $index}}" class="h-lg padder lightbox" src="{{ app.baseUrl}}{{ image}}"/>
+                        </a>
+                        <script>
+                            document.getElementById('product_custom_lightbox').onclick = function (event) {
+
+                                event = event || window.event;
+                                var target = event.target || event.srcElement,
+                                        link = target.src ? target.parentNode : target,
+                                        options = {index: link, event: event},
+                                links = this.getElementsByTagName('a');
+                                var serializer = new XMLSerializer();
+                                var lightbox = serializer.serializeToString(target);
+                                if (lightbox && lightbox.indexOf("img") > 0 && lightbox.indexOf("lightbox") > 0)
+                                    blueimp.Gallery(links, options);
+                            };</script>
+                    </div>
+                </div>
+                <div class="screenshots_prev" ng-init="isVideo = publicCompany.product.apps[0].video ? true : false">
+                    <img id="p_img_{{ $index}}" class="h-xxs padder b-a m-xs" src="{{ app.baseUrl}}{{ image}}" ng-repeat="image in publicCompany.product.images track by $index" ng-click="previewClick($index, 'product', isVideo)"/>
+                </div>
+                <div class="description padder-v-md">
+                    {{ publicCompany.product.description}}
+                </div>
+            </div>
+            <div class="" ng-if="publicCompany.product.case && publicCompany.product.case == 'apps'">
+                <div class="text-muted text-lg">
+                    {{ publicCompany.product.apps[0].name}} <span class="m-l-sm text-muted text-sm"> by {{ publicCompany.product.apps[0].artistName}}</span>
+                    <div class="pull-right pull-none-xs m-t-n-xs">
+                        <span class="text-muted text-md text-gray">{{ publicCompany.product.apps[0].categories.length > 1 ? "Categories" : "Category" }}</span> 
+                        <div class="r-3x padder-v-sm padder text-center label-green-light hover-pointer text-sm" ng-repeat="category in publicCompany.product.apps[0].categories track by $index">{{ category|capitalize}}</div>
+                    </div>
+                </div>
+
+                <div class="row m-t-md">
+                    <div class="col-sm-2 col-sm-offset-0 col-xs-4 col-xs-offset-4 pull-none-xs" ng-class="{'m-b-sm':windowWidth < 756}">
+                        <img src="{{publicCompany.product.apps[0].icon}}" class="r-2x b-a w-full padder-xs padder-v-sm"/>
+                    </div>
+                    <div class="col-sm-10" ng-init="splice = 300">
+                        <span ng-bind-html="publicCompany.product.apps[0].description | subStr:0:splice:true | trustedHTML"></span>
+                    </div>
+                </div>
+
+                <div id="s_container" class="screenshots row">
+                    <div id="product_apps_lightbox"  class="image_wrapper">
+                        <div class="pull-left" ng-if="publicCompany.product.apps[0].video">
+                            <iframe width="450px" height="284px" ng-src="{{ publicCompany.product.apps[0].video | trustedURL}}" frameborder="0" allowfullscreen=""></iframe>
+                        </div>
+                        <a href="{{ image}}" ng-repeat="image in publicCompany.product.apps[0].screenshots track by $index">
+                            <img id="s_img_{{ $index}}" class="h-lg padder lightbox" src="{{ image}}"/>
+                        </a>
+                        <script>
+                            document.getElementById('product_apps_lightbox').onclick = function (event) {
+
+                                event = event || window.event;
+                                var target = event.target || event.srcElement,
+                                        link = target.src ? target.parentNode : target,
+                                        options = {index: link, event: event},
+                                links = this.getElementsByTagName('a');
+                                var serializer = new XMLSerializer();
+                                var lightbox = serializer.serializeToString(target);
+                                if (lightbox && lightbox.indexOf("img") > 0 && lightbox.indexOf("lightbox") > 0)
+                                    blueimp.Gallery(links, options);
+                            };</script>
+                    </div>
+                </div>
+                <div class="screenshots_prev" ng-init="isVideo = publicCompany.product.apps[0].video.videoId ? true : false">
+                    <img id="p_img_{{ $index}}" class="h-xxs padder b-a m-xs" src="{{ image}}" ng-repeat="image in publicCompany.product.apps[0].screenshots track by $index" ng-click="previewClick($index, 'product', isVideo)"/>
+                </div>
+
+                <div class="get_app padder-v">
+                    <a href="{{publicCompany.product.apps[0].url}}" target="_blank" class="btn btn-blue-lt padder-v-sm">Get it</a> 
+                    <span class="text-sm text-gray m-l-sm" ng-if="publicCompany.product.apps[0].price > 0"> {{ publicCompany.product.apps[0].priceCurrency}} {{ publicCompany.product.apps[0].price}} on <span ng-if="publicCompany.product.apps[0].type == 'android'">Play Store</span><span ng-if="publicCompany.product.apps[0].type == 'iPhone'">App Store</span></span>
+                    <span class="text-sm text-gray m-l-sm" ng-if="publicCompany.product.apps[0].price <= 0">Free on <span ng-if="publicCompany.product.apps[0].type == 'android'">Play Store</span><span ng-if="publicCompany.product.apps[0].type == 'iPhone'">App Store</span></span>
+                </div>
+
+                <div class="apps m-t-sm" ng-if="publicCompany.product.apps.length > 1">
+                    <div class="text-lg text-muted font-bold">Other Apps</div>
+                    <div class="inline-block padder-t-sm padder-b-md" ng-class="{'b-b':!$last}" ng-repeat="app in publicCompany.product.apps.slice(1, publicCompany.product.apps.length)">
+                        <div class="row">
+                            <div class="padder padder-v-sm">
+                                <span class="text-lg text-gray">{{ app.name}}</span> 
+                                <span class="text-gray text-sm m-l-sm">by {{ app.artistName}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-sm-offset-0 col-xs-4 col-xs-offset-4 pull-none-xs" ng-class="{'m-b-sm':windowWidth < 756}">
+                                <img src="{{app.icon}}" class="r-2x b-a w-full padder-xs padder-v-sm"/>
+                            </div>
+                            <div class="col-sm-8" ng-init="splice = 250">
+                                <span ng-bind-html="app.description | subStr:0:splice:true | trustedHTML"></span>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-blue-lt inline" href="{{ app.url}}" target="_blank" ng-class="{'m-t-sm':windowWidth < 756}">Get it</a>
+                            </div>
+                        </div>
+                        <div class="clear clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="" ng-if="publicCompany.product.case && publicCompany.product.case == 'customapp'">
+                <div class="text-muted text-lg">{{ publicCompany.product.title}}</div>
+                <div id="s_container" class="screenshots row">
+                    <div id="product_customapp_lightbox" class="image_wrapper">
+                        <div class="pull-left" ng-if="publicCompany.product.video.type == 'youtube'">
+                            <iframe width="450px" height="284px" ng-src="{{ publicCompany.product.video.videoId | youtubeEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                        </div>
+                        <div class="pull-left" ng-if="publicCompany.product.video.type == 'vimeo'">
+                            <iframe width="450px" height="284px" ng-src="{{ publicCompany.product.video.videoId | vimeoEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                        </div>
+                        <a href="{{ app.baseUrl}}{{ image}}" ng-repeat="image in publicCompany.product.images track by $index">
+                            <img id="s_img_{{ $index}}" class="h-lg padder lightbox" src="{{ app.baseUrl}}{{ image}}"/>
+                        </a>
+                        <script>
+                            document.getElementById('product_customapp_lightbox').onclick = function (event) {
+
+                                event = event || window.event;
+                                var target = event.target || event.srcElement,
+                                        link = target.src ? target.parentNode : target,
+                                        options = {index: link, event: event},
+                                links = this.getElementsByTagName('a');
+                                var serializer = new XMLSerializer();
+                                var lightbox = serializer.serializeToString(target);
+                                if (lightbox && lightbox.indexOf("img") > 0 && lightbox.indexOf("lightbox") > 0)
+                                    blueimp.Gallery(links, options);
+                            };</script>
+                    </div>
+                </div>
+                <div class="screenshots_prev" ng-init="isVideo = publicCompany.product.video ? true : false">
+                    <img id="p_img_{{ $index}}" class="h-xxs padder b-a m-xs" src="{{ app.baseUrl}}{{ image}}" ng-repeat="image in publicCompany.product.images track by $index" ng-click="previewClick($index, 'product', isVideo)"/>
+                </div>
+                <div class="description padder-v-md">
+                    {{ publicCompany.product.description}}
+                </div>
+                <div class="apps m-t-sm">
+                    <div class="text-lg text-muted font-bold">Apps</div>
+                    <div class="inline-block padder-t-sm padder-b-md" ng-class="{'b-b':!$last}" ng-repeat="app in publicCompany.product.apps">
+                        <div class="row">
+                            <div class="padder padder-v-sm">
+                                <span class="text-lg text-gray">{{ app.name}}</span> 
+                                <span class="text-gray text-sm m-l-sm">by {{ app.artistName}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-sm-offset-0 col-xs-4 col-xs-offset-4 pull-none-xs" ng-class="{'m-b-sm':windowWidth < 756}">
+                                <img src="{{app.icon}}" class="r-2x b-a w-full padder-xs padder-v-sm"/>
+                            </div>
+                            <div class="col-sm-8" ng-init="splice = 250">
+                                <span ng-bind-html="app.description | subStr:0:splice:true | trustedHTML"></span>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-blue-lt inline" href="{{ app.url}}" target="_blank" ng-class="{'m-t-sm':windowWidth < 756}">Get it</a>
+                            </div>
+                        </div>
+                        <div class="clear clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-xs-12 padder-v" ng-show="editProduct">
+
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label class="control-label text-gray padder-t" for="title">Title</label>
+                </div>
+                <div class="col-sm-10">
+                    <input id="title" name="title" type="text" class="form-control" ng-model="publicCompany.product.title" maxlength="256" placeholder="Product title, Product name, App name etc" required/>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label class="control-label text-gray padder-t">Logo</label>
+                </div>
+                <div class="col-sm-10">
+                    <input id="productLogo" onchange="angular.element(this).scope().updateProductLogo(this);"  type="file" accept="image/*" class="form-control m-r-xs text-gray"/>
+                    <div class="m-t" ng-if="publicCompany.product.logo">
+                        <div class="w-xs h-xs pull-left m-xs b-a r-3x b-2x pos-rlt" style="background-image: url({{getImageUrl(publicCompany.product.logo)}});background-size:cover;background-repeat: no-repeat;background-position: center;">
+                            <i class="icon-close text-dark text-lg bg-white delete-badge pos-abt" ng-click="removeProductLogo()" uib-tooltip="Delete"></i>
+                        </div>
+                        <div class="clear clearfix"></div>
+                    </div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label class="control-label text-gray padder-t" for="video">Video</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" id="video" class="form-control" ng-model="publicCompany.product.video.url" placeholder="Enter link to youtube, vimeo etc" />
+                    <div class="m-t-sm" ng-if="publicCompany.product.video.type == 'youtube'">
+                        <iframe width="100%" height="280" ng-src="{{ publicCompany.product.video.videoId | youtubeEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                    </div>
+                    <div class="m-t-sm" ng-if="publicCompany.product.video.type == 'vimeo'">
+                        <iframe width="100%" height="280" ng-src="{{ publicCompany.product.video.videoId | vimeoEmbedUrl}}" frameborder="0" allowfullscreen=""></iframe>
+                    </div>
+                    <div class="w-xs h-xs pull-left m-xs b-a r-3x b-2x pos-rlt" ng-if="publicCompany.product.video.thumbnail" style="background-image: url({{ publicCompany.product.video.thumbnail}});background-size:cover;background-position: center;width: 130px;">
+                        <i class="icon-close text-dark text-lg bg-white delete-badge pos-abt" ng-click="removeProductVideo()" uib-tooltip="Delete"></i>
+                    </div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label class="control-label text-gray padder-t">Images</label>
+                </div>
+                <div class="col-sm-10">
+                    <input id="productImages" onchange="angular.element(this).scope().updateProductImages(this);"  type="file" accept="image/*" class="form-control pull-none-xs text-gray"/>
+                    <div class="m-t" ng-if="publicCompany.product.images.length > 0">
+                        <div class="w-xs h-xs pull-left m-xs b-a r-3x b-2x pos-rlt" ng-repeat="image in publicCompany.product.images track by $index" style="background-image: url({{getImageUrl(image)}});background-size:cover;">
+                            <i class="icon-close text-dark text-lg bg-white delete-badge pos-abt" ng-click="removeProductImage($index)" uib-tooltip="Delete"></i>
+                        </div>
+                        <div class="clear clearfix"></div>
+                    </div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label class="control-label text-gray padder-t" for="link">Link</label>
+                </div>
+                <div class="col-sm-10">
+                    <input id="link" name="link" type="text" class="form-control" ng-model="publicCompany.product.link" placeholder="Product link https://..."/>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+
+            <div class="m-t-sm padder">
+                <label class="control-label text-gray" for="description">Description</label>
+                <div class="m-t-sm">
+                    <textarea id="description" name="description" class="form-control" ng-model="publicCompany.product.description" maxlength="1000" rows="5" placeholder="Product full description"></textarea>
+                    <span class="text-black-dk text-sm text-muted">{{ publicCompany.product.description.length || 0}}/1000</span>
+                </div>
+            </div>
+
+            <div class="m-t-md padder padder-v b-t">
+                <div class="text-xl text-black-dker font-normal text-gray">Apps</div>
+                <div class="bg-light well lt m-t-md">
+                    <div class="col-sm-2">
+                        <div class="text-gray opacity-8 inline padder-v-sm">Add Product</div>
+                    </div>
+                    <div class="col-sm-8">
+                        <input id="appLink" name="appLink" type="text" class="form-control inline" ng-model="publicCompany.product.appLink" placeholder="Link to product e.g https://play.google.com"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-blue-lt inline" ng-class="{'m-t-sm':windowWidth < 756}" ng-click="addApp()" ng-disabled="fatchingApp">
+                            <span ng-show="!fatchingApp">Add</span>
+                            <span ng-show="fatchingApp">Adding..<i class="fa fa-spin fa-spinner"></i></span>
+                        </button>
+                    </div>
+                    <div class="clear clearfix"></div>
+                </div>
+
+                <div class="inline-block padder-v-md" ng-class="{'b-b':!$last}" ng-repeat="app in publicCompany.product.apps">
+                    <div class="col-sm-2 col-sm-offset-0 col-xs-4 col-xs-offset-4 pull-none-xs" ng-class="{'m-b-sm':windowWidth < 756}">
+                        <img src="{{app.icon}}" class="r-2x b-a w-full padder-xs padder-v-sm"/>
+                    </div>
+                    <div class="col-sm-8" ng-init="splice = 250">
+                        <span ng-bind-html="app.description | subStr:0:splice:true | trustedHTML"></span>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-blue-lt inline" ng-class="{'m-t-sm':windowWidth < 756}" ng-click="deleteApp(app)">Delete</button>
+                    </div>
+                    <div class="clear clearfix"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+    <div class="clear clearfix"></div>
+</div>

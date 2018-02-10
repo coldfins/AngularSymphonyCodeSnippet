@@ -1,0 +1,33 @@
+<div class="modal-body" resize>
+    <button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+    <div class="text-center">
+        <div class="row m-b-xxl m-t-xxl">
+            <div class="col-xs-12 text-center">
+                <img src="cdn/img/offerswall-icon.svg" class="thumb-3xl">
+                <div class="clear inline v-middle text-right text-center-xs">
+                    <h1 class="h1 font-thin offers-title"><span style="color:#bf0020;">Stack</span><span style="color:#ea2928;">Offers</span></h1>
+                    <span class="text-base text-muted">The most effective way to buy and sell mobile traffic</span>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="b-t">
+
+            <h3 class="text-muted " style="color:#ea2928;margin-bottom: 3%;">Help us to help you!</h3>
+            <div>
+                <h2 class="h3 text-muted" style="word-spacing: 4px;"> More offers mean better results. Help us to help you by spreading the word about StackOffers as the hub for all mobile traffic.</h2>
+                <h3 class=" text-muted " style="margin-top: 4%;margin-bottom: 4%;">Share StackOffers with your LinkedIn Connections</h3>
+            </div>
+        </div>
+        <div class="b-t modal-body">
+            <a href="https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=77qs31x0xkh7tz&redirect_uri={{app.protocol}}%3A%2F%2F{{app.host}}%2Foffers%2Fall&state={{user.id}}&scope=r_basicprofile,r_emailaddress,w_share">
+                <!--<a href="https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=75hu5mydytl4vt&redirect_uri=http://192.168.2.63/mobntouch/src/offers/all&state={{user.id}}&scope=r_basicprofile,r_emailaddress,w_share">-->
+                <img src="cdn/img/Spread-the-love-on-linkedIn.png" alt="share-link" ng-style="windowWidth < 767 ? {'width': '70%'} : {}" />
+            </a>
+        </div>
+
+    </div>
+</div>

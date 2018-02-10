@@ -1,0 +1,38 @@
+
+<div class="modal-header no-border bg-primary" style="border-radius: 4px 4px 0 0;">
+    <div class="text-center text-white" >
+        <div class="wrapper">
+            <i class="icon-users text-xl"></i>
+            <h4 class="font-bold">Connection</h4>
+            <p class="text-center"><i>"Quality Network for Quality Businessd5!"</i></p>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <p class="text-center text-lg">Send an <b>connection</b> request ?</p>
+</div>
+<div class="modal-footer no-padder">
+    <div class="text-center wrapper-sm b-r inline w-50">
+        <a class="text-lg text-primary" ng-click="cancel()">No</a>
+    </div>
+   <!--  <div class="text-center wrapper-sm inline w-50">
+    <a class="font-bold text-primary text-lg" ng-click="changeInTouchStatus()">Yes</a>
+</div> -->
+   <div ng-controller="connectModalCtrl" class="text-center wrapper-sm inline w-50" ng-click="changeInTouchStatus()">
+        <a class="font-bold text-primary text-lg" ng-click="close('1234')">Yes</a>
+    </div>
+</div>
+
+<!--
+<div class="modal-body">
+    <h3 class="text-center">Send an <b>connection</b> request ?</h3>
+</div>
+<div class="modal-footer no-padder">
+    <div class="text-center wrapper-sm b-r inline w-50">
+        <a class="text-lg" ng-click="cancel()">No</a>
+    </div>
+    <div class="text-center wrapper-sm inline w-50"  ng-click="changeInTouchStatus()">
+        <a class="font-bold  text-lg" ng-click="close('1234')">Yes</a>
+    </div>
+</div>
+-->

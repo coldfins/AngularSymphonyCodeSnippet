@@ -1,0 +1,60 @@
+<div class="w-full r-2x b-a box b-black-ltr">
+    <div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="notNow($index, connection.id)" uib-tooltip="Not now" ng-if="show">
+            <span aria-hidden="true">×</span>
+        </button>
+        <div class="pull-left m-r">
+            <img class="img-circle" ng-if="connection.avatar" src="{{app.baseUrl}}{{connection.avatar}}" />
+            <img class="img-circle" ng-if="!connection.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" />
+        </div>
+        <div class="clear">
+            <a class="text-black-d font-normal text-ellipsis hover-black-dker hover-underline text-lg m-t-xs clear" ui-sref="app.page.public({username: connection.username})" title="{{connection.name + ' ' + connection.lastname}}">
+                {{ connection.name}} {{ connection.lastname}}
+            </a>
+            <div class="h-xxs">
+                <span>{{ connection.jobTitle}} 
+                    <span ng-if="connection.company && connection.companyUsername">at <a class="hover-black-dker hover-underline" ui-sref="app.page.company/public({'companyusername':connection.companyUsername})" target="_blank" >{{ connection.company}}</a></span>
+                    <span ng-if="connection.company && !connection.companyUsername">at {{ connection.company}}</span>
+                </span>
+            </div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+    <div class="h-xxs m-t-xs">
+        <div class="ng-scope" ng-if="connection.mutualConnections.length > 0" ng-init="mConnect = (connection.mutualConnections | toArray | orderBy:'- date'); connectionIndex = 0;">
+            <a ui-sref="app.page.public({username: mConnect[1].username})">
+                <img class="thumb-xxxs img-circle bg-white"
+                     ng-if="mConnect[0]" src="{{app.baseUrl}}{{mConnect[0].avatar ? mConnect[0].avatar : '/img/mit-default-avatar.svg'}}?v={{ app.latestUpdate}}" uib-popover-template="'tpl/blocks_general/popover_0.html'" popover-is-open="popoverIsopen0" ng-mouseenter="pConnection = mConnect[0]; popoverIsopen0 = true;" ng-mouseleave="popoverIsopen0 = false;" popover-trigger="'mouseenter'" popover-append-to-body="true"/>
+            </a>
+            <a ui-sref="app.page.public({username: mConnect[1].username})">
+                <img class="thumb-xxxs img-circle m-l-n bg-white"
+                     ng-if="mConnect[1]" src="{{app.baseUrl}}{{mConnect[1].avatar ? mConnect[1].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate}}" uib-popover-template="'tpl/blocks_general/popover_1.html'" popover-is-open="popoverIsopen1" ng-mouseenter="pConnection = mConnect[1]; popoverIsopen1 = true;" ng-mouseleave="popoverIsopen1 = false;" popover-trigger="'mouseenter'" popover-append-to-body="true"/>
+            </a>
+            <a class="thumb-xxxs btn-rounded btn btn-default bg-white m-l-n" style="padding: 3px;" ng-if="mConnect.length > 2" uib-tooltip="+{{ mConnect.length - 2}} other connection" ng-click="viewMutualConnections(connection);">+</a>
+            <span class="m-l-sm text-gray" ng-if="mConnect.length == 1">
+                Mutual Connections with <a class="hover-black-dker hover-underline" ui-sref="app.page.public({username: mConnect[0].username})" uib-tooltip-template="'tpl/blocks_general/connection_tooltip.html'" ng-mouseover="connectionIndex = 0">{{ mConnect[0].name}} {{ mConnect[0].lastname}}</a>
+            </span>
+            <span class="m-l-sm text-gray" ng-if="mConnect.length == 2">
+                Mutual Connections with <a class="hover-black-dker hover-underline" ui-sref="app.page.public({username: mConnect[0].username})" uib-tooltip-template="'tpl/blocks_general/connection_tooltip.html'" ng-mouseover="connectionIndex = 0">{{ mConnect[0].name}} {{ mConnect[0].lastname}}</a> and <a class="hover-black-dker hover-underline" ng-if="mConnect[1]" ui-sref="app.page.public({username: mConnect[1].username})" uib-tooltip-template="'tpl/blocks_general/connection_tooltip.html'" ng-mouseover="connectionIndex = 1">{{ mConnect[1].name}} {{ mConnect[1].lastname}}</a>
+            </span>
+            <span class="m-l-sm text-gray" ng-if="mConnect.length > 2">
+                Mutual Connections with <a class="hover-black-dker hover-underline" ui-sref="app.page.public({username: mConnect[0].username})" uib-tooltip-template="'tpl/blocks_general/connection_tooltip.html'" ng-mouseover="connectionIndex = 0">{{ mConnect[0].name}} {{ mConnect[0].lastname}}</a>, <a class="hover-black-dker hover-underline" ng-if="mConnect[1]" ui-sref="app.page.public({username: mConnect[1].username})" uib-tooltip-template="'tpl/blocks_general/connection_tooltip.html'" ng-mouseover="connectionIndex = 1">{{ mConnect[1].name}} {{ mConnect[1].lastname}}</a> and <a class="hover-black-dker hover-underline" ng-click="viewMutualConnections(connection);" uib-tooltip="+{{ mConnect.length - 2}} other connection">{{ mConnect.length - 2}} more</a>
+            </span>
+        </div>
+    </div>
+    <div class="no-padder text-center">
+        <button class="btn text-lg w-auto btn-default btn-disabled-default" ng-if="connection.isRequested">
+            Sent
+        </button>
+        <button class="btn text-lg text-red-dk w-auto btn-default btn-disabled-default" ng-if="connection.isRequest" ng-click="ignore(connection)">
+            Ignore
+        </button>
+        <button class="btn text-lg w-auto" ng-if="connection.isConnected" ng-class="{'btn-blue-lt':mouseOver, 'btn-blue-lt-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false" ng-click="sendMessage(connection)">
+            Message
+        </button>
+        <button class="btn btn-blue-lt text-lg w-auto" ng-click="connect($index, connection)" ng-disabled="connection.requesting" ng-if="!connection.isConnected && !connection.isRequested && !connection.isRequest">
+            <span ng-show="!connection.requesting">Connect</span>
+            <span ng-show="connection.requesting">Connecting..<i class="fa fa-spin fa-spinner"></i></span>
+        </button>
+    </div>
+</div>

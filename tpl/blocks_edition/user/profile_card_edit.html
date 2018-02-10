@@ -1,0 +1,180 @@
+<div class="profile_card_container" ng-show="!editprofile && !editinterest">
+    <div ng-style="user.cover ? {'height': '380px'} : {'height': '200px'}">
+        <div ng-if="user.avatar || user.cover"
+             class="blur animated fadeIn bg-black"
+             ng-style="user.avatar && !user.cover ? {'-webkit-filter': 'blur(60px)', '-moz-filter': 'blur(60px)', '-o-filter': 'blur(60px)', '-ms-filter': 'blur(60px)', 'filter': 'blur(60px)'} : {}"
+             style="background:url({{app.baseUrl}}{{ user.cover ? user.cover : user.avatar }}) center center / cover;
+             position: absolute;
+             width: 100%;
+             overflow: hidden;
+             z-index: -1;
+             height: inherit;">
+            <div ng-if="user.avatar && !user.cover" style="left:0;
+                 right:0;
+                 bottom: 0;
+                 top: 0;
+                 margin: auto;
+                 background: white;
+                 opacity: 0.7;
+                 height: 100%;
+                 width: 100%;
+                 position: absolute;">
+            </div>
+        </div>
+        <div ng-if="!user.avatar && !user.cover"
+             class="blur animated fadeIn"
+             style="background:url({{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}) center center;
+             background-size: cover;
+             -webkit-filter: blur(60px);
+             -moz-filter: blur(60px);
+             -o-filter: blur(60px);
+             -ms-filter: blur(60px);
+             filter: blur(60px);
+             filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='60');
+             height: 200px;
+             position: absolute;
+             width: 100%;
+             overflow: hidden;
+             z-index: -1">
+            <div style="left:0;
+                 right:0;
+                 bottom: 0;
+                 top: 0;
+                 margin: auto;
+                 background: #7d7d7d;
+                 opacity: 0.7;
+                 height: 100%;
+                 width: 100%;
+                 position: absolute;">
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12" ng-controller="CoverModalCtrl">
+                    <button ng-if="!user.cover" ng-click="open('lg')" class="btn btn-transparent-white padder-lg padder-t-sm padder-b-sm m-t-lg pull-right text-white text-md r-2x b-white">Add Cover Photo</button>
+                    <button ng-if="user.cover" ng-click="open('lg')" class="btn btn-transparent-white padder-lg padder-t-sm padder-b-sm m-t-lg pull-right text-white text-md r-2x b-white">Change Cover Photo</button>
+                </div>
+            </div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+    <div class="container">
+        <div ng-controller="AvatarModalCtrl" class="w m-t-n-xxl pull-left col-sm-3 no-padder">
+            <div class="">
+                <a ng-click="open('lg')" class="avatar b b-2x b-white">
+                    <img ng-show="user.avatar" src="{{app.baseUrl}}{{user.avatar}}" class="avatar w-full img-circle" />
+                    <img ng-hide="user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="avatar w-full bg-white" />
+                    <div class="avatar w-full bg-black dk" style="background-image: url('cdn/img/icons/camera.png');background-repeat: no-repeat;background-position: center;opacity: 0.7;">
+                        <img src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="avatar w-full b b-white b-2x opacity-0 m-t-n-100" />
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="">
+                <a class="text-head text-black-d font-normal">{{ user.name}} {{ user.lastname}}</a>
+                <a class="m-l-sm m-r-sm text-black-dk">
+                    <span class="fa fa-map-marker"></span>
+                    <span ng-if="user.basedCountry"> {{ user.city}}, {{ 'country.' + user.basedCountry | translate }}</span>
+                    <span ng-if="!user.basedCountry"> {{ user.city}} </span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.linkedin" href="{{ user.linkedin}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-linkedin"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.twitter" href="{{ user.twitter}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-twitter"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.facebook" href="{{ user.facebook}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-facebook"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.github" href="{{ user.github}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-github"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.stackOverflow" href="{{ user.stackOverflow}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-stack-overflow"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.dribbble" href="{{ user.dribbble}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-dribbble"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.behance" href="{{ user.behance}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-behance"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.instagram" href="{{ user.instagram}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-instagram"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.pinterest" href="{{ user.pinterest}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-pinterest"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.website" href="{{ user.website}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-globe"></span>
+                </a>
+                <a class="m-l-xs text-black-dk" ng-if="user.otherLink" href="{{ user.otherLink}}" target="_blank" rel="nofollow">
+                    <span class="fa fa-link"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-3 pull-right dropdown text-right padder-xs padder-t-xs" auto-close="disabled" dropdown>
+            <a href="" class="text-black-dk b-r padder-r padder-v-sm" ng-click="shareProfile('share')">
+                <span class="fa fa-share-alt"></span>
+                <span class="m-l-xs inline">Share</span>
+            </a>
+            <a href="" class="text-black-dk m-l-sm b-r padder-r padder-v-sm" ng-click="personalDetailsForm(true)">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <span class="m-l-xs inline">Edit</span>
+            </a>
+            <a href="" class="text-black-dk m-l-sm dropdown-toggle inline hover-pointer padder-v-sm" data-toggle="dropdown" dropdown-toggle>
+                <span class="fa fa-address-card-o"></span>
+                <span class="m-l-xs inline">Contact Info</span>
+            </a>
+            <div class="dropdown-menu contact-info" dropdown-menu>
+                <span class="arrow top contact-info"></span>
+                <form name="updateIMDetails" class="w-lg padder padder-v form-validation form-horizontal" ng-submit="editInstantContactDetails(updateIMDetails)">
+                    <div class="">
+                        <label>Email Contact</label>
+                        <input type="email" class="form-control" ng-model="user.contactEmail"/>
+                    </div>
+                    <div class="m-t-sm">
+                        <label>Phone</label>
+                        <input type="text" class="form-control" ng-model="user.phone"/>
+                    </div>
+                    <div class="m-t-sm im">
+                        <label>IM</label>
+                        <div class="clear clearfix"></div>
+                        <select data-ng-include="'tpl/utils/IM.html?v={{app.latestUpdate}}'" class="form-control pull-left" ng-model="user.imContacts[0]"></select>
+                        <input type="text" class="form-control pull-left" ng-model="user.imContacts[1]"/>
+                        <div class="clear clearfix"></div>
+                    </div>
+                    <div class="m-t-sm text-right">
+                        <button class="btn btn-blue r-3x" type="submit" ng-disabled="updateIMDetails.$invalid || updateInstantContacts">
+                            <span class="" ng-hide="updateInstantContacts">Save</span>
+                            <span class="" ng-show="updateInstantContacts">Updating <i class="fa fa-spinner fa-spin"></i></span> 
+                        </button>
+                        <button class="btn r-3x m-l-xs" type="button" ng-click="personalDetailsForm(false); cancel(updateIMDetails);" name="cancel" onclick="$('html').trigger('click');">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="mini_resume">
+            <div class="col-sm-9 text-md text-black-dker">{{ user.miniResume}}</div>
+        </div>
+        <div class="keyword_tags">
+            <div class="text-ellipsis-sp padder-l-sm pull-left padder-t-xs">
+                <div class="r-3x padder-v-sm padder text-center label-green-light hover-pointer" ng-repeat="keyword in user.keywords.slice(0, 5) track by $index">{{ keyword.text}}</div>
+            </div>
+            <a href="" class="font-bold padder-v-xs pull-left text-black-dk m-t-sm m-l-sm" ng-click="interestedKeywordsForm(true);">Edit your interests</a>
+        </div>
+        <div class="mutual_connections">
+            <div class="col-sm-9 text-black-dk m-t-sm" ng-init="connections = user.inTouch | toArray | filter:{status:'3'} | orderBy:'-date'">
+                <img class="thumb-xxxs img-circle b-a" ng-if="connections[0]" src="{{app.baseUrl}}{{connections[0].avatar ? connections[0].avatar : '/img/mit-default-avatar.svg'}}?v={{ app.latestUpdate }}"/>
+                <img class="thumb-xxxs img-circle m-l-n b-a" ng-if="connections[1]" src="{{app.baseUrl}}{{connections[1].avatar ? connections[1].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate }}"/>
+                <img class="thumb-xxxs img-circle m-l-n b-a" ng-if="connections[2]" src="{{app.baseUrl}}{{connections[2].avatar ? connections[2].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate }}"/>
+                <a class="m-l-sm" ui-sref="app.page.connections" ng-if="connections[0]" > {{ (user.inTouch | toArray | filter:{status:3}).length || 0}} Connections</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of edit keywords -->
+<script>
+    $('.contact-info').click(function (e) {
+    e.stopPropagation();
+    });</script>

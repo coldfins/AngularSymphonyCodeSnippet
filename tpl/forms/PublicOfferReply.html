@@ -1,0 +1,213 @@
+<div class="row">
+    <div class="col-sm-3">
+        <div class="modal-content">
+            <div class="modal-header no-border bg-light lt" style="border-radius: 10px 10px 0 0; " ng-click="profileView();">
+                <a ui-sref="app.page.public({username: offer.username})" class="clearfix" title="{{offer.userFirstName + ' ' + offer.userLastName}}">
+                    <span class="pull-left thumb-sm avatar m-r">
+                        <img ng-if="offer.userAvatar" src="{{app.baseUrl}}{{offer.userAvatar}}">
+                        <img ng-if="!offer.userAvatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}">
+                    </span>
+                    <span class="font-bold text-ellipsis clear">{{ offer.userFirstName | capitalize }} {{ offer.userLastName | capitalize }}</span>
+                    <small class="text-ellipsis clear">{{ offer.userCompany | capitalize }}</small>
+                </a>
+            </div>
+            <div class="blur-overlay">
+                <div class="blur"
+                     style="background-position: center center;
+                     background-image: url({{app.baseUrl}}{{offer.userAvatar}});
+                     background-size: cover;
+                     -webkit-filter: blur(1px) saturate(3);
+                     -moz-filter: blur(4px) saturate(4);
+                     -o-filter: blur(1px) saturate(3);
+                     -ms-filter: blur(1px) saturate(3);
+                     filter: blur(1px) saturate(3);
+                     filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+                     height: 2px;
+                     width: 100%;
+                     overflow: hidden;
+                     margin-top: -2px;
+                     background-repeat: round;">
+                </div>
+                <div ng-if="!offer.userAvatar" class="blur"
+                     style="background-position: center center;
+                     background-image: url({{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }});
+                     background-size: cover;
+                     -webkit-filter: blur(1px) saturate(3);
+                     -moz-filter: blur(4px) saturate(4);
+                     -o-filter: blur(1px) saturate(3);
+                     -ms-filter: blur(1px) saturate(3);
+                     filter: blur(1px) saturate(3);
+                     filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+                     height: 2px;
+                     width: 100%;
+                     overflow: hidden;
+                     margin-top: -2px;
+                     background-repeat: round;">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="m-b">
+                    <span class="clear">The traffic I'm looking for:</span>
+                </div>
+                <div class="m-b">
+                    <span class="text-muted text-u-c clear">Countries:</span>
+                    <span data-ng-repeat="country in offer.countries" class="tag tag-default text-u-c">{{'country.' + country| translate}}</span>
+                </div>
+                <div class="m-b">
+                    <span class="text-muted text-u-c clear">Pricing Model:</span>
+                    <span data-ng-repeat="(pricing, bool) in offer.pricingModels" ng-if="bool"class="tag tag-default text-u-c">
+                        {{pricing}}</span>
+                </div>
+                <div class="m-b">
+                    <span class="text-muted text-u-c clear" >Platforms:</span>
+                    <span data-ng-repeat="(platform, bool) in offer.platforms" ng-if="bool"class="tag tag-default text-u-c">{{platform}}</span>
+                </div>
+                <div class="m-b">
+                    <span class="text-muted text-u-c clear">Quality:</span>
+                    <span data-ng-repeat="(q, bool) in offer.quality" ng-if="bool"class="tag tag-default text-u-c">{{'general.' + q| translate}}</span>
+                </div>
+                <div ng-if="offer.dateRangeModalFormat" class="m-b">
+                    <span class="text-muted text-u-c clear">Campaign date range:</span>
+                    <span class="font-bold text-u-c text-sm">{{ offer.dateRangeModalFormat}}</span>
+                </div>
+                <div ng-if="offer.description" class="m-b">
+                    <span class="text-muted text-u-c clear">Details:</span>
+                    <p ng-if="offer.description" class="text-block" ng-bind-html="offer.description | linky:'_blank' | nl2br"></p>
+                </div>
+                <div ng-if="offer.questions" class="m-b">
+                    <span class="text-muted text-u-c clear">Specific question:</span>
+                    <div data-ng-repeat="question in offer.questions" class="input-group m-b">
+                        <span class="clear">{{ question.text || '' }}<span ng-if="question.required">*</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="b-t padder-v-sm text-center">
+                <span class="text-xs text-muted"><i class="fa fa-calendar-o fa-fw"></i> Expiry Date: {{offer.expiryTimestamp * 1000| date:"d MMMM 'at' HH'h'"}}</span>
+            </div>
+            <div class="modal-footer padder-v-sm ">
+                <span class="text-u-c text-xs pull-left">OFFER ID: <span class="font-bold">{{ offer.identifier}}</span></span>
+                <span class="text-muted text-xs m-t-xxs">
+                    <i class="fa fa-fw fa-eye m-r-xs"></i> <span class="m-r">{{ offer.dailyUniquePageViews.length || 0 }}</span>
+                    <i class="fa fa-fw fa-reply m-r-xs"></i> {{ offer.replies || 0 }}
+                </span>
+            </div>
+            <!-- share buttons -->
+            <div class="text-center b-t padder-v-xs">
+                <a class="no-bg no-shadow"  ng-click="shareEmail(offer)">
+                    <i class="fa fa-envelope-o m-r-xs"></i>Share by Email
+                </a>	|
+                <a class="no-bg no-shadow" target="popup" ng-click="openWindow(offer)">
+                    <i class="fa fa-linkedin m-r-xs"></i> Share on LinkedIn
+                </a>				
+            </div> 
+            <!-- share buttons -->
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <form id="replyForm" name="replyForm" class="form-validation">
+            <div class="modal-content">
+                <div class="modal-header no-border bg-light lt" style="border-radius: 10px 10px 0 0;">
+                    <span class="pull-left thumb-sm avatar m-r">
+                        <img ng-if="user.avatar" src="{{app.baseUrl}}{{user.avatar}}">
+                        <img ng-if="!user.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}">
+                    </span>
+                    <span class="text-lg padder-v-sm m-b-xs clear">Select what you can provide</span>
+                </div>
+                <div class="blur-overlay">
+                    <div ng-if="offer.userAvatar" class="blur"
+                         style="background-position: center center;
+                         background-image: url({{app.baseUrl}}{{user.avatar}});
+                         background-size: cover;
+                         -webkit-filter: blur(1px) saturate(3);
+                         -moz-filter: blur(4px) saturate(4);
+                         -o-filter: blur(1px) saturate(3);
+                         -ms-filter: blur(1px) saturate(3);
+                         filter: blur(1px) saturate(3);
+                         filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+                         height: 2px;
+                         width: 100%;
+                         overflow: hidden;
+                         margin-top: -2px;
+                         background-repeat: round;">
+                    </div>
+                    <div ng-if="!offer.userAvatar" class="blur"
+                         style="background-position: center center;
+                         background-image: url({{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }});
+                         background-size: cover;
+                         -webkit-filter: blur(1px) saturate(3);
+                         -moz-filter: blur(4px) saturate(4);
+                         -o-filter: blur(1px) saturate(3);
+                         -ms-filter: blur(1px) saturate(3);
+                         filter: blur(1px) saturate(3);
+                         filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+                         height: 2px;
+                         width: 100%;
+                         overflow: hidden;
+                         margin-top: -2px;
+                         background-repeat: round;">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group m-b-lg">
+                        <label class="control-label text-muted text-u-c col-sm-12 pull-in">Countries*:</label>
+                        <span data-ng-repeat="country in reply.countries">
+                            <label class="btn btn-sm btn-default text-u-c" ng-model="country.bool" btn-checkbox><i class="fa fa-check text-active"></i> {{'country.' + country.name| translate}}</label>
+                        </span>
+                    </div>
+
+                    <div class="form-group m-b-lg">
+                        <label class="control-label text-muted text-u-c col-sm-12 pull-in">Pricing Model*:</label>
+                        <span ng-repeat="pricing in reply.pricingModels">
+                            <label class="btn btn-sm btn-default text-u-c" ng-model="pricing.bool" btn-checkbox><i class="fa fa-check text-active"></i> {{pricing.name}}</label>
+                        </span>
+                    </div>
+
+                    <div class="form-group m-b-lg">
+                        <label class="control-label text-muted text-u-c col-sm-12 pull-in">Platforms*:</label>
+                        <span ng-repeat="platform in reply.platforms">
+                            <label class="btn btn-sm btn-default text-u-c" ng-model="platform.bool" btn-checkbox><i class="fa fa-check text-active"></i> {{platform.name}}</label>
+                        </span>
+                    </div>
+
+                    <div class="form-group m-b-lg">
+                        <label class="control-label text-muted text-u-c col-sm-12 pull-in">Quality*:</label>
+                        <span ng-repeat="q in reply.quality">
+                            <label class="btn btn-sm btn-default text-u-c" ng-model="q.bool" btn-checkbox><i class="fa fa-check text-active"></i> {{'general.' + q.name| translate}}</label>
+                        </span>
+                    </div>
+
+                    <div class="form-group m-b-lg">
+                        <div data-ng-repeat="question in reply.questions" class="m-b">
+                            <input ng-if="question.required" type="text" class="form-control" ng-model="question.answer" placeholder="{{ question.text || ''}}*" required>
+                            <input ng-if="!question.required" type="text" class="form-control" ng-model="question.answer" placeholder="{{ question.text || ''}}">
+                        </div>
+                    </div>
+
+                    <div class="row m-b">
+                        <div class="col-sm-12">
+                            <i class="text-muted">*Required fields</i>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer" data-ng-init="sendingReply = false">
+                    <button class="btn btn-info r-2x" data-ng-click="replyOffer($event); $event.stopPropagation();" data-ng-disabled="replyForm.$invalid || !replyCheck() || sendingReply">
+                                <span><i class="fa fa-fw fa-spin fa-spinner" data-ng-if="sendingReply"></i></span>
+                                <span ng-if="replyForm.$invalid || !replyCheck()" class="text-u-c">waiting for review</span>
+                                <span ng-if="!replyForm.$invalid || replyCheck()" class="text-u-c">Reply now</span>
+                    </button>
+                    <button class="btn btn-default r-2x pull-left" ng-click="cancelOffer()">	
+                        <span class="text-u-c">Cancel</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $('#replyForm').bind('keydown', function(e) {
+    if (e.keyCode == 13) {
+    e.preventDefault();
+    }
+    });</script>

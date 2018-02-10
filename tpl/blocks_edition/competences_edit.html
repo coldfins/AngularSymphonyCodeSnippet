@@ -1,0 +1,40 @@
+<div ng-controller="TooltipDemoCtrl" class="panel panel-default">
+    <div class="panel-heading">
+        <!--<div ng-controller="LinkedInSyncModalCtrl">
+            <a class="text-muted pull-right" ng-click="open('lg');trackLinkedin('SkillsLanguages')">Sync <i class="fa fa-linkedin-square"></i></a>
+        </div>-->
+        <h4 class="h4">Skills &amp; Languages</h4>
+    </div>
+    <div class="panel-body">
+        <form class="form-validation form-horizontal">
+            <div class="row m-b">
+                <div id="addskill">
+                    <label class="col-xs-12">Your Skills:</label>
+                    <div class="col-xs-12">
+                        <form class="form-validation">
+                            <tags-input ng-model="user.competences" placeholder="Write a skill and press enter" required></tags-input>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="addlanguage">
+                    <label class="col-xs-12">Your Languages:</label>
+                    <div class="col-xs-12">
+                        <form class="form-validation">
+                            <tags-input ng-model="user.languages" placeholder="Write a language and press enter" required></tags-input>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="panel-footer bg-light lter text-right">
+        <button class="btn btn-success" ng-click="saveCompetences()">
+            <span ng-hide="loadingCompetences" class="text">Save</span>
+            <span ng-show="loadingCompetences" class="text"><i class="fa fa-spin fa-circle-o-notch"></i> Save</span>
+        </button>
+    </div>
+</div>

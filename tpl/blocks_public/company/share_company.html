@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <span class="h4">Share {{ publicCompany.name}} • Public page link &nbsp;&nbsp;</span><i class="fa fa-link hover-pointer clipboard" ng-click="copyToClipBoard()" uib-tooltip="Copy to clipboard"></i>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel();" uib-tooltip="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <div class="b-a r-2x padder-v padder">
+        <span class="thumb-md pull-left img-circle m-r-sm">
+            <img ng-if="publicCompany.avatar" src="{{ app.baseUrl}}{{ publicCompany.avatar}}" class="r-2x">
+            <img ng-if="!publicCompany.avatar" src="{{ app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" class="r-2x">
+        </span>
+        <span class="media-body m-b-none text-break">
+            <span class="block">
+                <a class="text-md" ui-sref="app.page.company/public({'companyusername':publicCompany.username})"><strong class="ng-binding">{{ publicCompany.name}}</strong></a>
+            </span>
+            <span class="text-gray block">
+                {{ publicCompany.shortDescription}}
+            </span>
+        </span>
+        <div class="clear clearfix"></div>
+    </div>
+    <span class="block text-center m-t-md">
+        <a class="btn btn-blue-lt-bordered" ng-class="{'btn-blue-lt':mouseOverTwitter, 'btn-blue-lt-bordered':!mouseOverTwitter}" ng-mouseover="mouseOverTwitter = true" ng-mouseleave="mouseOverTwitter = false" href="https://twitter.com/intent/tweet?text={{ publicCompany.name}} is on Mobintouch. where the mobile world meets startups. to connect with {{ publicCompany.name}}, sign up for mobintouch today.&url=https://www.mobintouch.com/company/{{publicCompany.username}}&original_referer=https://www.mobintouch.com" target="_blank"><i class="fa fa-twitter"></i></a>
+        <a ng-if="publicCompany.avatar" class="btn btn-blue-lt-bordered" ng-class="{'btn-blue-lt':mouseOverFacebook, 'btn-blue-lt-bordered':!mouseOverFacebook}" ng-mouseover="mouseOverFacebook = true" ng-mouseleave="mouseOverFacebook = false" href="https://www.facebook.com/sharer.php?caption={{ publicCompany.name}} is on Mobintouch&description={{ publicCompany.name}} is on Mobintouch. where the mobile world meets startups. to connect with {{ publicCompany.name}}, sign up for mobintouch today.&u=https://www.mobintouch.com/company/{{ publicCompany.username}}&picture={{app.baseUrl}}{{publicCompany.avatar}}" target="_blank"><i class="fa fa-facebook"></i></a>
+        <a ng-if="!publicCompany.avatar" class="btn btn-blue-lt-bordered" ng-class="{'btn-blue-lt':mouseOverFacebook, 'btn-blue-lt-bordered':!mouseOverFacebook}" ng-mouseover="mouseOverFacebook = true" ng-mouseleave="mouseOverFacebook = false" href="https://www.facebook.com/sharer.php?caption={{ publicCompany.name}} is on Mobintouch&description={{ publicCompany.name}} is on Mobintouch. where the mobile world meets startups. to connect with {{ publicCompany.name}}, sign up for mobintouch today.&u=https://www.mobintouch.com/company/{{ publicCompany.username}}" target="_blank"><i class="fa fa-facebook"></i></a>
+        <a class="btn btn-blue-lt-bordered" ng-class="{'btn-blue-lt':mouseOverLinkedin, 'btn-blue-lt-bordered':!mouseOverLinkedin}" ng-mouseover="mouseOverLinkedin = true" ng-mouseleave="mouseOverLinkedin = false" href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.mobintouch.com/company/{{ publicCompany.username}}&title={{ publicCompnay.name}} is on Mobintouch&summary={{ publicCompany.name}} is on Mobintouch. where the mobile world meets startups. to connect with {{ publicCompany.name}}, sign up for mobintouch today.&source=https://www.mobintouch.com/company/{{ publicCompany.username}}" target="_blank"><i class="fa fa-linkedin"></i></a>
+        <a class="btn btn-blue-lt-bordered" ng-class="{'btn-blue-lt':mouseOverMail, 'btn-blue-lt-bordered':!mouseOverMail}" ng-mouseover="mouseOverMail = true" ng-mouseleave="mouseOverMail = false" href="mailto:?subject={{ publicCompany.name}} is on Mobintouch&body={{ publicCompany.name}} is on Mobintouch. where the mobile world meets startups. to connect with {{ publicCompany.name}}, sign up for mobintouch today." target="_blank"><i class="fa fa-envelope-o"></i></a>
+    </span>
+</div>

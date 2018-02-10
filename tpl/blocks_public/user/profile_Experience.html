@@ -1,0 +1,141 @@
+<div class="container" ng-if="viewUser.experiences.length > 0">
+    <div class="w-full b-a r-2x m-t-lg" id="experience">
+        <div class="col-xs-12" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+            <div class="m-t-lg">
+                <div class="text-black-d m-l-md">
+                    <h3 class="text-20 m-n">Experience</h3>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+
+            <div class="col-xs-12 padder-v-md padder-md" ng-if="viewUser.experiences.length > 0">
+                <div class="experience padder-v-md" ng-repeat="experience in viewUser.experiences track by $index" ng-if="experience.company">
+                    <div class="pull-left pull-none-xs" ng-if="!experience.companyid" ng-class="windowWidth <= 480 ? 'm-b-sm' : ''">
+                        <div class="company-avatar b-a" ng-if="experience.logo" ng-class="windowWidth <= 480 ? 'm-auto' : ''">
+                            <img src="{{app.baseUrl}}{{ experience.logo}}" class="w-full h-full" alt="{{experience.company}}"/>
+                        </div>
+                        <div class="company-avatar b-a" ng-if="!experience.logo">
+                            <img src="{{app.baseUrl}}/img/mit-default-company-avatar.svg" class="w-full h-full" alt="{{experience.company}}"/>
+                        </div>
+                        <!--<div class="m-t-n-100 company-avatar bg-black dk hover-pointer" ng-click="addClientAvatar($index)" ng-class="experience.logo ? 'bg bg-lt' : 'bg'"></div>-->
+                    </div>
+                    <div class="pull-left pull-none-xs" ng-if="experience.companyid" ng-class="windowWidth <= 480 ? 'm-b-sm' : ''">
+                        <a class="text-19 font-bold text-black-dk" ng-if="experience.companyUsername" ui-sref="app.page.company/public({companyusername: experience.companyUsername})">
+                            <div class="company-avatar b-a" ng-if="experience.logo" ng-class="windowWidth <= 480 ? 'm-auto' : ''">
+                                <img src="{{app.baseUrl}}{{ experience.logo}}" class="w-full h-full" alt="{{experience.company}}"/>
+                            </div>
+                            <div class="company-avatar b-a" ng-if="!experience.logo">
+                                <img src="{{app.baseUrl}}/img/mit-default-company-avatar.svg" class="w-full h-full" alt="{{experience.company}}"/>
+                            </div>
+                        </a>
+                        <div ng-if="!experience.companyUsername">
+                            <div class="company-avatar b-a" ng-if="experience.logo" ng-class="windowWidth <= 480 ? 'm-auto' : ''">
+                                <img src="{{app.baseUrl}}{{ experience.logo}}" class="w-full h-full" alt="{{experience.company}}"/>
+                            </div>
+                            <div class="company-avatar b-a" ng-if="!experience.logo">
+                                <img src="{{app.baseUrl}}/img/mit-default-company-avatar.svg" class="w-full h-full" alt="{{experience.company}}"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="details pull-left padder col-sm-7 col-xs-12" ng-class="windowWidth <= 480 ? 'no-padder' : ''" ng-if="experience.roles">
+                        <a class="text-19 font-bold text-black-dk" ng-if="experience.companyUsername" ui-sref="app.page.company/public({companyusername: experience.companyUsername})"><h4 class="m-n">{{experience.company}}</h4></a>
+                        <div class="text-19 font-bold text-black-dk" ng-if="!experience.companyUsername"><h4 class="m-n">{{experience.company}}</h4></div>
+                        <div class="text-md text-black-dk">
+                            <div ng-repeat="role in experience.roles">
+                                <div ng-class="windowWidth <= 480 ? 'block' : 'inline'" class="m-r-md">
+                                    <span class="font-bold" ng-if="experience.type && experience.type != 'Employee'">
+                                        {{ experience.type}}, {{ role.jobtitle}} 
+                                    </span>
+                                    <span class="font-bold" ng-if="experience.type && experience.type == 'Employee'">
+                                        {{ role.jobtitle}}
+                                    </span>
+                                    <div ng-class="windowWidth <= 480 ? 'block' : 'inline m-l'" ng-if="!role.fromyear && !role.frommonth && !role.tomonth && !role.toyear" class="text-sm text-muted">I am currently working here</div>
+                                    <div ng-class="windowWidth <= 480 ? 'block' : 'inline m-l'" ng-if="role.fromperiod && role.currently" class="text-sm text-muted">{{role.fromperiod| date : 'MMM yyyy' }} - Present</div>
+                                    <div ng-class="windowWidth <= 480 ? 'block' : 'inline m-l'" ng-if="!role.fromperiod && role.fromyear" class="text-sm text-muted">{{role.fromyear}} - Present</div>
+                                    <div ng-class="windowWidth <= 480 ? 'block' : 'inline m-l'" ng-if="role.fromperiod && role.toperiod && !role.currently" class="text-sm text-muted">{{role.fromperiod| date : 'MMM yyyy' }} - {{role.toperiod| date : 'MMM yyyy' }} 
+                                        <span class="m-l" ng-if="(role.fromperiod | dateDiff:role.toperiod).years <= 0 && (role.fromperiod | dateDiff:role.toperiod).months > 0">({{ (role.fromperiod | dateDiff:role.toperiod).months}} months)</span>
+                                        <span class="m-l" ng-if="(role.fromperiod | dateDiff:role.toperiod).years > 0">({{ (role.fromperiod | dateDiff:role.toperiod).years}} year {{ (role.fromperiod | dateDiff:role.toperiod).months}} month)</span>
+                                    </div>
+                                </div>
+                                <div class="text-15 text-gray" ng-class="{'padder-v-sm' : windowWidth > 480}">
+                                    {{role.description}} 
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="details pull-left padder col-sm-7 col-xs-12" ng-class="windowWidth <= 480 ? 'no-padder' : ''" ng-if="!experience.roles">
+                        <a class="text-19 font-bold text-black-dk" ng-if="experience.companyUsername" ui-sref="app.page.company/public({companyusername: experience.companyUsername})"><h4 class="m-n">{{experience.company}}</h4></a>
+                        <div class="text-19 font-bold text-black-dk" ng-if="!experience.companyUsername">{{experience.company}}</div>
+                        <div class="text-md text-black-dk">
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline'" class="font-bold">{{ experience.jobtitle}}</div> 
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline m-l-sm'" ng-if="experience.fromperiod && experience.currently" class="text-sm text-muted">{{experience.fromperiod| date : 'MMMM yyyy' }} - Present</div>
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline m-l-sm'" ng-if="!experience.fromperiod && experience.currently" class="text-sm text-muted">I work currently here</div>
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline m-l-sm'" ng-if="!experience.currently && (experience.fromperiod || experience.toperiod)" class="text-sm text-muted">{{experience.fromperiod|| ' ' | date : 'MMMM yyyy' }} - {{experience.toperiod|| ' ' | date : 'MMMM yyyy' }}</div>
+                        </div>
+                        <div class="text-15 text-gray padder-v-sm">
+                            {{experience.description}} 
+                        </div>
+                    </div>
+
+                    <!--
+                    <div class="details pull-left padder col-sm-7 col-xs-12" ng-class="windowWidth <= 480 ? 'no-padder' : ''" ng-if="experience.roles && (experience.roles | toArray | filter:{'currently':true}).length > 0">
+                        <a class="text-19 font-bold text-black-dk" ng-if="experience.companyUsername" ui-sref="app.page.company/public({companyusername: experience.companyUsername})">{{experience.company}}</a>
+                        <div class="text-19 font-bold text-black-dk" ng-if="!experience.companyUsername">{{experience.company}}</div>
+                        <div class="text-md text-black-dk">
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline'" class="font-bold m-r-md" ng-if="experience.type && experience.type != 'Employee'">
+                                {{ experience.type}}, {{ (experience.roles | toArray | filter:{'currently':true} | orderBy:'-fromperiod')[0].jobtitle}} 
+                            </div>
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline'" class="font-bold m-r-md" ng-if="experience.type && experience.type == 'Employee'">
+                                {{ (experience.roles | toArray | filter:{'currently':true} | orderBy:'-fromperiod')[0].jobtitle}}
+                            </div>
+
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline'" ng-if="(experience.roles | toArray | filter:{'currently':true} | orderBy:'-fromperiod')[0].fromperiod" class="text-muted">{{(experience.roles| toArray | filter:{'currently':true} | orderBy:'-fromperiod')[0].fromperiod| date : 'yyyy' }} - Present</div>
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline'"  ng-if="!(experience.roles | toArray | filter:{'currently':true} | orderBy:'-fromperiod')[0].fromperiod" class="text-muted">I work currently here</div>
+                        </div>
+                        <div class="text-15 text-gray padder-v-sm">
+                            {{(experience.roles| toArray | filter:{'currently':true} | orderBy:'-fromperiod')[0].description}} 
+                        </div>
+                    </div>
+
+                    <div class="details pull-left padder col-sm-7 col-xs-12" ng-class="windowWidth <= 480 ? 'no-padder' : ''" ng-if="experience.roles && (experience.roles | toArray | filter:{'currently':true}).length <= 0">
+                        <a class="text-19 font-bold text-black-dk" ng-if="experience.companyUsername" ui-sref="app.page.company/public({companyusername: experience.companyUsername})">{{experience.company}}</a>
+                        <div class="text-19 font-bold text-black-dk" ng-if="!experience.companyUsername">{{experience.company}}</div>
+                        <div class="text-md text-black-dk">
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline'" class="font-bold m-r-md" ng-if="experience.type && experience.type != 'Employee'">
+                                {{ experience.type}}, {{ (experience.roles | toArray | orderBy:'-fromperiod')[0].jobtitle}} 
+                            </div>
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline'" class="font-bold m-r-md" ng-if="experience.type && experience.type == 'Employee'">
+                                {{ (experience.roles | toArray | orderBy:'-fromperiod')[0].jobtitle}} 
+                            </div>
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline'" ng-if="(experience.roles | toArray | orderBy:'- fromperiod')[0].fromperiod" class="text-muted">{{(experience.roles| toArray | orderBy:'-fromperiod')[0].fromperiod| date : 'yyyy' }} - Present</div>
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline'"  ng-if="!(experience.roles | toArray | orderBy:'- fromperiod')[0].fromperiod" class="text-muted">I work currently here</div>
+                        </div>
+                        <div class="text-15 text-gray padder-v-sm">
+                            {{(experience.roles| toArray | orderBy:'-fromperiod')[0].description}} 
+                        </div>
+                    </div>
+
+                    <div class="details pull-left padder col-sm-7 col-xs-12" ng-class="windowWidth <= 480 ? 'no-padder' : ''" ng-if="!experience.roles">
+                        <a class="text-19 font-bold text-black-dk" ng-if="experience.companyUsername" ui-sref="app.page.company/public({companyusername: experience.companyUsername})">{{experience.company}}</a>
+                        <div class="text-19 font-bold text-black-dk" ng-if="!experience.companyUsername">{{experience.company}}</div>
+                        <div class="text-md text-black-dk">
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline'" class="font-bold m-r-md">{{ experience.jobtitle}}</div> 
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline'" ng-if="experience.fromperiod && experience.currently" class="text-muted">{{experience.fromperiod| date : 'MMMM yyyy' }} - Present</div>
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline'" ng-if="!experience.fromperiod && experience.currently" class="text-muted">I work currently here</div>
+                            <div ng-class="windowWidth <= 480 ? 'block' : 'inline'" ng-if="!experience.currently && (experience.fromperiod || experience.toperiod)" class="text-muted">{{experience.fromperiod|| ' ' | date : 'MMMM yyyy' }} - {{experience.toperiod|| ' ' | date : 'MMMM yyyy' }}</div>
+                        </div>
+                        <div class="text-15 text-gray padder-v-sm">
+                            {{experience.description}} 
+                        </div>
+                    </div>
+                    -->
+                    <div class="clear clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+</div>

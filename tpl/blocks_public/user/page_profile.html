@@ -1,0 +1,497 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = false; app.settings.headerFixed = true;" ng-controller="SignupModalController" ng-cloak>
+    <div class="profile_card_container">
+        <div id="user-profile-cover" class="pos-rlt overflow-hidden" ng-style="viewUser.cover && windowWidth > 480 ? {'height': '380px'} : {'height': '200px'}">
+            <div ng-if="viewUser.avatar && !viewUser.cover"
+                 class="animated bg-black"
+                 ng-class="{fadeIn : viewUser.cover, profile_cover : viewUser.avatar && !viewUser.cover}"
+                 style="background:url({{app.baseUrl}}{{ viewUser.cover ? viewUser.cover : viewUser.avatar }}) center top / cover;
+                 position: absolute;
+                 width: 100%;
+                 overflow: hidden;
+                 z-index: -1;
+                 height: inherit;
+                 -webkit-filter: blur(60px);
+                 -moz-filter: blur(60px);
+                 -o-filter: blur(60px);
+                 -ms-filter: blur(60px);
+                 filter: blur(60px);
+                 filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='60');">
+                <div ng-if="viewUser.avatar && !viewUser.cover" style="left:0;
+                     right:0;
+                     bottom: 0;
+                     top: 0;
+                     margin: auto;
+                     background: rgba(255, 255, 255, 0.8);
+                     opacity: 0.7;
+                     height: 100%;
+                     width: 100%;
+                     position: absolute;">
+                </div>
+            </div>
+            <div ng-if="(viewUser.avatar && viewUser.cover) || (!viewUser.avatar && viewUser.cover)"
+                 class="animated bg-black"                 
+                 style="background:url({{app.baseUrl}}{{ viewUser.cover ? viewUser.cover : viewUser.avatar }}) center center / cover;
+                 position: absolute;
+                 width: 100%;
+                 overflow: hidden;
+                 z-index: -1;
+                 height: inherit;">
+                <!--<div ng-if="viewUser.avatar && !viewUser.cover" style="left:0;
+                     right:0;
+                     bottom: 0;
+                     top: 0;
+                     margin: auto;
+                     background: white;
+                     opacity: 0.7;
+                     height: 100%;
+                     width: 100%;
+                     position: absolute;">
+                </div>-->
+            </div>
+            <div ng-if="!viewUser.avatar && !viewUser.cover"
+                 class="animated"
+                 style="background:url({{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}) center center;
+                 background-size: cover;
+                 -webkit-filter: blur(60px);
+                 -moz-filter: blur(60px);
+                 -o-filter: blur(60px);
+                 -ms-filter: blur(60px);
+                 filter: blur(60px);
+                 filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='60');
+                 height: 200px;
+                 position: absolute;
+                 width: 100%;
+                 overflow: hidden;
+                 z-index: -1">
+                <div style="left:0;
+                     right:0;
+                     bottom: 0;
+                     top: 0;
+                     margin: auto;
+                     background: #7d7d7d;
+                     opacity: 0.7;
+                     height: 100%;
+                     width: 100%;
+                     position: absolute;">
+                </div>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="container" ng-if="windowWidth > 768" id="user_details">
+            <div id="user_avatar" class="pull-left col-sm-3 no-padder" ng-class="windowWidth <= 480 ? 'w-xs m-t-n' : 'w m-t-n-xl'">
+                <div class="">
+                    <a class="avatar b b-white" ng-class="windowWidth <= 480 ? '' : 'b-2x'">
+                        <img id="profile_avatar" ng-if="viewUser.avatar" src="{{app.baseUrl}}{{viewUser.avatar}}" class="avatar w-full img-circle" ng-click="viewProifleImage()" crossorigin="anonymous" onload="getAverageRGB(this)" alt="{{viewUser.name}} {{viewUser.lastname}}"/>
+                        <img id="profile_avatar" ng-if="!viewUser.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" class="avatar w-full bg-white" crossorigin="anonymous" alt="{{ viewUser.name }} {{ viewUser.lastname }}"/>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-5 col-xs-12" ng-class="windowWidth <= 480 ? 'no-padder' : 'padder-v-sm padder-t-sm'">
+                <div class="">
+                    <h1 class="text-head text-black-d font-normal inline m-n">{{ viewUser.name}} {{ viewUser.lastname}}</h1>
+                    <span class="text-black-dk m-l-sm" ng-if="viewUser.city" ng-class="windowWidth <= 480 ? 'm-b-sm  no-padder' : 'm-r-sm'">
+                        <span class="fa fa-map-marker"></span>
+                        <span ng-if="viewUser.basedCountry"> {{ viewUser.city}}, {{ 'country.' + viewUser.basedCountry | translate }}</span>
+                        <span ng-if="!viewUser.basedCountry"> {{ viewUser.city}} </span>
+                    </span>
+                    
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-12 dropdown"
+                 ng-class="windowWidth <= 480 ? 'pull-none-xs' : 'text-right pull-right padder-v-sm padder-t-sm'">
+                
+                <div class="padder-v-sm padder-xs" ng-class="windowWidth <= 480 ? 'block pull-none-xs' : 'inline pull-right'">
+                    <a class="m-l-xs text-black-dk" ng-if="viewUser.linkedin" href="{{ viewUser.linkedin}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-linkedin"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="viewUser.twitter" href="{{ viewUser.twitter}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-twitter"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="viewUser.facebook" href="{{ viewUser.facebook}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-facebook"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="viewUser.github" href="{{ viewUser.github}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-github"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="viewUser.stackOverflow" href="{{ viewUser.stackOverflow}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-stack-overflow"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="viewUser.dribbble" href="{{ viewUser.dribbble}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-dribbble"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="viewUser.behance" href="{{ viewUser.behance}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-behance"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="viewUser.instagram" href="{{ viewUser.instagram}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-instagram"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="viewUser.pinterest" href="{{ viewUser.pinterest}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-pinterest"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="viewUser.website" href="{{ viewUser.website}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-globe"></span>
+                    </a>
+                    <a class="m-l-xs text-black-dk" ng-if="viewUser.otherLink" href="{{ viewUser.otherLink}}" target="_blank" rel="nofollow">
+                        <span class="fa fa-link"></span>
+                    </a>
+                </div>
+                
+                <div class="dropdown pull-right" ng-show="user.username" auto-close="mouseleave" is-open="status.isOpen" ng-mouseenter="status.isOpen = true;" ng-mouseleave="status.isOpen = false;" uib-dropdown>
+                    <a href="" class="text-black-dk m-l-sm b-r padder-r dropdown-toggle inline hover-pointer hover-text-blue-lt padder-v-sm" data-toggle="dropdown" uib-dropdown-toggle>
+                        <span class="fa fa-address-card-o"></span>
+                        <span class="m-l-xs inline">Contact Info</span>
+                    </a>
+                    <div class="dropdown-menu contact-info" ng-mouseenter="isopen = true;" ng-mouseleave="isopen = false;" uib-dropdown-menu>
+                        <span class="arrow top contact-info"></span>
+                        <div class="w-lg padder padder-v bg-light lt" ng-controller="GetConnectController">
+                            <div class="text-gray padder-v-sm">
+                                <i class="fa fa-envelope m-r-sm"></i> 
+                                <span ng-if="connectStatus == 3 || viewUser.username == user.username">{{ viewUser.email}}</span>
+                                <span ng-if="connectStatus != 3 && viewUser.username != user.username">Connect with {{ viewUser.name}}</span>
+                            </div>
+                            <div class="text-gray padder-v-sm" ng-if="viewUser.phone">
+                                <i class="fa fa-phone m-r-sm"></i> <span>{{ viewUser.phone}}</span>
+                            </div>
+                            <div class="text-gray padder-v-sm" ng-if="viewUser.imContacts[1]">
+                                <i class="icon-speech m-r-sm"></i> <span>{{ viewUser.imContacts[1]}} ({{ viewUser.imContacts[0]}})</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pull-right padder-xs padder-t-xs" 
+                    ng-class="windowWidth <= 480 ? 'pull-none-xs' : 'pull-right text-right'"
+                    ng-show="!user.username" uib-dropdown>
+                    <a href="" class="text-black-dk m-l-sm inline hover-pointer hover-text-blue-lt padder-v-sm" data-toggle="dropdown" ng-click="showSignupModal();">
+                        <span class="fa fa-address-card-o"></span>
+                        <span class="m-l-xs inline">Contact Info</span>
+                    </a>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+            
+            <div class="job_details" ng-class="windowWidth <= 480 ? 'block' : ''" ng-if="viewUser.jobTitle">
+                <div class="col-sm-9 col-xs-12 text-md text-black-dker padder-v-sm" 
+                     ng-class="windowWidth <= 480 ? 'm-t-xs m-b-xs no-padder' : ''">
+                    <h2 class="m-n inline text-md">{{ viewUser.jobTitle}}</h2> 
+                    <h2 class="m-n inline text-md" ng-if="!viewUser.companyPage.employee.company && viewUser.company">at {{ viewUser.company}}</h2>
+                    <h2 class="m-n inline text-md" ng-if="viewUser.companyPage.employee.company && viewUser.company"> at <a class="hover-text-blue-lt hover-underline" ui-sref="app.page.company/public({companyusername: viewUser.companyPage.employee.company})">{{ viewUser.company}}</a></h2>
+                </div>
+            </div>
+            <div class="mini_resume" ng-class="windowWidth <= 480 ? 'block' : ''" ng-if="viewUser.miniResume">
+                <h3 class="col-sm-9 col-xs-12 text-md text-gray-lter m-n padder-v-sm"
+                     ng-class="windowWidth <= 480 ? 'm-t-xs m-b-xs no-padder' : ''">{{ viewUser.miniResume}}<h3>
+            </div>
+            <div class="keyword_tags" ng-if="viewUser.keywords.length > 0" ng-class="windowWidth <= 480 ? 'block' : ''">
+                <!--<div class="pull-left padder-t-xs keyword-tag-container" ng-class="windowWidth <= 480 ? '' : 'text-ellipsis-sp padder-l-sm'">
+                    <div class="r-3x padder-v-sm padder text-center label-green-light hover-pointer" ng-repeat="keyword in viewUser.keywords.slice(0, 5) track by $index">{{ keyword.text ? keyword.text : keyword }}</div>
+                    <a class="" ng-click="viewMoreUserInterests()" ng-if="viewUser.keywords.length > 5">View more</a>
+                </div>-->
+                <div class="col-sm-9 col-xs-12 padder-v-sm padder-none-xs">
+                    <div class="inline-only text-md m-r-sm text-gray-lter">
+                        Interests: 
+                    </div> 
+
+                    <div class="inline-only m-l-n-xs m-t-xs text-gray text-md m-r-xs">
+                        <span class="text-blue-lt hover-text-blue-lt hover-pointer hover-underline m-r-sm" ng-repeat="keyword in viewUser.keywords.slice(0, 5) track by $index">
+                            #{{ keyword.text ? keyword.text : keyword }}
+                        </span>
+                    </div>
+                    <a class="hover-pointer text-gray hover-black-dk hover-underline" ng-click="viewMoreUserInterests()" ng-if="viewUser.keywords.length > 5">View more</a>
+                </div>
+
+            </div>
+            <div class="mutual_connections">
+                <div class="col-sm-9 text-black-dk" 
+                     ng-class="windowWidth <= 480 ? '' : 'padder-v-sm'" 
+                     ng-init="connections = (viewUser.inTouch | toArray)">
+                    <div class="inline" ng-if="connections.length > 0" ng-class="{'m-r-xs':windowWidth > 480}">
+                        <img class="thumb-xxxs img-circle bg-white" 
+                             ng-class="windowWidth <= 480 ? 'm-t-n-md' : ''"
+                             ng-if="connections[0]" src="{{app.baseUrl}}{{connections[0].avatar ? connections[0].avatar : '/img/mit-default-avatar.svg?v='}}{{ app.latestUpdate}}" alt="{{ connections[0].name }} {{ connections[0].lastname }}"/>
+                        <img class="thumb-xxxs img-circle m-l-n bg-white"
+                             ng-class="windowWidth <= 480 ? 'm-t-n-md' : ''"
+                             ng-if="connections[1]" src="{{app.baseUrl}}{{connections[1].avatar ? connections[1].avatar : '/img/mit-default-avatar.svg?v=' }}{{ app.latestUpdate}}" alt="{{ connections[1].name }} {{ connections[1].lastname }}"/>
+                        <img class="thumb-xxxs img-circle m-l-n bg-white"
+                             ng-class="windowWidth <= 480 ? 'm-t-n-md' : ''"
+                             ng-if="connections[2]" src="{{app.baseUrl}}{{connections[2].avatar ? connections[2].avatar : '/img/mit-default-avatar.svg?v=' }}{{ app.latestUpdate}}" alt="{{ connections[2].name }} {{ connections[2].lastname }}"/>
+                    </div>
+
+                    <div class="inline" ng-class="windowWidth <= 480 ? 'm-l-sm' : ''">
+                        <a class="hover-text-blue-lt hover-underline text-gray-lter" ng-class="{'block':windowWidth <= 480}" ng-if="user.username" ui-sref="app.page.connections({'type':'secondary'})"> {{ connections.length || 0}} Connections</a> 
+                        <a class="hover-text-blue-lt hover-underline text-gray-lter" ng-class="{'block':windowWidth <= 480}" ng-if="!user.username" ng-click="showSignupModal();"> {{ connections.length || 0}} Connections</a> 
+                        <span ng-if="user.username != viewUser.username && viewUser.mutualConnections.length > 0">({{ viewUser.mutualConnections.length}} mutual)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container" ng-if="windowWidth <= 768">
+            <div>
+                <div class="pull-left" ng-class="windowWidth <= 480 ? 'w-xs m-t-n' : 'w m-t-n-xl'">
+                    <div class="">
+                        <a class="avatar b b-white" ng-class="windowWidth <= 480 ? '' : 'b-2x'">
+                            <img id="profile_avatar" ng-if="viewUser.avatar" src="{{app.baseUrl}}{{viewUser.avatar}}" class="avatar w-full img-circle" ng-click="viewProifleImage()" crossorigin="anonymous" onload="getAverageRGB(this)" alt="{{ viewUser.name }} {{ viewUser.lastname }}"/>
+                            <img id="profile_avatar" ng-if="!viewUser.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" class="avatar w-full bg-white" crossorigin="anonymous" alt="{{ viewUser.name }} {{ viewUser.lastname }}"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="pull-left m-l-sm padder-t-xs">
+                    <h1 class="text-head text-black-d font-normal inline m-n">{{ viewUser.name}} {{ viewUser.lastname}}</h1>
+                    <div class="text-black-dk" ng-if="viewUser.city" ng-class="windowWidth <= 480 ? 'no-padder' : 'm-r-sm'">
+                        <span class="fa fa-map-marker"></span>
+                        <span ng-if="viewUser.basedCountry"> {{ viewUser.city}}, {{ 'country.' + viewUser.basedCountry | translate }}</span>
+                        <span ng-if="!viewUser.basedCountry"> {{ viewUser.city}} </span>
+                    </div>
+                    <div ng-class="windowWidth <= 480 ? 'block' : 'inline'">
+                        <a class="m-l-xs text-black-dk" ng-if="viewUser.linkedin" href="{{ viewUser.linkedin}}" target="_blank" rel="nofollow">
+                            <span class="fa fa-linkedin"></span>
+                        </a>
+                        <a class="m-l-xs text-black-dk" ng-if="viewUser.twitter" href="{{ viewUser.twitter}}" target="_blank" rel="nofollow">
+                            <span class="fa fa-twitter"></span>
+                        </a>
+                        <a class="m-l-xs text-black-dk" ng-if="viewUser.facebook" href="{{ viewUser.facebook}}" target="_blank" rel="nofollow">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+                        <a class="m-l-xs text-black-dk" ng-if="viewUser.github" href="{{ viewUser.github}}" target="_blank" rel="nofollow">
+                            <span class="fa fa-github"></span>
+                        </a>
+                        <a class="m-l-xs text-black-dk" ng-if="viewUser.stackOverflow" href="{{ viewUser.stackOverflow}}" target="_blank" rel="nofollow">
+                            <span class="fa fa-stack-overflow"></span>
+                        </a>
+                        <a class="m-l-xs text-black-dk" ng-if="viewUser.dribbble" href="{{ viewUser.dribbble}}" target="_blank" rel="nofollow">
+                            <span class="fa fa-dribbble"></span>
+                        </a>
+                        <a class="m-l-xs text-black-dk" ng-if="viewUser.behance" href="{{ viewUser.behance}}" target="_blank" rel="nofollow">
+                            <span class="fa fa-behance"></span>
+                        </a>
+                        <a class="m-l-xs text-black-dk" ng-if="viewUser.instagram" href="{{ viewUser.instagram}}" target="_blank" rel="nofollow">
+                            <span class="fa fa-instagram"></span>
+                        </a>
+                        <a class="m-l-xs text-black-dk" ng-if="viewUser.pinterest" href="{{ viewUser.pinterest}}" target="_blank" rel="nofollow">
+                            <span class="fa fa-pinterest"></span>
+                        </a>
+                        <a class="m-l-xs text-black-dk" ng-if="viewUser.website" href="{{ viewUser.website}}" target="_blank" rel="nofollow">
+                            <span class="fa fa-globe"></span>
+                        </a>
+                        <a class="m-l-xs text-black-dk" ng-if="viewUser.otherLink" href="{{ viewUser.otherLink}}" target="_blank" rel="nofollow">
+                            <span class="fa fa-link"></span>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="job_details" ng-class="windowWidth <= 480 ? 'pull-left' : 'm-l-sm'" ng-if="viewUser.jobTitle">
+                    <div class="col-sm-9 col-xs-12 text-md text-black-dker" 
+                         ng-class="windowWidth <= 480 ? 'm-t-xs m-b-xs no-padder' : ''">
+                        <span>{{ viewUser.jobTitle}}</span> 
+                        <span ng-if="!viewUser.companyPage.employee.company && viewUser.company">at {{ viewUser.company}}</span>
+                        <span ng-if="viewUser.companyPage.employee.company && viewUser.company"> at <a class="hover-text-blue-lt hover-underline" ui-sref="app.page.company/public({companyusername: viewUser.companyPage.employee.company})">{{ viewUser.company}}</a></span>
+                    </div>
+                </div>
+                <div class="mini_resume" ng-class="windowWidth <= 480 ? 'block' : 'm-l-sm'">
+                    <div class="col-sm-9 col-xs-12 text-md text-gray-lter"
+                         ng-class="windowWidth <= 480 ? 'm-t-xs m-b-xs no-padder' : ''">{{ viewUser.miniResume}}</div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+
+            <div class="padder-v-sm" ng-class="{'m-l-sm':windowWidth > 480}">
+                <div class="pull-left">
+                    <div class="text-black-dk" 
+                         ng-class="windowWidth <= 480 ? '' : 'm-t-sm'" 
+                         ng-init="connections = (viewUser.inTouch | toArray)">
+                        <div class="pull-left padder-v-xs">
+                            <img class="thumb-xxxs img-circle bg-white" 
+                                 ng-if="connections[0]" src="{{app.baseUrl}}{{connections[0].avatar ? connections[0].avatar : '/img/mit-default-avatar.svg?v='}}{{ app.latestUpdate}}" alt="{{ connections[0].name }} {{ connections[0].lastname }}"/>
+                            <img class="thumb-xxxs img-circle m-l-n bg-white"
+                                 ng-if="connections[1]" src="{{app.baseUrl}}{{connections[1].avatar ? connections[1].avatar : '/img/mit-default-avatar.svg?v=' }}{{ app.latestUpdate}}" alt="{{ connections[1].name }} {{ connections[1].lastname }}"/>
+                            <img class="thumb-xxxs img-circle m-l-n bg-white"
+                                 ng-if="connections[2]" src="{{app.baseUrl}}{{connections[2].avatar ? connections[2].avatar : '/img/mit-default-avatar.svg?v=' }}{{ app.latestUpdate}}" alt="{{ connections[2].name }} {{ connections[2].lastname }}"/>
+                        </div>
+
+                        <div class="pull-left inline padder-v-sm" ng-class="windowWidth <= 480 ? 'm-l-sm' : ''">
+                            <a class="hover-text-blue-lt hover-underline text-gray-lter" ng-class="windowWidth <= 480 ? 'block' : 'm-l-sm'" ng-if="user.username" ui-sref="app.page.connections({'type':'secondary'})"> {{ connections.length || 0}} Connections</a> 
+                            <a class="hover-text-blue-lt hover-underline text-gray-lter" ng-class="windowWidth <= 480 ? 'block' : 'm-l-sm'" ng-if="!user.username" ng-click="showSignupModal();"> {{ connections.length || 0}} Connections</a> 
+                            <span ng-if="user.username != viewUser.username && viewUser.mutualConnections.length > 0">({{ viewUser.mutualConnections.length}} mutual)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <div class="col-sm-3 col-xs-12 pull-right padder-xs" 
+                         ng-class="windowWidth <= 480 ? 'pull-none-xs' : 'pull-right text-right'"
+                         ng-show="!user.username" uib-dropdown>
+                        <a href="" class="text-black-dk m-l-sm inline hover-pointer hover-text-blue-lt padder-v-sm" data-toggle="dropdown" ng-click="showSignupModal();">
+                            <span class="fa fa-address-card-o"></span>
+                            <span class="m-l-xs inline">Contact Info</span>
+                        </a>
+                    </div>  
+                    <div class="col-sm-3 col-xs-12 pull-right dropdown padder-xs padder-t-xs" 
+                         ng-class="windowWidth <= 480 ? 'pull-none-xs' : 'pull-right text-right'"
+                         ng-show="user.username" auto-close="mouseleave" is-open="status.isOpen" ng-mouseenter="status.isOpen = true;" ng-mouseleave="status.isOpen = false;" uib-dropdown>
+                        <a href="" class="text-black-dk m-l-sm dropdown-toggle inline hover-pointer hover-text-blue-lt padder-v-sm" data-toggle="dropdown" uib-dropdown-toggle>
+                            <span class="fa fa-address-card-o"></span>
+                            <span class="m-l-xs inline">Contact Info</span>
+                        </a>
+                        <div class="dropdown-menu contact-info" ng-mouseenter="isopen = true;" ng-mouseleave="isopen = false;" uib-dropdown-menu>
+                            <span class="arrow top contact-info"></span>
+                            <div class="w-lg padder padder-v bg-light lt">
+                                <div class="text-gray padder-v-sm" ng-if="viewUser.email">
+                                    <i class="fa fa-envelope m-r-sm"></i> <span>{{ viewUser.email}}</span>
+                                </div>
+                                <div class="text-gray padder-v-sm" ng-if="viewUser.phone">
+                                    <i class="fa fa-phone m-r-sm"></i> <span>{{ viewUser.phone}}</span>
+                                </div>
+                                <div class="text-gray padder-v-sm" ng-if="viewUser.imContacts[1]">
+                                    <i class="icon-speech m-r-sm"></i> <span>{{ viewUser.imContacts[1]}} ({{ viewUser.imContacts[0]}})</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+
+            <div class="keyword_tags" ng-if="viewUser.keywords.length > 0" ng-class="windowWidth <= 480 ? 'block' : ''">
+                <!--<div class="pull-left padder-t-xs keyword-tag-container" ng-class="windowWidth <= 480 ? '' : 'text-ellipsis-sp padder-l-sm'">
+                    <div class="r-3x padder-v-sm padder text-center label-green-light hover-pointer" ng-repeat="keyword in viewUser.keywords.slice(0, 5) track by $index">{{ keyword.text ? keyword.text : keyword }}</div>
+                    <a class="" ng-click="viewMoreUserInterests()" ng-if="viewUser.keywords.length > 5">View more</a>
+                </div>-->
+                <div class="col-sm-9 col-xs-12 padder-none-xs">
+                    <div class="inline-only text-md m-r-sm text-gray-lter">
+                        Interests: 
+                    </div> 
+
+                    <div class="inline-only m-l-n-xs m-t-xs text-gray text-md m-r-xs">
+                        <span class="text-blue-lt hover-text-blue-lt hover-pointer hover-underline m-r-sm" ng-repeat="keyword in viewUser.keywords.slice(0, 5) track by $index">
+                            #{{ keyword.text ? keyword.text : keyword }}
+                        </span>
+                    </div>
+                    <a class="hover-pointer text-gray hover-black-dk hover-underline" ng-click="viewMoreUserInterests()" ng-if="viewUser.keywords.length > 5">View more</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- end of edit keywords -->
+
+    <div class="container m-t-lg m-b-sm" ng-if="user.username != viewUser.username">
+        <div class="b-a bg-gray bg-light lt padder padder-v">
+            <div class="l-h-3x pull-left pull-none-xs text-17 text-black-dker" ng-if="viewUser.mutualConnections.length > 3">
+                <span class="text-muted">Mutual connections:</span>
+                <a class="opacity-8" ui-sref="app.page.public({username: viewUser.mutualConnections[0].username})" ng-if="viewUser.mutualConnections[0]">{{ viewUser.mutualConnections[0].name}} {{ viewUser.mutualConnections[0].lastname}},</a>
+                <a class="opacity-8" ui-sref="app.page.public({username: viewUser.mutualConnections[1].username})" ng-if="viewUser.mutualConnections[1]"> {{ viewUser.mutualConnections[1].name}} {{ viewUser.mutualConnections[1].lastname}},</a>
+                <a class="opacity-8" ui-sref="app.page.public({username: viewUser.mutualConnections[2].username})" ng-if="viewUser.mutualConnections[2]"> {{ viewUser.mutualConnections[2].name}} {{ viewUser.mutualConnections[2].lastname}}</a>
+                <span class="opacity-8" ng-if="viewUser.mutualConnections.length > 3">and <a href="" ng-click="viewMutualConnections(viewUser.mutualConnections);">{{ viewUser.mutualConnections.length - 3}} more</a></span>
+            </div>
+            <div class="l-h-3x pull-left pull-none-xs text-17 text-black-dker" ng-if="viewUser.mutualConnections.length == 3">
+                <span class="text-muted">Mutual connections:</span>
+                <a class="opacity-8" ui-sref="app.page.public({username: viewUser.mutualConnections[0].username})" ng-if="viewUser.mutualConnections[0]">{{ viewUser.mutualConnections[0].name}} {{ viewUser.mutualConnections[0].lastname}},</a>
+                <a  class="opacity-8"  ui-sref="app.page.public({username: viewUser.mutualConnections[1].username})" ng-if="viewUser.mutualConnections[1]"> {{ viewUser.mutualConnections[1].name}} {{ viewUser.mutualConnections[1].lastname}}</a> and
+                <a  class="opacity-8"  ui-sref="app.page.public({username: viewUser.mutualConnections[2].username})" ng-if="viewUser.mutualConnections[2]"> {{ viewUser.mutualConnections[2].name}} {{ viewUser.mutualConnections[2].lastname}}</a>
+            </div>
+            <div class="l-h-3x pull-left pull-none-xs text-17 text-black-dker" ng-if="viewUser.mutualConnections.length == 2">
+                <span class="text-muted">Mutual connections:</span>
+                <a  class="opacity-8"  ui-sref="app.page.public({username: viewUser.mutualConnections[0].username})" ng-if="viewUser.mutualConnections[0]">{{ viewUser.mutualConnections[0].name}} {{ viewUser.mutualConnections[0].lastname}}</a> and
+                <a  class="opacity-8"  ui-sref="app.page.public({username: viewUser.mutualConnections[1].username})" ng-if="viewUser.mutualConnections[1]"> {{ viewUser.mutualConnections[1].name}} {{ viewUser.mutualConnections[1].lastname}}</a>
+            </div>
+            <div class="l-h-3x pull-left pull-none-xs text-17 text-black-dker" ng-if="viewUser.mutualConnections.length == 1">
+                <span class="text-muted">Mutual connections:</span>
+                <a  class="opacity-8"  ui-sref="app.page.public({username: viewUser.mutualConnections[0].username})" ng-if="viewUser.mutualConnections[0]">{{ viewUser.mutualConnections[0].name}} {{ viewUser.mutualConnections[0].lastname}}</a>
+            </div>
+            <div class="l-h-3x pull-left pull-none-xs text-17 text-black-dker" ng-if="viewUser.mutualConnections.length <= 0">
+                <span class="text-muted">you don't have any mutual connection yet!</span>
+            </div>
+
+            <div class="l-h-3x pull-left pull-none-xs text-17 text-black-dker" ng-if="!user.username">
+                <span class="opacity-8">
+                    <a rel="nofollow" class="font-normal text-blue" ui-sref="access.signin">Log in</a>
+                    or 
+                    <a rel="nofollow" class="font-normal text-blue" ui-sref="access.signup">Sign up</a>
+                    to find connections to {{ viewUser.name}} {{ viewUser.lastname}}</span>
+            </div>
+
+            <div class="pull-right pull-none-xs" ng-controller="GetConnectController">
+                <div ng-controller="connectModalCtrl" class="inline">
+                    <a ng-if="user.username && connectStatus == 3" class="btn text-md padder-md r-3x" rel="nofollow" ui-sref="app.mail.compose({username : '{{viewUser.username}}' })" ng-class="{'btn-blue-lt':mouseOver, 'btn-blue-lt-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false">Message</a>
+                    <a ng-if="!user.username" ng-click="showSignupModal();" class="btn btn-blue-lt text-md padder-md r-3x m-l-sm font-medium">Connect</a>
+                    <a ng-if="user.username && connectStatus == 0" class="btn btn-blue-lt text-md padder-md r-3x m-l-sm font-medium" ng-click="open('sm', viewUser.id)">Connect</a>
+                    <a ng-if="user.username && connectStatus == 1" ui-sref="app.page.connections({'type':'secondary'})" class="btn btn-default btn-disabled-default text-md padder-md r-3x m-l-sm disabled opacity-8">Sent ...</a>
+                    <a ng-if="user.username && connectStatus == 2"  class="btn btn-blue-lt text-md padder-md r-3x m-l-sm" ng-click="accept(viewUser.id)" ng-class="{'btn-blue-lt':mouseOver, 'btn-blue-lt-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false">Accept request</a>
+                    <button ng-if="user.username && connectStatus == 3" class="btn button text-md padder-md r-3x m-l-sm deactivated">Connected</button>
+                </div>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+    </div>
+
+    <!--<div data-ng-repeat="tpl in user.profileOrder" data-ng-include="'tpl/blocks_edition/user/profile_{{ tpl.text }}_edit.html?v='+ app.latestUpdate"></div>-->
+    <div data-ng-repeat="tpl in viewUser.profileOrder" id="{{tpl.text}}">
+        <ng-include src="'tpl/blocks_public/user/profile_'+ tpl.text + '.html?v=' + app.latestUpdate" ng-if="tpl.text == 'Services' || tpl.text == 'Experience' || tpl.text == 'Education' || tpl.text == 'About'"></ng-include>
+        <ng-include src="'tpl/blocks_public/user/profile_CustomServices.html?v=' + app.latestUpdate" ng-if="tpl.text != 'Services' && tpl.text != 'Experience' && tpl.text != 'Education' && tpl.text != 'About'"></ng-include>
+    </div>
+    
+    <div class="" ng-include="'tpl/blocks_public/user/also_viewed_profiles.html?v='+app.latestUpdate"></div>
+    
+    <div class="m-t-3xl visitor" ng-if="userMode == 'visitor'" ng-include="'tpl/blocks_general/footer/visitor_footer.html?v='+app.latestUpdate"></div>
+    <div class="m-t-lg" ng-if="userMode == 'member'" ng-include="'tpl/blocks_general/footer/member_footer.html?v='+app.latestUpdate"></div>
+</div>
+<script>
+            function showImage(elem) {
+                var src = elem.getAttribute('src');
+            }
+            $('.contact-info').on('click', function (e) {
+                e.stopPropagation();
+            });
+            //var rgb = getAverageRGB(document.getElementById('profile_avatar'));
+            //document.body.style.backgroundColor = 'rgb(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')';
+
+            function getAverageRGB(imgEl) {
+
+                if (angular.element('.profile_cover').length <= 0) {
+                    return;
+                }
+
+                var cover = angular.element('.profile_cover');
+                var innerCover = angular.element('.profile_cover div');
+                var blockSize = 5, // only visit every 5 pixels
+                        defaultRGB = {r: 0, g: 0, b: 0}, // for non-supporting envs
+                canvas = document.createElement('canvas'),
+                        context = canvas.getContext && canvas.getContext('2d'),
+                        data, width, height,
+                        i = -4,
+                        length,
+                        rgb = {r: 0, g: 0, b: 0},
+                count = 0;
+                if (!context) {
+                    return defaultRGB;
+                }
+
+                height = canvas.height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
+                width = canvas.width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
+                context.drawImage(imgEl, 0, 0);
+                try {
+                    data = context.getImageData(0, 0, width, height);
+                } catch (e) {
+                    /* security error, img on diff domain */alert('x');
+                    return defaultRGB;
+                }
+
+                length = data.data.length;
+                while ((i += blockSize * 4) < length) {
+                    ++count;
+                    rgb.r += data.data[i];
+                    rgb.g += data.data[i + 1];
+                    rgb.b += data.data[i + 2];
+                }
+
+                // ~~ used to floor values
+                rgb.r = ~~(rgb.r / count);
+                rgb.g = ~~(rgb.g / count);
+                rgb.b = ~~(rgb.b / count);
+                cover.css({'background': 'rgb(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')', 'filter': 'blur(0px)'});
+                innerCover.css({'background': 'rgba(255, 255, 255, 1)', 'opacity': '0.75'});
+                return rgb;
+            }
+
+</script>
+

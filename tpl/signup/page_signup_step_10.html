@@ -1,0 +1,29 @@
+<div class="vertical-center">
+    <div class="row">
+        <div class="col-xs-12">
+            <a ui-sref="index" class="brand-logo block m-t m-b-lg text-center"><img src="{{app.baseUrl}}/img/mobintouch-logo.png" alt="Mobintouch The world's 1st Mobile Advertising Social Network" class="thumb-lg"></a>
+            <div class="m-t-xl text-center">
+                <h3 class="text-muted">Almost done. We just need to confirm your email address.</h3>
+            </div>
+            <div class="text-danger wrapper text-center" ng-show="authError">
+                <div ng-if="status == 400">
+                    <a ui-sref="access.signin"><button>Please Sign In</button></a>
+                </div>
+            </div>
+            <p class="text-center text-lg">We've sent a verification email to: <span ng-show="!showForm"><br><span class="font-bold">{{user.email}}</span> <span class="text-muted">(<a  rel="nofollow" href ng-click="showForm = !showForm" class="text-blue-lt hover-text-blue-lt hover-underline">change my email</a>)</span></span></p>
+            <div class="w-xxl" style="margin: 0 auto;">
+                <form ng-show="showForm" name="formEmailValidation" class="wrapper m-b form-validation">
+                    <input type="email" class="form-control text-center input-lg" ng-model="user.email" required>
+                </form>
+            </div>
+            <p class="m-t-xl text-center"><span class="text-md">To complete your registration, please click on the link in the email we've sent you.</span><br>
+                <span class="text-muted">If you haven't receive the email after 5 minutes, you can
+                    <span class="text-center">
+                        <a ng-if="!loadingSeding"  rel="nofollow" href data-ng-click="emailValidation()" class="text-blue-lt hover-text-blue-lt hover-underline" >Re-send email verification</a>
+                        <span ng-if="loadingSeding">Sending email …</span>
+                    </span>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>

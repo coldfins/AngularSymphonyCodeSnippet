@@ -1,0 +1,50 @@
+<div ng-controller="TooltipDemoCtrl" class="panel panel-default">
+    <div class="panel-heading">
+        <span class="h4">References</span>
+        <span class="pull-right badge badge-bg">4</span>
+    </div>
+    <div class="panel-body">
+        <div class="row m-b">
+            <div class="col-md-4">
+                <div class="panel panel-default m-b-none">
+                    <div class="panel-heading">
+                        <div class="clearfix">
+
+                            <a ui-sref="app.page.public({username: teammate.username})" class="pull-left thumb-md avatar b-3x m-r">
+                                <img ng-show="result.avatar" src="{{app.baseUrl}}{{result.avatar}}" class="img-circle">
+                                <img ng-hide="result.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                            </a>
+                            <div class="clear">
+                                <a ui-sref="app.page.public({username: teammate.username})">
+                                    <div class="h4 m-t-xs m-b-xs">
+                                        {{ teammate.name | capitalize }} {{ teammate.lastname | capitalize }}
+                                        <i class="icon-close text-danger pull-right text-lg"></i>
+                                    </div>
+                                </a>
+                                <small class="text-muted m-b"><a ui-sref="app.page.public({username: teammate.username})">{{ teammate.jobTitle | capitalize }}</a></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group no-radius alt">
+                        <a ui-sref="app.page.public({username: teammate.username})" class="list-group-item">
+                            <span class="badge bg-info">88% Response</span>
+                            <i class="fa fa-eye fa-fw"></i> Visit the profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+              <div class="col-lg-12">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Looking for a teammate…">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Add Teammate</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

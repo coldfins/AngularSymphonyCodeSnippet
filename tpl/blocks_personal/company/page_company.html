@@ -1,0 +1,44 @@
+<style>
+    body{
+        background-color: #f6f6f6;
+    }
+</style>
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = false;app.settings.headerFixed = true;" ng-cloak>
+    <!--COMPANY CARD EDIT-->
+    <div data-ng-include=" 'tpl/blocks_personal/company/company_card_edit.html?v=' + app.latestUpdate"></div>
+    <div data-ng-include=" 'tpl/blocks_personal/company/company_details_edit.html?v=' + app.latestUpdate" data-ng-show="editCompanyDetails"></div>
+    <div data-ng-include=" 'tpl/blocks_personal/company/company_types_edit.html?v=' + app.latestUpdate" data-ng-show="editCompanyTypes"></div>
+    <div class="container no-padder">
+        <div class="col-sm-8">
+            <div data-ng-include=" 'tpl/blocks_personal/company/company_about_us.html?v=' + app.latestUpdate"></div>
+            <div data-ng-include=" 'tpl/blocks_personal/company/company_product.html?v=' + app.latestUpdate"></div>
+            <div data-ng-include=" 'tpl/blocks_personal/company/company_employees.html?v=' + app.latestUpdate"></div>
+            <div data-ng-include=" 'tpl/blocks_personal/company/company_administrators.html?v=' + app.latestUpdate" data-ng-if="(publicCompany.administrators | filter:user.username).length > 0"></div>
+            <div data-ng-include=" 'tpl/blocks_personal/company/company_recruiters.html?v=' + app.latestUpdate"></div>
+            <div data-ng-include=" 'tpl/blocks_personal/company/company_followers.html?v=' + app.latestUpdate"></div>
+            <div data-ng-include=" 'tpl/blocks_personal/company/company_feed.html?v=' + app.latestUpdate"></div>
+        </div>
+        <div class="col-sm-4">
+            <div data-ng-include=" 'tpl/blocks_personal/company/company_widget_jobs.html?v=' + app.latestUpdate"></div>
+            <div data-ng-include=" 'tpl/blocks_personal/company/company_widget_activity.html?v=' + app.latestUpdate"></div>
+            <div data-ng-include=" 'tpl/blocks_personal/company/company_widget_visitors.html?v=' + app.latestUpdate"></div>
+        </div>
+    </div>
+</div>
+<script>
+            $("#location").keypress(function (e) {
+                if (e.which === 13) {
+                    return false;
+                }
+            });
+</script>
+

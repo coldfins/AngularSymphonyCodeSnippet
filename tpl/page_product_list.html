@@ -1,0 +1,93 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = true;">
+    <div class="col padder">
+
+        <div class="col-xs-12 no-padder b-b m-t m-b">
+            <h3 class="text-primary m-b-xs">Products</h3>
+            <p class="text-muted m-b-xs">Discover great tools and services for Mobile Advertising industry.</p>
+        </div>
+
+        <!-- App Data Analitycs -->
+        <div class="col-xs-12 no-padder m-t m-b">
+            <h4 class="text-dark-lter m-b-xs">App Store Data Analytics</h4>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="clearfix">
+                            <a ui-sref="app.page.product/appannie" class="pull-left thumb-lg m-r">
+                                <img src="{{app.baseUrl}}/img/trackingSolutionsLogo/App-Annie-Logo.png">
+                            </a>
+                            <div class="clear">
+                                <div class="text-md font-bold">App Annie</div>
+                                <div class="text-sm">The #1 decision-making platform for the entire mobile app economy.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group no-radius alt text-center">
+                        <a ui-sref="app.page.product/appannie" class="list-group-item">
+                            More informations
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ App Data Analitycs -->
+
+        <!-- Tracking Solutions -->
+        <div class="col-xs-12 no-padder m-t m-b">
+            <h4 class="text-dark-lter m-b-xs">Tracking Solutions</h4>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="clearfix">
+                            <a ui-sref="app.page.product/emma" class="pull-left thumb-lg m-r">
+                                <img src="{{app.baseUrl}}/img/trackingSolutionsLogo/emma-logo.svg">
+                            </a>
+                            <div class="clear">
+                                <div class="text-md font-bold">eMMa</div>
+                                <div class="text-sm">EMMA IS THE MOST POWERFUL SOLUTION TO UNDERSTAND AND ENGAGE WITH YOUR CUSTOMERS THROUGH YOUR APP.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group no-radius alt text-center">
+                        <a ui-sref="app.page.product/emma" class="list-group-item">
+                            More informations
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="clearfix">
+                            <a ui-sref="app.page.product/appsflyer" class="pull-left thumb-lg m-r">
+                                <img src="{{app.baseUrl}}/img/trackingSolutionsLogo/appsflyer-logo.png">
+                            </a>
+                            <div class="clear">
+                                <div class="text-md font-bold">Appsflyer</div>
+                                <div class="text-sm">Apply advanced attribution analytics to generate high value app users from your mobile acquisition and retargeting campaigns.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group no-radius alt text-center">
+                        <a ui-sref="app.page.product/appsflyer" class="list-group-item">
+                            More informations
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ Tracking Solutions -->
+
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="col w-lg" data-ng-include=" 'tpl/blocks_general/right_sidebar.html?v='+ app.latestUpdate "></div><!--/ RIGHT SIDEBAR -->
+
+</div>

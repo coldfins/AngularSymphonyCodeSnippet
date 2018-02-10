@@ -1,0 +1,88 @@
+<div ng-init="app.settings.container = true;" ng-controller="DeleteConnectionModalCtrl">
+    <div class="container">
+
+        <div class="row m-t-lg">
+            <div class="hbox hbox-auto-xs">
+                <div class="col-xs-2 col v-middle hidden-xs">
+                    <img src="{{app.baseUrl}}/img/intouch/intouch-manager-logo.svg" class="w-full">
+                </div>
+                <div class="col-xs-6 col v-middle text-center-xs">
+                    <img src="{{app.baseUrl}}/img/intouch/intouch-manager-logo.svg" class="thumb-lg visible-xs m-b" style="margin: 0 auto 15px;">
+                    <h3 class="font-bold h3">Connection Manager</h3>
+                    <span class="text-lg text-muted">You have {{(user.inTouch| toArray | filter:{status:3}).length || 0}} connections and {{(user.inTouch| toArray | filter:{status:1}).length || 0}} pending.</span>
+                </div>
+                <div class="col-sm-4 col v-middle">
+                    <div class="m-t m-b">
+                        <input id="filter" ng-model="search" type="text" placeholder="Search Connection…" class="form-control input-sm r-2x">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row m-b-lg" id="intouch-pending">
+            <div class="col-sm-12">
+                <div class="text-center m-t m-b">
+                    <span class="text-muted text-u-c font-bold line-behind">Pending ({{(user.inTouch| toArray | filter:{status:1}).length || 0}})</span>
+                </div>
+            </div>
+
+            <div class="list-group list-group-lg list-group-sp">
+                <div class="col-sm-4" ng-repeat="intouch in user.inTouch| toArray | filter:{status:'!3'} | filter:search | orderBy:'-date'">
+                    <span class="list-group-item clearfix connection-list">
+                        <span class="pull-right" ng-if="intouch.status == 1">
+                            <i uib-tooltip="Sent..." tooltip-placement="right" class="icon-clock text-muted"></i>
+                        </span>
+                        <span class="pull-right" ng-if="intouch.status == 2">
+                            <a ng-click="acceptRequest(intouch.id)" uib-tooltip="Accept" tooltip-placement="right" class="block m-b-xs"><i class="icon-check text-success text-lg"></i></a>
+                            <a ng-click="declineRequest(intouch.id)" uib-tooltip="Decline" tooltip-placement="right" class="block"><i class="icon-close text-dark text-lg"></i></a>
+                        </span>
+                        <span class="pull-left thumb avatar m-r">
+                            <img ng-show="intouch.avatar" src="{{app.baseUrl}}{{intouch.avatar}}" alt="{{intouch.name + ' ' + intouch.lastname}}">
+                            <img ng-hide="intouch.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" alt="{{intouch.name + ' ' + intouch.lastname}}">
+                        </span>
+                        <div class="clear">
+                            <a ui-sref="app.page.public({username: intouch.username})" title="{{intouch.name + ' ' + intouch.lastname}}">
+                                <h5 class="font-bold text-ellipsis h5">{{ intouch.name | capitalize }} {{ intouch.lastname | capitalize }}</h5>
+                                <a class="text-sm" ng-if="intouch.mutualConnections && intouch.mutualConnections.length > 0" uib-tooltip-html="'{{getMutualConnectionList(intouch.mutualConnections)}}'">{{ intouch.mutualConnections.length}} Mutual Connections</a>
+                                <small class="text-ellipsis">{{ intouch.jobTitle | capitalize }}</small>
+                                <small class="text-muted text-ellipsis">{{ intouch.company | capitalize }}</small>
+                            </a>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="intouch-accepted">
+            <div class="col-sm-12">
+                <div class="text-center m-t m-b">
+                    <span class="text-muted text-u-c font-bold line-behind">Connections ({{(user.inTouch| toArray | filter:{status:3}).length || 0}})</span>
+                </div>
+            </div>
+
+            <div class="list-group list-group-lg list-group-sp">
+                <div class="col-sm-4" ng-repeat="intouch in user.inTouch| toArray | filter:{status:'3'} | filter:search | orderBy:'-date'">
+                    <span class="list-group-item clearfix connection-list">
+                        <span class="pull-left thumb avatar m-r">
+                            <img ng-show="intouch.avatar" src="{{app.baseUrl}}{{intouch.avatar}}" alt="{{intouch.name + ' ' + intouch.lastname}}">
+                            <img ng-hide="intouch.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" alt="{{intouch.name + ' ' + intouch.lastname}}">
+                        </span>
+                        <div class="pull-right" ng-if="intouch.status == 3">
+                            <i ng-click="open('sm', intouch.id)" ng-show="mOver[intouch.id]" ng-mouseleave="OnMouseLeave(intouch.id)" uib-tooltip="Remove" tooltip-placement="right" class="icon-close text-danger" style="cursor:pointer;"></i>
+                            <i ng-show="!mOver[intouch.id]" ng-mouseover="OnMouseOver(intouch.id)" class="icon-check text-muted"></i>
+                        </div>
+                        <div class="clear">
+                            <a ui-sref="app.page.public({username: intouch.username})" title="{{intouch.name + ' ' + intouch.lastname}}">
+                                <h5 class="font-bold text-ellipsis h5 clear">{{ intouch.name | capitalize }} {{ intouch.lastname | capitalize }}</h5>
+                                <a class="text-sm" ng-if="intouch.mutualConnections && intouch.mutualConnections.length > 0" uib-tooltip-html="'{{getMutualConnectionList(intouch.mutualConnections)}}'">{{ intouch.mutualConnections.length}} Mutual Connections</a>
+                                <small class="clear text-ellipsis">{{ intouch.jobTitle | capitalize }}</small>
+                                <small class="text-muted clear text-ellipsis">{{ intouch.company | capitalize }}</small>
+                            </a>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

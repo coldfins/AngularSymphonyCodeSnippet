@@ -1,0 +1,45 @@
+<div ng-controller="ImgCropCtrl">
+    <div class="modal-header">
+        <h3 class="modal-title h3" ng-if="user.services[selectedIndex].clients[clientIndex].avatar">Edit client logo</h3>
+        <h3 class="modal-title h3" ng-if="!user.services[selectedIndex].clients[clientIndex].avatar">Add client profile</h3>
+    </div>
+    <div class="modal-body">
+        <div class="wrapper-md">
+            <div class="m-b">
+                <h4>Select your best photo</h4>
+                <input ui-jq="filestyle" type="file" accept="image/*" id="fileInput" />
+            </div>
+            <div class="hbox hbox-auto-xs">
+                <div class="col">
+                    <h4 class="h4">Adjust your photo</h4>
+                    <small>Drag the form to change position and size.</small>
+                    <div class="wrapper-sm b-a bg-white m-r-xs m-b-xs m-t">
+                        <div class="bg-light img-avatar">
+                            <img-crop image="myImage" result-image="myCroppedImage" result-image-size="160" area-type="{{cropType}}" ></img-crop>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <h4 class="h4">Preview</h4>
+                    <small>How client appear accross Mobintouch.</small><br>
+                    <div class="inline bg-white wrapper-sm b-a m-t">
+                        <div class="bg-light">
+                            <img width="160" height="160" ng-src="{{myCroppedImage}}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-group m-t">
+                <label class="btn btn-default" ng-model="cropType" btn-radio="'circle'">Circle</label>
+                <label class="btn btn-default" ng-model="cropType" btn-radio="'square'">Square</label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" ng-click="clientAvatar(selectedIndex, clientIndex);" ng-disabled="myCroppedImage == '' || loadingClientAvatar">
+            <span ng-hide="loadingClientAvatar" class="text">Save</span>
+            <span ng-show="loadingClientAvatar" class="text">Saving...<i class="fa fa-sun-o fa-circle-o-notch"></i></span>
+        </button>
+    </div>
+</div>

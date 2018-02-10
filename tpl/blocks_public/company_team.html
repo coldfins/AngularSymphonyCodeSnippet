@@ -1,0 +1,21 @@
+<div ng-controller="TooltipDemoCtrl" ng-if="publiccompany.employees.length">
+    <div class="text-center m-b-md">
+        <h2 class="text-base text-muted font-bold l-s-1x">TEAM<span class="badge m-l-xs">{{publiccompany.employees.length}}</span></h2>
+        <div class="b-b"></div>
+    </div>
+    <div class="col-xs-12 no-padder">
+        <div class="list-group list-group-lg list-group-sp">
+            <a ui-sref="app.page.public({username: teammate.username})" class="list-group-item clearfix" alt="{{teammate.name + ' ' + teammate.lastname}}" ng-repeat="(key, teammate) in publiccompany.employees">
+                <span class="pull-left thumb-sm avatar m-r">
+                    <img ng-show="teammate.avatar" src="{{app.baseUrl}}{{teammate.avatar}}" alt="{{teammate.name + ' ' + teammate.lastname}}">
+                    <img ng-hide="teammate.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" alt="{{teammate.name + ' ' + teammate.lastname}}">
+                </span>
+                <span class="clear text-ellipsis">
+                    <span class="font-bold text-ellipsis">{{ teammate.name | capitalize }} {{ teammate.lastname | capitalize }}</span>
+                    <small class="text-sm" ng-if="teammate.mutualConnections && teammate.mutualConnections.length > 0" tooltip-html-unsafe="{{getMutualConnectionList(teammate.mutualConnections)}}">{{ teammate.mutualConnections.length}} Mutual Connections</small>
+                    <small class="text-muted clear text-ellipsis">{{ teammate.jobTitle | capitalize }}</small>
+                </span>
+            </a>
+        </div>
+    </div>
+</div>

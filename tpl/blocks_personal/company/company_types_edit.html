@@ -1,0 +1,66 @@
+<style>
+    hr.or-divider:after{
+        background-color: #F9F9F9;
+        color: #6b6b6b;
+    }
+</style>
+<!-- edit keywords-->
+<div class="edit_interest padder-t-xl padder-b-xxl b-b bg-light lt">
+    <div class="container">
+        <form name="frmCompanyTypes" class="form-horizontal m-b-xxl padder-b-xl" ng-submit="updateCompanyTypes(frmCompanyTypes)">
+            <div class="m-b-xxl w-full text-right">
+                <button class="btn btn-blue-lt r-2x" type="submit" name="save" ng-disabled='frmCompanyTypes.$invalid || updatingCompanyTypes'>
+                    <span class="" ng-hide="updatingCompanyTypes">Save</span>
+                    <span class="" ng-show="updatingCompanyTypes">Updating <i class="fa fa-spinner fa-spin"></i></span> 
+                </button>
+                <button class="btn btn-default r-2x m-l-xs" type="button" ng-click="updateCompanyTypesMode(false); cancel(frmCompanyTypes);" name="cancel">Cancel</button>
+            </div>
+            <div class="col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1 col-xs-12" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+                <div class="text-center">
+                    <span class="text-xl">Edit company types</span>
+                </div>
+                <div class="text-center m-b-xl">
+                    <span class="">We'll use your interests to suggest you people, companies, products and apps.</span>
+                </div>
+
+                <!--<div class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 text-center" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+                    <div class="r-3x padder-v-sm padder text-center label-green-light hover-pointer" ng-repeat="companyType in companyTypes.slice(0, 15) track by $index" ng-click="addCompanyType(companyType)">{{ companyType}}</div>
+                </div>-->
+
+                <div class="col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 text-center text-lg" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+                    <div class="text-blue-lt hover-underline hover-pointer inline m-xs" ng-repeat="companyType in companyTypes.slice(0, 15) track by $index" ng-click="addCompanyType(companyType)">#{{ companyType}}</div>
+                </div>
+
+                <div class="clear clearfix"></div>
+                <div class="text-center">
+                    <hr class="or-divider m-t-xl m-b-xl opacity-8">
+                </div>
+                <div class="has-feedback">
+                    Type a list of keywords that defines your company types
+                    <tags-input class="tags-input" 
+                                replace-spaces-with-dashes="false" 
+                                ng-model="publicCompany.companyTypes"
+                                on-tag-removed="companyTypeRemoved($tag.text)"
+                                on-tag-added="selectCompanyType($tag.text)"
+                                placeholder="Insert company type">
+                        <auto-complete source="loadCompanyTypes($query)" 
+                                       min-length="0" 
+                                       debounce-delay="300"
+                                       max-results-to-show="10"></auto-complete>
+                        <i ng-show="loadingCompanyTypes" class="fa fa-spinner fa-spin form-control-feedback input-loader-lg"></i>
+                    </tags-input>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+            <div class="clear clearfix"></div>
+        </form>
+    </div>
+</div>
+<!-- edit keywords -->
+<script>
+    $('.tags input').on('keydown', function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+        }
+    });
+</script>

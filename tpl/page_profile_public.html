@@ -1,0 +1,714 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm m-t" ng-init="app.settings.container = true;" ng-cloak>
+    <div class="col-sm-12">
+        <!--PROFILE CARD EDIT-->
+        <div data-ng-include=" 'tpl/blocks_public/profile_card_public.html?v=' + app.latestUpdate"></div><!--/ PROFILE CARD EDIT -->
+        <!-- PROFILE EDITION -->
+        <!-- JOIN MOBINTOUCH NOW -->
+        <div class="panel bg-primary m-b-xl" ng-if="!user.username" ng-controller="JoinFormController">
+            <div class="row padder-v padder">
+                <div class="col-xs-12 text-center m-b-lg">
+                    <h2>Join Mobintouch and access to {{view.name + ' ' + view.lastname| capitalize }}'s full profile!</h2>
+                </div>
+                <div class="col-xs-3 text-center text-black-lt">
+                    <i class="icon-magnifier block m-b-xs fa-2x"></i>
+                    <span class="text-lg font-bold">Explore</span>
+                    <p>Get instant access to all the people and companies in the Mobile Advertising industry, from Advertisers to Media Sellers.</p>
+                </div>
+                <div class="col-xs-3 text-center text-black-lt">
+                    <i class="icon-fire block m-b-xs fa-2x"></i>
+                    <span class="text-lg font-bold">Traffic Buying / Selling</span>
+                    <p>Obtain valuable and accurate information about the traffic people need and inform the industry about the specifications of the traffic you can provide.</p>
+                </div>
+                <div class="col-xs-3 text-center text-black-lt">
+                    <i class="icon-rocket block m-b-xs fa-2x"></i>
+                    <span class="text-lg font-bold">Career</span>
+                    <p>Include your previous professional experiences, skills, spoken languages and more.</p>
+                </div>
+                <div class="col-xs-3 text-center text-black-lt">
+                    <i class="icon-speech block m-b-xs fa-2x"></i>
+                    <span class="text-lg font-bold">TouchMail</span>
+                    <p>Easily send direct messages to Mobintouch members with our internal message system.</p>
+                </div>
+                <div class="col-xs-12 text-center m-t m-b">
+                    <span class="text-xl">Sign up now, it's FREE!</span>
+                </div>
+                <div class="col-xs-12 text-center m-t m-b">
+                    <form name="signupform" class="form-validation form-placeholder">
+                        <div class="col-xs-4">
+                            <input type="email" placeholder="Email Address" class="form-control no-bg input-lg w-full" ng-model="user.email" required>
+                        </div>
+                        <div class="col-xs-4">
+                            <input type="password" placeholder="Password" class="form-control no-bg input-lg w-full" ng-model="user.password" ng-minlength="5" required>
+                        </div>
+                        <div class="col-xs-4">
+                            <button ng-if="signupform.$invalid" class="btn btn-lg btn-white w-full" >
+                                <span ng-hide="loadingSignup" class="">Get Started</span>
+                            </button>
+                            <button ng-if="!signupform.$invalid" type="submit" class="btn btn-lg btn-white w-full" ng-click="redirectToSignup()" ng-disabled='signupform.$invalid'>
+                                <span ng-hide="loadingSignup">Get Started</span>
+                                <span ng-show="loadingSignup"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--/ JOIN MOBINTOUCH NOW -->
+
+        <!-- EMPTY PROFILE -->
+        <div ng-if="(user.username && view.buyTraffic.length == 0 && view.sellTraffic.length == 0 && view.iosApps.length == 0 && view.androidApps.length == 0 && view.experiences.length == 0 && (view.paymentMethods[0].length == 0 || view.paymentMethods.length == 0) && (view.paymentTerms[0].length == 0 || view.paymentTerms.length == 0) && !hasTracking(view.trackingServices) && !view.summary) || (user.username && view.companyType == 'Visitor' && view.experiences.length == 0 && !view.summary && view.competences.length == 0 && view.languages.length == 0)" class="panel bg-light lt m-b-xl">
+            <div class="row padder-v padder">
+                <div class="col-xs-12 text-center m-b-lg">
+                    <h2>OoPs!</h2>
+                    <h3>{{ view.name | capitalize }} {{view.lastname| capitalize}} didn't fill his profile yet. Find other users with the Explore function or send him a message.</h3>
+                </div>
+                <div class="col-xs-12 text-center m-b">
+                    <a ui-sref="app.mail.compose({username : '{{username}}' })" class="text-lg wrapper-sm b-a b-dark r-2x"><i class="icon-envelope-letter m-r-xs"></i>Send a Message to {{ view.name | capitalize }}</a>
+                </div>
+            </div>
+        </div>
+        <!--/ EMPTY PROFILE -->
+
+        <!-- BUY TRAFFIC -->
+        <div ng-if="view.buyTraffic[0].valid && user.username && activetab == 'mobiletraffic'" ng-controller="TooltipDemoCtrl" class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="h4">Buying</h2>
+                <small class="text-muted">Below are the specifications of the traffic I need.</small>
+            </div>
+            <div class="hbox text-center text-sm padder-v-md">
+                <div class="hidden-xs col-sm-2 text-center text-muted">
+                    <i class="icon-target block m-b-xs fa-2x"></i>
+                    <span>Gender/Age</span>
+                </div>
+                <div class="col-xs-4 col-sm-2 text-center text-muted">
+                    <i class="icon-screen-smartphone block m-b-xs fa-2x"></i>
+                    <span>Platforms</span>
+                </div>
+                <div class="hidden-xs col-sm-2 text-center text-muted">
+                    <i class="icon-badge block m-b-xs fa-2x"></i>
+                    <span>Quality</span>
+                </div>
+                <div class="hidden-xs col-sm-2 text-center text-muted">
+                    <i class="icon-tag block m-b-xs fa-2x"></i>
+                    <span>Interests</span>
+                </div>
+                <div class="col-xs-4 col-sm-2 text-center text-muted">
+                    <i class="icon-flag block m-b-xs fa-2x"></i>
+                    <span>Pricing Models</span>
+                </div>
+                <div class="col-xs-4 col-sm-2 text-center text-muted">
+                    <i class="icon-globe block m-b-xs fa-2x"></i>
+                    <span>Countries</span>
+                </div>
+            </div>
+            <div class="panel-body no-padder">
+                <div data-ng-repeat="(key, buytraffic) in view.buyTraffic"
+                     ng-if="buytraffic.gender"
+                     class="row no-gutter b-t padder-v"
+                     popover="{{dateArray[key]}}"
+                     popover-title="Time"
+                     popover-trigger="mouseenter"
+                     Popover-animation="true">
+
+                    <div class="hidden-xs col-sm-2 text-center">
+                        <span>{{buytraffic.gender| capitalize }}</span>
+                        <div>-</div>
+                        <span ng-if="!buytraffic.fromage && !buytraffic.toage">Any</span>
+                        <span ng-if="buytraffic.fromage || buytraffic.toage">{{buytraffic.fromage}} to {{buytraffic.toage}}</span>
+                    </div>
+                    <div class="col-xs-4 col-sm-2 text-center">
+                        <span ng-repeat="array in buytraffic.platform">
+                            <span ng-repeat="(os, bool) in array" class="tag">{{os}}</span>
+                        </span>
+                        <span ng-if="buytraffic.otherPlatform" class="tag">{{ buytraffic.otherPlatform}}</span>
+                    </div>
+                    <div class="hidden-xs col-sm-2 text-center">
+                        <span ng-if="buytraffic.incentivized" class="tag text-C">Incentivized</span>
+                        <span ng-if="buytraffic.nonincentivized" class="tag text-C">Non Incentivized</span>
+                    </div>
+                    <div class="hidden-xs col-sm-2 text-center">
+                        <span data-ng-repeat="interests in buytraffic.interests" class="tag text-C">{{interests.text}}</span>
+                        <span ng-if="buytraffic.interests.length == 0">Any</span>
+                    </div>
+                    <div class="col-xs-4 col-sm-2 text-center">
+                        <span data-ng-repeat="(model, value) in buytraffic.pricing[0] ">
+                            <span ng-if="value" class="tag">{{ model | uppercase }} </span>
+                        </span>
+                        <span ng-if="buytraffic.isOtherPricing" class="tag text-C">{{ buytraffic.otherPricing}} </span>
+                    </div>
+                    <div class="col-xs-4 col-sm-2 text-center">
+                        <label data-ng-repeat="country in buytraffic.countries" class="tag text-C" tooltip="{{ 'country.' + country | translate }}">{{ country}} </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ BUY TRAFFIC -->
+
+        <!-- SELL TRAFFIC -->
+        <div ng-if="view.sellTraffic[0].valid && user.username && activetab == 'mobiletraffic'" ng-controller="ShowSellingTrafficController" class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="h4">Selling traffic</h2>
+                <small class="text-muted">Below are the specifications of the traffic I provide.</small>
+            </div>
+            <div class="panel-body b-b b-light">
+                <input id="filter" type="text" placeholder="Search : Ex. CPI, US…" class="form-control input-sm w-lg inline m-r rounded"/>
+            </div>
+            <div class="table-responsive">
+                <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="5">
+                    <thead>
+                        <tr>
+                            <th data-toggle="true">
+                                <i class="icon-globe-alt m-r-xs"></i>Countries
+                            </th>
+                            <th>
+                                <i class="icon-screen-smartphone m-r-xs"></i>Platforms
+                            </th>
+                            <th>
+                                <i class="icon-flag m-r-xs"></i>Pricing Models
+                            </th>
+                            <th data-hide="phone,tablet">
+                                <i class="icon-directions m-r-xs"></i>Platforms
+                            </th>
+                            <th data-hide="phone,tablet">
+                                <i class="icon-shield m-r-xs"></i>Countries
+                            </th>
+                            <th data-hide="phone,tablet">
+                                <i class="icon-shield m-r-xs"></i>Payout Models
+                            </th>
+                            <th data-hide="phone,tablet">
+                                <i class=" icon-pin m-r-xs"></i>Quality
+                            </th>
+                            <th data-hide="phone,tablet">
+                                <i class="icon-directions m-r-xs"></i>AdFormat
+                            </th>
+                            <th data-hide="phone,tablet">
+                                <i class="icon-directions m-r-xs"></i>Targeting
+                            </th>
+                            <th data-hide="phone,tablet">
+                                <i class="icon-directions m-r-xs"></i>Verticals
+                            </th>
+                            <th data-hide="phone,tablet" data-name="Trading">
+                                <i class="icon-directions m-r-xs"></i>Trading Models
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="selltraffic in boxSelltraffic">
+                            <td>
+                                {{selltraffic.country}}
+                            </td>
+                            <td>
+                                <span ng-repeat="(platform, value) in selltraffic.platform"><span ng-if="value" class="tag">{{platform}}</span></span>
+                                <span ng-if="selltraffic.isOtherPlatform" class="tag">{{selltraffic.otherPlatform}}</span>
+                            </td>
+                            <td>
+                                <span ng-repeat="(pricing, value) in selltraffic.pricing"><span ng-if="value" class="tag text-u-c">{{pricing}}</span></span>
+                                <span ng-if="selltraffic.isOtherPricing" class="tag text-u-c">{{selltraffic.otherPricing}}</span>
+                            </td>
+                            <td>
+                                <span ng-repeat="(platform, value) in selltraffic.platform"><span ng-if="value" class="tag">{{platform}}</span></span>
+                                <span ng-if="selltraffic.isOtherPlatform" class="tag">{{selltraffic.otherPlatform}}</span>
+                            </td>
+                            <td>
+                                <span translate="country.{{selltraffic.country}}" class="tag"></span>
+                            </td>
+                            <td>
+                                <span ng-repeat="(pricing, value) in selltraffic.pricing"><span ng-if="value" class="tag text-u-c">{{pricing}}</span></span>
+                                <span ng-if="selltraffic.isOtherPricing" class="tag text-u-c">{{selltraffic.otherPricing}}</span>
+                            </td>
+                            <td>
+                                <span ng-if="selltraffic.incentivized" class="tag text-C">Incentivized </span>
+                                <span ng-if="selltraffic.nonincentivized" class="tag text-C">Non incentivized</span>
+                            </td>
+                            <td>
+                                <span data-ng-repeat="format in selltraffic.adformat" class="tag text-C">{{format}}</span>
+                            </td>
+                            <td>
+                                <span data-ng-repeat="targeting in selltraffic.targeting" class="tag text-C">{{targeting}}</span>
+                            </td>
+                            <td>
+                                <span data-ng-repeat="userType in selltraffic.userType" class="tag text-C">{{userType}}</span>
+                            </td>
+                            <td>
+                                <span data-ng-repeat="trading in selltraffic.trading" class="tag text-C">{{trading}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot class="hide-if-no-paging">
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                <ul class="pagination"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <!--/ SELL TRAFFIC -->
+
+        <!-- USER APPS -->
+        <div class="row">
+            <div ng-if="view.iosApps.length && activetab == 'apps'" class="col-xs-12 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="h4">iOS Apps</h2>
+                        <small class="text-muted">The list of our apps available on the App Store.</small>
+                    </div>
+                    <ul class="list-group list-group-lg no-bg auto">
+                        <li data-ng-repeat="iosApp in view.iosApps" class="list-group-item clearfix">
+                            <span class="pull-left thumb iosappicon m-r m-t-xs">
+                                <img src="{{iosApp.icon}}" alt="{{iosApp.name}}">
+                            </span>
+                            <span class="clear no-padder">
+                                <span class="text-ellipsis w-md">{{iosApp.name}}</span>
+                                <span class="text-muted text-ellipsis">
+                                    <a  rel="nofollow" href="{{iosApp.url}}" target="_blank" class="btn btn-default btn-sm r-2x text-xs m-t-xs pull-right">App Store</a>
+                                    <small><span data-ng-repeat="iosAppCategory in iosApp.categories" >{{iosAppCategory}} {{$last ? '' : ' / '}}</span> <br> {{iosApp.artistName}}</small>
+                                </span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div ng-if="view.androidApps.length && activetab == 'apps'" class="col-xs-12 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="h4">Android Apps</h2>
+                        <small class="text-muted">The list of our apps available on the Play Store.</small>
+                    </div>
+                    <ul class="list-group list-group-lg no-bg auto">
+                        <li data-ng-repeat="androidApp in view.androidApps" class="list-group-item clearfix">
+                            <span class="pull-left thumb iosappicon m-r m-t-xs">
+                                <img src="{{androidApp.icon}}" alt="{{androidApp.name}}">
+                            </span>
+                            <span class="clear no-padder">
+                                <span class="text-ellipsis w-md">{{androidApp.name}}</span>
+                                <span class="text-muted text-ellipsis">
+                                    <a  rel="nofollow" href="{{androidApp.url}}" target="_blank" class="btn btn-default btn-sm r-2x text-xs m-t-xs pull-right">Google Play</a>
+                                    <small><span data-ng-repeat="androidAppCategory in androidApp.categories" >{{androidAppCategory| capitalize }} {{$last ? '' : ' / '}}</span> <br> {{androidApp.artistName}}</small>
+                                </span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--/USER APPS -->
+
+        <!-- TRACKING SOLUTIONS -->
+        <div ng-if="hasTracking(view.trackingServices) && activetab == 'tracking'" class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="h4">Tracking Solutions</h2>
+                <small class="text-muted">Integrated tracking solutions.</small>
+            </div>
+            <div class="panel-body m-b-n">
+                <div class="row">
+                    <div ng-if="view.trackingServices.adxtracking" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/ad-x-logo.png" alt="ad-x logo"><span class="hidden">ad-x</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.adjust" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/adjust-logo.png" alt="adjust logo"><span class="hidden">adjust</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.appannieanalytics" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/App-Annie-Logo.png" alt="appannie logo"><span class="hidden">appannie</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.appboy" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/appboy-logo.png" alt="appboy logo"><span class="hidden">appboy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.appsee" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/Appsee-logo.png" alt="appsee logo"><span class="hidden">appsee</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.appsflyer" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/appsflyer-logo.png" alt="appsflyer logo"><span class="hidden">appsflyer</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.appsalar" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/Apsalar-logo.svg" alt="apsalar logo"><span class="hidden">apsalar</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.countly" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/countly-logo.png" alt="countly logo"><span class="hidden">countly</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.distimo" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/distimo-logo.png" alt="distimo logo"><span class="hidden">distimo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.flurry" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/Flurry-logo.png" alt="flurry logo"><span class="hidden">flurry</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.kochava" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/kochava-logo.png" alt="kochava logo"><span class="hidden">kochava</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.localytics" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/Localytics-logo.png" alt="localytics logo"><span class="hidden">localytics</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.mixpanel" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/mixpanel-logo.png" alt="mixpanel logo"><span class="hidden">Mixpanel</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.mobileapptracking" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/mobile-app-tracking-logo.png" alt="mobileapptracking logo"><span class="hidden">mobileapptracking</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.swrve" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/swrve-logo.png" alt="swrve logo"><span class="hidden">swrve</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.tapstream" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/Tapstream-logo.png" alt="tapstream logo"><span class="hidden">tapstream</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.upsight" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/upsight-logo.svg" alt="upsight logo"><span class="hidden">upsight</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.emma" class="col-xs-6 col-sm-3">
+                        <div class="panel panel-default m-b no-shadow">
+                            <div class="panel-body tracking-company-box">
+                                <div class="clearfix text-center">
+                                    <div class="inline">
+                                        <div class="thumb-lg">
+                                            <img ng-src="{{app.baseUrl}}/img/trackingSolutionsLogo/emma-logo.svg" alt="emma logo"><span class="hidden">emma</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="view.trackingServices.other">
+                        <ul class="list-group">
+                            <div class="col-xs-6 col-sm-3 m-b" data-ng-repeat="(key, trackingService) in view.trackingServices.othertrackingSolutions">
+                                <li class="list-group-item r-2x text-center">{{trackingService.text.replace("-", " ")}}</li>
+                            </div>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- / TRACKING SOLUTIONS -->
+
+        <!-- PAYMENT -->
+        <div ng-if="(view.paymentTerms[0] || view.paymentMethods[0]) && activetab == 'payment'" class="panel panel-default m-b-xl no-shadow">
+            <div class="panel-heading">
+                <h2 class="h4">Payment Conditions</h2>
+                <small class="text-muted">Here is our payment options.</small>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div ng-if="view.paymentTerms[0]" class="col-xs-12 m-b">
+                        <label>Terms:</label>
+                        <div class="col-xs-12 pull-in">
+                            <!--<span data-ng-repeat="(term, val) in view.paymentTerms[0]" class="text-success-dker m-r-xs text-lg">{{term}}{{$last ? '' : ', '}}</span>-->
+                            <span ng-if="view.paymentTerms[0].prepayment" class="tag tag-dark">Prepayment</span>
+                            <span ng-if="view.paymentTerms[0].daily" class="tag tag-dark">Daily</span>
+                            <span ng-if="view.paymentTerms[0].weekly" class="tag tag-dark">Weekly</span>
+                            <span ng-if="view.paymentTerms[0].monthly" class="tag tag-dark">Monthly</span>
+                            <span ng-if="view.paymentTerms[0].bimonthly" class="tag tag-dark">Bi-monthly</span>
+                            <span ng-if="view.paymentTerms[0].netXYChecked" class="tag tag-dark">
+                                <span ng-if="view.paymentTerms[0].netXYvalue">{{view.paymentTerms[0].netXYvalue}}</span>
+                                <span ng-if="!view.paymentTerms[0].netXYvalue">Other</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div ng-if="view.paymentMethods[0]" class="col-xs-12">
+                        <label>Method:</label>
+                        <div class="col-xs-12 pull-in">
+                            <!--<span data-ng-repeat="(method, val) in view.paymentMethods[0]" class="text-success-lter m-r-xs text-lg">{{method}}{{$last ? '' : ', '}}</span>-->
+                            <span ng-if="view.paymentMethods[0].BankTransfer" class="tag tag-light">BankTransfer</span>
+                            <span ng-if="view.paymentMethods[0].Alipay" class="tag tag-light">Alipay</span>
+                            <span ng-if="view.paymentMethods[0].Cheque" class="tag tag-light">Cheque</span>
+                            <span ng-if="view.paymentMethods[0].CreditCard" class="tag light">CreditCard</span>
+                            <span ng-if="view.paymentMethods[0].EPESE" class="tag tag-light">EPESE</span>
+                            <span ng-if="view.paymentMethods[0].Payoneer" class="tag tag-light">Payoneer</span>
+                            <span ng-if="view.paymentMethods[0].Paypal" class="tag tag-light">Paypal</span>
+                            <span ng-if="view.paymentMethods[0].WebMoney" class="tag tag-light">WebMoney</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--/ PAYMENT -->
+
+        <!-- SUMMARY -->
+        <div ng-if="view.summary && activetab == 'aboutme'" class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="h4">Summary</h2>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="clear">
+                            <p class="text-base text-block" ng-bind-html="view.summary | nl2br"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ SUMMARY -->
+
+        <!-- EXPERIENCES -->
+        <div ng-if="view.experiences[0].jobtitle && activetab == 'aboutme'" class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="h4">Professional Experiences</h2>
+            </div>
+            <div class="panel-body">
+                <div class="row" data-ng-repeat="experience in view.experiences| orderBy:'-fromperiod'">
+                    <div class="col-xs-12">
+                        <span class="pull-right thumb m-r">
+                            <img ng-show="experience.logo" ng-src="{{app.baseUrl}}{{experience.logo}}" alt="{{experience.company}}">
+                        </span>
+                        <h4>
+                            <b>{{experience.jobtitle}}</b>
+                            <span ng-if="experience.fromperiod && experience.currently" class="text-muted">{{experience.fromperiod| date : 'MMMM yyyy' }} - Present</span>
+                            <span ng-if="!experience.fromperiod && experience.currently" class="text-muted">I work currently here</span>
+                            <span ng-if="!experience.currently && (experience.fromperiod || experience.toperiod)" class="text-muted">{{experience.fromperiod|| ' ' | date : 'MMMM yyyy' }} - {{experience.toperiod|| ' ' | date : 'MMMM yyyy' }}</span>
+                        </h4>
+                        <h4>{{experience.company}} <span ng-if="experience.location" class="text-muted text-base">({{experience.location}})</span></h4>
+                        <p ng-if="experience.companyWebsite"><a href="{{experience.companyWebsite}}" target="_blank" class="text-muted">{{experience.companyWebsite}}</a></p>
+                        <p ng-if="experience.description" class="m-t-sm" ng-bind-html="experience.description | nl2br"></p>
+                        <div class="b-b line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ EXPERIENCES -->
+
+        <!-- COMPETENCES -->
+        <div  ng-if="(view.competences.length || view.languages.length) && activetab == 'aboutme'" class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="h4">Skills &amp; Languages</h2>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div ng-if="view.competences.length" class="col-xs-12 m-b">
+                        <label>Skills:</label>
+                        <div class="col-xs-12 pull-in">
+                            <span data-ng-repeat="competence in view.competences" class="tag tag-success">
+                                <span ng-if="competence.text">
+                                    {{competence.text.replace("-", " ")}}
+                                </span>
+                                <span ng-if="!competence.text">
+                                    {{competence.replace("-", " ")}}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div ng-if="view.languages.length" class="col-xs-12">
+                        <label>Languages:</label>
+                        <div class="col-xs-12 pull-in">
+                            <span data-ng-repeat="lang in view.languages" class="tag tag-info">
+                                <span ng-if="lang.text">
+                                    {{lang.text}}
+                                </span>
+                                <span ng-if="!lang.text">
+                                    {{lang}}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / COMPETENCES -->
+
+        <!-- SIGNAL -->
+        <div class="row m-t m-b">
+            <div class="col-xs-12">
+                <p class="text-center">
+                    <a  rel="nofollow" href="https://mobintouch.zendesk.com/hc/en-us/requests/new" target="_blank" class="text-muted">- Report profile -</a>
+                </p>
+            </div>
+        </div><!--/ SIGNAL -->
+
+        <!--/ PROFILE EDITION -->
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="col w-lg" data-ng-include=" 'tpl/blocks_general/right_sidebar.html?v=' + app.latestUpdate"></div><!--/ RIGHT SIDEBAR -->
+
+</div>

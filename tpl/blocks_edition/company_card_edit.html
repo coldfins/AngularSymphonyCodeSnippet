@@ -1,0 +1,100 @@
+<div class="panel panel-default no-border m-t" resize>
+
+    <div class="black-cover">
+
+        <div ng-if="company.cover || company.avatar"
+             class="blur animated fadeIn"
+             style="background:url({{app.baseUrl}}{{ company.cover ? company.cover : company.avatar }}) center center;
+             background-size: cover;
+             -webkit-filter: blur({{ company.cover ? '0px' : '60px' }});
+             -moz-filter: blur({{ company.cover ? '0px' : '60px' }});
+             -o-filter: blur({{ company.cover ? '0px' : '60px' }});
+             -ms-filter: blur({{ company.cover ? '0px' : '60px' }});
+             filter: blur({{ company.cover ? '0px' : '60px' }});
+             filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='60');
+             height: 100%;
+             position: absolute;
+             width: 100%;
+             overflow: hidden;">
+        </div>
+
+        <div ng-if="!company.avatar && !company.cover"
+             class="blur animated fadeIn"
+             style="background:url({{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}) center center;
+             background-size: cover;
+             -webkit-filter: blur(60px);
+             -moz-filter: blur(60px);
+             -o-filter: blur(60px);
+             -ms-filter: blur(60px);
+             filter: blur(60px);
+             filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='60');
+             height: 100%;
+             position: absolute;
+             width: 100%;
+             overflow: hidden;">
+        </div>
+
+        <div class="panel-body">
+            <div class="wrapper">
+                <div class="row">
+
+                    <div class="col-sm-2">
+                        <!-- modal -->
+                        <div ng-controller="CompanyAvatarModalCtrl" class="b-a wrapper-xs m-b">
+                            <a rel="nofollow" ng-click="open('lg')">
+                                <img ng-show="company.avatar" src="{{app.baseUrl}}{{company.avatar}}" alt="{{company.name}}" class="w-full">
+                                <img ng-hide="company.avatar" src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" alt="{{company.name}}" class="w-full">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 pull-right">
+                        <div class="btn btn-default coveredit hidden-xs" ng-controller="CompanyCoverModalCtrl" ng-if="company.cover" ng-click="open('lg')"><i class="fa fa-camera text-white"></i> Edit Cover</div>
+                        <div class="btn btn-default coveredit hidden-xs" ng-controller="CompanyCoverModalCtrl" ng-if="!company.cover" ng-click="open('lg')"><i class="fa fa-camera text-white"></i> Add Cover</div>
+                        <a class="btn btn-default coveredit" ui-sref="app.page.company" ng-class="windowWidth >= 767 ? 'm-t-sm' : ''"><i class="fa fa-eye text-white"></i> View Page</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<form ng-submit="saveName()" name="companyNameForm" class="form-horizontal">
+    <div class="panel panel-default m-t">
+        <div class="panel-heading">Company contact information</div>
+        <div class="panel-body">
+            <div class="row" ng-cloak>
+
+                <div class="col-sm-12">
+                    <div>
+                        <label class="text-lg">Company Name*:</label>
+                        <input type="text" class="form-control input-lg" ng-model="company.name" ng-pattern="/^[a-zA-Z-0-9 '.,-/\&]{2,100}$/" maxlength="100" ng-value="user.company" required="" value="company.name" placeholder="Company Name">
+                    </div>
+                    <div class="m-t">
+                        <label>Website:</label>
+                        <input type="text" class="form-control" placeholder="Company Website : http://" ng-model="company.website">
+                    </div>
+                    <div class="m-t">
+                        <label>Twitter:</label>
+                        <input type="text" class="form-control" placeholder="https://twitter.com/username" ng-model="company.twitter">
+                    </div>
+                    <div class="m-t">
+                        <label>LinkedIn:</label>
+                        <input type="text" class="form-control" placeholder="https://www.linkedin.com/in/username" ng-model="company.linkedIn">
+                    </div>
+                    <div class="m-t">
+                        <label>Instagram:</label>
+                        <input type="text" class="form-control" placeholder="https://instagram.com/username" ng-model="company.instagram">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-success" type="submit" ng-disabled='companyNameForm.$invalid'>
+                <span ng-hide="loadingName">Save changes</span>
+                <span ng-show="loadingName"><i class="fa fa-spin fa-circle-o-notch"></i> Save changes</span>
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,64 @@
+<div class="welcome-wrapper homepage visitor" ng-controller="LandingFormController" ng-init="app.settings.container = false; app.settings.headerFixed = true;">
+
+    <div class="" ng-if="windowWidth < 767" ng-include="'tpl/blocks_general/header/landing_mobile_header.html?v=' + app.latestUpdate"></div>
+    <div class="" ng-if="windowWidth >= 767" ng-include="'tpl/blocks_general/header/landing_header.html?v=' + app.latestUpdate"></div>
+
+    <div id="cover" class="section cover" style="background: url('{{ app.baseUrl}}/img/landing/cover.jpg')">
+        <div class="black-layer">
+        </div>
+        <div class="text-layer text-center">
+            <div class="text-white font-multicolore text-5x">mobintouch</div>
+            <div class="text-white font-roboto medium text-20">A community of Mobile Apps & Games creators</div>
+        </div>
+    </div>
+
+    <div id="section1" class="b-b">
+        <div class="container padder-v-xl text-center">
+            <h1 class="font-roboto light gray dk text-5x">Connect with Mobile Startups</h1>
+            <div class="font-roboto light gray lter text-23 padder-v-lg">
+                <div class="">Join and connect with thousands of Mobile Startups</div>
+                <div class="">Apps · Games · Products · Jobs</div>
+            </div>
+            <div>
+                <a ui-sref="access.signup" class="btn font-roboto bg-blue text-white r-3x">Join now</a>
+            </div>
+            <div class="row padder-v-md m-t-xl">
+                <div class="col-sm-4 col-md-2 col-xs-6">
+                    <div style="background: url('{{app.baseUrl}}/img/landing/company-logo/gree-logo.png')" class="w-full h-xxs companies-logo"></div>
+                </div>
+                <div class="col-sm-4 col-md-2 col-xs-6">
+                    <div style="background: url('{{app.baseUrl}}/img/landing/company-logo/opera-medianetworks.png')" class="w-full h-xxs companies-logo"></div>
+                </div>
+                <div class="col-sm-4 col-md-2 col-xs-6">
+                    <div style="background: url('{{app.baseUrl}}/img/landing/company-logo/appsflyer-logo.jpg')" class="w-full h-xxs companies-logo"></div>
+                </div>
+                <div class="col-sm-4 col-md-2 col-xs-6">
+                    <div style="background: url('{{app.baseUrl}}/img/landing/company-logo/annie-logo.png')" class="w-full h-xxs companies-logo"></div>
+                </div>
+                <div class="col-sm-4 col-md-2 col-xs-6">
+                    <div style="background: url('{{app.baseUrl}}/img/landing/company-logo/split-matrics-logo.png')" class="w-full h-xxs companies-logo"></div>
+                </div>
+                <div class="col-sm-4 col-md-2 col-xs-6">
+                    <div style="background: url('{{app.baseUrl}}/img/landing/company-logo/revmob.png')" class="w-full h-xxs companies-logo"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section2">
+        <div class="container padder-v-xl text-center">
+            <h1 class="font-roboto light gray dk text-5x">Get a Job at a Mobile Startup</h1>
+            <div class="font-roboto light gray lter text-23 padder-v-lg">
+                <div class="">Apply to mobile startup jobs with Mobintouch.</div>
+                <div class="">See salary · No middlemen · Hot Startups</div>
+            </div>
+            <div>
+                <a ui-sref="access.signin" class="btn font-roboto bg-blue text-white r-3x text-normal m-xs">Find a Job</a>
+                <a ui-sref="access.signup" class="btn font-roboto bg-gray r-3x text-normal m-xs">Post a Job</a>
+            </div>
+        </div>
+    </div>
+
+    <div ng-include="'tpl/blocks_general/footer/browse.html?v=' + app.latestUpdate"></div>
+    <div ng-include="'tpl/blocks_general/footer/visitor_footer.html?v=' + app.latestUpdate"></div>
+</div>

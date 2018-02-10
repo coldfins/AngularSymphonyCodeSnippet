@@ -1,0 +1,25 @@
+<div ng-show="user.experiences[0].jobtitle"  ng-controller="TooltipDemoCtrl" class="panel panel-default">
+    <div class="panel-heading">
+        <a ui-sref="app.page.edit/profile" class="text-muted pull-right" ng-click="app.activetab = 'aboutme'">Edit</a>
+        <h2 class="h4">Professional Experiences</h2>
+    </div>
+    <div class="panel-body">
+        <div class="row" data-ng-repeat="experience in user.experiences| orderBy:'-fromperiod'">
+            <div class="col-xs-12">
+                <span class="pull-right thumb m-r">
+                    <img ng-show="experience.logo" ng-src="{{app.baseUrl}}{{experience.logo}}" alt="{{experience.company}}">
+                </span>
+                <h4>
+                    <b>{{experience.jobtitle}}</b>
+                    <span ng-if="experience.fromperiod && experience.currently" class="text-muted">{{experience.fromperiod| date : 'MMMM yyyy' }} - Present</span>
+                    <span ng-if="!experience.fromperiod && experience.currently" class="text-muted">I work currently here</span>
+                    <span ng-if="!experience.currently && (experience.fromperiod || experience.toperiod)" class="text-muted">{{experience.fromperiod|| ' ' | date : 'MMMM yyyy' }} - {{experience.toperiod|| ' ' | date : 'MMMM yyyy' }}</span>
+                </h4>
+                <h4>{{experience.company}} <span ng-if="experience.location" class="text-muted text-base">({{experience.location}})</span></h4>
+                <p ng-if="experience.companyWebsite"><a href="{{experience.companyWebsite}}" target="_blank" class="text-muted">{{experience.companyWebsite}}</a></p>
+                <p ng-if="experience.description" class="m-t-sm" ng-bind-html="experience.description | nl2br"></p>
+                <div class="b-b line"></div>
+            </div>
+        </div>
+    </div>
+</div>

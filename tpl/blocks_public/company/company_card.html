@@ -1,0 +1,325 @@
+<style>
+    .tooltip-inner{
+        white-space: normal;
+    }
+</style>
+<div class="company_card_container" ng-show="!editCompanyDetails && !editCompanyTypes">
+    <div id="company_cover" ng-style="publicCompany.cover && windowWidth > 480 ? {'height': '380px'} : {'height': '200px'}">
+        <div ng-if="publicCompany.avatar && !publicCompany.cover"
+             class="animated bg-black"
+             ng-class="{fadeIn : publicCompany.cover, company_cover : publicCompany.avatar && !publicCompany.cover}"
+             style="background:url({{app.baseUrl}}{{ publicCompany.cover ? publicCompany.cover : publicCompany.avatar }}) center top / cover;
+             position: absolute;
+             width: 100%;
+             overflow: hidden;
+             z-index: -1;
+             height: inherit;
+             -webkit-filter: blur(60px);
+             -moz-filter: blur(60px);
+             -o-filter: blur(60px);
+             -ms-filter: blur(60px);
+             filter: blur(60px);
+             filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='60');">
+            <div ng-if="publicCompany.avatar && !publicCompany.cover" style="left:0;
+                 right:0;
+                 bottom: 0;
+                 top: 0;
+                 margin: auto;
+                 background: rgba(255, 255, 255, 0.8);
+                 opacity: 0.7;
+                 height: 100%;
+                 width: 100%;
+                 position: absolute;">
+            </div>
+        </div>
+        <div ng-if="(publicCompany.avatar && publicCompany.cover) || (!publicCompany.avatar && publicCompany.cover)"
+             class="animated bg-black"                 
+             style="background:url({{app.baseUrl}}{{ publicCompany.cover ? publicCompany.cover : publicCompany.avatar }}) center center / cover;
+             position: absolute;
+             width: 100%;
+             overflow: hidden;
+             z-index: -1;
+             height: inherit;">
+        </div>
+        <div ng-if="!publicCompany.avatar && !publicCompany.cover"
+             class="animated company_cover"
+             style="background:url({{app.baseUrl}}/img/mit-default-company-avatar-black.svg) center center;
+             background-size: cover;
+             -webkit-filter: blur(60px);
+             -moz-filter: blur(60px);
+             -o-filter: blur(60px);
+             -ms-filter: blur(60px);
+             filter: blur(60px);
+             filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='60');
+             height: 200px;
+             position: absolute;
+             width: 100%;
+             overflow: hidden;
+             z-index: -1">
+            <div style="left:0;
+                 right:0;
+                 bottom: 0;
+                 top: 0;
+                 margin: auto;
+                 background: #7d7d7d;
+                 opacity: 0.7;
+                 height: 100%;
+                 width: 100%;
+                 position: absolute;">
+            </div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+
+    <div id="company_info" class="container" ng-controller="SignupModalController">
+        <div class="m-t-n-xxl padder-v bg-white-only b-a r">
+            <div class="col-sm-2 col-xs-4">
+                <div class="b-a pos-rlt" id="company_avatar">
+                    <img ng-if="publicCompany.avatar" src="{{app.baseUrl}}{{publicCompany.avatar}}" alt="{{publicCompany.name}}" class="w-full" crossorigin="anonymous" onload="getAverageRGB(this)">
+                    <img ng-if="!publicCompany.avatar" src="{{app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}" alt="{{publicCompany.name}}" class="w-full" crossorigin="anonymous" onload="getAverageRGB(this)">
+                </div>
+            </div>
+            <div class="col-sm-10" ng-if="windowWidth > 786">
+                <div class="text-md" ng-class="{'row':windowWidth > 765}">
+                    <a ui-sref="app.page.company/public({'companyusername':publicCompany.username})" class="text-head text-black-d font-normal inline">{{ publicCompany.name}}</a>
+                    <div class="inline padder-xs text-normal text-gray">
+                        <i class="fa fa-map-marker"></i>
+                        <span ng-if="!publicCompany.city && publicCompany.basedCountry">{{  'country.' + publicCompany.basedCountry | translate }}</span>
+                        <span ng-if="publicCompany.city && !publicCompany.basedCountry">{{ publicCompany.city}}</span>
+                        <span ng-if="publicCompany.city && publicCompany.basedCountry"> {{ publicCompany.city}}, {{  'country.' + publicCompany.basedCountry | translate }}</span>
+                    </div>
+                    <div class="inline padder-xs text-gray" ng-if="publicCompany.markets.length > 0">
+                        <img src="{{app.baseUrl}}/img/icons/markets.png" height="13px" width="13px;" class="m-t-n-xs" />
+                        <span ng-repeat="market in publicCompany.markets">
+                            <span ng-if="!$last">{{ market}} •</span>
+                            <span ng-if="$last">{{ market}}</span>
+                        </span>
+                    </div>
+                    <div class="inline padder-xs text-gray">
+                        <img src="{{app.baseUrl}}/img/icons/company-size.png" height="13px" width="13px;" class="m-t-n-xs opacity-6 m-r-xxs" />{{ publicCompany.size}} employees
+                    </div>
+                    <div class="inline padder-xs text-gray">
+                        <a class="" style="margin: 2px;" href="{{ publicCompany.website}}" target="_blank" rel="nofollow" ng-if="publicCompany.website"><i class="fa fa-globe text-gray"></i></a>
+                        <a class="" style="margin: 2px;" href="{{ publicCompany.linkedIn}}" target="_blank" rel="nofollow" ng-if="publicCompany.linkedIn"><i class="fa fa-linkedin text-gray"></i></a>
+                        <a class="" style="margin: 2px;" href="{{ publicCompany.twitter}}" target="_blank" rel="nofollow" ng-if="publicCompany.twitter"><i class="fa fa-twitter text-gray"></i></a>
+                        <a class="" style="margin: 2px;" href="{{ publicCompany.facebook}}" target="_blank" rel="nofollow" ng-if="publicCompany.facebook"><i class="fa fa-facebook text-gray"></i></a>
+                        <a class="" style="margin: 2px;" href="{{ publicCompany.instagram}}" target="_blank" rel="nofollow" ng-if="publicCompany.instagram"><i class="fa fa-instagram text-gray"></i></a>
+                        <a class="" style="margin: 2px;" href="{{ publicCompany.blog}}" target="_blank" rel="nofollow" ng-if="publicCompany.blog"><i class="fa fa-rss text-gray"></i></a>
+                    </div>
+                </div>
+                <div class="text-md" ng-class="{'row':windowWidth > 765}">
+                    <span ng-if="publicCompany.shortDescription">{{ publicCompany.shortDescription}}</span>
+                    <span ng-if="!publicCompany.shortDescription && publicCompany.description">{{ publicCompany.description|subStr:0:100:true}}</span>
+                </div>
+                <div class="" ng-class="{'row':windowWidth > 765}">
+                    <div class="inline-only font-bold text-md m-r-sm text-black-dk">
+                        Company type: 
+                    </div>
+                    <div ng-if="publicCompany.companyTypes.length > 0" class="inline-only m-l-n-xs m-t-xs text-gray text-md m-r-xs">
+                        <span class="" ng-repeat="type in publicCompany.companyTypes.slice(0, 5) track by $index">
+                            {{ type.text ? type.text : type }} <span ng-if="!$last">•</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="m-t-sm" ng-class="{'row':windowWidth > 765, 'inline':windowWidth <= 765}" ng-controller="FollowController">
+                    <a ui-sref="jobShowcase({'company':publicCompany.username})" class="btn btn-default m-r-xs" ng-if="publicCompany.jobs.length > 0">See Jobs</a>
+                    <a class="text-black-dk padder-r padder-v-sm hover-text-blue-lt" ng-click="shareCompany()" ng-if="publicCompany.jobs.length <= 0 || userMode == 'visitor'"><span class="fa fa-share-alt"></span> Share</a>
+                    <div class="inline" ng-if="userMode == 'member'">
+                        <button type="button" class="btn btn-blue-lt" rel="nofollow" ng-if="(user.following | filter:publicCompany.username).length <= 0 || !user.following || !publicCompany.followers" ng-click="follow(publicCompany.username)">Follow</button>
+                        <button type="button" class="btn btn-blue-lt" ng-class="{'btn-blue-lt': follow, 'btn-default':!follow }" rel="nofollow" ng-if="(user.following | filter:publicCompany.username).length > 0 && windowWidth >= 767" ng-click="unfollow(publicCompany.username)" ng-init="followText = 'Following'" ng-mouseenter="follow = false; followText = 'Unfollow'" ng-mouseleave="follow = true; followText = 'Following'">
+                            <span>{{followText}}</span>
+                        </button>
+                        <button type="button" class="btn btn-default" rel="nofollow" ng-if="(user.following | filter:publicCompany.username).length > 0 && windowWidth < 767" ng-click="unfollow(publicCompany.username)">
+                            <span>Unfollow</span>
+                        </button>
+                    </div>
+                    <div id="followers" class="inline text-gray m-t-xs m-l-xs">
+                        <a class="hover-text-blue-lt" ng-click="manageFollowers();" ng-if="publicCompany.followers.length > 0">{{ publicCompany.followers.length || 0 }} followers</a>
+                        <span class="" ng-if="publicCompany.followers.length <= 0">{{ publicCompany.followers.length || 0 }} followers</span>
+                    </div>
+                    <div class="pull-right pull-none-xs" ng-class="{'padder':windowWidth > 765, 'm-t-sm':windowWidth <= 765}" ng-if="user && user.username" ng-init="dConnections = (publicCompany.directWorkingConnections | orderBy:'- date')">
+                        <div class="inline">
+                            <img class="thumb-xxxs img-circle bg-white" 
+                                 ng-if="dConnections[0]" src="{{app.baseUrl}}{{dConnections[0].avatar ? dConnections[0].avatar : '/img/mit-default-avatar.svg'}}?v={{ app.latestUpdate }}" uib-popover-template="'popover.html'" popover-is-open="popoverIsopen" ng-mouseenter="pConnection = dConnections[0]; popoverIsopen = true;" ng-mouseleave="popoverIsopen = false;"/>
+                            <img class="thumb-xxxs img-circle m-l-n bg-white"
+                                 ng-if="dConnections[1]" src="{{app.baseUrl}}{{dConnections[1].avatar ? dConnections[1].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate }}" uib-popover-template="'popover.html'" popover-is-open="popoverIsopen" ng-mouseenter="pConnection = dConnections[1]; popoverIsopen = true;" ng-mouseleave="popoverIsopen = false;" popover-trigger="'mouseenter'"/>
+                            <img class="thumb-xxxs img-circle m-l-n bg-white"
+                                 ng-if="dConnections[2]" src="{{app.baseUrl}}{{dConnections[2].avatar ? dConnections[2].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate }}" uib-popover-template="'popover.html'" popover-is-open="popoverIsopen" ng-mouseenter="pConnection = dConnections[2]; popoverIsopen = true;" ng-mouseleave="popoverIsopen = false;" popover-trigger="'mouseenter'"/>
+                            <a class="thumb-xxxs btn-rounded btn btn-default bg-white m-l-n ng-scope" style="padding: 3px;" ng-if="dConnections.length > 3" uib-tooltip="+{{ dConnections.length - 3}} other followers" ng-click="manageConnections();">+</a>
+                        </div>
+                        <div class="inline text-gray m-t-xs m-l-xs">
+                            <span class="">{{ dConnections.length || 0 }} direct connections work here</span>
+                        </div>
+                    </div>
+                    <div class="pull-right pull-none-xs" ng-class="{'padder':windowWidth > 765, 'm-t-sm':windowWidth <= 765}" ng-if="(!user || !user.username) && userMode == 'visitor'">
+                        <a class="font-normal text-blue font-medium" ng-click="showSignupModal();">Sign up</a> to see how you are connected with {{ publicCompany.name}}
+                    </div>
+                    <div class="clear clearfix"></div>
+                </div>
+            </div>
+
+            <div class="col-sm-10" ng-if="windowWidth <= 765">
+                <div class="text-md" ng-class="{'row':windowWidth > 765}">
+                    <a ui-sref="app.page.company/public({'companyusername':publicCompany.username})" class="text-head text-black-d font-normal inline">{{ publicCompany.name}}</a>
+                    <div class="text-normal text-gray">
+                        <i class="fa fa-map-marker"></i>
+                        <span ng-if="!publicCompany.city && publicCompany.basedCountry">{{  'country.' + publicCompany.basedCountry | translate }}</span>
+                        <span ng-if="publicCompany.city && !publicCompany.basedCountry">{{ publicCompany.city}}</span>
+                        <span ng-if="publicCompany.city && publicCompany.basedCountry"> {{ publicCompany.city}}, {{  'country.' + publicCompany.basedCountry | translate }}</span>
+                    </div>
+
+                    <div class="inline text-gray">
+                        <a class="m-r-xs" href="{{ publicCompany.website}}" target="_blank" rel="nofollow" ng-if="publicCompany.website"><i class="fa fa-globe text-gray"></i></a>
+                        <a class="m-r-xs" href="{{ publicCompany.linkedIn}}" target="_blank" rel="nofollow" ng-if="publicCompany.linkedIn"><i class="fa fa-linkedin text-gray"></i></a>
+                        <a class="m-r-xs" href="{{ publicCompany.twitter}}" target="_blank" rel="nofollow" ng-if="publicCompany.twitter"><i class="fa fa-twitter text-gray"></i></a>
+                        <a class="m-r-xs" href="{{ publicCompany.facebook}}" target="_blank" rel="nofollow" ng-if="publicCompany.facebook"><i class="fa fa-facebook text-gray"></i></a>
+                        <a class="m-r-xs" href="{{ publicCompany.instagram}}" target="_blank" rel="nofollow" ng-if="publicCompany.instagram"><i class="fa fa-instagram text-gray"></i></a>
+                        <a class="m-r-xs" href="{{ publicCompany.blog}}" target="_blank" rel="nofollow" ng-if="publicCompany.blog"><i class="fa fa-rss text-gray"></i></a>
+                    </div>
+
+                    <div class="text-md" ng-class="{'row':windowWidth > 765,'padder-v-sm':windowWidth <= 480}">
+                        <span ng-if="publicCompany.shortDescription">{{ publicCompany.shortDescription}}</span>
+                        <span ng-if="!publicCompany.shortDescription && publicCompany.description">{{ publicCompany.description|subStr:0:100:true}}</span>
+                    </div>
+
+                    <div class="inline text-gray" ng-class="{'padder-v-sm':windowWidth <= 480}" ng-if="publicCompany.markets.length > 0">
+                        <img src="{{app.baseUrl}}/img/icons/markets.png" height="13px" width="13px;" class="m-t-n-xs" />
+                        <span ng-repeat="market in publicCompany.markets">
+                            <span ng-if="!$last">{{ market}} •</span>
+                            <span ng-if="$last">{{ market}}</span>
+                        </span>
+                    </div>
+
+                    <div class="inline padder-v-sm text-gray">
+                        <img src="{{app.baseUrl}}/img/icons/company-size.png" height="13px" width="13px;" class="m-t-n-xs opacity-6 m-r-xxs" />{{ publicCompany.size}} employees
+                    </div>
+
+                </div>
+
+                <div class="padder-v-sm" ng-class="{'row':windowWidth > 765}">
+                    <div class="inline-only font-bold text-md m-r-sm text-black-dk">
+                        Company type: 
+                    </div>
+                    <div ng-if="publicCompany.companyTypes.length > 0" class="inline-only m-l-n-xs m-t-xs text-gray text-md m-r-xs">
+                        <span class="" ng-repeat="type in publicCompany.companyTypes.slice(0, 5) track by $index">
+                            {{ type.text ? type.text : type }} <span ng-if="!$last">•</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="m-t-sm" ng-class="{'row':windowWidth > 765, 'inline':windowWidth <= 765}" ng-controller="FollowController">
+                    <a ui-sref="jobShowcase({'company':publicCompany.username})" class="btn btn-default" ng-if="publicCompany.jobs.length > 0">See Jobs</a>
+                    <a class="btn btn-default" ng-click="shareCompany()" ng-if="publicCompany.jobs.length <= 0 || userMode == 'visitor'">Share</a>
+                    <div class="inline" ng-if="userMode == 'member'">
+                        <button type="button" class="btn btn-blue-lt" rel="nofollow" ng-if="(user.following | filter:publicCompany.username).length <= 0 || !user.following || !publicCompany.followers" ng-click="follow(publicCompany.username)">Follow</button>
+                        <button type="button" class="btn" ng-class="{'btn-blue-lt': follow, 'btn-default':!follow }" rel="nofollow" ng-if="(user.following | filter:publicCompany.username).length > 0 && windowWidth >= 767" ng-click="unfollow(publicCompany.username)" ng-init="followText = 'Following'" ng-mouseenter="follow = false; followText = 'Unfollow'" ng-mouseleave="follow = true; followText = 'Following'">
+                            <span>{{followText}}</span>
+                        </button>
+                        <button type="button" class="btn btn-default" rel="nofollow" ng-if="(user.following | filter:publicCompany.username).length > 0 && windowWidth < 767" ng-click="unfollow(publicCompany.username)">
+                            <span>Unfollow</span>
+                        </button>
+                    </div>
+                    <div class="inline text-gray m-t-xs m-l-xs">
+                        <a class="hover-text-blue-lt" ng-click="manageFollowers();" ng-if="publicCompany.followers.length > 0">{{ publicCompany.followers.length || 0 }} followers</a>
+                        <span class="" ng-if="publicCompany.followers.length <= 0">{{ publicCompany.followers.length || 0 }} followers</span>
+                    </div>
+                    <div class="pull-right pull-none-xs" ng-class="{'padder':windowWidth > 765, 'm-t-sm':windowWidth <= 765}" ng-if="user && user.username" ng-init="dConnections = (publicCompany.directWorkingConnections | orderBy:'- date')">
+                        <div class="inline">
+                            <img class="thumb-xxxs img-circle bg-white" 
+                                 ng-if="dConnections[0]" src="{{app.baseUrl}}{{dConnections[0].avatar ? dConnections[0].avatar : '/img/mit-default-avatar.svg'}}?v={{ app.latestUpdate }}" uib-popover-template="'popover.html'" popover-is-open="popoverIsopen" ng-mouseenter="pConnection = dConnections[0]; popoverIsopen = true;" ng-mouseleave="popoverIsopen = false;"/>
+                            <img class="thumb-xxxs img-circle m-l-n bg-white"
+                                 ng-if="dConnections[1]" src="{{app.baseUrl}}{{dConnections[1].avatar ? dConnections[1].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate }}" uib-popover-template="'popover.html'" popover-is-open="popoverIsopen" ng-mouseenter="pConnection = dConnections[1]; popoverIsopen = true;" ng-mouseleave="popoverIsopen = false;" popover-trigger="'mouseenter'"/>
+                            <img class="thumb-xxxs img-circle m-l-n bg-white"
+                                 ng-if="dConnections[2]" src="{{app.baseUrl}}{{dConnections[2].avatar ? dConnections[2].avatar : '/img/mit-default-avatar.svg' }}?v={{ app.latestUpdate }}" uib-popover-template="'popover.html'" popover-is-open="popoverIsopen" ng-mouseenter="pConnection = dConnections[2]; popoverIsopen = true;" ng-mouseleave="popoverIsopen = false;" popover-trigger="'mouseenter'"/>
+                            <a class="thumb-xxxs btn-rounded btn btn-default bg-white m-l-n ng-scope" style="padding: 3px;" ng-if="dConnections.length > 3" uib-tooltip="+{{ dConnections.length - 3}} other followers" ng-click="manageConnections();">+</a>
+                        </div>
+                        <div class="inline text-gray m-t-xs m-l-xs">
+                            <span class="">{{ dConnections.length || 0 }} direct connections work here</span>
+                        </div>
+                    </div>
+                    <div class="pull-right pull-none-xs" ng-class="{'padder':windowWidth > 765, 'm-t-sm':windowWidth <= 765}" ng-if="(!user || !user.username) && userMode == 'visitor'">
+                        <a class="font-normal text-blue font-medium" ng-click="showSignupModal();">Sign up</a> to see how you are connected with {{ publicCompany.name}}
+                    </div>
+                    <div class="clear clearfix"></div>
+                </div>
+            </div>
+
+            <div class="clear clearfix"></div>
+        </div>
+    </div>
+
+</div>
+<script type="text/ng-template" id="popover.html">
+    <div ng-mouseenter="$parent.popoverIsopen = true;" ng-mouseleave="$parent.popoverIsopen = false;" class="popover-tri">
+    <div ng-class="{'avatar-container':!pConnection.cover}">
+    <div ng-if="pConnection.cover"><img class="cover" src="{{app.baseUrl}}{{pConnection.cover}}"/></div>
+    <div class="inline pull-left">
+    <img class="thumb b-a img-circle bg-white" ng-class="{'avatar-cover':pConnection.cover,'avatar':!pConnection.cover}" ng-show="pConnection.avatar" src="{{app.baseUrl}}{{pConnection.avatar}}"/>
+    <img class="thumb b-a img-circle bg-white" ng-class="{'avatar-cover':pConnection.cover,'avatar':!pConnection.cover}" ng-show="!pConnection.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}"/>
+    </div>
+    <div class="description pull-left">
+    <div class="padder-l-sm">
+    <a class="font-bold text-md block" ui-sref="app.page.public({username:  pConnection.username })" > {{pConnection.name}} {{pConnection.lastname}}</a>
+    <span class="text-gray text-sm" ng-if="!pConnection.miniResume && !pConnection.summary">{{ pConnection.jobTitle}}</span>
+    <span ng-if="connection.city && !pConnection.miniResume && !pConnection.summary" class="m-l-n-xxs text-gray text-sm">, {{ pConnection.city}}</span>
+    <div class="text-gray text-sm" ng-if="pConnection.miniResume">{{ pConnection.miniResume | subStr:0:160:true }}</div>
+    <div class="text-gray text-sm" ng-if="!pConnection.miniResume && pConnection.summary">{{ pConnection.summary | subStr:0:160:true }}</div>
+    </div>
+    </div>
+    <div class="clear clearfix"></div>
+    </div>
+    <div class="padder-v-sm padder-l-sm b-t m-t-sm">
+    <button class="btn" ng-class="{'btn-blue-lt':mouseOver, 'btn-blue-lt-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false" ng-click="$parent.popoverIsopen = false;sendMessage(pConnection);">Message</button>
+    </div>
+    </div>
+</script>
+<!-- end of edit keywords -->
+<script>
+    function getAverageRGB(imgEl) {
+
+    if (angular.element('.company_cover').length <= 0) {
+    return;
+    }
+
+    var cover = angular.element('.company_cover');
+    var innerCover = angular.element('.company_cover div');
+    var blockSize = 5, // only visit every 5 pixels
+            defaultRGB = {r: 0, g: 0, b: 0}, // for non-supporting envs
+            canvas = document.createElement('canvas'),
+            context = canvas.getContext && canvas.getContext('2d'),
+            data, width, height,
+            i = - 4,
+            length,
+            rgb = {r: 0, g: 0, b: 0},
+            count = 0;
+    if (!context) {
+    return defaultRGB;
+    }
+
+    height = canvas.height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
+    width = canvas.width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
+    context.drawImage(imgEl, 0, 0);
+    try {
+    data = context.getImageData(0, 0, width, height);
+    } catch (e) {
+    /* security error, img on diff domain *///alert('x');
+    return defaultRGB;
+    }
+
+    length = data.data.length;
+    while ((i += blockSize * 4) < length) {
+    ++count;
+    rgb.r += data.data[i];
+    rgb.g += data.data[i + 1];
+    rgb.b += data.data[i + 2];
+    }
+
+    // ~~ used to floor values
+    rgb.r = ~~(rgb.r / count);
+    rgb.g = ~~(rgb.g / count);
+    rgb.b = ~~(rgb.b / count);
+    cover.css({'background': 'rgb(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')', 'filter': 'blur(0px)'});
+    innerCover.css({'background': 'rgba(255, 255, 255, 1)', 'opacity': '0.75'});
+    return rgb;
+    }
+</script>

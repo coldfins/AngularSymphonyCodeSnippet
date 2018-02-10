@@ -1,0 +1,54 @@
+<div ng-controller="MailNewCtrl" resize>
+    <div class="wrapper">
+        <form name="newMail" ng-submit="sendTouchMail()" class="form-horizontal m-t-lg">
+            <div class="form-group">
+                <label class="col-lg-2 control-label">To:</label>
+                <div class="col-lg-10" ng-class="windowWidth < 767 ? 'search_query' : ''">
+                    <input type="text"
+                           ng-model="mail.to"
+                           typeahead-on-select="selectMailUser($item)"
+                           uib-typeahead="fuser.name for fuser in mailAutocomplete($viewValue) | limitTo:5"
+                           typeahead-template-url="tpl/blocks_general/mail-user-autocomplete.html?v={{app.latestUpdate}}"
+                           class="form-control"
+                           typeahead-wait-ms="1"
+                           typeahead-min-length="1"
+                           placeholder="Choose someone"
+                           required title="Choose someone to send a message.">
+                    <span data-ng-class="{true:'fa fa - circle - o - notch pull - right', false:''}[isAutocompleteLoading]"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Subject:</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" ng-model="mail.subject" ng-minlength="4" placeholder="subject" required title="4 caracters minimum.">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Content</label>
+                <div class="col-lg-10">
+                    <textarea class="form-control" rows="6" ng-model="mail.content" placeholder="Go ahead…" ng-minlength="4" required title="4 caracters minimum."></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-2 col-lg-offset-2 col-xs-6">
+                    <a ui-sref="app.mail.list" class="hover-text-blue-lt inline padder-v-sm padder-xs" uib-tooltip="Discard">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </div>
+                <div class="col-lg-8 col-xs-6">
+                    <button type="submit" class="btn btn-blue-lt w-sm pull-right" data-ng-disabled="newMail.$invalid || isSendingLoading">
+                        <span ng-hide="isSendingLoading" class="text">Send message</span>
+                        <span ng-show="isSendingLoading" class="text"><i class="fa fa-spin fa-spinner"></i></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- modal -->
+        <div ng-controller="MessageQuotaExceededModalCtrl">
+            <!--<button ng-click="open('lg')">OPEN</button>-->
+        </div>
+        <!-- / modal -->
+
+    </div>
+</div>

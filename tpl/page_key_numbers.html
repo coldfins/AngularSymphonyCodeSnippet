@@ -1,0 +1,82 @@
+<div class="container" ng-controller="AutoLoginController" ng-init="app.settings.container = true;">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <a rel="nofollow"  href class="brand-logo block m-t m-b-lg text-center"><img src="{{app.baseUrl}}/img/mit-logo-red.svg" alt="mobintouch logo" class="thumb-lg"></a>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="wrapper text-center">
+                <h1>Suscribers</h1>
+                <span class="text-4x" ng-show="results.length">{{count || 0 }}</span>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div class="wrapper text-center">
+                <h3>Twitter</h3>
+                <span class="text-md">
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div class="wrapper text-center">
+                <h3>Instagram</h3>
+                    <script>
+                        /*
+                        Get access token & ID through http://jelled.com/instagram/access-token
+                        Register your app here @ Instagram http://instagram.com/developer
+                        */
+                        $(function() {
+                            $.ajax({
+                                type: "GET",
+                                dataType: "jsonp",
+                                cache: true,
+                                url: "https://api.instagram.com/v1/users/6f666c887c7844e7a914cb7f10cddbc1/?access_token={ACCES_TOKEN}",
+                                success: function(data) {
+                                    var ig_count = data.data.counts.followed_by.toString();
+                                    ig_count = add_commas(ig_count);
+                                    $(".instagram_count").html(ig_count);
+                                }
+                            });
+                            function add_commas(number) {
+                                if (number.length > 3) {
+                                    var mod = number.length % 3;
+                                    var output = (mod > 0 ? (number.substring(0,mod)) : '');
+                                    for (i=0 ; i < Math.floor(number.length / 3); i++) {
+                                        if ((mod == 0) && (i == 0)) {
+                                            output += number.substring(mod+ 3 * i, mod + 3 * i + 3);
+                                        } else {
+                                            output+= ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+                                        }
+                                    }
+                                    return (output);
+                                } else {
+                                    return number;
+                                }
+                            }
+                        });
+                    </script>
+                    <span class="instagram_count"> </span>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div class="wrapper text-center">
+                <h3>LinkedIn</h3>
+                <span class="text-md">0</span>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div class="wrapper text-center">
+                <h3>Facebook</h3>
+                <span class="text-md">0</span>
+            </div>
+        </div>
+
+    </div>
+
+</div>

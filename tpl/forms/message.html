@@ -1,0 +1,39 @@
+<form name="mail" ng-submit="postMessage(mail)" novalidate>
+    <div class="modal-header">
+        <span class="h4 text-black">Message {{ messageTo}}</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" ng-click="cancel();">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-group">
+            <label>Subject</label>
+            <input type="text" name="subject" class="form-control" ng-model="subject" required="required"/>
+            <div class="text-sm text-primary padder-v-sm" ng-show="(mail.subject.$dirty && mail.subject.$invalid) || (mail.$submitted && mail.subject.$invalid)">Required</div>
+        </div>
+        <div class="form-group">
+            <label>Message</label>
+            <textarea class="form-control" name="message" rows="4" ng-model="message" required></textarea>
+            <div class="text-sm text-primary padder-v-sm" ng-show="(mail.message.$dirty && mail.message.$invalid) || (mail.$submitted && mail.message.$invalid)">Required</div>
+        </div>
+        <!-- Currently removing attachment functionality we will add later on -->
+        <!--<div class="text-right padder-t-sm">
+            <input type="file" id="attachment" class="hidden" ng-model="attachment" onchange="angular.element(this).scope().fileUpload(this)"/>
+            <a class="text-blue" onclick="angular.element('#attachment').click();">Attach a file</a>
+        </div>
+        <div ng-if="selectedAttachedFiles.length > 0" class="m-t-sm">
+            <div class="b-a padder-sm padder-v-sm m-b-sm" ng-repeat="attachment in selectedAttachedFiles track by $index">
+                {{ attachment.name}}
+                <a class="pull-right" aria-hidden="true" ng-click="removeAttachment(attachment);">&times;</a>
+            </div>
+        </div>-->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn no-bg no-parens" ng-click="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-blue" ng-disabled="sendingMessage">
+            <span ng-show="!sendingMessage">Send Message</span>
+            <span ng-show="sendingMessage">Sending...<i class="fa fa-spin fa-spinner"></i></span>
+        </button>
+    </div>
+</form>

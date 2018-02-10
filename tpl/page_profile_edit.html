@@ -1,0 +1,53 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm m-t" ng-init="app.settings.container = true;" ng-cloak>
+    <div class="col-sm-12">
+        <!--PROFILE CARD EDIT-->
+        <div data-ng-include=" 'tpl/blocks_edition/profile_card_edit.html?v=' + app.latestUpdate"></div><!--/PROFILE CARD EDIT-->
+
+        <!-- PROFILE EDITION -->
+
+        <!-- SYNC LINKEDIN -->
+        <div class="row m-b">
+            <div class="col-xs-12 text-center" ng-controller="LinkedInSyncModalCtrl">
+                <button class="btn btn-info text-white text-lg" ng-click="open('lg'); trackLinkedin('Experiences')" style="background-color:#0077B5;">Synchronise with LinkedIn <i class="fa fa-linkedin-square"></i></button>
+            </div>
+        </div>
+        <!--/ SYNC LINKEDIN -->
+
+        <!-- BUY TRAFFIC -->
+        <div data-ng-if="user.companyType != 'Visitor' && activetab == 'mobiletraffic'" data-ng-include=" 'tpl/blocks_edition/buy_traffic_edit.html?v=' + app.latestUpdate"></div><!--/ BUY TRAFFIC -->
+
+        <!-- SELL TRAFFIC -->
+        <div data-ng-if="user.companyType != 'Visitor' && activetab == 'mobiletraffic'" data-ng-include=" 'tpl/blocks_edition/sell_traffic_edit.html?v=' + app.latestUpdate"></div><!--/ SELL TRAFFIC -->
+
+        <!-- USER APPS -->
+        <div data-ng-if="user.companyType != 'Visitor' && activetab == 'apps'" data-ng-include=" 'tpl/blocks_edition/user_apps_edit.html?v=' + app.latestUpdate"></div><!--/USER APPS -->
+
+        <!-- TRACKING SOLUTIONS -->
+        <div data-ng-if="user.companyType != 'Visitor' && activetab == 'tracking'" data-ng-include=" 'tpl/blocks_edition/tracking_solutions_edit.html?v=' + app.latestUpdate"></div><!-- / TRACKING SOLUTIONS -->
+
+        <!-- PAYMENT -->
+        <div data-ng-if="user.companyType != 'Visitor' && activetab == 'payment'" data-ng-include=" 'tpl/blocks_edition/payment_edit.html?v=' + app.latestUpdate"></div><!--/ PAYMENT -->
+        <!-- SUMMARY -->
+        <div data-ng-if="activetab == 'aboutme'" data-ng-include=" 'tpl/blocks_edition/summary_edit.html?v=' + app.latestUpdate"></div><!--/ SUMMARY -->
+
+        <!-- EXPERIENCES -->
+        <div data-ng-if="activetab == 'aboutme'" data-ng-include=" 'tpl/blocks_edition/experiences_edit.html?v=' + app.latestUpdate"></div><!--/ EXPERIENCES -->
+
+        <!-- COMPETENCES -->
+        <div data-ng-if="activetab == 'aboutme'" data-ng-include=" 'tpl/blocks_edition/competences_edit.html?v=' + app.latestUpdate"></div><!-- / COMPETENCES -->
+
+        <div ng-if="user.username" class="col-xs-12 text-center m-b-lg">
+            <a ui-sref="app.page.profile" class="text-lg text-dark">
+                <span>Show my profile</span>
+                <i class="icon-arrow-right font-bold text-sm m-l-xs"></i>
+            </a>
+        </div>
+
+
+        <!--/ PROFILE EDITION -->
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="col w-lg" data-ng-include=" 'tpl/blocks_general/right_sidebar.html?v=' + app.latestUpdate"></div><!--/ RIGHT SIDEBAR -->
+
+</div>

@@ -1,0 +1,38 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm m-t" ng-init="app.settings.container = true;" ng-cloak>
+    <div class="col-sm-12">
+        <!--PROFILE CARD EDIT-->
+        <div data-ng-include=" 'tpl/blocks_personal/profile_card.html?v=' + app.latestUpdate"></div><!--/ PROFILE CARD EDIT -->
+
+        <!-- PROFILE BUSINESS -->
+
+        <!-- BUY TRAFFIC -->
+        <div data-ng-if="user.companyType != 'Visitor' && activetab == 'mobiletraffic'" data-ng-include=" 'tpl/blocks_personal/buy_traffic.html?v=' + app.latestUpdate"></div><!--/ BUY TRAFFIC -->
+
+        <!-- SELL TRAFFIC -->
+        <div data-ng-if="user.companyType != 'Visitor' && activetab == 'mobiletraffic'" data-ng-include=" 'tpl/blocks_personal/sell_traffic.html?v=' + app.latestUpdate"></div><!--/ SELL TRAFFIC -->
+
+        <!-- USER APPS -->
+        <div data-ng-if="user.companyType != 'Visitor' && activetab == 'apps'" data-ng-include=" 'tpl/blocks_personal/user_apps.html?v=' + app.latestUpdate"></div><!--/USER APPS -->
+
+        <!-- TRACKING SOLUTIONS -->
+        <div data-ng-if="user.companyType != 'Visitor' && activetab == 'tracking'" data-ng-include=" 'tpl/blocks_personal/tracking_solutions.html?v=' + app.latestUpdate"></div><!-- / TRACKING SOLUTIONS -->
+
+        <!-- PAYMENT -->
+        <div data-ng-if="user.companyType != 'Visitor' && activetab == 'payment'" data-ng-include=" 'tpl/blocks_personal/payment.html?v=' + app.latestUpdate"></div><!--/ PAYMENT -->
+
+
+        <!-- SUMMARY -->
+        <div data-ng-if="activetab == 'aboutme'" data-ng-include=" 'tpl/blocks_personal/summary.html?v=' + app.latestUpdate"></div><!--/ SUMMARY -->
+
+        <!-- EXPERIENCES -->
+        <div data-ng-if="activetab == 'aboutme'" data-ng-include=" 'tpl/blocks_personal/experiences.html?v=' + app.latestUpdate"></div><!--/ EXPERIENCES -->
+
+        <!-- COMPETENCES -->
+        <div data-ng-if="activetab == 'aboutme'" data-ng-include=" 'tpl/blocks_personal/competences.html?v=' + app.latestUpdate"></div><!-- / COMPETENCES -->
+
+        <!--/ PROFILE BUSINESS -->
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="col w-lg" data-ng-include=" 'tpl/blocks_general/right_sidebar.html?v=' + app.latestUpdate"></div><!--/ RIGHT SIDEBAR -->
+</div>

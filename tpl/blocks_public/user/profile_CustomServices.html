@@ -1,0 +1,25 @@
+<div id="custom-services" class="container" ng-if="viewUser.customServices.length > 0">
+    <div class="w-full b-a r-2x m-t-lg" id="{{viewUser.customBoxname|strReplace:' ':'_'|tolowercase}}">
+        <div class="col-xs-12 m-t-lg m-b-xl" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+            <div class="custom-service-header">
+                <div class="pull-left text-20 text-black-d">
+                    <span class="padder inline padder-v-sm">{{ viewUser.customBoxname }}</span>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+
+            <div class="custom-service-container">
+                <div class="padder padder-v" ng-class="{'b-b':!$last}" ng-repeat="service in viewUser.customServices track by $index">
+                    <div class="text-17 text-capitalize">{{ service.name }} {{ service.action}} {{ service.market}}</div>
+                    <div class="text-black-dk m-t-sm" ng-if="service.values.length > 0">
+                        <div ng-repeat="value in service.values" class="rounded padder-v-sm padder bg-light dk pull-left m-r-xs m-t-xs">{{ value}}</div>
+                        <div class="clear clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+</div>

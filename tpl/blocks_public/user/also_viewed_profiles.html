@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="col-xs-12 b-a r-2x m-t-lg bg-white" ng-if="viewUser.alsoViewed" id="people_also_viewed_profiles" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+        <div class="m-t-lg">
+            <div class="text-black-d m-l">
+                <h3 class="m-n text-20">People also viewed</h3>
+            </div>
+        </div>
+
+        <div class="col-xs-12 padder-v-lg">
+            <div class="" ng-repeat="u in viewUser.alsoViewed.slice(0,10) track by $index">
+                <div class="col-sm-6 col-xs-12 m-b-lg" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+                    <span class="pull-left thumb-lg avatar m-r b-a">
+                        <img ng-show="u.avatar" src="{{ app.baseUrl}}{{ u.avatar}}" alt="{{ u.name}} {{ u.lastname}}" class="">
+                        <img ng-hide="u.avatar" src="{{ app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate}}" alt="{{ u.name}} {{ u.lastname}}" class="">
+                    </span>
+                    <div class="clear m-t-sm">
+                        <h4 class="m-n"><a class="font-bold text-lg inline-block hover-black-dker hover-underline" ui-sref="app.page.public({username: u.username})">{{ u.name}} {{ u.lastname}}</a></h4>
+                        <span class="block font-bold text-gray">{{ u.jobTitle}}</span>
+                        <div class="m-t-xs info-miniresume text-gray">{{ u.miniResume}}</div>
+                    </div>
+                </div>
+                <div class="clear clearfix" ng-if="$odd"></div>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+</div>

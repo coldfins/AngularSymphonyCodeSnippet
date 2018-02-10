@@ -1,0 +1,115 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5 May, 2016, 11:30:10 AM
+    Author     : ved-pc
+*/
+
+#intro {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+#intro #heads {
+    margin-top: 100px;
+    margin-left: 50%;
+    -webkit-transform: translate3d(-512px, 0, 0) !important;
+    transform: translate3d(-512px, 0, 0) !important;
+}
+@media screen and (min-width:1024px) {
+    #intro #heads {
+        -webkit-transform: translate3d(0, 0, 0) !important;
+        transform: translate3d(0, 0, 0) !important;
+        margin-left: 0;
+    }
+}
+#intro #imageHolder .image {
+    /*-webkit-backface-visibility: hidden;*/
+    backface-visibility: hidden;
+    display: block;
+    position: absolute;
+    -webkit-transition: 100ms ease !important;
+    opacity: 0;
+}
+#intro #imageHolder .image-wrap {
+    display: block;
+    border-radius: 100%;
+    overflow: hidden;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+}
+#intro #imageHolder .scale {
+    -webkit-transform: scale(0.6) !important;
+    transform: scale(0.6) !important;
+}
+/*
+#intro #imageHolder .scale:after {
+    background: url('https://www-dev.mobintouch.com/cdn/img/mit-fingerprint-logo-white.svg') no-repeat;
+    background-size: contain;
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -12%;
+    right: -12%;
+    height: 50%;
+    width: 50%;
+    z-index: 2;
+}
+*/
+
+#intro #imageHolder .company-logo{
+    background-size: contain !important;
+    background-color: rgba(171, 171, 171, 0.4) !important;
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -12%;
+    right: -12%;
+    height: 50%;
+    width: 50%;
+    z-index: 2;
+    border-radius: 50%;
+}
+
+@media screen and (min-width:580px) {
+    #intro #imageHolder .scale {
+        -webkit-transform: scale(0.82) !important;
+        transform: scale(0.82) !important;
+    }
+}@media screen and (min-width:768px) {
+    #intro #imageHolder .scale {
+        -webkit-transform: scale(0.72) !important;
+        transform: scale(0.72) !important;
+    }
+}@media screen and (min-width:1024px) {
+    #intro #imageHolder .scale {
+        -webkit-transform: scale(0.77) !important;
+        transform: scale(0.77) !important;
+    }
+}@media screen and (min-width:1280px) {
+    #intro #imageHolder .scale {
+        -webkit-transform: scale(0.83) !important;
+        transform: scale(0.83) !important;
+    }
+}@media screen and (min-width:1440px) {
+    #intro #imageHolder .scale {
+        -webkit-transform: scale(1) !important;
+        transform: scale(1) !important;
+    }
+}@media screen and (min-width:1680px) {
+    #intro #imageHolder .scale {
+        -webkit-transform: scale(1.2) !important;
+        transform: scale(1.2) !important;
+    }
+}
+#intro #imageHolder img {
+    display: block;
+    /*-webkit-backface-visibility: hidden;*/
+    backface-visibility: hidden;
+    will-change: transform !important;
+    width: 100%
+}
+

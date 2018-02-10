@@ -1,0 +1,14 @@
+<div class="modal-body">
+    <h3 class="text-center">Delete this experience?</h3>
+</div>
+<div class="modal-footer no-padder">
+    <div class="text-center wrapper-sm b-r inline w-50">
+        <a class="text-lg" ng-click="cancel()">Cancel</a>
+    </div>
+    <div class="text-center wrapper-sm inline w-50">
+        <a class="font-bold text-lg" ng-click="!removingExperience ? close() : ''" ng-disabled="removingExperience">
+            <span ng-hide="removingExperience">Delete</span>
+            <span ng-show="removingExperience">Deleting <i class="fa fa-spin fa-spinner"></i></span>
+        </a>
+    </div>
+</div>

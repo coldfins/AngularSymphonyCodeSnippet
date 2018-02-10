@@ -1,0 +1,61 @@
+<div ng-controller="MailDetailCtrl">
+    <!-- header -->
+    <div class="wrapper bg-light lter hide">
+        <a ui-sref="app.mail.list" class="btn btn-sm btn-default w-xxs m-r-sm" tooltip="Back to Inbox"><i class="fa fa-long-arrow-left"></i></a>
+        <div class="btn-group pull-right">
+            <button class="btn btn-sm btn-default w-xxs w-auto-xs" tooltip="Delete"><i class="fa fa-trash-o"></i></button>
+        </div>
+    </div>
+    <!-- / header -->
+    <div class="padder-v">
+        <div class="b-b">
+            <h3 class="wrapper font-thin m-n"><psan class="text-muted">Subject : </psan>{{mail.subject}}</h3>
+        </div>
+    </div>
+    <div ng-repeat="mailing in mail.mails" class="bg-white m-b">
+        <div ng-class-odd="'b-a'" ng-class-even="'b-a bg-light lt'">
+            <div class="wrapper">
+                <a ui-sref="app.page.public({ username:'{{details[mailing.senderID].username}}' })">
+                    <img ng-show="details[mailing.senderID].avatar" ng-src="{{app.baseUrl}}{{details[mailing.senderID].avatar}}" class="img-circle thumb-xs m-r-sm">
+                    <img ng-hide="details[mailing.senderID].avatar" ng-src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle thumb-xs m-r-sm">
+                    <span class="font-bold">{{details[mailing.senderID].name}} {{details[mailing.senderID].lastname}}</span>
+                </a>
+                <span class="hidden-xs">- {{details[mailing.senderID].jobTitle}} at {{details[mailing.senderID].company}}</span>
+                <span class="text-muted m-t-xs pull-right">{{mailing.date| fromNow }}</span>
+            </div>
+        </div>
+        <div ng-class-odd="'b-l b-b b-r'" ng-class-even="'b-l b-b b-r bg-light lt'">
+            <div class="wrapper">
+                <p ng-bind-html="mailing.content | nl2br"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white m-b">
+        <form name="replyForm" ng-submit="replyMail()">
+
+            <div class="text-center">
+                <button class="btn btn-blue-lt font-bold" ng-hide="replyBox" ng-click="replyBox = !replyBox">REPLY</button>
+            </div>
+
+            <div ng-class="{'b-a':replyBox}">
+
+                <div class="ng-hide" ng-show="replyBox">
+                    <div class="panel-heading bg-light lt">
+                        reply to:
+                        <span ng-if="mail.fromID == user.id" class="font-bold">{{mail.receiverName}}</span>
+                        <span ng-if="mail.fromID != user.id" class="font-bold">{{mail.senderName}}</span>
+                    </div>
+                    <textarea class="reply-aera" rows="6" ng-model="reply.content" ng-minlength="4" required></textarea>
+                    <div class="panel-footer bg-light lt">
+                        <button class="btn btn-default" ng-click="replyBox = !replyBox">Cancel</button>
+                        <button type="submit" class="btn btn-blue-lt w-xs font-bold pull-right" data-ng-disabled="replyForm.$invalid || isSendingLoading">
+                            <span ng-hide="isSendingLoading" class="text">Send</span>
+                            <span ng-show="isSendingLoading" class="text">Sending...<i class="fa fa-spin fa-circle-o-notch"></i></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div ng-controller="ImgCropCtrl" resize>
+    <div class="modal-header">
+        <h3 class="modal-title" ng-if="company.cover">Edit company cover</h3>
+        <h3 class="modal-title" ng-if="!company.cover">Edit company cover</h3>
+    </div>
+    <div class="modal-body">
+        <div class="wrapper-md">
+            <div class="m-b">
+                <h4>Select an image file</h4>
+                <input  ui-jq="filestyle" type="file" accept="image/*" id="fileInput" ui-options="{
+                        buttonText: 'Add image',
+                        iconName: 'icon-camera'
+                        }"/>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offest-1 col-sm-12">
+                    <h4>Adjust your company page cover</h4>
+                    <small>Drag the form to change position and size.</small>
+                    <div class="wrapper-sm b-a bg-white m-r-xs m-b-xs m-t">
+                        <div class="bg-light" style="height:250px">
+                            <img-crop 
+                                image="myImage" 
+                                result-image="myCroppedImage" 
+                                result-image-size='{w: 1210,h: 315}'
+                                aspect-ratio="3.73"
+                                area-type="rectangle"></img-crop>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12" ng-if="myCroppedImage">
+                    <h4>Preview</h4>
+                    <div class="inline bg-white wrapper-sm b-a m-t">
+                        <div class="bg-light">
+                            <img ng-src="{{myCroppedImage}}" ng-style="windowWidth < 767 ? {'height':'auto'} : {'height':'214px','width':'800px'}" ng-class="windowWidth < 767 ? 'w-full' : ''"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button ng-show="removingCompanyCover" class="btn btn-blue-lt-bordered pull-left" ng-if="company.cover" ng-disabled="true" ng-click="removeCompanyCover()">Removing company cover...<i class="fa fa-sun-o fa-circle-o-notch"></i></button>
+        <button ng-hide="removingCompanyCover" class="btn btn-blue-lt-bordered pull-left" ng-if="company.cover" ng-click="removeCompanyCover()">Remove company cover</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-blue-lt" ng-click="companyCover()" ng-disabled="!myImage || loadingCover">
+            <span ng-hide="loadingCover" class="text">Save</span>
+            <span ng-show="loadingCover" class="text">Saving...<i class="fa fa-spin fa-circle-o-notch"></i></span>
+        </button>
+    </div>
+</div>

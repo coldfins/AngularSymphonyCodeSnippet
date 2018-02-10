@@ -1,0 +1,100 @@
+<style>
+    .progress {
+        background-color: #131e26;
+    }
+    .progress {
+        border-radius: 4px;
+        height: 3px;
+        margin-bottom: 5px;
+    }
+</style>
+<nav class="navbar-md navbar-fixed-top bg-white" resize>
+    <div class="container" ng-controller="TypeaheadSearchCtrl">
+        <div class="navbar-header" ng-class="{'w-xxl':windowWidth >= 767}">
+            <button class="pull-right visible-xs" id="sidebar_toggle" data-toggle="show" data-target="#navbar-collapse-mit">
+                <i class="fa fa-navicon fa-fw"></i>
+            </button>
+
+            <a ui-sref="index" data-ng-click="track('Landing Page', 'Navbar', 'Logo')">
+                <img src="{{app.baseUrl}}/img/landing/company-logo/mobintouch-logo.png" class="logo pull-left" alt="Mobintouch logo red">
+                <span class="hidden">Mobintouch Mobile Advertising Community</span>
+                <div class="inline pull-left m-t-sm m-l-xs">
+                    <div class="font-multicolore blue text-uppercase text-md">MOBINTOUCH</div>
+                    <div class="font-roboto gray text-14">A community of Mobile Apps & Games creators</div>
+                </div>
+                <div class="clear clearfix"></div>
+            </a>
+
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-mit">
+            <!-- SEARCH -->
+            <form class="navbar-left hidden-sm hidden-md" target=".navbar-collapse" ui-shift="prependTo" role="search" ng-submit="itemSelect(null);">
+                <div class="b-l search-wrapper has-feedback">
+                    <div class="search icon pull-left" style="background: url('{{ app.baseUrl}}/img/icons/search.png') no-repeat"></div>
+                    <input 
+                        type="text" 
+                        class="padder-sm search" 
+                        placeholder="SEARCH"
+                        ng-model="query.headerString"
+                        min-length="1"
+                        uib-typeahead="fuser.name for fuser in (autocomplete($viewValue) | limitTo:5)"
+                        typeahead-loading='loading_search'
+                        typeahead-focus-first="false"
+                        typeahead-template-url="tpl/blocks_general/header/header-autocomplete.html?v={{app.latestUpdate}}"
+                        typeahead-dropdown-custom-class="demo-class"
+                        typeahead-on-select="itemSelect($item, $model, $label)"/>
+                    <i ng-show="loading_search" class="fa fa-spinner fa-spin form-control-feedback input-loader-sm m-t"></i>
+                </div>
+            </form>
+            <!--/ SEARCH -->
+
+
+            <!-- NAVBAR RIGHT -->
+            <ul class="nav navbar-nav navbar-right">
+                <li class="b-l">
+                    <a class="m-l-md" ui-sref="access.signin">
+                        <span class="font-roboto blue text-normal">Log In</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="home btn-signup-container" ui-sref="access.signup">
+                        <span class="btn btn-blue r-3x font-roboto bg-blue">Sign Up</span>
+                    </a>
+                </li>
+            </ul><!-- /NAVBAR RIGHT -->
+
+
+
+            <!-- NAVBAR RIGHT -->
+            <ul class="nav navbar-stacked navbar-nav navbar-right m-n v_head">
+                <li ng-class="activelink == 'jobs' ? 'active' : ''">
+                    <a ui-sref="app.page.jobs">
+                        <span class="text-uppercase font-roboto gray text-normal">Jobs</span>
+                    </a>
+                </li>
+                <li ng-class="activelink == 'recruit' ? 'active' : ''">
+                    <a ui-sref="access.recruit">
+                        <span class="text-uppercase font-roboto gray text-normal">Recruit</span>
+                    </a>
+                </li>
+                <li ng-class="activelink == 'companies' ? 'active' : ''">
+                    <a ui-sref="app.page.companies">
+                        <span class="text-uppercase font-roboto gray text-normal">Companies</span>
+                    </a>
+                </li>
+                <li ng-class="activelink == 'connections' ? 'active' : ''">
+                    <a ui-sref="app.page.peoples">
+                        <span class="text-uppercase font-roboto gray text-normal">People</span>
+                    </a>
+                </li>
+                <li ng-class="activelink == 'qa' ? 'active' : ''">
+                    <a ui-sref="app.page.qa">
+                        <span class="text-uppercase font-roboto gray text-normal">Q&A</span>
+                    </a>
+                </li>
+            </ul><!-- /NAVBAR RIGHT -->
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

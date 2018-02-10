@@ -1,0 +1,29 @@
+<div class="panel panel-default" ng-if="publiccompany.foundedin || publiccompany.founders">
+    <div class="panel-body">
+        <div class="text-center">
+            <span class="text-md text-muted clear m-b-sm">FOUNDED <span ng-if="publiccompany.foundedin">IN</span></span>
+            <span class="text-xl clear m-b-sm" ng-if="publiccompany.foundedin">{{publiccompany.foundedin}}</span>
+        </div>
+        <div class="text-center" ng-if="publiccompany.founders">
+            <span class="text-md text-muted clear m-b-sm">BY</span>
+            <span class="text-md text-block clear">{{publiccompany.founders}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default" ng-show="publiccompany.size">
+    <div class="panel-body">
+        <div class="text-center">
+            <span ng-if="publiccompany.size!='Myself'" class="text-xl text-block">{{publiccompany.size}}<br><span class="text-md">employees</span></span>
+            <span ng-if="publiccompany.size=='Myself'" class="text-xl text-bloc">{{publiccompany.size}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default" ng-show="publiccompany.basedCountry">
+    <div class="panel-body">
+        <div class="text-center">
+            <span class="text-xl text-block">{{publiccompany.city}}<br><span class="text-md">{{ 'country.' + publiccompany.basedCountry | translate }}</span></span>
+        </div>
+    </div>
+</div>

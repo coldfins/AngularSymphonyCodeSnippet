@@ -1,0 +1,153 @@
+<div class="container" ng-mouseenter="educationReorder = true;" ng-mouseleave="educationReorder = false;">
+    <div class="w-full b-a r-2x m-t-lg" id="education">
+        <div class="m-t-lg col-xs-12">
+            <div class="text-20 text-black-d">
+                <span class="padder" uib-popover="Those information are mandatory to access Jobs" popover-enable="fromJobModal && (!user.educations || user.educations.length <= 0)" popover-is-open="fromJobModal && (!user.educations || user.educations.length <= 0)" popover-trigger="'none'" popover-class="popover-validator">Education</span><i class="fa fa-unsorted text-muted m-r-sm hover-pointer text-blue-lt" ng-if="educationReorder" ng-click="profileOreder()" uib-tooltip="Reorder your profile"></i>
+            </div>
+            <div class="m-t-md m-b-md" ng-class="windowWidth <= 480 ? '' : 'm-md'">
+                <form name="frmEducation" class="form-validation" novalidate ng-submit="addEducation(frmEducation)">
+                    <span class="text-md text-black-dk">Add education</span>
+                    <select class="form-control input-lg text-black-dk text-17"
+                            ng-class="windowWidth <= 480 ? 'block w-full m-t-sm' : 'inline w-sm dt m-l-sm'"
+                            ng-model="education.graduation" required>
+                        <option value="">Year</option>
+                        <option ng-repeat="y in years| orderBy:'-'">{{y}}</option>
+                    </select>
+                    <div class="has-feedback inline" ng-class="windowWidth <= 480 ? 'w-full' : ''">
+                        <input type="text"
+                               name="college"
+                               class="form-control input-lg text-black-dk inline text-17"
+                               ng-class="windowWidth <= 480 ? 'block w-full m-t-sm' : 'inline thumb-xxl m-l-sm'"
+                               placeholder="College name"
+                               ng-keydown="unselectCollege()"
+                               ng-model="education.college"
+                               uib-typeahead="college.name for college in collegeNameSearch($viewValue) | limitTo:15" 
+                               ng-pattern="/^[a-zA-Z0-9- '.,-/\&]{2,100}$/" 
+                               maxlength="100" 
+                               typeahead-on-select='onSelectCollege($item)' 
+                               typeahead-loading='loading_colleges' 
+                               typeahead-template-url="tpl/blocks_general/profile-company-autocomplete.html?v={{app.latestUpdate}}" 
+                               typeahead-wait-ms="300"
+                               required/>
+                        <i ng-show="loading_colleges" 
+                           class="fa fa-spinner fa-spin form-control-feedback input-loader-sm m-r-sm"
+                           ng-class="windowWidth <= 480 ? 'm-t' : 'm-t-xs'"></i>
+                    </div>
+                    <button type="submit" 
+                            class="btn btn-blue-lt input-lg r-2x padder-md text-black-dk" 
+                            ng-class="windowWidth <= 480 ? 'm-t-sm w-full' : 'm-l-sm m-t-n-xs'"
+                            ng-disabled="addingEducation">
+                        <span ng-hide="addingEducation">Add</span>
+                        <span ng-show="addingEducation">Adding <i class="fa fa-spin fa-spinner"></i></span>
+                    </button>
+                </form>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="col-xs-12 b-t padder-v-md" ng-if="user.educations.length > 0">
+            <div class="educations padder-v-md" ng-repeat="education in user.educations track by $index">
+
+                <div class="pull-left hidden-xs" ng-if="!education.collegeid && editEducation != $index">
+                    <div class="college-avatar b-a" ng-if="education.avatar" style="background:url({{app.baseUrl}}{{ education.avatar}}) center center / cover;">
+                    </div>
+                    <div class="college-avatar b-a" ng-if="!education.avatar" style="background:url('{{app.baseUrl}}/img/icons/education.png') no-repeat center center / cover;background-size: 50px;">
+                    </div>
+                </div>
+                <div class="pull-left hidden-xs" ng-if="education.collegeid && editEducation != $index">
+                    <div class="college-avatar b-a" ng-if="education.avatar" style="background:url({{app.baseUrl}}{{ education.logo}}) center center / cover;">
+                    </div>
+                    <div class="college-avatar b-a" ng-if="!education.avatar" style="background:url('{{app.baseUrl}}/img/icons/education.png') no-repeat center center / cover;background-size: 50px;">
+                    </div>
+                </div>  
+
+                <div class="details pull-left padder col-xs-12 col-sm-7" ng-if="editEducation != $index" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+                    <div class="text-19 font-bold text-black-dk">{{ education.college}}</div>
+                    <div class="text-md text-black-dk">
+                        <span class="font-bold m-r" ng-if="education.degree">{{ education.degree}}</span>
+                        <span class="text-muted">{{ education.graduation}}</span>
+                    </div>
+                    <div class="m-t-sm text-base" ng-if="editEducation != $index">
+                        <a href="" class="text-blue-lt hover-text-blue-lt m-r-xs font-italic" ng-click="changeEditEducation($index)">Edit</a>
+                        <a href="" class="text-gray hover-gray m-r-xs font-italic" ng-click="removeEducation($index);">Remove</a>
+                    </div>
+                </div>
+
+                <div class="clear clearfix"></div>
+                <div class="" ng-if="editEducation == $index" id="education_{{ $index}}">
+                    <div class="pull-left hidden-xs" ng-if="!education.collegeid">
+                        <div class="college-avatar b-a" ng-if="education.avatar" style="background:url({{app.baseUrl}}{{ education.avatar}}) center center / cover;">
+                        </div>
+                        <div class="college-avatar b-a" ng-if="!education.avatar" style="background:url('{{app.baseUrl}}/img/icons/education.png') no-repeat center center / cover;background-size: 50px;">
+                        </div>
+                        <div class="m-t-n-100 college-avatar hover-pointer" ng-click="addEducationCollegeAvatar($index)" ng-class="education.avatar ? 'bg bg-lt' : 'bg'"></div>
+                    </div>
+                    <div class="pull-left hidden-xs" ng-if="education.collegeid">
+                        <div class="college-avatar b-a" ng-if="education.avatar" style="background:url({{app.baseUrl}}{{ education.avatar}}) center center / cover;">
+                        </div>
+                        <div class="college-avatar b-a" ng-if="!education.avatar" style="background:url('{{app.baseUrl}}/img/icons/education.png') no-repeat center center / cover;background-size: 50px;">
+                        </div>
+                    </div>
+                    <div class="clear col-sm-8" ng-class="windowWidth <= 480 ? 'no-padder' : ''">
+                        <div class="w-full">
+                            <div class="pull-left hidden-xs">
+                                <div class="text-19 font-bold text-black-dk">{{ education.college}}</div>
+                                <div class="text-md text-black-dk"><span ng-if="education.degree" class="font-bold m-r">{{ education.degree}}</span> <span class="text-muted">{{ education.graduation}}</span></div>
+                            </div>
+                            <div class="clear clearfix"></div>
+                            <span class="arrow hidden-xs"></span>
+                            <div class="well lt m-t-sm b-a b-black-lter no-padder">
+                                <form class="m">
+                                    <div class="pull-right text-sm font-italic text-black-dk hover-pointer" ng-click="removeEducation($index);">Remove</div> 
+                                    <div class="form-group">
+                                        <label class="control-label text-17 text-black-dk">College / University Name </label>
+                                        <!--<input class="form-control input-lg w-2xl text-black-dk" placeholder="Harvard, Yale..." ng-model="education.college"/> -->
+                                        <input type="text" 
+                                               class="form-control input-lg text-17"
+                                               ng-class="windowWidth <= 480 ? 'w-full' : 'w-2xl'"
+                                               placeholder="College name"
+                                               ng-keydown="unselectUpdateCollege(education)"
+                                               ng-model="education.college"
+                                               uib-typeahead="college.name for college in collegeNameSearch($viewValue) | limitTo:15" 
+                                               ng-pattern="/^[a-zA-Z0-9- '.,-/\&]{2,100}$/" 
+                                               maxlength="100" 
+                                               typeahead-on-select='onSelectUpdateCollege(education,$item)' 
+                                               typeahead-loading='loading_colleges' 
+                                               typeahead-template-url="tpl/blocks_general/profile-company-autocomplete.html?v={{app.latestUpdate}}" 
+                                               typeahead-wait-ms="300"
+                                               required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label text-17 text-black-dk">Degree</label>
+                                        <input class="form-control input-lg" 
+                                               ng-class="windowWidth ? 'w-full' : 'w-2xl'"
+                                               placeholder="Give us your degree title" 
+                                               ng-model="education.degree"/> 
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label text-17 text-black-dk">Graduation</label>
+                                        <select class="form-control w-sm input-lg dt text-17" ng-model="education.graduation" required>
+                                            <option value="">Year</option>
+                                            <option ng-repeat="y in years| orderBy:'-'">{{y}}</option>
+                                        </select>
+                                    </div>
+                                </form>
+                                <hr class="m-t-sm m-b-sm b-black-lter">
+                                <div class="m">
+                                    <button class="btn btn-blue-lt r-2x m-r-xs" ng-click="updateEducation(education);" ng-disabled="updatingEducation">
+                                        <span ng-hide="updatingEducation">Save</span>
+                                        <span ng-show="updatingEducation">Saving..<i class="fa fa-spin fa-spinner"></i></span>
+                                    </button>
+                                    <button class="btn btn-default lt r-2x" ng-click="cancelEditEducation()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear clearfix"></div>
+                </div>
+                <div class="clear clearfix"></div>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+</div>

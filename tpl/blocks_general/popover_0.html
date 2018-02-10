@@ -1,0 +1,24 @@
+<div ng-mouseenter="$parent.popoverIsopen0 = true;" ng-mouseleave="$parent.popoverIsopen0 = false;" class="popover-tri">
+    <div ng-class="{'avatar-container':!pConnection.cover}">
+        <div ng-if="pConnection.cover"><img class="cover" src="{{app.baseUrl}}{{pConnection.cover}}"/></div>
+        <div class="inline pull-left">
+            <img class="thumb-md b-a img-circle" ng-class="{'avatar-cover':pConnection.cover,'avatar':!pConnection.cover}" ng-show="pConnection.avatar" src="{{app.baseUrl}}{{pConnection.avatar}}"/>
+            <img class="thumb-md b-a img-circle" ng-show="!pConnection.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}"/>
+        </div>
+        <div class="inline description">
+            <div class="padder-l-sm">
+                <a class="font-bold text-md block" ui-sref="app.page.public({username:  pConnection.username })" > {{pConnection.name}} {{pConnection.lastname}}</a>
+                <span class="text-gray text-sm" ng-if="!pConnection.miniResume && !pConnection.summary">{{ pConnection.jobTitle}}</span>
+                <span ng-if="connection.city && !pConnection.miniResume && !pConnection.summary" class="m-l-n-xxs text-gray text-sm">, {{ pConnection.city}}</span>
+                <div class="text-gray text-sm" ng-if="pConnection.miniResume">{{ pConnection.miniResume | subStr:0:160:true }}</div>
+                <div class="text-gray text-sm" ng-if="!pConnection.miniResume && pConnection.summary">{{ pConnection.summary | subStr:0:160:true }}</div>
+            </div>
+        </div>
+        <div class="clear clearfix"></div>
+    </div>
+    <div class="padder-v-sm padder-l-sm b-t m-t-sm">
+        <button class="btn" ng-class="{'blue-filled':mouseOver, 'blue-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false" ng-click="$parent.popoverIsopen0 = false;sendMessage(pConnection);" ng-if="pConnection.isConnected">Message</button>
+        <button class="btn btn-blue-lt" ng-if="user.username && !pConnection.isConnected && !pConnection.isRequested && !pConnection.isRequest" ng-click="$parent.popoverIsopen0 = false;connect(pConnection);">Connect</button>
+        <button class="btn btn-blue-lt" ng-if="!user.username" ng-click="showSignupModal();">Connect</button>
+    </div>
+</div>

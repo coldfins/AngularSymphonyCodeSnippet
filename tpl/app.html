@@ -1,0 +1,26 @@
+<!-- CLEAR CACHE ALERT -->
+<div class="alert-content" ng-if="alerts.length > 0">
+    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" ng-if="alert.type != 'join'"  close="closeAlert($index)" ng-cloak>
+        <a ng-if ="alert.type != 'success'" data-ng-click="reload()">{{alert.msg}}</a>
+        <div ng-if ="alert.type == 'success'" ng-bind-html="alert.msg | trustedHTML"></div>
+    </div>
+
+    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" ng-if="alert.type == 'join' && userMode == 'visitor' && ('app.page.company/public' | isState)" ng-cloak>
+        <div ng-bind-html="alert.msg | trustedHTML"></div>
+    </div>
+</div>
+<!--/ CLEAR CACHE ALERT -->
+
+<!--  HEADER -->
+<div ng-if="windowWidth >= 767 && user.username" data-ng-include=" 'tpl/blocks_general/header/header.html?v=' + app.latestUpdate" class="app-header"></div>
+<div ng-if="windowWidth >= 767 && !user.username" data-ng-include=" 'tpl/blocks_general/header/landing_header.html?v=' + app.latestUpdate" class="app-header visitor"></div>
+<!--/ HEADER  -->
+<!-- MOBILE HEADER -->
+<div ng-if="windowWidth < 767 && user.username" data-ng-include=" 'tpl/blocks_general/header/header_mobile.html?v=' + app.latestUpdate" class="app-header navbar-md"></div>
+<div ng-if="windowWidth < 767 && !user.username" data-ng-include=" 'tpl/blocks_general/header/landing_mobile_header.html?v=' + app.latestUpdate" class="visitor"></div>
+<!--/ MOBILE HEADER  -->
+
+<!-- CONTENT -->
+<div class="app-content-body" ui-view>
+</div>
+<!--/ CONTENT -->

@@ -1,0 +1,123 @@
+<style>
+    .navbar-brand img{
+        padding: 0px;
+        margin: 10px 0px;
+    }
+    .navbar-md .navbar-brand{
+        height: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+    /*.nav>li.active:before{
+        content: '';
+        height: 4px;
+        position: absolute;
+        margin-left: calc(25%);
+        margin-top: 45px;
+        border-bottom: 2px solid #1181d2;
+        width: 50%;
+        display: inline-block;
+    }*/
+    .navbar-md .navbar-nav>li.active>a{
+        border-bottom: 2px solid #1181d2;
+    }
+
+</style>
+<nav class="navbar-md navbar-fixed-top bg-white" resize>
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header h-xxs w-auto">
+            <button class="pull-right visible-xs" id="sidebar_toggle" data-toggle="show" data-target="#navbar-collapse-mit">
+                <i class="fa fa-navicon fa-fw"></i>
+            </button>
+            <a title="Go to {{company.name}}" ui-sref="app.page.company/public({companyusername: company.username})" class="navbar-brand">
+                <img ng-if="company.avatar" src="{{ app.baseUrl}}{{ company.avatar}}" alt="{{ company.name}} logo" class="thumb-sm">
+                <img ng-if="!company.avatar" src="{{ app.baseUrl}}img/mit-default-company-avatar.svg" alt="{{ company.name}} logo" class="thumb-sm">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-mit">
+            <ul class="nav navbar-nav" id="scroll">
+                <li class="active" data-link="#details">
+                    <a rel="nofollow" class="text-uppercase font-roboto gray text-normal" ng-click="gotoSection('details')">{{ company.name}}</a>
+                </li>
+                <li ng-if="company.jobs.length > 0" class="" data-link="#jobs">
+                    <a rel="nofollow" class="text-uppercase font-roboto gray text-normal" ng-click="gotoSection('jobs')">JOBS</a>
+                </li>
+                <li class="" data-link="#team">
+                    <a rel="nofollow" class="text-uppercase font-roboto gray text-normal" ng-click="gotoSection('team')">TEAM</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li ng-if="user.username && user.username && user.companyPage.administrator.company != company.username && company.jobs.length <= 0">
+                    <a href="">No job posted yet!</a>
+                </li>
+
+                <li class="padder-t-sm padder-b-sm" ng-if="!isJobView">
+                    <button class="btn btn-blue r-3x font-roboto bg-blue" ng-click="shareJobs()">Share</button>
+                </li>
+
+                <li ng-if="isJobView">
+                    <a class="m-l-md" ng-click="isJobView ? shareJob() : shareJobs(jobDetails)">
+                        <span class="font-roboto text-blue-lt hover-text-blue-lt hover-underline text-normal">Share</span>
+                    </a>
+                </li>
+
+
+                <!--<li ng-if="!user.username">
+                    <a class="m-l-md" ng-click="shareJob();">
+                        <span class="font-roboto blue text-normal">Share</span>
+                    </a>
+                </li>
+
+                <li ng-if="user.username && user.companyPage.employee.company != company.username">
+                    <a class="m-l-md" ng-click="isJobView ? shareJob() : shareJobs(jobDetails)">
+                        <span class="font-roboto blue text-normal">Share</span>
+                    </a>
+                </li>
+
+                <li class="padder-t-sm padder-b-sm" ng-if="user.username && user.companyPage.employee.company == company.username">
+                    <button class="btn btn-blue r-3x font-roboto bg-blue">Share</button>
+                </li>-->
+
+
+                <li ng-if="!user.username && isJobView">
+                    <a class="home btn-signup-container" ng-click="showSignupModal()">
+                        <button class="btn btn-blue r-3x font-roboto bg-blue">Apply Now</button>
+                    </a>
+                </li>
+                <li ng-if="user.username && user.companyPage.employee.company != company.username && company.jobs.length > 0 && isJobView && !jobDetails.isApplied">
+                    <a href="{{jobDetails.jobOfferUrl}}" target="_blank" class="home btn-signup-container" ng-disabled="loadingApply" ng-click="updateApply(jobDetails)">
+                        <!--<span ng-show="!loadingApply">Apply Now</span>
+                        <span ng-show="loadingApply">Applying..<i class="fa fa-spin fa-spinner"></i></span>-->
+                        <button class="btn btn-blue r-3x font-roboto bg-blue" ng-show="!loadingApply">Apply Now</button>
+                        <button class="btn btn-blue r-3x font-roboto bg-blue" ng-show="loadingApply">Applying..<i class="fa fa-spin fa-spinner"></i></button>
+                    </a>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+
+    </div><!-- /.container-fluid -->
+    <div class="clear clearfix"></div>
+</nav>
+<script>
+    $(document).on("scroll", onScroll);
+    function onScroll(event) {
+        var scrollPos = $(document).scrollTop();
+        $('#scroll li').each(function () {
+            var currLink = $(this);
+            var refElement = $(currLink.attr("data-link"));
+            if (refElement) {
+                if (refElement.position().top - 60 <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
+                    $('#scroll ul li').removeClass("active");
+                    currLink.addClass("active");
+                } else {
+                    currLink.removeClass("active");
+                }
+            }
+        });
+    }
+</script>

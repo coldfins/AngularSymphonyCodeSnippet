@@ -1,0 +1,88 @@
+<div class="form-group form-horizontal">
+    <div class="col-xs-12 col-sm-4 text-17 padder-t-sm text-black-dk">
+        *What are your areas of expertise?
+        <div class="text-sm text-primary" ng-show="formSubmited && (!user.services[selectedIndex].subServices || user.services[selectedIndex].subServices.length <= 0)">Required</div>
+    </div>
+    <div class="col-sm-8 m-t-sm">
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="androidDevelopment" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Android Development"/>
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Android Development</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="backendDevelopment" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Backend Development" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Backend Development</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="frontendDevelopment" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Frontend Development" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Frontend Development</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="fullStackDevelopment" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Full-Stack Development" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Full-Stack Development</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="gameDevelopment" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Game Development" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Game Development</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="mobileWebDevelopment" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Mobile Web Development" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Mobile Web Development</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="webDevelopment" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Web Development" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Web Development</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="iOSDevelopment" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="iOS Development" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">iOS Development</div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="QATesting" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="QA Testing" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">QA Testing</div>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <label class="i-checks i-checks-lblue">
+                    <input name="other" type="checkbox" checklist-model="user.services[selectedIndex].subServices" value="Other" />
+                    <i></i>
+                    <div class="inline text-15 m-l-xs text-black-dk">Other</div>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

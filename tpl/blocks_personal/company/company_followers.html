@@ -1,0 +1,33 @@
+<div class="w-full b-a r-2x m-t-lg bg-white-only" id="followers">
+    <div class="col-xs-12 padder-v-md">
+        <div class="pull-left text-xl text-black-dker padder font-normal text-gray">Followers</div>
+        <div class="clear clearfix"></div>
+    </div>
+    <div class="col-xs-12 padder-v">
+        <div class="col-sm-12 m-b-lg" ng-repeat="follower in publicCompany.followers.slice(0, 5)| orderBy:'-date'">
+            <span class="pull-left thumb-md avatar m-r b-a">
+                <img ng-show="follower.avatar" src="{{ app.baseUrl}}{{ follower.avatar}}" alt="{{ follower.name}} {{ follower.lastname}}" class="">
+                <img ng-hide="follower.avatar" src="{{ app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" alt="{{ follower.name}} {{ follower.lastname}}" class="">
+            </span>
+            <div class="clear" ng-style="windowWidth <= 420 ? {'width': 'auto'} : {'width': '75%'}">
+                <a class="font-bold text-lg inline-block" ui-sref="app.page.public({username: follower.username})">{{ follower.name}} {{ follower.lastname}}</a>
+                <div class="miniresume-container">
+                    <span class="" ng-if="follower.jobTitle && follower.city">{{ follower.jobTitle}}, {{ follower.city}}</span>
+                    <span class="" ng-if="follower.jobTitle && !follower.city">{{ follower.jobTitle}}</span>
+                    <span class="text-gray" ng-if="follower.miniResume"> • {{ follower.miniResume}}</span>
+                </div>
+            </div>
+            <div class="connection-action pull-right top-0 right-15" ng-class="windowWidth > 480 ? 'pos-abt' : ''">
+                <button class="btn btn-default btn-disabled-default" ng-if="follower.isRequested">Sent</button>
+                <button class="btn btn-blue-lt" ng-if="!follower.isConnected && !follower.isRequested && follower.username != user.username" ng-click="connect(follower);">Connect</button>
+                <a ui-sref="app.mail.compose({username : follower.username })" class="btn" ng-class="{'btn-blue-lt':mouseOver, 'btn-blue-lt-bordered':!mouseOver}" ng-mouseover="mouseOver = true" ng-mouseleave="mouseOver = false" ng-if="follower.isConnected && user.username != follower.username">Message</a>
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="clear clearfix"></div>
+        <div class="text-center" ng-if="publicCompany.followers.length > 5">
+            <span class="text-center text-md font-bold m-lg hover-pointer text-blue-lt hover-text-blue-lt hover-underline inline" ng-click="manageFollowers()">See all {{ publicCompany.followers.length || 0 }} followers</span>
+        </div>
+    </div>
+    <div class="clear clearfix"></div>
+</div>

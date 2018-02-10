@@ -1,0 +1,57 @@
+<div ng-controller="TooltipDemoCtrl" class="panel panel-default m-t">
+    <div class="panel-heading">
+        <span class="pull-right badge badge-bg">{{company.administrators.length|| 0}}</span>
+        Administrators
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div ng-repeat="(key, admin) in company.administrators" class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="clearfix">
+                            <a ui-sref="app.page.public({username: admin.username})" class="pull-left thumb-md avatar b-3x m-r">
+                                <img ng-show="admin.avatar" src="{{app.baseUrl}}{{admin.avatar}}" class="img-circle">
+                                <img ng-hide="admin.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                            </a>
+                            <div class="clear" ng-controller="DeleteAdminModalCtrl">
+                                <i class="icon-close text-dark text-lg bg-white delete-badge" ng-click="open('sm', admin.username)" tooltip="Delete"></i>
+                                <a ui-sref="app.page.public({username: admin.username})">
+                                    <div class="text-md font-bold m-t-xs m-b-xs text-ellipsis">{{ admin.name | capitalize }} {{ admin.lastname | capitalize }}</div>
+                                </a>
+                                <small class="m-b text-ellipsis"><a ui-sref="app.page.public({username: admin.username})">{{ admin.jobTitle | capitalize }}</a></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group no-radius alt">
+                        <a ui-sref="app.page.public({username: admin.username})" class="list-group-item">
+                            <i class="fa fa-eye fa-fw"></i> Visit the profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <div class="input-group">
+                        <input type="text" 
+                               ng-model="company.newAdmin" 
+                               typeahead-on-select="selectAdmin($item.username)"  
+                               uib-typeahead="fuser.username for fuser in company.employees | filter:$viewValue | limitTo:15" 
+                               class="form-control" 
+                               placeholder="Type First name and Last name…" 
+                               typeahead-template-url="tpl/blocks_general/mail-user-autocomplete.html?v={{app.latestUpdate}}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="addAdmin($item.username)" type="button">
+                                <span ng-hide="loadingAdmin">Add as admin</span>
+                                <span ng-show="loadingAdmin"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

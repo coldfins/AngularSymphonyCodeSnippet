@@ -1,0 +1,9 @@
+<li class="clearfix padder-sm padder-t-sm padder-b-sm" style="cursor: pointer;">
+    <span class="pull-left thumb-xs b-3x m-r">
+        <img ng-show="match.model.avatar" src="{{$parent.$parent.$parent.$parent.app.baseUrl}}{{match.model.avatar}}">
+        <img ng-hide="match.model.avatar" src="{{$parent.$parent.$parent.$parent.app.baseUrl}}/img/mit-default-company-avatar.svg?v={{app.latestUpdate}}">
+    </span>
+    <span>
+        <div class="text-md text-dark text-ellipsis m-t-xs" ng-bind-html="match.model.name | uibTypeaheadHighlight:query"></div>
+    </span>
+</li>

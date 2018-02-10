@@ -1,0 +1,25 @@
+<meta name="prerender-status-code" content="404">
+<div class="bg-primary bg-auto w-full" ng-init="app.settings.container = false; app.settings.headerFixed = false;">
+    <div class="container w-auto-xs">
+        <div class="text-center m-b-3xl m-t-3xl">
+            <img src="{{app.baseUrl}}/img/mit-logo-404.svg" class="thumb-lg opacity-3">
+            <h1 class="text-xl">Sorry, the page you were looking for doesn’t exist.</h1>
+        </div>
+    </div>
+    <div class="container w-xxl w-auto-xs">
+        <div class="list-group bg-primary auto m-b-sm m-b-lg">
+            <a ui-sref="index" class="list-group-item">
+                <i class="fa fa-chevron-right text-muted"></i>
+                <i class="fa fa-fw fa-mail-forward m-r-xs"></i> Go back to mobintouch.com
+            </a>
+            <a ui-sref="access.signin" class="list-group-item">
+                <i class="fa fa-chevron-right text-muted"></i>
+                <i class="fa fa-fw fa-sign-in m-r-xs"></i> Sign in
+            </a>
+            <a ui-sref="access.signup" class="list-group-item">
+                <i class="fa fa-chevron-right text-muted"></i>
+                <i class="fa fa-fw fa-unlock-alt m-r-xs"></i> Sign up
+            </a>
+        </div>
+    </div>
+</div>

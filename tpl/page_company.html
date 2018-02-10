@@ -1,0 +1,57 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = false;">
+    <div class="col" ng-controller="MapCtrl">
+
+        <div id="map_canvas" ng-if="!publiccompany.cover" ui-map="myMap" ui-options="mapOptions" style="height: 500px;width: 100%;top: 0;left: 0;z-index: -1;overflow: hidden;transform: translateZ(0px) translateZ(0px);background-color: #b4d2fd;position: absolute;"></div>
+
+        <!-- COMPANY PROFILE CARD -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div data-ng-include=" 'tpl/blocks_public/company_card.html?v=' + app.latestUpdate" ></div>
+                </div>
+            </div>
+        </div>
+        <!--/ COMPANY PROFILE CARD -->
+
+        <div  style="background:#f8f8f8;">
+            <div class="container" resize>
+                <div class="row m-t-md">
+                    <!-- COMPANY DETAILS -->
+                    <div class="col-xs-12 col-sm-2">
+                        <div data-ng-include=" 'tpl/blocks_public/company_details.html?v=' + app.latestUpdate"></div>
+                    </div><!--/ COMPANY DETAILS -->
+
+                    <div class="col-xs-12  col-sm-4" data-ng-if="windowWidth <= 767">
+                        <!-- COMPANY PROFILE -->
+                        <div data-ng-include=" 'tpl/blocks_public/company_profile.html?v=' + app.latestUpdate"></div><!-- / COMPANY PROFILE -->
+
+                        <!-- COMPANY DESCRIPTION -->
+                        <div data-ng-include=" 'tpl/blocks_public/company_description.html?v=' + app.latestUpdate"></div><!--/ COMPANY DESCRIPTION -->
+
+                        <!-- COMPANY TEAM -->
+                        <div data-ng-include=" 'tpl/blocks_public/company_team.html?v=' + app.latestUpdate"></div><!--/ COMPANY TEAM -->
+                    </div>
+
+                    <!-- COMPANY NEWS -->
+                    <div class="col-xs-12  col-sm-6">
+                        <div data-ng-include=" 'tpl/blocks_personal/company_news_post.html?v=' + app.latestUpdate"></div>
+                    </div><!--/ COMPANY NEWS -->
+
+                    <div class="col-xs-12  col-sm-4" data-ng-if="windowWidth > 767">
+                        <!-- COMPANY PROFILE -->
+                        <div data-ng-include=" 'tpl/blocks_public/company_profile.html?v=' + app.latestUpdate"></div><!-- / COMPANY PROFILE -->
+
+                        <!-- COMPANY DESCRIPTION -->
+                        <div data-ng-include=" 'tpl/blocks_public/company_description.html?v=' + app.latestUpdate"></div><!--/ COMPANY DESCRIPTION -->
+
+                        <!-- COMPANY TEAM -->
+                        <div data-ng-include=" 'tpl/blocks_public/company_team.html?v=' + app.latestUpdate"></div><!--/ COMPANY TEAM -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

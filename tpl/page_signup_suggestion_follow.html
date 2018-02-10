@@ -1,0 +1,66 @@
+<div class="bg-light lter wrapper-md hidden-print m-b">
+  <h1 class="m-n font-thin h3">Suggestions</h1>
+</div>
+<div class="wrapper-md" data-ng-controller="SuggestionFollowController">
+    <div class="col-lg-6">
+        <div class="panel panel-default m-b-none">
+            <div class="panel-heading">
+                <div class="clearfix">
+                    
+                    <a ui-sref="app.page.public({username: result.username})" class="pull-left thumb-md avatar b-3x m-r">
+                        <img ng-show="result.avatar" src="{{app.baseUrl}}{{result.avatar}}" class="img-circle">
+                        <img ng-hide="result.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                    </a>
+                    <div class="clear">
+                        <a ui-sref="app.page.public({username: result.username})">
+                            <div class="h3 m-t-xs m-b-xs">
+                                {{ result.name | capitalize }} {{ result.lastname | capitalize }}
+
+                            </div>
+                        </a>
+                        <small class="text-muted m-b"><a ui-sref="app.page.public({username: result.username})">{{ result.company  | capitalize }} - {{ result.jobTitle | capitalize }}</a></small>
+                    </div>
+                </div>
+            </div>
+            <div class="list-group no-radius alt">
+                <a ui-sref="app.page.public({username: result.username})" class="list-group-item">
+                    <span class="badge bg-info">88% Response</span>
+                        <i class="fa fa-eye fa-fw text-muted"></i>
+                        Visit the profile
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="panel panel-default m-b-none">
+            <div class="panel-heading">
+                <div class="clearfix">
+                    <a ui-sref="app.page.public({username: result.username})" class="pull-left thumb-md avatar b-3x m-r">
+                        <img ng-show="result.avatar" src="{{app.baseUrl}}{{result.avatar}}" class="img-circle">
+                        <img ng-hide="result.avatar" src="{{app.baseUrl}}/img/mit-default-avatar.svg?v={{ app.latestUpdate }}" class="img-circle">
+                    </a>
+                    <div class="clear">
+                        <a ui-sref="app.page.public({username: result.username})">
+                            <div class="h3 m-t-xs m-b-xs">
+                                {{ result.name | capitalize }} {{ result.lastname | capitalize }}
+
+                            </div>
+                        </a>
+                        <small class="text-muted m-b"><a ui-sref="app.page.public({username: result.username})">{{ result.company  | capitalize }} - {{ result.jobTitle | capitalize }}</a></small>
+                    </div>
+                </div>
+            </div>
+            <div class="list-group no-radius alt">
+                <a ui-sref="app.page.public({username: result.username})" class="list-group-item">
+                    <span class="badge bg-info">88% Response</span>
+                        <i class="fa fa-eye fa-fw text-muted"></i>
+                        Visit the profile
+                </a>
+            </div>
+        </div>
+        <button class="btn btn-default" type="submit" data-ng-click="next()">
+            <span class="text">Next</span>
+        </button>
+    </div>
+</div>
