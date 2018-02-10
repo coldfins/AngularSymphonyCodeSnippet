@@ -1,0 +1,71 @@
+api_add_question:
+    path:     /qa/add-question
+    defaults: { _controller: APIBundle:Qa:addQuestion }
+    requirements:
+      _method:  POST
+api_remove_question:
+    path:     /qa/remove-question
+    defaults: { _controller: APIBundle:Qa:removeQuestion }
+    requirements:
+      _method:  POST
+api_update_question:
+    path:     /qa/update-question
+    defaults: { _controller: APIBundle:Qa:updateQuestion }
+    requirements:
+      _method:  POST
+api_questions:
+    path:     /public/qa/questions
+    defaults: { _controller: APIBundle:Qa:getQuestions }
+    requirements:
+      _method:  POST
+api_questions_stats:
+    path:     /public/qa/get-stats
+    defaults: { _controller: APIBundle:Qa:getQuestionsStats }
+    requirements:
+      _method:  GET      
+api_get_question_by_slug:
+    path:     /public/question/slug/{slug}
+    defaults: { _controller: APIBundle:Qa:getQuestionBySlug }
+    requirements:
+      _method:  GET
+api_get_questions_by_tag:
+    path:     /public/question/tag/{limit}/{offset}/{tag}
+    defaults: { _controller: APIBundle:Qa:getQuestionByTag }
+    requirements:
+      _method:  GET
+api_add_save_question:
+    path:     /qa/save-question
+    defaults: { _controller: APIBundle:Qa:addSaveQuestion }
+    requirements:
+      _method:  POST
+api_remove_saved_question:
+    path:     /qa/remove-saved-question
+    defaults: { _controller: APIBundle:Qa:removeSavedQuestion }
+    requirements:
+      _method:  POST
+api_post_question_answer:
+    path:     /qa/post-answer
+    defaults: { _controller: APIBundle:Qa:postAnswer }
+    requirements:
+      _method:  POST
+api_update_question_answer:
+    path:     /qa/update-answer
+    defaults: { _controller: APIBundle:Qa:updateAnswer }
+    requirements:
+      _method:  POST
+api_remove_question_answer:
+    path:     /qa/remove-answer
+    defaults: { _controller: APIBundle:Qa:removeAnswer }
+    requirements:
+      _method:  POST      
+api_vote_answer:
+    path:     /qa/vote-answer
+    defaults: { _controller: APIBundle:Qa:voteForAnswer }
+    requirements:
+      _method:  POST
+#Autocompletes
+api_autocomplete_markets:
+    path:     /public/autocomplete/markets
+    defaults: { _controller: APIBundle:Company:autocompleteMarkets }
+    requirements:
+      _method:  POST

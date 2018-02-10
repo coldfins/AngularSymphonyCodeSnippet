@@ -1,0 +1,27 @@
+imports:
+    - { resource: config_dev.yml }
+
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+    profiler:
+        collect: false
+
+swiftmailer:
+    disable_delivery: false
+
+parameters:
+# General
+    dbconnect: mongodb://mongo1.mediaswapp.com:27017,mongo2.mediaswapp.com:27017
+    replicaSet: mediaswapp
+
+# BackOffice
+    database_name_backoffice: test_mobntouch_backoffice
+    database_user_backoffice: mediaswapp
+    database_password_backoffice: 8hFmsrK9W7A9PBTwYiY5
+
+# Mobntouch
+    database_name_mobntouch: test_mobntouch
+    database_user_mobntouch: mediaswapp
+    database_password_mobntouch: 8hFmsrK9W7A9PBTwYiY5

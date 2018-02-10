@@ -1,0 +1,27 @@
+{% include 'APIBundle:Mail:header_template.html.twig' %}
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top" class="container" align="center">
+            <div class="content" style="padding: 0px; overflow: hidden; max-width: 600px; margin: 0px auto; display: block;" >
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="border-top: 1px solid rgb(208, 208, 208); border-bottom: 1px solid rgb(208, 208, 208);" >
+                    <tr>
+                        <td valign="top">
+                            <h2>Hello {{ user.name }},</h2>
+                            <p>To be discovered by other members, we advise you to complete the (Buying/Selling traffic) sections of your profile.</p>
+                            <p>By adding this information you will have 10x more visibility in the network.</p>
+                            <p>Boost your visibility and attract new opportunities!</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" align="center">
+                            <a href="{{ link }}" class="button" style="font-family: Open Sans,sans-serif;padding: 10px 16px 8px;color: #FFFFFF;border-radius: 50px;text-decoration: none;font-size: 16px;display: block;margin: 20px 0px;width: 160px;background: rgba(226, 20, 23, 0.8);font-weight: 100;">Complete my profile</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+{% include 'APIBundle:Mail:footer_template.html.twig' %}

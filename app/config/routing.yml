@@ -1,0 +1,52 @@
+api:
+    type: rest
+    resource: "@APIBundle/Resources/config/routing.yml"
+    prefix:   /api
+#    schemes:  [https]
+    requirements:
+#      _method:  POST
+      _format: JSON
+
+company_api:
+    type: rest
+    resource: "@APIBundle/Resources/config/company_routing.yml"
+    prefix:   /api
+    requirements:
+      _format: JSON
+
+job_api:
+    type: rest
+    resource: "@APIBundle/Resources/config/job_routing.yml"
+    prefix:   /api
+    requirements:
+      _format: JSON
+      
+qa_api:
+    type: rest
+    resource: "@APIBundle/Resources/config/qa_routing.yml"
+    prefix:   /api
+    requirements:
+      _format: JSON      
+
+back_office:
+    resource: "@BackOfficeBundle/Resources/config/routing.yml"
+    prefix:   /adm
+
+
+# app/config/routing.yml
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
+
+## FOSUSERBUNDLE
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting

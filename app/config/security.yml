@@ -1,0 +1,112 @@
+security:
+    encoders:
+        #Symfony\Component\Security\Core\User\User: plaintext
+        #FOS\UserBundle\Model\UserInterface: sha512
+        FOS\UserBundle\Model\UserInterface: sha512
+        #Mobntouch\DataBaseBundle\Document\User: plaintext
+
+    providers:
+        #in_memory:
+        #    memory: ~
+        #webservice:
+        #    id: webservice_user_provider
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        doc:
+            pattern:  ^/api/doc
+            stateless: true
+            anonymous: true
+        publicoffer:
+            pattern:  ^/api/offers/publicoffers
+            stateless: true
+            anonymous: true
+        publicofferview:
+            pattern:  ^/api/offer/publicview
+            stateless: true
+            anonymous: true
+        register:
+            pattern:  ^/api/newregister
+            stateless: true
+            anonymous: true
+        socialregister:
+            pattern:  ^/api/socialregister
+            stateless: true
+            anonymous: true
+        resetting:
+            pattern:  ^/resetting
+            stateless: true
+            anonymous: true
+
+        validation:
+            pattern:  ^/api/email
+            stateless: true
+            anonymous: true
+
+        public:
+            pattern:  ^/api/public
+            stateless: true
+            anonymous: true
+        percentage:
+            pattern:  ^/api/update/percentage
+            stateless: true
+            anonymous: true
+
+        simpleSearch:
+            pattern:  ^/api/simplesearch
+            stateless: true
+            anonymous: true
+            
+        test:
+            pattern:  ^/test/view
+            stateless: true
+            anonymous: true    
+            
+        login:
+            pattern:  ^/api/authenticate
+            #pattern:  ^/api/login
+            stateless: true
+            anonymous: true
+            form_login:
+                #login_path:               login
+                #check_path:               login_check
+                check_path:               /api/authenticate
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+        socialauthenticate:
+            pattern: ^/api/socialauthenticate
+            stateless: true
+            anonymous: true
+            
+        api:
+            pattern:   ^/
+            stateless: true
+            lexik_jwt: ~
+
+        default:
+            anonymous: ~
+
+
+    access_control:
+        - { path: ^/api/authenticate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/socialauthenticate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/public, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/email, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/offers/publicoffers, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/offer/publicview, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/update/percentage, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/newregister, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/socialregister, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/doc, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/user/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/simplesearch, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/test/view, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }

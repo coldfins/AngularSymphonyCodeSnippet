@@ -1,0 +1,41 @@
+imports:
+    - { resource: config.yml }
+
+#framework:
+#    validation:
+#        cache: apc
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+        console:
+            type:  console
+
+
+parameters:
+# General
+    dbconnect: mongodb://10.10.0.2:27017
+    replicaSet: false
+
+
+# BackOffice
+    database_name_backoffice: prod_mobintouch_backoffice
+    database_user_backoffice: mobintouch
+
+# Mobntouch
+    database_name_mobntouch: prod_mobintouch
+    database_user_mobntouch: mobintouch
+    database_password_mobntouch: dmTaohIDpHUc80kHTZx6

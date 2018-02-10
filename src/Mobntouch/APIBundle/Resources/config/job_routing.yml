@@ -1,0 +1,70 @@
+api_request_recuit_access:
+    path: /recruit/request-access
+    defaults: { _controller: APIBundle:Job:requestRecruitAccess }
+    requirments:
+        _method: POST
+api_updatet_recruit_access:
+    path: /recruit/update-request-access
+    defaults: { _controller: APIBundle:Job:updateRecruitAccess }
+    requirments:
+        _method: POST
+api_post_create_job:
+    path: /recruit/post-job
+    defaults: { _controller: APIBundle:Job:postJob }
+    requirments:
+        _method: POST
+api_post_edit_job:
+    path: /recruit/edit-job
+    defaults: { _controller: APIBundle:Job:editJob }
+    requirments:
+        _method: POST
+api_post_get_job_by_slug:
+    path: /recruit/get-job-by-slug/{slug}
+    defaults: { _controller: APIBundle:Job:getJobBySlug }
+    requirments:
+        _method: GET
+api_update_job_status:
+    path: /recruit/update-job-status
+    defaults: { _controller: APIBundle:Job:updateJobStatus }
+    requirments:
+        _method: PUT
+api_get_recruiters_jobs:
+    path:   /recruit/jobs
+    defaults: { _controller: APIBundle:Job:getRecruiterJobs }
+    requirements:
+        _method: POST
+api_get_recruiters_job_applicants:
+    path:   /recruit/job/applicants
+    defaults: { _controller: APIBundle:Job:getRecruiterJobApplicants }
+    requirements:
+        _method: POST
+api_get_jobs:
+    path:   /jobs
+    defaults: { _controller: APIBundle:Job:getJobs }
+    requirements:
+        _method: POST
+api_update_job_filter:
+    path:   /save-job-filter
+    defaults: { _controller: APIBundle:Job:updateJobFilter }
+    requirements:
+        _method: POST
+api_skip_job:
+    path:   /update-skipped-job
+    defaults: { _controller: APIBundle:Job:updateSkippedJob }
+    requirements:
+        _method: PUT
+api_update_starred_job:
+    path:   /update-starred-job
+    defaults: { _controller: APIBundle:Job:updateStarredJob }
+    requirements:
+        _method: PUT  
+api_update_applied_job:
+    path:   /update-applied-job
+    defaults: { _controller: APIBundle:Job:updateAppliedJob }
+    requirements:
+        _method: PUT
+api_random_profile:
+    path:   /public/random-user-profiles
+    defaults: { _controller: APIBundle:Job:randomProfiles }
+    requirements:
+        _method: GET        

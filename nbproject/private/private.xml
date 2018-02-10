@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Resources/views/Mail/passwordChanged.html.twig</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/DataBaseBundle/Command/WhoVisitedMeCommand.php</file>
+            <file>file:/H:/wamp/www/mobintouch/app/config/parameters.yml</file>
+            <file>file:/H:/wamp/www/mobintouch/app/config/config.yml</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Resources/views/Mail/newadmin.html.twig</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/DataBaseBundle/Document/Update.php</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Resources/views/Mail/emailForgottenPassword.html.twig</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Controller/CompanyController.php</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/DataBaseBundle/Command/CheckDeletedBugCommand.php</file>
+            <file>file:/H:/wamp/www/mobintouch/app/AppCache.php</file>
+            <file>file:/H:/wamp/www/mobintouch/app/config/config_dev.yml</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Resources/config/services.yml</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Resources/config/routing.yml</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Controller/APIController.php</file>
+            <file>file:/H:/wamp/www/mobintouch/app/console</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/DataBaseBundle/Command/ChangeKeyVisitsArrayCommand.php</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/DataBaseBundle/Command/SitemapCommand.php</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Controller/ResettingController.php</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Resources/config/company_routing.yml</file>
+            <file>file:/H:/wamp/www/mobintouch/app/autoload.php</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Controller/JobController.php</file>
+            <file>file:/H:/wamp/www/mobintouch/app/config/config_prod.yml</file>
+            <file>file:/H:/wamp/www/mobintouch/app/config/config_adhoc.yml</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Resources/config/qa_routing.yml</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Resources/config/job_routing.yml</file>
+            <file>file:/H:/wamp/www/mobintouch/app/config/security.yml</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/DataBaseBundle/Document/User.php</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Classes/ManageUser.php</file>
+            <file>file:/H:/wamp/www/mobintouch/app/config/config_test.yml</file>
+            <file>file:/H:/wamp/www/mobintouch/app/AppKernel.php</file>
+            <file>file:/H:/wamp/www/mobintouch/app/SymfonyRequirements.php</file>
+            <file>file:/H:/wamp/www/mobintouch/app/phpunit.xml.dist</file>
+            <file>file:/H:/wamp/www/mobintouch/src/Mobntouch/APIBundle/Classes/ManageAvatarAndCover.php</file>
+            <file>file:/H:/wamp/www/mobintouch/app/bootstrap.php.cache</file>
+        </group>
+    </open-files>
+</project-private>

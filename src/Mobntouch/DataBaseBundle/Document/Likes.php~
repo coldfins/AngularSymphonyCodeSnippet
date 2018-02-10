@@ -1,0 +1,46 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: josepmarti
+ * Date: 27/10/14
+ * Time: 13:02
+ */
+
+namespace Mobntouch\DataBaseBundle\Document;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
+
+/**
+ * @MongoDB\Document
+ */
+class Likes {
+
+    /**
+     * @MongoDB\Id(strategy="auto")
+     */
+    protected $id;
+
+    /**
+     * @MongoDB\String
+     */
+    public $date;
+
+    /**
+     * @MongoDB\String
+     */
+    public $userID;
+
+    /**
+     * @MongoDB\String
+     */
+    public $updateID;
+
+    /**
+     * @MongoDB\Boolean
+     */
+    public $like;
+
+
+}

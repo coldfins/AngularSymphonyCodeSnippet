@@ -1,0 +1,14 @@
+{% extends 'APIBundle:Mail:template.html.twig' %}
+
+{% set title = "Email Validation" %}
+
+
+        {% if status %}
+            {% set description = "CONGRATULATIONS, YOUR EMAIL HAS BEEN VALIDATED!\n" %}
+        {% else %}
+            {% set description = "Oops this link is not valid anymore, check the last mail you received\n" %}
+
+        {% endif %}
+
+
+

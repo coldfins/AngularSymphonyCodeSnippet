@@ -1,0 +1,181 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: "%locale%" }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+        #yui_css:
+        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+
+# Doctrine Configuration
+#doctrine:
+#    dbal:
+#        default_connection: default
+#        connections:
+#            default:
+#                driver:   "%database_driver%"
+#                host:     "%database_host%"
+#                port:     "%database_port%"
+#                dbname:   "%database_name_mobntouch%"
+#                user:     "%database_user_mobntouch%"
+#                password: "%database_password_mobntouch%"
+#                charset:  UTF8
+#            backoffice:
+#                driver:   "%database_driver%"
+#                host:     "%database_host%"
+#                port:     "%database_port%"
+#                dbname:   "%database_name_backoffice%"
+#                user:     "%database_user_backoffice%"
+#               password: "%database_password_backoffice%"
+#                charset:  UTF8
+#    orm:
+#        auto_generate_proxy_classes: "%kernel.debug%"
+#        entity_managers:
+#            default:
+#                connection: default
+#                mappings:
+#                    DataBaseBundle:  ~
+#            backoffice:
+#                connection: backoffice
+#                mappings:
+#                    BackOfficeBundle:  ~
+
+#MongoDB Doctrine Configuration
+doctrine_mongodb:
+    connections:
+        default:
+            server: %dbconnect%
+            options:
+                    replicaSet: %replicaSet%
+    default_database: %database_name_mobntouch%
+    document_managers:
+        default:
+            connection: default
+            retry_query: 3
+            retry_connect: 3
+            database:             "%database_name_mobntouch%"
+            mappings:
+                DataBaseBundle:  ~
+        backoffice:
+            connection: default
+            retry_query: 3
+            retry_connect: 3
+            database:             "%database_name_backoffice%"
+            mappings:
+                BackOfficeBundle:  ~
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport:  smtp
+    encryption: tls
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+    
+services:
+    manage_user_service:
+        class: Mobntouch\APIBundle\Classes\ManageUser
+        arguments: ["@service_container"]
+    manage_company_service:
+        class: Mobntouch\APIBundle\Classes\ManageCompany
+        arguments: ["@service_container"]
+    
+    
+
+sensio_framework_extra:
+    view:    { annotations: false }
+    router:  { annotations: true }
+
+fos_rest:
+      format_listener:
+        rules:
+            # Prototype array
+            -
+                prefer_extension:     false
+      view:
+        view_response_listener:  false
+      routing_loader:
+              default_format: json
+              include_format: false
+
+# FOSUserBundle Configuration
+fos_user:
+    db_driver: mongodb #orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Mobntouch\DataBaseBundle\Document\User
+
+# app/config/config.yml
+nelmio_api_doc: ~
+
+nelmio_cors:
+    defaults:
+        allow_credentials: false
+        allow_origin: []
+        allow_headers: []
+        allow_methods: []
+        expose_headers: []
+        max_age: 0
+        hosts: []
+    paths:
+        '^/api/':
+            allow_origin: ['*']
+            allow_headers: ['Content-Type', 'Authorization']
+            allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
+            max_age: 315569260
+        '^/resetting/':
+            allow_origin: ['*']
+            allow_headers: ['Content-Type', 'Authorization']
+            allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
+            max_age: 315569260
+        '^/':
+            allow_origin: ['*']
+            allow_headers: ['Content-Type', 'Authorization']
+            allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
+            max_age: 315569260
+            #hosts: ['^api\.']
+
+lexik_jwt_authentication:
+    private_key_path: %kernel.root_dir%/var/jwt/private.pem   # ssh private key path
+    public_key_path:  %kernel.root_dir%/var/jwt/public.pem    # ssh public key path
+    pass_phrase:      'testing'                               # ssh key pass phrase
+    token_ttl:        315569260                                       # token ttl - defaults to 86400
+    # 315569260 seconds = 10 years
+
+

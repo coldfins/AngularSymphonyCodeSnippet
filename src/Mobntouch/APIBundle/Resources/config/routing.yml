@@ -1,0 +1,1011 @@
+### LOGIN ###
+login_check:
+    path: /authenticate
+    
+api_get_current_user:
+    path:     /user
+    defaults: { _controller: APIBundle:API:getCurrentUser }
+    requirements:
+      _method:  GET
+#api_forgotten_password:
+#    path:     /user
+#    defaults: { _controller: APIBundle:API:forgottenPassword }
+#    requirements:
+#      _method:  POST    
+api_update_player_id:
+    path: /updateplayerid
+    defaults: { _controller:APIBundle:API:updatePlayerId }
+    requirements:
+        _method: PUT    
+#login:
+#    path:     /login
+#    defaults: { _controller: APIBundle:API:login }
+#    requirements:
+#      _method:  POST
+
+#api_logout:
+#    path:     /logout
+#    defaults: { _controller: APIBundle:API:logout }
+#    requirements:
+#      _method:  POST
+
+### LOGIN  + REGISTER ###
+api_social_authentication_user:
+    path:     /socialauthenticate
+    defaults: { _controller: APIBundle:API:socialauthenticate }
+    requirements:
+      _method:  POST
+### REGISTER ###
+api_social_register:
+    path:     /socialregister
+    defaults: { _controller: APIBundle:API:socialregister }
+    requirements:
+      _method:  POST  
+api_register:
+    path:     /newregister
+    defaults: { _controller: APIBundle:API:register }
+    requirements:
+      _method:  POST    
+api_register_step_2:
+    path:     /register/step/2/personalinfos
+    defaults: { _controller: APIBundle:API:registerStep2 }
+    requirements:
+      _method:  PUT
+#Register step 3 is profile photo update      
+api_register_step_5:
+    path:     /register/step/5/employmentinfos
+    defaults: { _controller: APIBundle:API:registerStep5 }
+    requirements:
+      _method:  PUT      
+      
+api_register_step_6:
+    path:     /register/step/6/interestedin
+    defaults: { _controller: APIBundle:API:registerStep6 }
+    requirements:
+      _method:  PUT
+
+api_get_suggest_keywords:
+    path: /keywordssuggestions
+    defaults: { _controller: APIBundle:API:getKeywordsSuggestions }
+    requirements:
+        _method: GET
+api_get_autocomplete_keywords:
+    path: /autocompletekeywords/{keyword}
+    defaults: { _controller: APIBundle:API:getKeywordAutocomplete }
+    requirements:
+        _method: GET
+api_register_step_7:
+    path:     /register/step/7/addkeywords
+    defaults: { _controller: APIBundle:API:registerStep7 }
+    requirements:
+      _method:  PUT
+api_import_linkedin_contacts:
+    path:   /importcontacts/linkedin
+    defaults: { _controller: APIBundle:API:importLinkedinCSVContacts }
+    requirements:
+        _method:  POST
+api_import_contacts_file:
+    path:   /importcontacts/file
+    defaults: { _controller: APIBundle:API:importContactsFromFile }
+    requirements:
+        _method:  POST
+api_contacts_list:
+    path:   /getcontactlist/{service}
+    defaults: { _controller: APIBundle:API:getContactList, service:csv_provider}
+    requirements:
+        _method:  GET
+api_update_contact:
+    path:   /updateinvitedcontacts
+    defaults: { _controller: APIBundle:API:updateInvitedContacts }
+    requirements:
+        _method:  POST
+api_import_contacts:
+    path:   /importcontacts
+    defaults: { _controller: APIBundle:API:importContacts }
+    requirements:
+        _method:  POST
+api_manually_import_contacts:
+    path:   /importmanuallyemailscontacts
+    defaults: { _controller: APIBundle:API:importManuallyEmailContacts }
+    requirements:
+        _method:  POST        
+#api_register_step_1:
+#    path:     /register/step/1
+#    defaults: { _controller: APIBundle:API:registerStep1 }
+#    requirements:
+#      _method:  PUT
+#api_register_invite_contacts:
+#    path:     /register/invite/contacts
+#    defaults: { _controller: APIBundle:API:registerInviteContacts}
+#    requirements:
+#      _method:  PUT
+api_register_step_10:
+    path:     /register/step/10/emailvalidation
+    defaults: { _controller: APIBundle:API:registerStep10 }
+    requirements:
+      _method:  PUT
+api_register_step_11:
+    path:     /public/mail/validation
+    defaults: { _controller: APIBundle:API:registerStep11 }
+    requirements:
+      _method:  PUT      
+### USER ###
+api_get_public_user:
+    path:     /public/user/{username}
+    defaults: { _controller: APIBundle:API:getUser }
+    requirements:
+      _method:  GET
+
+api_get_public_profile:
+    path:     /public/profile/{username}
+    defaults: { _controller: APIBundle:API:getUser }
+    requirements:
+      _method:  GET
+
+api_get_private_user:
+    path:     /private/user/{username}
+    defaults: { _controller: APIBundle:API:getUser }
+    requirements:
+      _method:  GET
+api_get_user_who_visited_me:
+    path:     /who-visisted-me
+    defaults: { _controller: APIBundle:API:whoVistedMe }
+    requirements:
+      _method:  GET  
+api_get_user_last_visited_profiles:
+    path:     /last-visisted-profiles
+    defaults: { _controller: APIBundle:API:lastVisistedProfiles }
+    requirements:
+      _method:  GET       
+### EDIT SETTINGS ###
+api_edit_settings_billing:
+    path:     /edit/settings/billing
+    defaults: { _controller: APIBundle:API:editSettingsBilling }
+    requirements:
+      _method:  PUT
+
+api_edit_settings_personal:
+    path:     /edit/settings/personal
+    defaults: { _controller: APIBundle:API:editSettingsPersonal }
+    requirements:
+      _method:  PUT
+
+api_edit_settings_notifications:
+    path:     /edit/settings/notifications
+    defaults: { _controller: APIBundle:API:editSettingsNotifications }
+    requirements:
+      _method:  PUT
+      
+api_get_settings_notifications:
+    path:     /settings/notifications
+    defaults: { _controller: APIBundle:API:settingsNotifications }
+    requirements:
+      _method:  GET
+
+api_edit_settings_privacy:
+    path:     /edit/settings/privacy
+    defaults: { _controller: APIBundle:API:editSettingsPrivacy }
+    requirements:
+      _method:  PUT
+
+api_edit_settings_password:
+    path:     /edit/settings/password
+    defaults: { _controller: APIBundle:API:editSettingsPassword }
+    requirements:
+      _method:  PUT
+
+### EDIT COMPANY ###
+
+api_edit_company_search:
+    path:     /edit/company/search
+    defaults: { _controller: APIBundle:API:companyNameSearch }
+    requirements:
+      _method:  POST
+
+#api_create_company_available:
+#    path:     /create/company/available
+#    defaults: { _controller: APIBundle:API:checkAvailability }
+#    requirements:
+#      _method:  POST
+
+api_create_new_company:
+    path:     /create/company/page
+    defaults: { _controller: APIBundle:API:createNewCompany }
+    requirements:
+      _method:  POST
+#Moved On Company Controller On 2017-04-13
+#api_get_current_company:
+#    path:     /company
+#    defaults: { _controller: APIBundle:API:getCurrentCompany }
+#    requirements:
+#      _method:  POST
+
+#Moved On Company Controller On 2017-04-20
+#api_get_company:
+#    path:     /public/company/{companyUsername}
+#    defaults: { _controller: APIBundle:API:getCompany }
+#    requirements:
+#      _method:  GET
+
+api_get_admin_company:
+    path:     /company/admin
+    defaults: { _controller: APIBundle:API:getAdminCompany }
+    requirements:
+      _method:  POST
+#Moved on company controller on 2017-04-21
+#api_add_admin_company:
+#    path:     /edit/company/admin/add
+#    defaults: { _controller: APIBundle:API:addAdminCompany }
+#    requirements:
+#      _method:  POST
+      
+api_add_teammate_company:
+    path:     /edit/company/teammate/add
+    defaults: { _controller: APIBundle:API:addTeammateCompany }
+    requirements:
+      _method:  POST      
+
+#Moved on company controller on 2017-04-21
+#api_delete_admin_company:
+#    path:     /edit/company/admin/delete
+#    defaults: { _controller: APIBundle:API:deleteAdminCompany }
+#    requirements:
+#      _method:  POST
+
+#Moved on company routes
+#api_delete_teammate_company:
+#    path:     /edit/company/teammate/delete
+#    defaults: { _controller: APIBundle:API:deleteTeammateCompany }
+#    requirements:
+#      _method:  POST      
+
+api_edit_company_name:
+    path:     /edit/company/name
+    defaults: { _controller: APIBundle:API:editCompanyName }
+    requirements:
+      _method:  POST
+
+api_edit_company_description:
+    path:     /edit/company/description
+    defaults: { _controller: APIBundle:API:editCompanyDescription }
+    requirements:
+      _method:  POST
+
+api_edit_company_avatar:
+    path:     /edit/company/avatar
+    defaults: { _controller: APIBundle:API:editCompanyAvatar }
+    requirements:
+      _method:  POST
+      
+api_remove_company_avatar:
+    path:     /remove/company/avatar
+    defaults: { _controller: APIBundle:API:removeCompanyAvatar }
+    requirements:
+      _method:  POST
+      
+api_edit_company_cover:
+    path:     /edit/company/cover
+    defaults: { _controller: APIBundle:API:editCompanyCover }
+    requirements:
+      _method:  POST
+         
+api_remove_company_cover:
+    path:     /remove/company/cover
+    defaults: { _controller: APIBundle:API:removeCompanyCover }
+    requirements:
+      _method:  POST       
+
+### EDIT PROFILE ###
+api_edit_profile_avatar:
+    path:     /edit/profile/avatar
+    defaults: { _controller: APIBundle:API:editProfileAvatar }
+    requirements:
+      _method:  POST
+      
+api_remove_profile_avatar:
+    path:     /remove/profile/avatar
+    defaults: { _controller: APIBundle:API:removeProfileAvatar }
+    requirements:
+      _method:  POST      
+
+api_edit_profile_cover:
+    path:     /edit/profile/cover
+    defaults: { _controller: APIBundle:API:editProfileCover }
+    requirements:
+      _method:  POST
+
+api_remove_profile_cover:
+    path:     /remove/profile/cover
+    defaults: { _controller: APIBundle:API:removeProfileCover }
+    requirements:
+      _method:  POST   
+      
+api_edit_profile_personal:
+    path:     /edit/profile/personal
+    defaults: { _controller: APIBundle:API:editProfilePersonal }
+    requirements:
+      _method:  PUT
+
+api_edit_profile_personal_details:
+    path:     /edit/profile/personaldetails
+    defaults: { _controller: APIBundle:API:editProfilePersonalDetails }
+    requirements:
+      _method:  PUT
+api_edit_instant_contact:
+    path:     /edit/profile/instantcontactdetails
+    defaults: { _controller: APIBundle:API:editInstantContactDetails }
+    requirements:
+      _method:  PUT      
+api_edit_profile_order:
+    path:   /edit/profile/order
+    defaults: { _controller: APIBundle:API:editProfileOrder }
+    requirements:
+        _method: PUT     
+api_edit_profile_add_service:
+    path:   /edit/profile/add/service
+    defaults: { _controller: APIBundle:API:editProfileAddService }
+    requirements:
+        _method: PUT
+api_edit_profile_edit_service:
+    path:   /edit/profile/edit/service
+    defaults: { _controller: APIBundle:API:editProfileEditService }
+    requirements:
+        _method: PUT
+api_edit_profile_remove_service:
+    path:   /edit/profile/remove/service
+    defaults: { _controller: APIBundle:API:editProfileRemoveService }
+    requirements:
+        _method: PUT
+api_edit_profile_add_service_suggestion:
+    path:   /edit/profile/add/servicesuggestion
+    defaults: { _controller: APIBundle:API:editProfileAddServiceSuggestion }
+    requirements:
+        _method: POST        
+api_edit_profile_add_service_client:
+    path:   /edit/profile/add/serviceclient
+    defaults: { _controller: APIBundle:API:editProfileAddServiceClient }
+    requirements:
+        _method: PUT        
+api_edit_profile_remove_service_client:
+    path:   /edit/profile/remove/serviceclient
+    defaults: { _controller: APIBundle:API:editProfileRemoveServiceClient }
+    requirements:
+        _method: PUT   
+api_edit_profile_add_client_avatar:
+    path: /edit/profile/add/client/avatar
+    defaults: { _controller: APIBundle:API:editProfileAddClientAvatar }
+    requirements:
+        _method: POST  
+api_edit_profile_contact:
+    path:     /edit/profile/contact
+    defaults: { _controller: APIBundle:API:editProfileContact }
+    requirements:
+      _method:  PUT
+api_edit_profile_add_ios_apps:
+    path:     /edit/profile/apps/ios/add
+    defaults: { _controller: APIBundle:API:editProfileAddIOSApps }
+    requirements:
+      _method:  PUT
+api_edit_profile_delete_ios_apps:
+    path:     /edit/profile/apps/ios/delete
+    defaults: { _controller: APIBundle:API:editProfileDeleteIOSApps }
+    requirements:
+      _method:  PUT
+api_edit_profile_android_apps:
+    path:     /edit/profile/apps/android/add
+    defaults: { _controller: APIBundle:API:editProfileAndroidApps }
+    requirements:
+      _method:  PUT
+api_edit_profile_delete_android_apps:
+    path:     /edit/profile/apps/android/delete
+    defaults: { _controller: APIBundle:API:editProfileDeleteAndroidApps }
+    requirements:
+      _method:  PUT
+api_edit_profile_add_category:
+    path:     /edit/profile/category/add
+    defaults: { _controller: APIBundle:API:editProfileAddCategory }
+    requirements:
+      _method:  PUT
+api_edit_profile_delete_category:
+    path:     /edit/profile/category/delete
+    defaults: { _controller: APIBundle:API:editProfileDeleteCategory }
+    requirements:
+      _method:  PUT
+api_edit_profile_summary:
+    path:     /edit/profile/summary
+    defaults: { _controller: APIBundle:API:editProfileSummary }
+    requirements:
+      _method:  PUT
+api_update_version:
+    path:     /update/user/version
+    defaults: { _controller: APIBundle:API:updateUserVersion }
+    requirements:
+      _method:  PUT
+api_update_user_avatar_image:
+    path:     /user/avatar
+    defaults: { _controller: APIBundle:API:updateAvatarImage }
+    requirements:
+      _method:  GET
+#api_edit_profile_add_competence:
+#    path:     /edit/profile/competence/add
+#    defaults: { _controller: APIBundle:API:editProfileAddCompetence }
+#    requirements:
+#      _method:  PUT
+
+#api_edit_profile_delete_competence:
+#    path:     /edit/profile/competence/delete
+#    defaults: { _controller: APIBundle:API:editProfileDeleteCompetence }
+#    requirements:
+#      _method:  PUT
+
+#api_edit_profile_add_language:
+#    path:     /edit/profile/language/add
+#    defaults: { _controller: APIBundle:API:editProfileAddLanguage }
+#    requirements:
+#      _method:  PUT
+
+#api_edit_profile_delete_language:
+#    path:     /edit/profile/language/delete
+#    defaults: { _controller: APIBundle:API:editProfileDeleteLanguage }
+#    requirements:
+#      _method:  PUT
+
+api_edit_profile_buy_traffic:
+    path:     /edit/profile/buytraffic
+    defaults: { _controller: APIBundle:API:editProfileBuyTraffic }
+    requirements:
+      _method:  PUT
+api_edit_profile_sell_traffic:
+    path:     /edit/profile/selltraffic
+    defaults: { _controller: APIBundle:API:editProfileSellTraffic	 }
+    requirements:
+      _method:  PUT
+api_edit_profile_custom_services:
+    path:     /edit/profile/customservices
+    defaults: { _controller: APIBundle:API:editProfileCustomServices }
+    requirements:
+      _method:  PUT
+api_edit_profile_payment:
+    path:     /edit/profile/payment
+    defaults: { _controller: APIBundle:API:editProfilePayment }
+    requirements:
+      _method:  PUT
+api_edit_profile_tracking_services:
+    path:     /edit/profile/trackingServices
+    defaults: { _controller: APIBundle:API:editProfileTrackingServices }
+    requirements:
+      _method:  PUT
+api_edit_profile_references:
+    path:     /edit/profile/references
+    defaults: { _controller: APIBundle:API:editProfileReferences }
+    requirements:
+      _method:  PUT
+api_edit_profile_competences:
+    path:     /edit/profile/competences
+    defaults: { _controller: APIBundle:API:editProfileCompetences }
+    requirements:
+      _method:  PUT
+api_edit_profile_edit_competences:
+    path:     /edit/profile/edit/competences
+    defaults: { _controller: APIBundle:API:editProfileEditCompetences }
+    requirements:
+      _method:  PUT      
+api_edit_profile_add_experiences:
+    path:   /edit/profile/add/experience
+    defaults: { _controller: APIBundle:API:editProfileAddExperience }
+    requirements:
+        _method: PUT
+api_edit_profile_edit_experience:
+    path:   /edit/profile/edit/experience
+    defaults: { _controller: APIBundle:API:editProfileEditExperience }
+    requirements:
+        _method: PUT    
+api_edit_profile_add_experience_company_avatar:
+    path: /edit/profile/add/experience/company/avatar
+    defaults: { _controller: APIBundle:API:editProfileAddExperienceCompanyAvatar }
+    requirements:
+        _method: POST    
+api_edit_profile_add_education:
+    path:   /edit/profile/add/education
+    defaults: { _controller: APIBundle:API:editProfileAddEducation }
+    requirements:
+        _method: PUT
+api_edit_profile_edit_education:
+    path:   /edit/profile/edit/education
+    defaults: { _controller: APIBundle:API:editProfileEditEducation }
+    requirements:
+        _method: PUT
+api_edit_profile_remove_education:
+    path:   /edit/profile/remove/education
+    defaults: { _controller: APIBundle:API:editProfileRemoveEducation }
+    requirements:
+        _method: PUT    
+api_edit_profile_experiences:
+    path:     /edit/profile/experiences
+    defaults: { _controller: APIBundle:API:editProfileExperiences }
+    requirements:
+      _method:  PUT
+api_delete_profile_experience:
+    path: /edit/profile/remove/experience
+    defaults: { _controller: APIBundle:API:editProfileRemoveExperience }
+    requirements:
+        _method: PUT
+api_edit_profile_events:
+    path:     /edit/profile/events
+    defaults: { _controller: APIBundle:API:editProfileEvents }
+    requirements:
+      _method:  PUT
+### SEARCH ###
+api_search:
+    path:     /search
+    defaults: { _controller: APIBundle:API:search }
+    requirements:
+      _method:  POST
+api_simple_search:
+    path:     /simplesearch
+    defaults: { _controller: APIBundle:API:simpleSearch }
+    requirements:
+      _method:  POST
+api_autocomplete:
+    path:     /public/autocomplete
+    defaults: { _controller: APIBundle:API:autocomplete }
+    requirements:
+      _method:  POST
+api_public_search:
+    path:     /public/search
+    defaults: { _controller: APIBundle:API:publicSearch }
+    requirements:
+      _method:  POST
+api_public_company_profile_search:
+    path:     /public/search/{type}/{query}/{offset}/{limit}
+    defaults: { _controller: APIBundle:API:publicCompanyProfileSearch, limit:20 }
+    requirements:
+      _method:  GET
+api_autocomplete_about:
+    path:     /public/autocompleteabout
+    defaults: { _controller: APIBundle:API:autocompleteAbout }
+    requirements:
+      _method:  POST
+api_autocomplete_location:
+    path:     /public/autocompletelocation/{text}
+    defaults: { _controller: APIBundle:API:autocompleteLocation }
+    requirements:
+      _method:  GET
+
+#api_auto_complete_search:
+#    path:     /autoCompleteSearch
+#    defaults: { _controller: APIBundle:API:autoCompleteSearch }
+#    requirements:
+#      _method:  POST
+
+### MAIL ###
+api_mail_autocomplete_username:
+    path:     /mail/autocomplete
+    defaults: { _controller: APIBundle:API:mailUsernameAutocomplete }
+    requirements:
+      _method:  POST
+api_mail_send:
+    path:     /mail/send
+    defaults: { _controller: APIBundle:API:sendTouchMail }
+    requirements:
+      _method:  POST
+api_message_send:
+    path:     /message/send
+    defaults: { _controller: APIBundle:API:sendMessage }
+    requirements:
+      _method:  POST      
+api_mail_reply:
+    path:     /mail/reply
+    defaults: { _controller: APIBundle:API:replyTouchMail }
+    requirements:
+      _method:  POST
+api_mail_list:
+    path:     /mail/list
+    defaults: { _controller: APIBundle:API:mailList }
+    requirements:
+      _method:  POST
+api_mail_details:
+    path:     /mail/details
+    defaults: { _controller: APIBundle:API:mailDetails }
+    requirements:
+      _method:  POST
+api_mail_left_quota:
+    path:     /mail/leftquota
+    defaults: { _controller: APIBundle:API:mailleftquota }
+    requirements:
+      _method:  GET
+
+### FOLLOW ###
+api_follow:
+    path:     /follow
+    defaults: { _controller: APIBundle:API:follow }
+    requirements:
+      _method:  POST
+api_unfollow:
+    path:     /unfollow
+    defaults: { _controller: APIBundle:API:unfollow }
+    requirements:
+      _method:  POST
+      
+### IN TOUCH ###
+api_get_connection:
+    path:     /connection/new
+    defaults: { _controller: APIBundle:API:getConnect }
+    requirements:
+      _method:  POST
+#api_list_intouch:
+#    path:     /intouch/list
+#    defaults: { _controller: APIBundle:API:listInTouch }
+#    requirements:
+#      _method:  POST
+api_accept_connection:
+    path:     /connection/accept
+    defaults: { _controller: APIBundle:API:acceptConnection }
+    requirements:
+      _method:  POST
+
+api_decline_intouch:
+    path:     /connection/decline
+    defaults: { _controller: APIBundle:API:declineConnection }
+    requirements:
+      _method:  POST
+api_delete_connection:
+    path:     /connection/delete
+    defaults: { _controller: APIBundle:API:deleteConnection }
+    requirements:
+      _method:  POST
+###Connection Suggestions###
+api_connection_suggestions:
+    path:   /connection/suggestions
+    defaults: { _controller: APIBundle:API:connectionSuggestions }
+    requirements:
+        _method: GET
+api_connections_search:
+    path:   /public/connection/search
+    defaults: { _controller: APIBundle:API:connectionSearch }
+    requirements:
+        _method: POST
+api_people_directory:
+    path:   /public/directory/people/{startwith}/{skip}
+    defaults: { _controller: APIBundle:API:peopleDirectory, skip:0 }
+    requirements:
+        _method: GET
+api_company_suggestions:
+    path:   /public/company/suggestions
+    defaults: { _controller: APIBundle:API:companySuggestions }
+    requirements:
+        _method: POST        
+api_add_notnow:
+    path: /connection/notnow
+    defaults: { _controller: APIBundle:API:connectionNotNow }
+    requirements:
+        _method: POST
+### Notifications ###
+api_reset_notifications:
+    path:     /alerts/resets
+    defaults: { _controller: APIBundle:API:resetNotifications }
+    requirements:
+      _method:  POST
+
+api_read_notification:
+    path:     /alerts/read
+    defaults: { _controller: APIBundle:API:readNotification }
+    requirements:
+      _method:  POST
+
+### SEARCH ###
+api_linkedin_auth:
+    path:     /linkedin/auth
+    defaults: { _controller: APIBundle:API:linkedinAuth }
+    requirements:
+      _method:  POST
+
+api_linkedin_personal_sync:
+    path:     /linkedin/profile
+    defaults: { _controller: APIBundle:API:linkedinProfile }
+    requirements:
+      _method:  POST
+
+api_linkedin_connections:
+    path:     /linkedin/connections
+    defaults: { _controller: APIBundle:API:linkedinConnections }
+    requirements:
+      _method:  POST
+
+api_linkedin_send_message:
+    path:     /linkedin/send-message
+    defaults: { _controller: APIBundle:API:linkedinSendMessage }
+    requirements:
+      _method:  POST
+
+api_linkedin_first_profile_visite:
+    path:     /linkedin/first-profile-visit
+    defaults: { _controller: APIBundle:API:firstProfileVisit }
+    requirements:
+      _method:  POST
+
+api_linkedin_first_profile_edit:
+    path:     /linkedin/first-profile-edit
+    defaults: { _controller: APIBundle:API:firstProfileEdit }
+    requirements:
+      _method:  POST
+
+
+### SOCIAL ###
+api_social_feed:
+    path:     /social/feed
+    defaults: { _controller: APIBundle:API:socialFeed }
+    requirements:
+      _method:  POST
+
+api_social_feedcounter:
+    path:     /social/feedcounter
+    defaults: { _controller: APIBundle:API:socialFeedCounter }
+    requirements:
+      _method:  POST
+
+#Moved on company controller on 2017-04-22
+#api_social_like:
+#    path:     /social/like
+#    defaults: { _controller: APIBundle:API:socialLike }
+#    requirements:
+#      _method:  POST
+#
+#api_social_unlike:
+#    path:     /social/unlike
+#    defaults: { _controller: APIBundle:API:socialUnlike }
+#    requirements:
+#      _method:  POST
+
+api_social_news:
+    path:     /social/news
+    defaults: { _controller: APIBundle:API:socialNews }
+    requirements:
+      _method:  POST
+
+api_social_my_posts:
+    path:     /social/myposts
+    defaults: { _controller: APIBundle:API:socialMyPosts }
+    requirements:
+      _method:  POST
+
+api_social_user_create_post:
+    path:     /social/user/post/create
+    defaults: { _controller: APIBundle:API:socialUserPost }
+    requirements:
+      _method:  POST
+
+api_social_user_delete_post:
+    path:     /social/user/post/delete
+    defaults: { _controller: APIBundle:API:socialDeleteUserPost }
+    requirements:
+      _method:  POST
+
+#Moved on company controller on 2017-04-22
+#api_social_company_create_post:
+#    path:     /social/company/post/create
+#    defaults: { _controller: APIBundle:API:socialCompanyPost }
+#    requirements:
+#      _method:  POST	
+#
+#api_social_company_delete_post:
+#    path:     /social/company/post/delete
+#    defaults: { _controller: APIBundle:API:socialDeleteCompanyPost }
+#    requirements:
+#      _method:  POST
+#api_public_company_feed:
+#    path:     /public/company/feed/{companyUsername}/{skip}
+#    defaults: { _controller: APIBundle:API:getCompanyPost }
+#    requirements:
+#      _method:  GET
+      
+api_store_stastics:
+    path:   /public/storestastics/{postid}/{type}
+    defaults: { _controller: APIBundle:API:storeStastics }
+
+api_social_crawl_link:
+    path:     /social/crawl/link
+    defaults: { _controller: APIBundle:API:socialCrawlLink }
+    requirements:
+      _method:  POST
+
+api_social_comment:
+    path:     /social/comment
+    defaults: { _controller: APIBundle:API:socialComment }
+    requirements:
+      _method:  POST
+
+### EVENT ###
+api_public_event:
+    path:     /public/event/{eventname}
+    defaults: { _controller: APIBundle:API:getPublicEvent }
+    requirements:
+      _method:  GET
+
+api_event_attend_yes:
+    path:     /event/attend/yes
+    defaults: { _controller: APIBundle:API:eventAttendYes }
+    requirements:
+      _method:  POST
+
+api_event_attend_no:
+    path:     /event/attend/no
+    defaults: { _controller: APIBundle:API:eventAttendNo }
+    requirements:
+      _method:  POST
+
+### OFFERS ###
+api_offers_counter:
+    path:     /offers/counter
+    defaults: { _controller: APIBundle:API:offersCounter }
+    requirements:
+      _method:  GET
+
+api_offers_reset:
+    path:     /offers/reset
+    defaults: { _controller: APIBundle:API:resetOffersNotifications }
+    requirements:
+      _method:  GET
+
+api_get_all_offers:
+    path:     /offers/all
+    defaults: { _controller: APIBundle:API:getOffers }
+    requirements:
+      _method:  GET
+
+api_get_my_offers:
+    path:     /offers/myoffers
+    defaults: { _controller: APIBundle:API:getMyOffers }
+    requirements:
+      _method:  GET
+
+api_get_my_replies:
+    path:     /offers/myreplies
+    defaults: { _controller: APIBundle:API:getMyReplies }
+    requirements:
+      _method:  GET
+
+api_create_offer:
+    path:     /offer/create
+    defaults: { _controller: APIBundle:API:createOffer }
+    requirements:
+      _method:  POST
+
+api_offer_view:
+    path:     /offer/view
+    defaults: { _controller: APIBundle:API:offerView }
+    requirements:
+      _method:  POST
+
+api_reply_offer:
+    path:     /offer/reply
+    defaults: { _controller: APIBundle:API:replyOffer }
+    requirements:
+      _method:  POST
+
+api_edit_offer:
+    path:     /offer/edit
+    defaults: { _controller: APIBundle:API:editOffer }
+    requirements:
+      _method:  POST
+
+api_close_offer:
+    path:     /offer/close
+    defaults: { _controller: APIBundle:API:closeOffer }
+    requirements:
+      _method:  POST
+
+api_get_offer_details:
+    path:     /offer/get/{offerID}
+    defaults: { _controller: APIBundle:API:getOfferDetails }
+    requirements:
+      _method:  GET
+
+api_converse_offer:
+    path:     /offer/converse
+    defaults: { _controller: APIBundle:API:converseReply }
+    requirements:
+      _method:  POST
+
+api_converse_read:
+    path:     /offer/read
+    defaults: { _controller: APIBundle:API:readConversation }
+    requirements:
+      _method:  POST
+
+api_favorite_offer:
+    path:     /offer/favorite
+    defaults: { _controller: APIBundle:API:favoriteOffer }
+    requirements:
+      _method:  POST
+
+api_unfavorite_offer:
+    path:     /offer/unfavorite
+    defaults: { _controller: APIBundle:API:unfavoriteOffer }
+    requirements:
+      _method:  POST
+
+api_offer_reply_status:
+    path:     /offer/reply/status
+    defaults: { _controller: APIBundle:API:statusOfferReply }
+    requirements:
+      _method:  POST
+      
+api_get_public_offers:
+    path:     /offers/publicoffers
+    defaults: { _controller: APIBundle:API:getPublicOffers }
+    requirements:
+      _method:  GET
+api_public_offer_view:
+    path:     /offer/publicview
+    defaults: { _controller: APIBundle:API:publicOfferView }
+    requirements:
+      _method:  POST
+api_linkedin_token:
+    path:     /linkedin/token
+    defaults: { _controller: APIBundle:API:linkedinToken }
+    requirements:
+      _method:  POST
+api_public_has_share:
+    path:     /offer/publichasshare
+    defaults: { _controller: APIBundle:API:publicHasShare }
+    requirements:
+      _method:  PUT
+api_user_percentage:
+    path:     /update/percentage
+    defaults: { _controller: APIBundle:API:updatePercentage }
+    requirements:
+      _method:  GET
+api_integrate_company:
+    path:     /integrate/company
+    defaults: { _controller: APIBundle:API:integrateCompany }
+    requirements:
+      _method:  PUT
+api_update_activity_log:
+    path:     /update/activity/log
+    defaults: { _controller: APIBundle:API:updateActivityLog }
+    requirements:
+      _method:  PUT
+api_get_stack_offers_metrics:
+    path: /public/stackoffersmetrics
+    defaults: { _controller:APIBundle:API:getStackOffersMetrics }
+    requirments:
+        _method: GET
+        
+###Invite Scripts###             
+api_store_contact_details:
+    path: /storecontacts
+    defaults: { _controller:APIBundle:API:storeContacts }
+    requirments:
+        _method: POST   
+api_update_invite_status:
+    path: /updateinvitestatus
+    defaults: { _controller:APIBundle:API:updateInviteStatus }
+    requirments:
+        _method: POST
+api_get_sender_name_email:
+    path: /getnameemail
+    defaults: { _controller:APIBundle:API:getSenderNameEmail }
+    requirments:
+        _method: GET   
+api_get_contact_list_by_name:
+    path: /searchcontact/{provider}/{limit}/{offset}/{name}
+    defaults: { _controller:APIBundle:API:getContactsByName }
+    requirments:
+        _method: POST
+api_get_contact_list:
+    path: /searchcontact/{provider}/{limit}/{offset}/
+    defaults: { _controller:APIBundle:API:getContactsByName }
+    requirments:
+        _method: POST 
+### END OF JOBS AND RECRUITS ###
+### END OF COMPANIES ROUTING ###
+### OTHER ROUTES ###        
+api_test:
+    path: /public/test
+    defaults: { _controller:APIBundle:API:test }
+    requirments:
+        _method: POST
+test_view:
+    path: /test/view
+    defaults: { _controller:APIBundle:API:test }

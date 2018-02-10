@@ -1,0 +1,51 @@
+{% include 'APIBundle:Mail:header_template.html.twig' %}
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top" class="container" align="center">
+            <div class="content" style="padding: 0px; overflow: hidden; max-width: 600px; margin: 0px auto; display: block;" >
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="border-top: 1px solid rgb(208, 208, 208); border-bottom: 1px solid rgb(208, 208, 208);text-align:center;" >
+                    <tr>
+                        <td valign="top" align="center">
+                            <h1 style="font-family:Open Sans,sans-serif;font-weight: 100;line-height: 22px;font-size: 24px;margin: 25px 0px 10px 0;color: #151515;">Welcome {{ user.name }},</h1>
+                            <p style="color:#aaaaaa;font-weight: 100;">Thanks for joining Mobintouch!<br>We are glad to welcome you on board.<br>For a better start, follow this simple steps.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="http://cdn.mobintouch.com/img/email/mit-email-welcome-1.png" style="height: 120px;width: 120px;margin: 30px 0 0 0;">
+                            <h2 style="font-family: Open Sans,sans-serif;font-size: 26px;line-height: 22px;padding: 0px;color: #151515;margin: 25px 0px 10px 0;font-weight: 100;">Say what you are looking for</h2>
+                            <p style="color:#666666;font-size: 18px;line-height: 24px;font-weight: 100;">Fill your profile with accurate (Buying/selling…) information.<br>Get discovered and grow your business.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="http://cdn.mobintouch.com/img/email/mit-email-welcome-2.png" style="height: 120px;width: 120px;margin: 30px 0 0 0;">
+                            <h2 style="font-family: Open Sans,sans-serif;font-size: 26px;line-height: 22px;padding: 0px;color: #151515;margin: 25px 0px 10px 0;font-weight: 100;">Stay inTouch</h2>
+                            <p style="color:#666666;font-size: 18px;line-height: 24px;font-weight: 100;">Invite your colleagues, find people you know<br>and get inTouch with them.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="http://cdn.mobintouch.com/img/email/mit-email-welcome-3.png" style="height: 120px;width: 120px;margin: 30px 0 0 0;">
+                            <h2 style="font-family: Open Sans,sans-serif;font-size: 26px;line-height: 22px;padding: 0px;color: #151515;margin: 25px 0px 10px 0;font-weight: 100;">Discover new companies</h2>
+                            <p style="color:#666666;font-size: 18px;line-height: 24px;font-weight: 100;">Find great companies from the mobile industry<br>and open up new opportunities.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" align="center">
+                            <p style="color:#aaaaaa;font-weight: 100;">You are ready to start now, Good Luck!</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <a href="{{ link }}" style="font-family: Open Sans,sans-serif;padding: 10px 16px 8px;color: #E21417;border-radius: 50px;text-decoration: none;font-size: 16px;display: block;margin: 20px 0px;width: 160px;background: #FFFFFF;border:1px solid #E21417;font-weight: 100;">GET STARTED</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+{% include 'APIBundle:Mail:footer_template.html.twig' %}

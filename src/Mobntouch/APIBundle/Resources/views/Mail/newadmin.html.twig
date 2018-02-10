@@ -1,0 +1,25 @@
+{% include 'APIBundle:Mail:header_template.html.twig' %}
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top" class="container" align="center">
+            <div class="content" style="padding: 0px; overflow: hidden; max-width: 600px; margin: 0px auto; display: block;" >
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="border-top: 1px solid rgb(208, 208, 208); border-bottom: 1px solid rgb(208, 208, 208);" >
+                    <tr>
+                        <td valign="top">
+                            <h2>Hello {{ user.name }},</h2>
+                            <p>You are now a named admin of the {{ user.company }} page. You can modify the information and manage the admin members.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" align="center">
+                            <a href="{{ link }}" class="button" style="font-family: Open Sans,sans-serif;padding: 10px 16px 8px;color: #FFFFFF;border-radius: 50px;text-decoration: none;font-size: 16px;display: block;margin: 20px 0px;width: 160px;background: rgba(226, 20, 23, 0.8);font-weight: 100;">View Company Page</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+{% include 'APIBundle:Mail:footer_template.html.twig' %}

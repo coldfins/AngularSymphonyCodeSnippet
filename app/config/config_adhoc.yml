@@ -1,0 +1,26 @@
+imports:
+    - { resource: config_dev.yml }
+
+framework:
+    session:
+        storage_id: session.storage.mock_file
+    profiler:
+        collect: false
+
+swiftmailer:
+    disable_delivery: false
+
+parameters:
+# General
+    dbconnect: mongodb://10.10.0.2:27017
+    replicaSet: false
+
+# BackOffice
+    database_name_backoffice: adhoc_mobintouch_backoffice
+    database_user_backoffice: mobintouch-dev
+    database_password_backoffice: tY0NTiELbzMEg9gvLyT7
+
+# Mobntouch
+    database_name_mobntouch: prod_mobintouch
+    database_user_mobntouch: mobintouch-dev
+    database_password_mobntouch: tY0NTiELbzMEg9gvLyT7

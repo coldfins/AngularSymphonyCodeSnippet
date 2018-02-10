@@ -1,0 +1,12 @@
+#services:
+#    data_base.example:
+#        class: Mobntouch\DataBaseBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+#parameters:
+#    webservice_user_provider.class: Mobntouch\DataBaseBundle\Security\UserProvider
+
+#services:
+#    webservice_user_provider:
+#        class: "%webservice_user_provider.class%"
+#        arguments: [@doctrine_mongodb.odm.document_manager]

@@ -1,0 +1,46 @@
+{% include 'APIBundle:Mail:header_template.html.twig' %}
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top" class="container" align="center">
+            <div class="content" style="padding: 0px; overflow: hidden; max-width: 600px; margin: 0px auto; display: block;" >
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="border-top: 1px solid rgb(208, 208, 208); border-bottom: 1px solid rgb(208, 208, 208);" >
+                    <tr>
+                        <td valign="top" colspan="3">
+                            <h2 style="padding:0 20px;">Hello {{ user.name }},</h2>
+                            <p style="padding:0 20px;">This week you had {{ list | length }} visits!</p>
+                        </td>
+                    </tr>
+                    {% for visitor in list|slice(0, 3)  %}
+                        <tr>
+                            <td valign="top" align="center" width="20%">
+                                <a href="{{ baseLink }}/{{ visitor.username }}">
+                                    {% if visitor.avatar is defined and visitor.avatar is not null %}
+                                        <img ng-if="visitor.avatar" src="{{ baseURL }}/{{visitor.avatar}}" class="img-circle"  style="height: 80px;width: 80px;border-radius: 1000px;margin: 20px;">
+                                    {% else %}
+                                        <img ng-if="!visitor.avatar" src="{{ baseURL }}/img/email/mit-mail-default-avatar.png" class="img-circle"  style="height: 80px;width: 80px;border-radius: 1000px;margin: 20px;">
+                                    {% endif %}
+                                </a>
+
+                            </td>
+                            <td valign="top" align="left" width="80%">
+                                <h2 style="margin:20px 0 5px 0;">{{ visitor.name }} {{ visitor.lastname }}</h2>
+                                <h3 style="margin:5px 0 5px 0;">{{ visitor.jobTitle }} at {{ visitor.company }}</h3>
+                                <p style="margin:10px 0 5px 0;"><a href="{{ baseLink }}/{{ visitor.username }}">Visit the profile</a></p>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3" align="center">
+                            {% if list | length > 3 %}<p>and more…</p>{% endif %}
+                            <a href="{{ link }}" class="button" style="font-family: Open Sans,sans-serif;padding: 10px 16px 8px;color: #FFFFFF;border-radius: 50px;text-decoration: none;font-size: 16px;display: block;margin: 20px 0px;width: 160px;background: rgba(226, 20, 23, 0.8);font-weight: 100;">See all</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+{% include 'APIBundle:Mail:footer_template.html.twig' %}

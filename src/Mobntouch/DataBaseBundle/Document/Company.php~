@@ -1,0 +1,888 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: josepmarti
+ * Date: 27/10/14
+ * Time: 13:02
+ */
+
+namespace Mobntouch\DataBaseBundle\Document;
+
+use FOS\UserBundle\Model\User as BaseUser;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
+
+
+
+/**
+ * @MongoDB\Document
+ */
+//class User implements UserInterface, EquatableInterface {
+class Company extends BaseUser {
+
+    /**
+     * @MongoDB\Id(strategy="auto")
+     */
+    public $id;
+
+    /**
+     * @MongoDB\String
+     */
+    public $username;
+
+    /**
+     * @MongoDB\Boolean
+     */
+    public $validated;
+
+    /**
+     * @MongoDB\String
+     */
+    protected $emailValidationHash;
+
+    /**
+     * @MongoDB\String
+     */
+    public $name;
+
+    /**
+     * @MongoDB\String
+     */
+    public $description;
+
+    /**
+     * @MongoDB\Boolean
+     */
+    public $validDescriptionBox;
+
+    /**
+     * @MongoDB\String
+     */
+    public $city;
+
+    /**
+     * @MongoDB\String
+     */
+    public $size;
+
+    /**
+     * @MongoDB\String
+     */
+    public $companyType;
+
+    /**
+     * @MongoDB\Collection(strategy="pushAll")
+     */
+    public $companySubType;
+
+    /**
+     * @MongoDB\String
+     */
+    public $otherCompanySubType;
+
+    /**
+     * @MongoDB\String
+     */
+    public $basedCountry;
+
+    /**
+     * @MongoDB\String
+     */
+    public $website;
+
+    /**
+     * @MongoDB\String
+     */
+    public $shortDescription;
+
+    /**
+     * @MongoDB\String
+     */
+    public $twitter;
+
+    /**
+     * @MongoDB\String
+     */
+    public $linkedIn;
+
+    /**
+     * @MongoDB\String
+     */
+    public $instagram;
+    /**
+     * @MongoDB\String
+     */
+    public $foundedin;
+    /**
+     * @MongoDB\String
+     */
+    public $founders;
+
+    /**
+     * @MongoDB\Collection(strategy="pushAll")
+     */
+    public $references;
+
+    /**
+     * @MongoDB\Collection(strategy="pushAll")
+     */
+    public $events;
+
+    /**
+     * @MongoDB\Collection(strategy="pushAll")
+     */
+    public $followers;
+
+    /**
+     * @MongoDB\String
+     */
+    public $avatar;
+
+    /**
+     * @MongoDB\String
+     */
+    public $cover;
+
+    /**
+     * @MongoDB\Collection(strategy="pushAll")
+     */
+    public $settings;
+
+    /**
+     * @MongoDB\Collection(strategy="pushAll")
+     */
+    public $employees;
+
+    /**
+     * @MongoDB\Collection(strategy="pushAll")
+    */
+    public $administrators;
+
+    /**
+     * @MongoDB\Collection(strategy="pushAll")
+     */
+    public $search;
+
+    /**
+     * @MongoDB\String
+     */
+    private $updateDate;
+
+    /**
+     *
+     * @Assert\File(
+     * maxSize = "6M",
+     *	 notFoundMessage = "Max 6M"
+     *  	)
+     */
+    //protected $file;
+
+
+    /**
+     * @MongoDB\Float
+     */
+    public $lat;
+
+    /**
+     * @MongoDB\Float
+     */
+    public $lng;
+
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return self
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string $username
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set validated
+     *
+     * @param boolean $validated
+     * @return self
+     */
+    public function setValidated($validated)
+    {
+        $this->validated = $validated;
+        return $this;
+    }
+
+    /**
+     * Get validated
+     *
+     * @return boolean $validated
+     */
+    public function getValidated()
+    {
+        return $this->validated;
+    }
+
+    /**
+     * Set emailValidationHash
+     *
+     * @param string $emailValidationHash
+     * @return self
+     */
+    public function setEmailValidationHash($emailValidationHash)
+    {
+        $this->emailValidationHash = $emailValidationHash;
+        return $this;
+    }
+
+    /**
+     * Get emailValidationHash
+     *
+     * @return string $emailValidationHash
+     */
+    public function getEmailValidationHash()
+    {
+        return $this->emailValidationHash;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string $name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set companyType
+     *
+     * @param string $companyType
+     * @return self
+     */
+    public function setCompanyType($companyType)
+    {
+        $this->companyType = $companyType;
+        return $this;
+    }
+
+    /**
+     * Get companyType
+     *
+     * @return string $companyType
+     */
+    public function getCompanyType()
+    {
+        return $this->companyType;
+    }
+
+    /**
+     * Set companySubType
+     *
+     * @param collection $companySubType
+     * @return self
+     */
+    public function setCompanySubType($companySubType)
+    {
+        $this->companySubType = $companySubType;
+        return $this;
+    }
+
+    /**
+     * Get companySubType
+     *
+     * @return collection $companySubType
+     */
+    public function getCompanySubType()
+    {
+        return $this->companySubType;
+    }
+
+    /**
+     * Set otherCompanySubType
+     *
+     * @param string $otherCompanySubType
+     * @return self
+     */
+    public function setOtherCompanySubType($otherCompanySubType)
+    {
+        $this->otherCompanySubType = $otherCompanySubType;
+        return $this;
+    }
+
+    /**
+     * Get otherCompanySubType
+     *
+     * @return string $otherCompanySubType
+     */
+    public function getOtherCompanySubType()
+    {
+        return $this->otherCompanySubType;
+    }
+
+    /**
+     * Set basedCountry
+     *
+     * @param string $basedCountry
+     * @return self
+     */
+    public function setBasedCountry($basedCountry)
+    {
+        $this->basedCountry = $basedCountry;
+        return $this;
+    }
+
+    /**
+     * Get basedCountry
+     *
+     * @return string $basedCountry
+     */
+    public function getBasedCountry()
+    {
+        return $this->basedCountry;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     * @return self
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string $website
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * Set references
+     *
+     * @param collection $references
+     * @return self
+     */
+    public function setReferences($references)
+    {
+        $this->references = $references;
+        return $this;
+    }
+
+    /**
+     * Get references
+     *
+     * @return collection $references
+     */
+    public function getReferences()
+    {
+        return $this->references;
+    }
+
+    /**
+     * Set events
+     *
+     * @param collection $events
+     * @return self
+     */
+    public function setEvents($events)
+    {
+        $this->events = $events;
+        return $this;
+    }
+
+    /**
+     * Get events
+     *
+     * @return collection $events
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * Set followers
+     *
+     * @param collection $followers
+     * @return self
+     */
+    public function setFollowers($followers)
+    {
+        $this->followers = $followers;
+        return $this;
+    }
+
+    /**
+     * Get followers
+     *
+     * @return collection $followers
+     */
+    public function getFollowers()
+    {
+        return $this->followers;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     * @return self
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string $avatar
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set cover
+     *
+     * @param string $cover
+     * @return self
+     */
+    public function setCover($cover)
+    {
+        $this->cover = $cover;
+        return $this;
+    }
+
+    /**
+     * Get cover
+     *
+     * @return string $cover
+     */
+    public function getCover()
+    {
+        return $this->cover;
+    }
+
+    /**
+     * Set settings
+     *
+     * @param collection $settings
+     * @return self
+     */
+    public function setSettings($settings)
+    {
+        $this->settings = $settings;
+        return $this;
+    }
+
+    /**
+     * Get settings
+     *
+     * @return collection $settings
+     */
+    public function getSettings()
+    {
+        return $this->settings;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string $description
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set size
+     *
+     * @param string $size
+     * @return self
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return string $size
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * Set employees
+     *
+     * @param collection $employees
+     * @return self
+     */
+    public function setEmployees($employees)
+    {
+        $this->employees = $employees;
+        return $this;
+    }
+
+    /**
+     * Get employees
+     *
+     * @return collection $employees
+     */
+    public function getEmployees()
+    {
+        return $this->employees;
+    }
+
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return self
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string $city
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+
+    /**
+     * Set administrators
+     *
+     * @param collection $administrators
+     * @return self
+     */
+    public function setAdministrators($administrators)
+    {
+        $this->administrators = $administrators;
+        return $this;
+    }
+
+    /**
+     * Get administrators
+     *
+     * @return collection $administrators
+     */
+    public function getAdministrators()
+    {
+        return $this->administrators;
+    }
+
+    /**
+     * Set validDescriptionBox
+     *
+     * @param boolean $validDescriptionBox
+     * @return self
+     */
+    public function setValidDescriptionBox($validDescriptionBox)
+    {
+        $this->validDescriptionBox = $validDescriptionBox;
+        return $this;
+    }
+
+    /**
+     * Get validDescriptionBox
+     *
+     * @return boolean $validDescriptionBox
+     */
+    public function getValidDescriptionBox()
+    {
+        return $this->validDescriptionBox;
+    }
+
+    /**
+     * Set search
+     *
+     * @param collection $search
+     * @return self
+     */
+    public function setSearch($search)
+    {
+        $this->search = $search;
+        return $this;
+    }
+
+    /**
+     * Get search
+     *
+     * @return collection $search
+     */
+    public function getSearch()
+    {
+        return $this->search;
+    }
+
+    /**
+     * Set updateDate
+     *
+     * @param string $updateDate
+     * @return self
+     */
+    public function setUpdateDate($updateDate)
+    {
+        $this->updateDate = $updateDate;
+        return $this;
+    }
+
+    /**
+     * Get updateDate
+     *
+     * @return string $updateDate
+     */
+    public function getUpdateDate()
+    {
+        return $this->updateDate;
+    }
+
+    /**
+     * Set shortDescription
+     *
+     * @param string $shortDescription
+     * @return self
+     */
+    public function setShortDescription($shortDescription)
+    {
+        $this->shortDescription = $shortDescription;
+        return $this;
+    }
+
+    /**
+     * Get shortDescription
+     *
+     * @return string $shortDescription
+     */
+    public function getShortDescription()
+    {
+        return $this->shortDescription;
+    }
+
+    /**
+     * Set twitter
+     *
+     * @param string $twitter
+     * @return self
+     */
+    public function setTwitter($twitter)
+    {
+        $this->twitter = $twitter;
+        return $this;
+    }
+
+    /**
+     * Get twitter
+     *
+     * @return string $twitter
+     */
+    public function getTwitter()
+    {
+        return $this->twitter;
+    }
+
+    /**
+     * Set linkedIn
+     *
+     * @param string $linkedIn
+     * @return self
+     */
+    public function setLinkedIn($linkedIn)
+    {
+        $this->linkedIn = $linkedIn;
+        return $this;
+    }
+
+    /**
+     * Get linkedIn
+     *
+     * @return string $linkedIn
+     */
+    public function getLinkedIn()
+    {
+        return $this->linkedIn;
+    }
+
+    /**
+     * Set instagram
+     *
+     * @param string $instagram
+     * @return self
+     */
+    public function setInstagram($instagram)
+    {
+        $this->instagram = $instagram;
+        return $this;
+    }
+
+    /**
+     * Get instagram
+     *
+     * @return string $instagram
+     */
+    public function getInstagram()
+    {
+        return $this->instagram;
+    }
+
+    /**
+     * Set foundedin
+     *
+     * @param string $foundedin
+     * @return self
+     */
+    public function setFoundedin($foundedin)
+    {
+        $this->foundedin = $foundedin;
+        return $this;
+    }
+
+    /**
+     * Get foundedin
+     *
+     * @return string $foundedin
+     */
+    public function getFoundedin()
+    {
+        return $this->foundedin;
+    }
+
+    /**
+     * Set founders
+     *
+     * @param string $founders
+     * @return self
+     */
+    public function setFounders($founders)
+    {
+        $this->founders = $founders;
+        return $this;
+    }
+
+    /**
+     * Get founders
+     *
+     * @return string $founders
+     */
+    public function getFounders()
+    {
+        return $this->founders;
+    }
+
+    /**
+     * Set lat
+     *
+     * @param float $lat
+     * @return self
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return float $lat
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * Set lng
+     *
+     * @param float $lng
+     * @return self
+     */
+    public function setLng($lng)
+    {
+        $this->lng = $lng;
+        return $this;
+    }
+
+    /**
+     * Get lng
+     *
+     * @return float $lng
+     */
+    public function getLng()
+    {
+        return $this->lng;
+    }
+}

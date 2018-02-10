@@ -1,0 +1,116 @@
+api_get_current_company:
+    path:     /company
+    defaults: { _controller: APIBundle:Company:getCurrentCompany }
+    requirements:
+      _method:  POST
+api_get_company:
+    path:     /public/company/{companyUsername}
+    defaults: { _controller: APIBundle:Company:getCompany }
+    requirements:
+      _method:  GET      
+api_update_company_details:
+    path:     /company/details/update
+    defaults: { _controller: APIBundle:Company:detailsUpdate }
+    requirements:
+      _method:  PUT
+api_update_company_types:
+    path:     /company/types/update
+    defaults: { _controller: APIBundle:Company:typesUpdate }
+    requirements:
+      _method:  PUT
+api_upload_company_images:
+    path:     /company/about/upload/image
+    defaults: { _controller: APIBundle:Company:uploadAboutImage }
+    requirements:
+      _method:  POST
+api_remove_company_image:
+    path:     /company/about/remove/image
+    defaults: { _controller: APIBundle:Company:removeAboutImage }
+    requirements:
+      _method:  POST    
+api_update_about_company:
+    path:     /company/about/update
+    defaults: { _controller: APIBundle:Company:aboutUpdate }
+    requirements:
+      _method:  PUT
+api_update_product:
+    path:     /company/product/update
+    defaults: { _controller: APIBundle:Company:productUpdate }
+    requirements:
+      _method:  POST      
+api_fetch_app_data:
+    path: /company/product/fetch-app-data
+    defaults: { _controller: APIBundle:Company:productFetchAppDetails }
+    requirements:
+      _method:  POST
+api_delete_teammate_company:
+    path:     /company/delete/teammate
+    defaults: { _controller: APIBundle:Company:deleteTeammateCompany }
+    requirements:
+      _method:  POST 
+api_add_admin_company:
+    path:     /company/add/admin
+    defaults: { _controller: APIBundle:Company:addAdminCompany }
+    requirements:
+      _method:  POST
+api_delete_admin_company:
+    path:     /company/delete/admin
+    defaults: { _controller: APIBundle:Company:deleteAdminCompany }
+    requirements:
+      _method:  POST
+api_add_recruiter_company:
+    path:     /company/add/recruiter
+    defaults: { _controller: APIBundle:Company:addRecruiterCompany }
+    requirements:
+      _method:  POST
+api_delete_recruiter_company:
+    path:     /company/delete/recruiter
+    defaults: { _controller: APIBundle:Company:deleteRecruiterCompany }
+    requirements:
+      _method:  POST
+api_accept_recruiter_request:
+    path:     /company/accept/recruiter/request
+    defaults: { _controller: APIBundle:Company:acceptRecruiterRequest }
+    requirements:
+      _method:  POST      
+api_social_company_create_post:
+    path:     /social/company/post/create
+    defaults: { _controller: APIBundle:Company:socialCompanyPost }
+    requirements:
+      _method:  POST	
+api_social_company_delete_post:
+    path:     /social/company/post/delete
+    defaults: { _controller: APIBundle:Company:socialDeleteCompanyPost }
+    requirements:
+      _method:  POST
+api_social_like:
+    path:     /social/like
+    defaults: { _controller: APIBundle:Company:socialLike }
+    requirements:
+      _method:  POST
+api_social_unlike:
+    path:     /social/unlike
+    defaults: { _controller: APIBundle:Company:socialUnlike }
+    requirements:
+      _method:  POST
+api_public_company_feed:
+    path:     /public/company/feed/{companyUsername}/{skip}
+    defaults: { _controller: APIBundle:Company:getCompanyPost }
+    requirements:
+        _method:  GET
+api_get_companies:
+    path:   /public/companies
+    defaults: { _controller: APIBundle:Company:getCompanies }
+    requirements:
+        _method: POST
+#Autocompletes
+api_autocomplete_markets:
+    path:     /public/autocomplete/markets
+    defaults: { _controller: APIBundle:Company:autocompleteMarkets }
+    requirements:
+      _method:  POST
+api_company_directory:
+    path:   /public/directory/company/{startwith}/{skip}
+    defaults: { _controller: APIBundle:Company:CompanyDirectory, skip:0 }
+    requirements:
+     _method: GET

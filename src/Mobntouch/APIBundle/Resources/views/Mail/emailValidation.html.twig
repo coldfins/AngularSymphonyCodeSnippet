@@ -1,0 +1,30 @@
+{% include 'APIBundle:Mail:header_template.html.twig' %}
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top" class="container" align="center">
+            <div class="content" style="padding: 0px; overflow: hidden; max-width: 600px; margin: 0px auto; display: block;" >
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="border-top: 1px solid rgb(208, 208, 208); border-bottom: 1px solid rgb(208, 208, 208);" >
+                    <tr>
+                        <td valign="top" align="center">
+                            <h2>Hello {{ user.name }}, </h2>
+                            <p>please confirm your email details by clicking the button below.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <a href="{{ link }}" class="button"  style="font-family: Open Sans,sans-serif;padding: 10px 16px 8px;color: #FFFFFF;border-radius: 50px;text-decoration: none;font-size: 16px;display: block;margin: 20px 0px;width: 160px;background: rgba(226, 20, 23, 0.8);font-weight: 100;">Confirm email</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" align="center">
+                            <small style="margin-bottom:10px;">If the button doesn't work, you can click <a href="{{ link }}">here</a>.</small>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+{% include 'APIBundle:Mail:footer_template.html.twig' %}

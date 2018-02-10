@@ -1,0 +1,50 @@
+{% include 'APIBundle:Mail:header_template.html.twig' %}
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top" class="container" align="center">
+            <div class="content" style="padding: 0px; overflow: hidden; max-width: 600px; margin: 0px auto; display: block;" >
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td valign="top" class="container" align="center">
+                            <div class="content" style="padding: 0px; overflow: hidden; max-width: 600px; margin: 0px auto; display: block;" >
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="border-bottom: 1px solid rgb(208, 208, 208);text-align:center;" >
+                                    <tr>
+                                        <td>
+                                            <a href="{{ profileLink }}" style="text-decoration: none;">
+                                                {% if user.avatar is defined and user.avatar is not null %}
+                                                    <img src="{{ baseURL }}/{{user.avatar}}" class="img-circle" style="height: 100px;width: 100px;border-radius:500px;margin: 30px 0 0 0;">
+                                                {% else %}
+                                                    <img src="{{ baseURL }}/img/email/mit-mail-default-avatar.png" class="img-circle" style="height: 100px;width: 100px;border-radius:500px;margin: 30px 0 0 0;">
+                                                {% endif %}
+                                            </a>
+                                            <h2 style="font-family: Open Sans,sans-serif;font-size: 26px;line-height: 35px;padding: 0px;color: #151515;margin: 25px 0px 25px 0;font-weight: 100;">{{ user.name }} {{ user.lastname }} liked {{ post.companyFullName }}'s post:</h2>
+
+                                            {% if post.postText is defined and post.postText is not null and post.postText|length>0 %}
+                                                <p style="color:#666666;font-size: 14px;line-height: 20px;font-weight: 100;font-family: 'Open Sans', Arial, sans-serif;"><i>"{{ post.postText|length > 250 ? post.postText|slice(0, 250) ~ '...' : post.postText  }}"</i></p>
+                                            {% elseif post.postYoutube is defined and post.postYoutube is not null and post.postYoutube|length>0 %}
+                                                <a href="https://www.youtube.com/embed/{{ post.postYoutube }}">https://www.youtube.com/embed/{{ post.postYoutube }}</a>
+                                            {% elseif post.postVimeo is defined and post.postVimeo is not null and post.postVimeo|length>0 %}
+                                                <a src="https://player.vimeo.com/video/{{ post.postVimeo }}">https://player.vimeo.com/video/{{ post.postVimeo }}</a>
+                                            {% elseif post.newsURL is defined and post.newsURL is not null and post.newsURL|length>0 %}
+                                                <a href="{{ post.newsURL }}">{{ post.newsURL }}</a>
+                                            {% elseif post.postImage is defined and post.postImage is not null and post.postImage|length>0 %}
+                                                <img src="{{ baseURL }}{{ post.postImage }}" style="border: 0; max-width: 100% !important;" width="600"/>
+                                            {% endif %}
+                                    </tr>
+                                    <tr>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <a href="{{ postLink }}" style="background-color: #383838; padding: 10px 20px; -webkit-border-radius: 500px; border-radius: 500px; font-size: 18px; font-family: 'Open Sans', Arial, sans-serif; font-weight: 100; color: #ffffff; text-decoration: none; display: inline-block; line-height: 18px !important;-webkit-text-size-adjust:none;margin: 20px 0;">View</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+{% include 'APIBundle:Mail:footer_template.html.twig' %}

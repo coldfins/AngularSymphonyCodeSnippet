@@ -1,0 +1,37 @@
+{% include 'APIBundle:Mail:header_template.html.twig' %}
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top" class="container" align="center">
+            <div class="content" style="padding: 0px; overflow: hidden; max-width: 600px; margin: 0px auto; display: block;" >
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="border-top: 1px solid rgb(208, 208, 208); border-bottom: 1px solid rgb(208, 208, 208);" >
+                    <tr>
+                        <td valign="top" colspan="3" align="center">
+                            <a href="{{ profileLink }}">
+                                {% if user.avatar is defined and user.avatar is not null %}
+                                    <img ng-if="user.avatar" src="{{ baseURL }}/{{user.avatar}}" class="img-circle" style="height: 80px;width: 80px;border-radius: 1000px;margin: 20px;">
+                                {% else %}
+                                    <img ng-if="!user.avatar" src="{{ baseURL }}/img/email/mit-mail-default-avatar.png" class="img-circle" style="height: 80px;width: 80px;border-radius: 1000px;margin: 20px;">
+                                {% endif %}
+                            </a>
+                            <p><strong>{{ user.name }} {{ user.lastname }}</strong><br>{{ user.jobTitle }} at {{ user.company }}</p>
+                            <h2>sent you a message :</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="padding:0 20px;">"{{ content | nl2br }}"</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" align="center">
+                            <a href="{{ replyLink }}" class="button" style="font-family: Open Sans,sans-serif;padding: 10px 16px 8px;color: #FFFFFF;border-radius: 50px;text-decoration: none;font-size: 16px;display: block;margin: 20px 0px;width: 160px;background: rgba(226, 20, 23, 0.8);font-weight: 100;">Reply</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+{% include 'APIBundle:Mail:footer_template.html.twig' %}

@@ -1,0 +1,54 @@
+{% include 'APIBundle:Mail:header_template.html.twig' %}
+
+{% set yesterday = "now" | date_modify("-1 day") |date('m-d-y') %}
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top" class="container">
+            <div class="content" style="padding: 0px; overflow: hidden; max-width: 600px; margin: 0px auto; display: block;" >
+                <table border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff" width="100%" style="font-family: Open Sans,sans-serif;font-size:12px;" >
+                    <tbody>
+                    <thead>
+                    <tr height="40">
+                        {#<td colspan="6" align="center" style="color:#777;font-size:18px;">{{ user.name }} {{ user.lastname }}, {{ user.company }} — {{ "now" | date_modify("-1 day") | date('l d M Y', "UTC") }}</td>#}
+                        {#<td colspan="6" align="center" style="color:#777;font-size:18px;">Report of your {{ active | default(0) }} active{% if active > 1 %}s{% endif %} offer{% if active > 1 %}s{% endif %} of the day:</td>#}
+                    </tr>
+                    </thead>
+                    <tr align="center" height="24" style="background-color: rgb(245,245,245);">
+                        <td><span style="color:rgb(153,153,153);">Offer ID</span></td>
+                        <td><span style="color:rgb(153,153,153);">Views</span></td>
+                        <td><span style="color:rgb(153,153,153);">Replies</span></td>
+                        <td><span style="color:rgb(153,153,153);">Conversations</span></td>
+                        <td><span style="color:rgb(153,153,153);">Expiry date</span></td>
+                        <td><span style="color:rgb(153,153,153);">Status</span></td>
+                        <td></td>
+                    </tr>
+                    {% for key, offer in offers %}
+                    {% if offer.history[yesterday].time is defined and offer.history[yesterday].time is not null %}
+                    <tr height="50" align="center" cellpadding="20" cellspacing="0">
+                        <td>{{ offer.identifier | default('') }}</td>
+                        <td>{{ (offer.history[yesterday].uniqueViews) | default([]) |length }}</td>
+                        <td>{{ offer.history[yesterday].replies | default(0) }}</td>
+                        <td>{{ (offer.history[yesterday].conversations) | default([]) |length  }}</td>
+                        <td>{{ offer.expiryTimestamp | date("d F", "UTC") | upper }}</td>
+                        <td>{{ offer.status }}</td>
+                        <td>
+                            <a href="{{ baseLink }}{{ offer.id }}"><button>Check it out</button></a>
+                        </td>
+                    </tr>
+                    <tr height="1">
+                        <td height="1" colspan="6" style="padding:0 10px 0 10px;">
+                            <div style="line-height:1px;height:1px;background-color:rgb(238,238,238);"></div>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <tr height="40"><td>&nbsp;</td></tr>
+            </div>
+        </td>
+    </tr>
+</table>
+
+{% include 'APIBundle:Mail:footer_template.html.twig' %}

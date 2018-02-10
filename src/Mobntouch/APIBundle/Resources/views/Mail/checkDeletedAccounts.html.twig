@@ -1,0 +1,11 @@
+ALERT:<br>
+{% if deleted is defined and deleted > 0  %}
+There are {{ deleted }} accounts deleted!<br>
+{% endif %}
+{% if companyPages is defined and companyPages > 0  %}
+There are {{ companyPages }} wrong company pages!<br>
+{% endif %}
+{% if trackingServices is defined and trackingServices > 0  %}
+There are {{ trackingServices }} wrong tracking services!<br>
+{% endif %}
+Please, check the database.
