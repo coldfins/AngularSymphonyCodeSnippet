@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Angular App</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="http://localhost:8080/SpringAngular/resources/css/main.css">
+</head>
+<body>
+	<div class="col-md-12 main">
+		<div ng-app="myApp" ng-controller="formCtrl" class="col-md-6">
+		    <form class="form-horizontal">
+		        <div class="form-group">
+		            <label for="inputName" class="control-label col-xs-2">Name</label>
+		            <div class="col-xs-10">
+		                <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="master.name">
+		            </div>
+		        </div>
+		        <div class="form-group">
+		            <label for="inputEmail" class="control-label col-xs-2">Email</label>
+		            <div class="col-xs-10">
+		                <input type="text" class="form-control" id="inputEmail" placeholder="Email" ng-model="master.email">
+		            </div>
+		        </div>
+		        <div class="form-group">
+		            <label for="inputMobile" class="control-label col-xs-2">Mobile</label>
+		            <div class="col-xs-10">
+		                <input type="text" class="form-control" id="inputMobile" placeholder="Mobile" ng-model="master.mobile">
+		            </div>
+		        </div>
+				<div class="form-group">
+					<div class="col-xs-offset-2 col-xs-10">
+						<button type="button" ng-click="submit()" class="btn btn-primary">Add</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<div class="col-md-6">
+			<table id="student-table" class="table table-striped table-bordered dt-responsive nowrap">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Mobile</th>
+					</tr>
+				</thead>
+				<tbody id="student-body">
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+		
+	<script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	
+	<script src="http://localhost:8080/SpringAngular/resources/js/main.js"></script>
+	<script src="addStudentController.js"></script>
+</body>
+</html>
